@@ -1,0 +1,22 @@
+{
+  "name": "trip-management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s0583232209/Trip-Management-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/s0583232209/Trip-Management-System/issues"
+  },
+  "homepage": "https://github.com/s0583232209/Trip-Management-System#readme"
+}

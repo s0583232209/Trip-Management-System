@@ -14,18 +14,6 @@ app.use(express.json());
 // app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// Request logging middleware
-app.use((req, res, next) => {
-  log.info(`${req.method} ${req.path} - IP: ${req.ip}`);
-  next();
-});
-
-app.get("/", (req, res) => res.json({ message: "Server is running" }));
-
-app.use("/api", verifyToken);
-
-app.use("/api/auth", authRouter);
-
 app.use((err, req, res, next) => {
   log.error(`Unhandled error: ${err.message}, stack: ${err.stack}`);
   res

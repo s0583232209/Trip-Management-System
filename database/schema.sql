@@ -1,0 +1,148 @@
+CREATE DATABASE IF NOT EXISTS school_trip_management
+    CHARACTER SET utf8mb4 
+    COLLATE utf8mb4_unicode_ci;
+
+USE school_trip_management;
+
+-- 1. טבלת בתי ספר
+CREATE TABLE schools (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name NVARCHAR(150) NOT NULL,
+    institution_number INT NOT NULL UNIQUE, -- יישום מספר מוסד ייחודי
+    city NVARCHAR(100),                     -- תמיכה מלאה בעברית באמצעות NVARCHAR
+    contact_email VARCHAR(150),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ;
+
+-- 2. טבלת תפקידים (תיקון הערה: "של תפקיד ויוזר ID לשנות ולשים טבלה")
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(100) NOT NULL UNIQUE
+    
+);
+
+-- 3. טבלת משתמשים
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    school_id INT,
+    full_name NVARCHAR(100) NOT NULL,
+    national_id INT NOT NULL UNIQUE,        -- תיקון הערה: "id_number לשים כאן שם יותר מתאים"
+    email VARCHAR(150) UNIQUE,
+    phone VARCHAR(20),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE SET NULL
+) ;
+
+-- 4. טבלת תפקידי משתמשים (טבלת קשר המממשת את תיקון ההערה לטבלה נפרדת)
+CREATE TABLE user_roles (
+    user_id INT,
+    role_id INT,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+) ;
+
+-- 5. טבלת סיסמאות משתמשים (תיקון הערה: "password_hash טבלה נפרדת" למען אבטחה)
+CREATE TABLE user_passwords (
+    user_id INT PRIMARY KEY,
+    password_hash VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ;
+
+-- 6. טבלת כיתות (תיקון הערה: "צריך לעשות טבלה נוספת של קוד כיתה וכיתה")
+CREATE TABLE classes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    school_id INT NOT NULL,
+  -- to add here a reference to the list of the students
+    class_name VARCHAR(50) NOT NULL,        -- שם כיתה (למשל: 'ט-2')
+    FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE
+) ;
+
+-- 7. טבלת טיולים
+CREATE TABLE trips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    school_id INT NOT NULL,
+    trip_lead_id INT NULL,                  -- קישור למשתמש האחראי
+    title VARCHAR(200) NOT NULL,
+    trip_date DATE NOT NULL,
+    status INT,
+    route_geojson JSON NULL,            -- שמירת נתוני מסלול גיאוגרפיים
+    parent_token VARCHAR(100) UNIQUE NULL,  -- טוקן ייחודי לצפיית הורים ללא התחברות
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE,
+    FOREIGN KEY (trip_lead_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (status) REFERENCES statuses(status_id) ON DELETE SET NULL
+) ;
+CREATE TABLE statuses(
+status_id INT AUTO_INCREMENT PRIMARY KEY,
+status_name VARCHAR(20));
+-- 8. טבלת תלמידים ונוכחות בטיול
+-- CREATE TABLE trip_attendance (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     trip_id INT NOT NULL,
+--     student_name VARCHAR(100) NOT NULL,
+--     class_id INT NOT NULL,                  -- תיקון מהערה: קישור מפתח זר לטבלת כיתות החדשה
+--     is_present BOOLEAN DEFAULT NULL,        -- NULL מסמל שטרם בוצע קריאת שמות
+--     notes TEXT,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+--     FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+-- ) ;
+
+-- 9. טבלת קבצים ומדיה של הטיול
+CREATE TABLE trip_files (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    uploader_id INT NULL,
+    file_type INT NOT NULL,
+    original_name VARCHAR(255) NOT NULL,
+    stored_path VARCHAR(500) NOT NULL,
+    mime_type VARCHAR(100),
+    size_bytes BIGINT,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+    FOREIGN KEY (uploader_id) REFERENCES users(id) ON DELETE SET NULL,
+        FOREIGN KEY (file_type) REFERENCES file_types(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+CREATE TABLE file_types(
+id INT AUTO_INCREMENT PRIMARY KEY,
+type_name VARCHAR(10) NOT NULL UNIQUE);
+-- 10. טבלת רמות/סוגי חירום (תיקון הערה: "לעשות עוד רמות... בטוח לעשות טבלה נפרדת")
+CREATE TABLE emergency_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(50) NOT NULL UNIQUE,  -- כגון 'minor', 'major', 'critical' וכדומה
+    severity_level INT DEFAULT 1
+) ENGINE=InnoDB;
+
+-- 11. טבלת אירועי חירום בטיול
+CREATE TABLE emergencies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    opened_by INT NULL,
+    emergency_type_id INT NOT NULL,         -- קישור לטבלת רמות החירום המופרדת
+    description TEXT NOT NULL,
+    status ENUM('open', 'closed') DEFAULT 'open',
+    location_lat DECIMAL(10,7) NULL,
+    location_lng DECIMAL(10,7) NULL,
+    opened_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    closed_at TIMESTAMP NULL,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+    FOREIGN KEY (opened_by) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (emergency_type_id) REFERENCES emergency_types(id)
+) ;
+
+-- 12. טבלת לוג ביקורת (Audit Log)
+CREATE TABLE audit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    action_type VARCHAR(100) NOT NULL,
+    table_name VARCHAR(100),
+    record_id INT,
+    old_values LONGTEXT,
+    new_values LONGTEXT,
+    -- ip_address VARCHAR(45),
+    action_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+) ;

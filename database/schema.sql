@@ -67,13 +67,13 @@ CREATE TABLE trips (
     trip_lead_id INT NULL,                  -- קישור למשתמש האחראי
     title VARCHAR(200) NOT NULL,
     trip_date DATE NOT NULL,
-    status INT,
+    trip_status INT,
     route_geojson JSON NULL,            -- שמירת נתוני מסלול גיאוגרפיים
     parent_token VARCHAR(100) UNIQUE NULL,  -- טוקן ייחודי לצפיית הורים ללא התחברות
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE,
     FOREIGN KEY (trip_lead_id) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (status) REFERENCES statuses(status_id) ON DELETE SET NULL
+    FOREIGN KEY (trip_status) REFERENCES statuses(status_id) ON DELETE SET NULL
 ) ;
 CREATE TABLE statuses(
 status_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -105,7 +105,7 @@ CREATE TABLE trip_files (
     FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
     FOREIGN KEY (uploader_id) REFERENCES users(id) ON DELETE SET NULL,
         FOREIGN KEY (file_type) REFERENCES file_types(id) ON DELETE SET NULL
-) ENGINE=InnoDB;
+) ;
 CREATE TABLE file_types(
 id INT AUTO_INCREMENT PRIMARY KEY,
 type_name VARCHAR(10) NOT NULL UNIQUE);
@@ -146,3 +146,20 @@ CREATE TABLE audit_log (
     action_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 ) ;
+CREATE TABLE staff_trip(
+staff_id INT,
+trip_id INT,
+FOREIGN KEY (staff_id)	REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (trip_id)	REFERENCES trips(id) ON DELETE CASCADE
+)
+;
+CREATE TABLE external_employees(
+id INT AUTO_INCREMENT PRIMARY KEY,
+external_role INT NOT NULL,
+phone VARCHAR(10) NOT NULL ,
+FOREIGN KEY (external_role) REFERENCES external_role(id) ON DELETE CASCADE
+);
+CREATE TABLE external_role(
+id INT AUTO_INCREMENT PRIMARY KEY,
+role_name NVARCHAR(20) NOT NULL UNIQUE
+)

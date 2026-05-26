@@ -28,6 +28,10 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, HOST, () => {
-  // log.info(`Server started on http://${HOST}:${PORT}`);
+  console.log(`Server started on http://${HOST}:${PORT}`);
 });
 export default app;
+const luz = [1, 2, 3, 4, 5, 6, 7];
+for (let i = 0; i < luz.length + 20; i++) {
+  console.log(luz[Math.floor(Math.random() * luz.length)]);
+}

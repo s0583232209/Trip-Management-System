@@ -19,6 +19,8 @@ app.use(express.json());
 
 app.use("/api", logger);
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/trips/:id/files", filesRouter);
 app.use("/api/trips/:id/media", mediaRouter);
 app.use("/api/trips/:id/emergency", emergencyRouter);

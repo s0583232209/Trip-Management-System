@@ -139,9 +139,9 @@ CREATE TABLE audit_log (
     user_id INT NULL,
     action_type VARCHAR(100) NOT NULL,
     table_name VARCHAR(100),
-    record_id INT,
     old_values LONGTEXT,
     new_values LONGTEXT,
+    message LONGTEXT NOT NULL,
     -- ip_address VARCHAR(45),
     action_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL

@@ -7,6 +7,7 @@ let connectionPromise = null;
 export async function connect() {
   if (connectionPromise) return connectionPromise;
   connectionPromise = (async () => {
+    console.log('in create connection')
     try {
       const connection = await mysql.createConnection({
         host: process.env.HOST,

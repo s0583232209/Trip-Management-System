@@ -1,0 +1,22 @@
+2026-05-28T17:40:03.878Z [ERROR]: addUser error: getConnection is not defined
+2026-05-28T17:42:15.523Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-05-28T17:44:04.837Z [ERROR]: addUser error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:44:36.218Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:45:09.777Z [ERROR]: addUser error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:45:46.034Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:46:07.979Z [ERROR]: addUser error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:46:38.693Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:46:56.468Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:47:54.319Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:49:41.931Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:49:57.529Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:51:57.733Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:52:22.387Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:54:38.121Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:54:53.790Z [ERROR]: addUser error: Table 'trip_manager.passwords' doesn't exist
+2026-05-28T17:55:44.882Z [ERROR]: addUser error: Unknown column 'hashed_password' in 'field list'
+2026-05-28T17:56:54.639Z [ERROR]: addUser error: Table 'trip_manager.user_role' doesn't exist
+2026-05-28T17:57:29.230Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:57:44.297Z [ERROR]: addUser error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`user_roles`, CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_name`) REFERENCES `roles` (`role_name`) ON DELETE CASCADE)
+2026-05-28T18:03:12.675Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
+2026-05-28T18:04:08.047Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')

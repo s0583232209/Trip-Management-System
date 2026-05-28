@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import log from "../utils/logger.js";
+import log from "../loggers/file.logger.js";
 
 export default async function verifyToken(req, res, next) {
   log.info(`verifyToken - path: ${req.path}`);
@@ -7,7 +7,7 @@ export default async function verifyToken(req, res, next) {
     log.info(`verifyToken - skipping auth routes`);
     return next();
   }
-  const token = req.cookies.access_token;
+  const token = req.cookies.accessToken;
   if (!token) {
     log.warn(`verifyToken - no token provided for path: ${req.path}`);
     return res.status(401).send("No token provided");
@@ -20,7 +20,7 @@ export default async function verifyToken(req, res, next) {
       }
       req.user = decoded;
       log.info(
-        `verifyToken - successful for user: ${decoded.name} (id number: ${decoded.userId})`,
+        `verifyToken - successful for user: ${decoded.role} (id number: ${decoded.userId})`,
       );
       next();
     });

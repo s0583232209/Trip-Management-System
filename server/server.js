@@ -1,6 +1,6 @@
 import express from "express";
 import { configDotenv } from "dotenv";
-// import authRouter from "./src/routes/auth.routes.js";
+import authRouter from "./src/routes/auth.routes.js";
 // import verifyToken from "./midllewares/verifyToken.middleware.js";
 // import log from "./utils/logger.js";
 import tripsRouter from "./src/routes/trips.routes.js";
@@ -18,9 +18,9 @@ app.use(express.json());
 // app.use(cookieParser());
 
 app.use("/api", logger);
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
-app.use("/api/users", usersRouter);
+// app.use("/api/users", usersRouter);
 app.use("/api/trips/:id/files", filesRouter);
 app.use("/api/trips/:id/media", mediaRouter);
 app.use("/api/trips/:id/emergency", emergencyRouter);

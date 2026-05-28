@@ -1,0 +1,217 @@
+2026-05-28T16:50:57.065Z [INFO]: user id:undefined, method:GET, url:/auth/signup
+2026-05-28T16:51:25.261Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:51:41.841Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:53:22.407Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:54:05.840Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:54:28.338Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:54:28.396Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T16:56:18.665Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:56:18.687Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T16:58:04.700Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:58:04.727Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T16:58:50.035Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T16:58:50.062Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:00:55.792Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:00:55.828Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:01:39.603Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:01:39.647Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:03:27.804Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:03:27.822Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:03:51.438Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:06:00.662Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:07:13.385Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:07:13.412Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:07:49.348Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:07:49.367Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:08:07.681Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:08:07.695Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:08:20.539Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:08:20.577Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:08:42.615Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:08:42.643Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:09:37.779Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:09:37.805Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:10:26.980Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:10:27.013Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:10:55.568Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:10:55.587Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:12:16.728Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:12:16.768Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:12:40.639Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:12:40.689Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:13:08.656Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:13:08.673Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:14:28.746Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:14:28.787Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:14:47.973Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:14:47.994Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:30:02.903Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:30:02.938Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:30:56.798Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:30:56.832Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:31:18.269Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:31:18.286Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:32:55.919Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:32:55.953Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:33:58.007Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:33:58.028Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:34:20.216Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:34:20.231Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:35:04.508Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:35:04.518Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:35:59.865Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:35:59.892Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:37:19.193Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:37:19.208Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:38:19.065Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:38:19.079Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:38:59.643Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:38:59.661Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:39:33.610Z [INFO]: user id:undefined, method:GET, url:/auth/register
+2026-05-28T17:39:33.627Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:40:03.596Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:40:03.604Z [INFO]: in cotroller - sign up
+2026-05-28T17:40:03.878Z [INFO]: addUser called for username: undefined
+2026-05-28T17:40:03.878Z [ERROR]: addUser error: getConnection is not defined
+2026-05-28T17:40:03.878Z [WARN]: signup error: getConnection is not defined
+2026-05-28T17:42:15.194Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:42:15.212Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:42:15.233Z [INFO]: in cotroller - sign up
+2026-05-28T17:42:15.523Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:42:15.523Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-05-28T17:42:15.524Z [WARN]: signup error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-05-28T17:44:04.399Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:44:04.434Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:44:04.463Z [INFO]: in cotroller - sign up
+2026-05-28T17:44:04.774Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:44:04.837Z [ERROR]: addUser error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:44:04.837Z [WARN]: signup error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:44:35.725Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:44:35.753Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:44:35.782Z [INFO]: in cotroller - sign up
+2026-05-28T17:44:36.204Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:44:36.218Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:44:36.219Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:45:09.377Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:45:09.400Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:45:09.439Z [INFO]: in cotroller - sign up
+2026-05-28T17:45:09.772Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:45:09.777Z [ERROR]: addUser error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:45:09.778Z [WARN]: signup error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:45:45.699Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:45:45.713Z [INFO]: in cotroller - sign up
+2026-05-28T17:45:46.030Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:45:46.034Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:45:46.034Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:46:07.561Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:46:07.582Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:46:07.610Z [INFO]: in cotroller - sign up
+2026-05-28T17:46:07.972Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:46:07.979Z [ERROR]: addUser error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:46:07.980Z [WARN]: signup error: Cannot read properties of undefined (reading 'insertId')
+2026-05-28T17:46:38.136Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:46:38.159Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:46:38.182Z [INFO]: in cotroller - sign up
+2026-05-28T17:46:38.681Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:46:38.693Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:46:38.694Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:46:55.986Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:46:56.003Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:46:56.041Z [INFO]: in cotroller - sign up
+2026-05-28T17:46:56.454Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:46:56.468Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:46:56.469Z [WARN]: signup error: Column count doesn't match value count at row 1
+2026-05-28T17:47:53.943Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:47:53.960Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:47:53.996Z [INFO]: in cotroller - sign up
+2026-05-28T17:47:54.309Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:47:54.319Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:47:54.320Z [WARN]: signup error: Column count doesn't match value count at row 1
+2026-05-28T17:49:41.495Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:49:41.516Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:49:41.544Z [INFO]: in cotroller - sign up
+2026-05-28T17:49:41.924Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:49:41.931Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:49:41.931Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:49:57.135Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:49:57.158Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:49:57.205Z [INFO]: in cotroller - sign up
+2026-05-28T17:49:57.520Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:49:57.529Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:49:57.530Z [WARN]: signup error: Column count doesn't match value count at row 1
+2026-05-28T17:51:57.273Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:51:57.300Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:51:57.330Z [INFO]: in cotroller - sign up
+2026-05-28T17:51:57.727Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:51:57.733Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:51:57.733Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:52:21.895Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:52:21.920Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:52:21.970Z [INFO]: in cotroller - sign up
+2026-05-28T17:52:22.378Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:52:22.387Z [ERROR]: addUser error: Column count doesn't match value count at row 1
+2026-05-28T17:52:22.387Z [WARN]: signup error: Column count doesn't match value count at row 1
+2026-05-28T17:54:37.669Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:54:37.717Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:54:37.805Z [INFO]: in cotroller - sign up
+2026-05-28T17:54:38.113Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:54:38.121Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:54:38.122Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:54:53.389Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:54:53.403Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:54:53.436Z [INFO]: in cotroller - sign up
+2026-05-28T17:54:53.772Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:54:53.790Z [ERROR]: addUser error: Table 'trip_manager.passwords' doesn't exist
+2026-05-28T17:54:53.790Z [WARN]: signup error: Table 'trip_manager.passwords' doesn't exist
+2026-05-28T17:55:44.520Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:55:44.535Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:55:44.554Z [INFO]: in cotroller - sign up
+2026-05-28T17:55:44.869Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:55:44.882Z [ERROR]: addUser error: Unknown column 'hashed_password' in 'field list'
+2026-05-28T17:55:44.882Z [WARN]: signup error: Unknown column 'hashed_password' in 'field list'
+2026-05-28T17:56:54.255Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:56:54.272Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:56:54.303Z [INFO]: in cotroller - sign up
+2026-05-28T17:56:54.613Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:56:54.639Z [ERROR]: addUser error: Table 'trip_manager.user_role' doesn't exist
+2026-05-28T17:56:54.639Z [WARN]: signup error: Table 'trip_manager.user_role' doesn't exist
+2026-05-28T17:57:28.848Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:57:28.872Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:57:28.888Z [INFO]: in cotroller - sign up
+2026-05-28T17:57:29.218Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:57:29.230Z [ERROR]: addUser error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:57:29.232Z [WARN]: signup error: Duplicate entry '123' for key 'schools.institution_number'
+2026-05-28T17:57:43.876Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:57:43.893Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:57:43.939Z [INFO]: in cotroller - sign up
+2026-05-28T17:57:44.274Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:57:44.297Z [ERROR]: addUser error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`user_roles`, CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_name`) REFERENCES `roles` (`role_name`) ON DELETE CASCADE)
+2026-05-28T17:57:44.298Z [WARN]: signup error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`user_roles`, CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_name`) REFERENCES `roles` (`role_name`) ON DELETE CASCADE)
+2026-05-28T17:58:54.816Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T17:58:54.829Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T17:58:54.862Z [INFO]: in cotroller - sign up
+2026-05-28T17:58:55.160Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T17:58:55.187Z [INFO]: addUser successful, user id: 1
+2026-05-28T17:58:55.188Z [WARN]: signup error: secretOrPrivateKey must have a value
+2026-05-28T18:00:07.063Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T18:00:07.080Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T18:00:07.107Z [INFO]: in cotroller - sign up
+2026-05-28T18:00:07.441Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T18:00:07.474Z [INFO]: addUser successful, user id: 1
+2026-05-28T18:00:07.488Z [INFO]: signup successful for email: email@gmail.com
+2026-05-28T18:03:12.281Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T18:03:12.284Z [INFO]: in cotroller - sign up
+2026-05-28T18:03:12.674Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T18:03:12.675Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
+2026-05-28T18:03:12.676Z [WARN]: register error: Cannot read properties of null (reading 'execute')
+2026-05-28T18:04:07.716Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T18:04:07.721Z [INFO]: in cotroller - sign up
+2026-05-28T18:04:08.045Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T18:04:08.047Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
+2026-05-28T18:04:08.048Z [WARN]: register error: Cannot read properties of null (reading 'execute')
+2026-05-28T18:05:14.467Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T18:05:14.497Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-05-28T18:05:14.538Z [INFO]: in cotroller - sign up
+2026-05-28T18:05:14.854Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T18:05:14.877Z [INFO]: addUser successful, user id: 1
+2026-05-28T18:05:14.893Z [INFO]: register successful for email: email@gmail.com

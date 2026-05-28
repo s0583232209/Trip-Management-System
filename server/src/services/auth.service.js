@@ -1,20 +1,76 @@
 //this is BL layer
 // services/auth.service.js
 
-import { getUserRoles } from "../dal/users.dal.js";
+// import { getUserRoles } from "../dal/users.dal.js";
 
-export const userHasRole = async (
-  userId,
-  allowedRoles
-) => {
-
+export const userHasRole = async (userId, allowedRoles) => {
   const roles = await getUserRoles(userId);
 
-  const roleNames = roles.map(
-    role => role.role_name
-  );
+  const roleNames = roles.map((role) => role.role_name);
 
-  return allowedRoles.some(
-    role => roleNames.includes(role)
-  );
+  return allowedRoles.some((role) => roleNames.includes(role));
 };
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import {  addUser } from "../repositories/users.repository.js";
+
+export function createAccessToken(payload) {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
+}
+
+export function createRefreshToken(payload) {
+  return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
+}
+
+export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    maxAge: 60 * 1000 * 15,
+  });
+  if (refreshToken) {
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 60 * 1000 * 60 * 24 * 7,
+    });
+  }
+  res.status(status).json(body);
+}
+
+// export async function login(email, password) {
+//   const row = await getLoginDetails(email);
+//   if (!row) throw new Error("User not found");
+//   const isMatch = await bcrypt.compare(password, row.hashedPassword);
+//   if (!isMatch) throw new Error("Incorrect password");
+//   const payload = {
+//     email: user.email,
+//     userId: user.id,
+//     currentTime: new Date(),
+//     role: user.role,
+//   };
+//   return {
+//     user: { email, userId: row.userId, msg: "success" },
+//     accessToken: createAccessToken(payload),
+//     refreshToken: createRefreshToken(payload),
+//   };
+// }
+
+export async function register(body) {
+  const hashedPassword = await bcrypt.hash(body.password, 12);
+  const user = await addUser({ ...body, password: hashedPassword });
+  delete user.password;
+  const payload = {
+    email: user.email,
+    userId: user.id,
+    currentTime: new Date(),
+    role: user.role,
+  };
+  return {
+    user,
+    accessToken: createAccessToken(payload),
+    refreshToken: createRefreshToken(payload),
+  };
+}

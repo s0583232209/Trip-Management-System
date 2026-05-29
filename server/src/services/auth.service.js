@@ -12,7 +12,7 @@ export const userHasRole = async (userId, allowedRoles) => {
 };
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import {  addUser } from "../repositories/users.repository.js";
+import { addUser, getUserById } from "../repositories/users.repository.js";
 
 export function createAccessToken(payload) {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
@@ -40,30 +40,37 @@ export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
   res.status(status).json(body);
 }
 
-// export async function login(email, password) {
-//   const row = await getLoginDetails(email);
-//   if (!row) throw new Error("User not found");
-//   const isMatch = await bcrypt.compare(password, row.hashedPassword);
-//   if (!isMatch) throw new Error("Incorrect password");
-//   const payload = {
-//     email: user.email,
-//     userId: user.id,
-//     currentTime: new Date(),
-//     role: user.role,
-//   };
-//   return {
-//     user: { email, userId: row.userId, msg: "success" },
-//     accessToken: createAccessToken(payload),
-//     refreshToken: createRefreshToken(payload),
-//   };
-// }
+export async function login(user) {
+  const row = await getUserById(user.nationalId, user.institutionNumber);
+  if (!row) throw new Error("User not found");
+  const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
+  if (!isMatch) throw new Error("Incorrect password");
+  const payload = {
+    nationalId: user.nationalId,
+    institutionNumber: user.institutionNumber,
+    userId: user.id,
+    currentTime: new Date(),
+    role: row.role,
+  };
+  return {
+    user: {
+      role: row.role,
+      nationalId: user.nationalId,
+      userId: row.userId,
+      msg: "success",
+    },
+    accessToken: createAccessToken(payload),
+    refreshToken: createRefreshToken(payload),
+  };
+}
 
 export async function register(body) {
   const hashedPassword = await bcrypt.hash(body.password, 12);
   const user = await addUser({ ...body, password: hashedPassword });
   delete user.password;
   const payload = {
-    email: user.email,
+    nationalId: user.nationalId,
+    institutionNumber: user.institutionNumber,
     userId: user.id,
     currentTime: new Date(),
     role: user.role,

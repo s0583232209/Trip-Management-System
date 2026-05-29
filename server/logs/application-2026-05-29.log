@@ -1,0 +1,10 @@
+2026-05-29T08:45:33.316Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-29T08:45:33.338Z [INFO]: Connected to MySQL at undefined
+2026-05-29T08:45:33.374Z [INFO]: in cotroller - sign up
+2026-05-29T08:45:33.904Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-29T08:45:33.921Z [INFO]: addUser successful, user id: 1
+2026-05-29T08:45:33.930Z [INFO]: register successful for national id: 123456789
+2026-05-29T08:45:45.695Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-29T08:45:46.272Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-29T08:46:13.290Z [INFO]: user id:undefined, method:POST, url:/auth/logout
+2026-05-29T08:46:13.299Z [INFO]: user undefined logged out

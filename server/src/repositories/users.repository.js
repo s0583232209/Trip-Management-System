@@ -165,13 +165,19 @@ export async function addUser(details) {
 //   }
 // }
 
-// export async function getLoginDetails(email) {
-//   const connection = await getConnection();
-//   const [rows] = await connection.execute(
-//     `SELECT passwords.hashed_password AS hashedPassword, passwords.user_id AS userId
-//      FROM users JOIN passwords ON users.id = passwords.user_id
-//      WHERE email=? AND passwords.is_active=TRUE`,
-//     [email],
-//   );
-//   return rows[0];
-// }
+export async function getUserById(nationalId, institutionNumber) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `
+    SELECT
+    user_passwords.password_hash AS hashedPassword,
+    user_passwords.user_id AS userId
+    FROM users
+    JOIN user_passwords ON users.id = user_passwords.user_id
+    JOIN user_roles ON users.id = user_roles.user_id
+    JOIN schools ON schools.id=users.school_id
+    WHERE schools.institution_number=? AND users.national_id = ? AND user_passwords.is_active=TRUE;`,
+    [institutionNumber, nationalId],
+  );
+  return rows[0];
+}

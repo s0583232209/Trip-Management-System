@@ -1,7 +1,7 @@
 // auth.routes.js
 
 import express from "express";
-import { register } from "../controllers/auth.controller.js";
+import { register, logout, login } from "../controllers/auth.controller.js";
 const router = express.Router();
 
 router.post("/register", (req, res) => {
@@ -11,12 +11,8 @@ router.post("/register", (req, res) => {
 router.post("/refresh", (req, res) => {
   res.send("auth: refresh token");
 });
-router.post("/login", (req, res) => {
-  res.send("auth: login");
-});
+router.post("/login", login);
 
-router.post("/logout", (req, res) => {
-  res.send("auth: logout");
-});
+router.post("/logout", logout);
 
 export default router;

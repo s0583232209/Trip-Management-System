@@ -215,3 +215,38 @@
 2026-05-28T18:05:14.854Z [INFO]: addUser called for user: שם מנהל מוסד
 2026-05-28T18:05:14.877Z [INFO]: addUser successful, user id: 1
 2026-05-28T18:05:14.893Z [INFO]: register successful for email: email@gmail.com
+2026-05-28T19:58:47.145Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T19:58:47.184Z [INFO]: Connected to MySQL at undefined
+2026-05-28T19:58:47.230Z [INFO]: in cotroller - sign up
+2026-05-28T19:58:47.437Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T19:58:47.454Z [INFO]: addUser successful, user id: 1
+2026-05-28T19:58:47.464Z [INFO]: register successful for national id: 123456789
+2026-05-28T20:13:48.836Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-28T20:13:48.860Z [INFO]: Connected to MySQL at undefined
+2026-05-28T20:13:48.887Z [INFO]: in cotroller - sign up
+2026-05-28T20:13:49.086Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-28T20:13:49.103Z [INFO]: addUser successful, user id: 1
+2026-05-28T20:13:49.112Z [INFO]: register successful for national id: 123456789
+2026-05-28T20:13:59.218Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-28T20:13:59.225Z [WARN]: login error: Unknown column 'user_password.is_active' in 'where clause'
+2026-05-28T20:14:28.652Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-28T20:14:28.662Z [INFO]: Connected to MySQL at undefined
+2026-05-28T20:14:28.889Z [INFO]: login successful for email: email@gmail.com
+2026-05-29T08:40:29.203Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-29T08:40:29.237Z [INFO]: Connected to MySQL at undefined
+2026-05-29T08:40:29.267Z [INFO]: in cotroller - sign up
+2026-05-29T08:40:29.582Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-29T08:40:29.601Z [INFO]: addUser successful, user id: 1
+2026-05-29T08:40:29.612Z [INFO]: register successful for national id: 123456789
+2026-05-29T08:41:16.568Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-29T08:41:16.878Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-29T08:45:33.316Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-29T08:45:33.338Z [INFO]: Connected to MySQL at undefined
+2026-05-29T08:45:33.374Z [INFO]: in cotroller - sign up
+2026-05-29T08:45:33.904Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-29T08:45:33.921Z [INFO]: addUser successful, user id: 1
+2026-05-29T08:45:33.930Z [INFO]: register successful for national id: 123456789
+2026-05-29T08:45:45.695Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-29T08:45:46.272Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-29T08:46:13.290Z [INFO]: user id:undefined, method:POST, url:/auth/logout
+2026-05-29T08:46:13.299Z [INFO]: user undefined logged out

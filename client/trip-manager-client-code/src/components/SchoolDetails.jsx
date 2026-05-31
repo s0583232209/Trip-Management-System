@@ -33,7 +33,7 @@ return (
       autoComplete="tel"
       {...register("phoneNumber")}
     />
-    
+
     <label htmlFor="city">עיר</label>
     <input
       type="text"
@@ -43,23 +43,17 @@ return (
     />
 
     <label htmlFor="role">רחוב</label>
-    <input
-      type="text"
-      id="role"
-      autoComplete="role"
-      {...register("role")}
-    />
+    <input type="text" id="role" autoComplete="role" {...register("role")} />
 
     <label htmlFor="houseNumber">מספר</label>
     <input type="number" id="houseNumber" {...register("houseNumber")} />
-    
-    <label htmlFor="zipcode">מיקוד</label>
+
+    <label htmlFor="postalCode">מיקוד</label>
     <input
       type="number"
-      id="zipcode"
+      id="postalCode"
       autoComplete="postal-code"
-      {...register("zipcode")}
+      {...register("postalCode")}
     />
-
   </form>
 );

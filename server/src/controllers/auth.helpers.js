@@ -10,8 +10,7 @@ export async function tokenHandler(user, access) {
   const token = jwt.sign(user, secretKey, { expiresIn: access ? "15m" : "7d" });
   if (access) return token;
   log.info(`tokenHandler - user: ${user?.email}, userId: ${user?.userId}`);
-  if (await addToken(await bcrypt.hash(token, 12), user.userId || user.id))
-    return token;
+  if (await addToken(await bcrypt.hash(token, 12), user.userId)) return token;
   throw "error adding refresh token to the data base";
 }
 

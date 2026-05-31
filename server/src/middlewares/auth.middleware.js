@@ -7,6 +7,7 @@ export default async function verifyToken(req, res, next) {
     log.info(`verifyToken - skipping auth routes`);
     return next();
   }
+  
   const token = req.cookies.accessToken;
   if (!token) {
     log.warn(`verifyToken - no token provided for path: ${req.path}`);

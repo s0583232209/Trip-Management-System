@@ -1,23 +1,27 @@
 // media.routes.js
 
 import express from "express";
-
+import requireRole from "../middlewares/roleGuard.middlware.js";
 const router = express.Router({ mergeParams: true });
 
-router.get("/", () => {
-  return "media: get all";
-});
+router.get(
+  "/",
+  requireRole("principal", "coordinator", "trip leader", "teacher", "parent"),
+  () => {
+    return "media: get all";
+  },
+);
 
-router.post("/", () => {
+router.post("/", requireRole("trip leader", "teacher"), () => {
   return "media: upload media";
 });
 
-router.get("/:id", () => {
-  return "media: get media by id";
-});
-
-router.delete("/:id", () => {
-  return "media: delete media";
-});
+router.delete(
+  "/:id",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  () => {
+    return "media: delete media";
+  },
+);
 
 export default router;

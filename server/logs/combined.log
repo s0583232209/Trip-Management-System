@@ -250,3 +250,175 @@
 2026-05-29T08:45:46.272Z [INFO]: login successful for national id: 123456789 form institution: 123
 2026-05-29T08:46:13.290Z [INFO]: user id:undefined, method:POST, url:/auth/logout
 2026-05-29T08:46:13.299Z [INFO]: user undefined logged out
+2026-05-31T12:15:48.776Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-31T12:15:48.794Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)
+2026-05-31T12:20:44.383Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-31T12:20:44.407Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:20:44.546Z [INFO]: in cotroller - sign up
+2026-05-31T12:20:44.864Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-31T12:20:44.901Z [INFO]: addUser successful, user id: 1
+2026-05-31T12:20:44.915Z [INFO]: register successful for national id: 123456789
+2026-05-31T12:20:58.534Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:20:58.888Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:24:45.283Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:25:31.910Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:27:05.767Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:28:07.549Z [INFO]: user id:undefined, method:GET, url:/users/
+2026-05-31T12:29:34.427Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:30:15.566Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:30:59.542Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:30:59.545Z [INFO]: in require role middleware
+2026-05-31T12:31:24.761Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:31:24.764Z [INFO]: in require role middleware
+2026-05-31T12:31:47.086Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:31:47.089Z [INFO]: in require role middleware
+2026-05-31T12:33:09.936Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:33:09.939Z [INFO]: in require role middleware
+2026-05-31T12:33:51.003Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:33:51.005Z [INFO]: in require role middleware
+2026-05-31T12:39:13.165Z [INFO]: verifyToken - path: /users
+2026-05-31T12:39:33.258Z [INFO]: verifyToken - path: /login
+2026-05-31T12:39:52.466Z [INFO]: verifyToken - path: /login
+2026-05-31T12:40:05.372Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T12:40:05.373Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T12:40:05.373Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:40:05.402Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:40:05.757Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:40:27.080Z [INFO]: verifyToken - path: /users
+2026-05-31T12:41:11.735Z [INFO]: verifyToken - path: /users
+2026-05-31T12:41:17.931Z [INFO]: verifyToken - path: /users
+2026-05-31T12:42:06.650Z [INFO]: verifyToken - path: /users
+2026-05-31T12:43:21.664Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T12:43:21.665Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T12:43:21.666Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:43:21.679Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:43:22.047Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:43:52.981Z [INFO]: verifyToken - path: /users
+2026-05-31T12:44:27.776Z [INFO]: verifyToken - path: /users
+2026-05-31T12:46:04.452Z [INFO]: verifyToken - path: /users
+2026-05-31T12:46:04.458Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:46:04.459Z [INFO]: user id:undefined, method:POST, url:/users
+2026-05-31T12:46:13.697Z [INFO]: verifyToken - path: /users
+2026-05-31T12:46:13.699Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:46:13.700Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:46:13.700Z [INFO]: in require role middleware
+2026-05-31T12:47:06.590Z [INFO]: verifyToken - path: /users
+2026-05-31T12:47:06.596Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:47:06.597Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:47:06.598Z [INFO]: in require role middleware
+2026-05-31T12:47:35.522Z [INFO]: verifyToken - path: /users
+2026-05-31T12:47:35.528Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:47:35.528Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:47:35.529Z [INFO]: in require role middleware
+2026-05-31T12:47:35.544Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:48:35.930Z [INFO]: verifyToken - path: /users
+2026-05-31T12:48:35.935Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:48:35.935Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:48:35.937Z [INFO]: in require role middleware
+2026-05-31T12:48:35.957Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:51:22.744Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T12:51:22.744Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T12:51:22.744Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:51:23.061Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:51:36.397Z [INFO]: verifyToken - path: /users
+2026-05-31T12:51:36.399Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:51:36.399Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:51:36.400Z [INFO]: in require role middleware
+2026-05-31T12:54:50.046Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T12:54:50.049Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T12:54:50.050Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:54:50.063Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:54:50.386Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:55:02.431Z [INFO]: verifyToken - path: /users
+2026-05-31T12:55:02.433Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:55:02.433Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:55:02.434Z [INFO]: in require role middleware
+2026-05-31T12:57:49.220Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T12:57:49.222Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T12:57:49.222Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:57:49.233Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:57:49.553Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:58:00.365Z [INFO]: verifyToken - path: /users
+2026-05-31T12:58:00.367Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:58:00.368Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:58:00.368Z [INFO]: in require role middleware
+2026-05-31T12:59:12.604Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T12:59:12.607Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T12:59:12.608Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T12:59:12.621Z [INFO]: Connected to MySQL at undefined
+2026-05-31T12:59:12.956Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T12:59:56.426Z [INFO]: verifyToken - path: /users
+2026-05-31T12:59:56.428Z [INFO]: verifyToken - successful for user: undefined (id number: undefined)
+2026-05-31T12:59:56.429Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T12:59:56.430Z [INFO]: in require role middleware
+2026-05-31T13:00:25.485Z [INFO]: verifyToken - path: /auth/login
+2026-05-31T13:00:25.487Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T13:00:25.488Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-05-31T13:00:25.503Z [INFO]: Connected to MySQL at undefined
+2026-05-31T13:00:25.833Z [INFO]: login successful for national id: 123456789 form institution: 123
+2026-05-31T13:00:33.400Z [INFO]: verifyToken - path: /uses
+2026-05-31T13:00:33.402Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-05-31T13:00:33.403Z [INFO]: user id:undefined, method:GET, url:/uses
+2026-05-31T13:00:40.228Z [INFO]: verifyToken - path: /users
+2026-05-31T13:00:40.230Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-05-31T13:00:40.230Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T13:00:40.231Z [INFO]: in require role middleware
+2026-05-31T13:02:28.497Z [INFO]: verifyToken - path: /users
+2026-05-31T13:02:28.502Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-05-31T13:02:28.503Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T13:02:28.504Z [INFO]: in require role middleware
+2026-05-31T13:02:28.531Z [INFO]: Connected to MySQL at undefined
+2026-05-31T13:04:13.570Z [INFO]: verifyToken - path: /auth/register
+2026-05-31T13:04:13.574Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T13:04:13.576Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-31T13:04:13.601Z [INFO]: Connected to MySQL at undefined
+2026-05-31T13:04:13.647Z [INFO]: in cotroller - sign up
+2026-05-31T13:04:14.238Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-31T13:04:14.263Z [INFO]: addUser successful, user id: 1
+2026-05-31T13:04:14.274Z [INFO]: register successful for national id: 123456789
+2026-05-31T13:04:31.535Z [INFO]: verifyToken - path: /users
+2026-05-31T13:04:31.539Z [INFO]: verifyToken - successful for user: principal (id number: undefined)
+2026-05-31T13:04:31.540Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T13:04:31.542Z [INFO]: in require role middleware
+2026-05-31T13:06:12.256Z [INFO]: verifyToken - path: /auth/register
+2026-05-31T13:06:12.271Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T13:06:12.272Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-31T13:06:12.297Z [INFO]: Connected to MySQL at undefined
+2026-05-31T13:06:12.331Z [INFO]: in cotroller - sign up
+2026-05-31T13:06:12.888Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-31T13:06:12.917Z [INFO]: addUser successful, user id: 1
+2026-05-31T13:06:12.927Z [INFO]: register successful for national id: 123456789
+2026-05-31T13:08:19.583Z [INFO]: verifyToken - path: /auth/register
+2026-05-31T13:08:19.585Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T13:08:19.586Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-31T13:08:19.596Z [INFO]: Connected to MySQL at undefined
+2026-05-31T13:08:19.616Z [INFO]: in cotroller - sign up
+2026-05-31T13:08:19.914Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-31T13:08:19.934Z [INFO]: addUser successful, user id: 1
+2026-05-31T13:08:19.940Z [INFO]: register successful for national id: 123456789
+2026-05-31T13:08:33.221Z [INFO]: verifyToken - path: /users
+2026-05-31T13:08:33.225Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-05-31T13:08:33.225Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T13:08:33.227Z [INFO]: in require role middleware
+2026-05-31T13:08:33.234Z [INFO]: roles for user id:1,  roles: principal
+2026-05-31T13:10:59.187Z [INFO]: verifyToken - path: /users
+2026-05-31T13:10:59.195Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-05-31T13:10:59.196Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T13:10:59.197Z [INFO]: in require role middleware
+2026-05-31T13:10:59.223Z [INFO]: Connected to MySQL at undefined
+2026-05-31T13:11:26.669Z [INFO]: verifyToken - path: /auth/register
+2026-05-31T13:11:26.670Z [INFO]: verifyToken - skipping auth routes
+2026-05-31T13:11:26.671Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-05-31T13:11:26.697Z [INFO]: in cotroller - sign up
+2026-05-31T13:11:27.272Z [INFO]: addUser called for user: שם מנהל מוסד
+2026-05-31T13:11:27.301Z [INFO]: addUser successful, user id: 1
+2026-05-31T13:11:27.307Z [INFO]: register successful for national id: 123456789
+2026-05-31T13:11:36.795Z [INFO]: verifyToken - path: /users
+2026-05-31T13:11:36.797Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-05-31T13:11:36.798Z [INFO]: user id:undefined, method:POST, url:/users
+2026-05-31T13:11:43.522Z [INFO]: verifyToken - path: /users
+2026-05-31T13:11:43.524Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-05-31T13:11:43.524Z [INFO]: user id:undefined, method:GET, url:/users
+2026-05-31T13:11:43.525Z [INFO]: in require role middleware
+2026-05-31T13:11:43.534Z [INFO]: roles for user id:1,  roles: principal
+2026-05-31T13:11:43.535Z [INFO]: in get all uses

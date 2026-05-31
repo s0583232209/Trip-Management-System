@@ -1,15 +1,27 @@
 //this is BL layer
 // services/auth.service.js
 
-// import { getUserRoles } from "../dal/users.dal.js";
-
+import {
+  getUserRoles,
+  getUserRolesOnTripDay,
+} from "../repositories/users.repository.js";
+import log from "../loggers/file.logger.js";
 export const userHasRole = async (userId, allowedRoles) => {
+  console.log("in has role of service");
   const roles = await getUserRoles(userId);
-
+  console.log(roles);
   const roleNames = roles.map((role) => role.role_name);
-
+  log.info(`roles for user id:${userId},  roles: ${roleNames}`);
+  if (allowedRoles.some((role) => roleName == "trip leader"))
+    return tripLeaderAccess(userId);
   return allowedRoles.some((role) => roleNames.includes(role));
 };
+function tripLeaderAccess(userId) {
+  //here - to go to the database and find on which trip he is leader, and get the date and them
+  //to compare the dates here,
+  const tripDate = getUserRolesOnTripDay(userId);
+  return tripDate == new Date();
+}
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { addUser, getUserById } from "../repositories/users.repository.js";
@@ -45,10 +57,11 @@ export async function login(user) {
   if (!row) throw new Error("User not found");
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
   if (!isMatch) throw new Error("Incorrect password");
+  console.log(user, row);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,
-    userId: user.id,
+    userId: row.userId,
     currentTime: new Date(),
     role: row.role,
   };
@@ -68,10 +81,11 @@ export async function register(body) {
   const hashedPassword = await bcrypt.hash(body.password, 12);
   const user = await addUser({ ...body, password: hashedPassword });
   delete user.password;
+  console.log(user);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,
-    userId: user.id,
+    userId: user.userId,
     currentTime: new Date(),
     role: user.role,
   };

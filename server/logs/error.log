@@ -20,3 +20,4 @@
 2026-05-28T17:57:44.297Z [ERROR]: addUser error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`user_roles`, CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_name`) REFERENCES `roles` (`role_name`) ON DELETE CASCADE)
 2026-05-28T18:03:12.675Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
 2026-05-28T18:04:08.047Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
+2026-05-31T12:15:48.794Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)

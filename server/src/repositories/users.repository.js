@@ -6,19 +6,33 @@ import log from "../loggers/file.logger.js";
 import dblog from "../loggers/database.logger.js";
 
 export const getUserRoles = async (userId) => {
-  const [rows] = await pool.query(
+  const connection = await getConnection(true);
+  const [rows] = await connection.execute(
     `
-    SELECT r.role_name
-    FROM user_roles ur
-    JOIN roles r
-      ON ur.role_id = r.id
-    WHERE ur.user_id = ?
+      SELECT r.role_name
+      FROM user_roles ur
+      JOIN roles r
+      ON ur.role_name = r.role_name
+      WHERE ur.user_id = ?
     `,
     [userId],
   );
 
   return rows;
 };
+export async function getUserRolesOnTripDay(userId) {
+  const connection = await getConnection(true);
+  const [row] = await connection.execute(
+    ` 
+     SELECT trips.trip_date
+     FROM trips
+     WHERE trip_leader.id=?
+    `,
+    [userId],
+  );
+  //check this function
+  return row[0].trip_date;
+}
 // export async function getById(id) {
 //   try {
 //     log.info(`getById users called with id: ${id}`);
@@ -70,7 +84,7 @@ export async function addUser(details) {
       [result.insertId, details.role],
     );
     log.info(`addUser successful, user id: ${result.insertId}`);
-    return { id: result.insertId, ...details };
+    return { userId: result.insertId, ...details };
   } catch (err) {
     log.error(`addUser error: ${err.message}`);
     throw err;

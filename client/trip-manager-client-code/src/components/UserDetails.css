@@ -1,0 +1,15 @@
+form:has(#name):not(:has(#schoolName)) {
+  border-left: 5px solid #7c3aed;
+}
+
+form:has(#name):not(:has(#schoolName)) input {
+  background-color: #ffffff;
+}
+
+form:has(#name):not(:has(#schoolName)) button {
+  background-color: #7c3aed;
+}
+
+form:has(#name):not(:has(#schoolName)) button:hover {
+  background-color: #6d28d9;
+}

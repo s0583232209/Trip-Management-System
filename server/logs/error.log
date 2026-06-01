@@ -32,3 +32,4 @@
 2026-06-01T12:00:16.271Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 2026-06-01T15:20:42.680Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 2026-06-01T15:36:51.942Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-01T15:50:13.090Z [ERROR]: getPasswordByUserId error: Password not found

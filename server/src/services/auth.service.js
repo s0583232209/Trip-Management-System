@@ -77,7 +77,10 @@ export async function login(user) {
 }
 
 export async function register(body) {
-  const hashedPassword = await bcrypt.hash(body.password, 12);
+  const hashedPassword = await bcrypt.hash(
+    body.password || body.nationalId,
+    12,
+  );
   const user = await addUser({ ...body, password: hashedPassword });
   delete user.password;
   console.log(user);

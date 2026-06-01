@@ -963,3 +963,31 @@
 2026-06-01T15:42:31.229Z [INFO]: verifyToken - skipping auth routes
 2026-06-01T15:42:31.229Z [INFO]: user id:undefined, method:POST, url:/auth/login
 2026-06-01T15:42:31.429Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-01T15:49:14.319Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T15:49:14.320Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T15:49:14.320Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T15:49:14.341Z [INFO]: Connected to MySQL at undefined
+2026-06-01T15:49:14.562Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-01T15:49:19.272Z [INFO]: verifyToken - path: /users/1
+2026-06-01T15:49:19.274Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-01T15:49:19.274Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-01T15:49:19.275Z [INFO]: in require role middleware
+2026-06-01T15:49:19.279Z [INFO]: roles for user id:1,  roles: principal
+2026-06-01T15:49:19.280Z [INFO]: getById users called with id: 1
+2026-06-01T15:49:19.282Z [INFO]: getById users successful for id: 1
+2026-06-01T15:49:38.546Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T15:49:38.547Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T15:49:38.547Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T15:49:38.765Z [WARN]: login error: Incorrect password
+2026-06-01T15:49:52.200Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T15:49:52.201Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T15:49:52.201Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T15:49:52.416Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-01T15:50:13.084Z [INFO]: verifyToken - path: /users/3/change-password
+2026-06-01T15:50:13.084Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-01T15:50:13.084Z [INFO]: user id:undefined, method:POST, url:/users/3/change-password
+2026-06-01T15:50:13.085Z [INFO]: in require role middleware
+2026-06-01T15:50:13.087Z [INFO]: roles for user id:1,  roles: principal
+2026-06-01T15:50:13.088Z [INFO]: change passwrod controller - userId: 3}
+2026-06-01T15:50:13.090Z [ERROR]: getPasswordByUserId error: Password not found
+2026-06-01T15:50:13.090Z [WARN]: change passwrod error: Password not found

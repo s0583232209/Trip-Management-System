@@ -15,7 +15,7 @@ export async function updateProfile(id, details) {
   return user;
 }
 
-export async function updateCredentials(
+export async function password(
   id,
   { currentPassword, newUsername, newPassword },
 ) {
@@ -27,7 +27,7 @@ export async function updateCredentials(
     throw err;
   }
 
-  if (newUsername) await usersRepo.updateUsername(id, newUsername);
+  if (newUsername) await usersRepo.updateUsername(id, newUsername); // check if it is needed
 
   if (newPassword) {
     const allPasswords = await usersRepo.getAllPasswordsByUserId(id);

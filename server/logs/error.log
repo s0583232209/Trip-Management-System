@@ -21,3 +21,11 @@
 2026-05-28T18:03:12.675Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
 2026-05-28T18:04:08.047Z [ERROR]: addUser error: Cannot read properties of null (reading 'execute')
 2026-05-31T12:15:48.794Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)
+2026-06-01T06:09:02.528Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-01T06:11:48.289Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:32.974Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:35.718Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.308Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.455Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.751Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:42:35.327Z [ERROR]: addUser error: Unknown column 'street' in 'field list'

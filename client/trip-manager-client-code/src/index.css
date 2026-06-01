@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* תכלת שמיים */
+  --sky-dark:    #2980b9;
+  --sky-mid:     #5dade2;
+  --sky-light:   #d6eaf8;
+
+  /* חום טרה קוטה */
+  --earth-dark:  #8b4513;
+  --earth-mid:   #c1784a;
+  --earth-light: #f5e6d8;
+
+  --bg:          #ffffff;
+  --surface:     #ffffff;
+  --border:      #e0e0e0;
+  --text:        #1a1a1a;
+  --text-muted:  #6b6b6b;
+  --shadow:      0 4px 16px rgba(0,0,0,0.10);
+  --radius:      10px;
+}
+
+html {
+  direction: rtl;
+  font-family: 'Rubik', Arial, sans-serif;
+  font-size: 18px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Rubik', Arial, sans-serif;
+}

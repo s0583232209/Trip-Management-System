@@ -1,12 +1,20 @@
-import { useState } from "react";
-import Auth from "./pages/Auth.jsx"
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <BrowserRouter><Auth /></BrowserRouter>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -422,3 +422,110 @@
 2026-05-31T13:11:43.525Z [INFO]: in require role middleware
 2026-05-31T13:11:43.534Z [INFO]: roles for user id:1,  roles: principal
 2026-05-31T13:11:43.535Z [INFO]: in get all uses
+2026-06-01T05:29:04.210Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T05:29:04.214Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T05:29:04.216Z [INFO]: user id:undefined, method:OPTIONS, url:/auth/register
+2026-06-01T05:29:04.393Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-01T05:31:05.956Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T05:31:05.958Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T05:31:05.959Z [INFO]: user id:undefined, method:OPTIONS, url:/auth/register
+2026-06-01T05:33:04.523Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T05:33:04.527Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T05:33:04.529Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T05:33:04.571Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-01T05:33:04.613Z [INFO]: in cotroller - sign up
+2026-06-01T05:33:04.617Z [WARN]: register error: data and salt arguments required
+2026-06-01T06:09:01.961Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:09:01.963Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:09:01.965Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:09:01.995Z [INFO]: in cotroller - sign up
+2026-06-01T06:09:02.523Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:09:02.528Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-01T06:09:02.529Z [WARN]: register error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-01T06:11:47.795Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:11:47.799Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:11:47.800Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:11:47.837Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-01T06:11:47.866Z [INFO]: in cotroller - sign up
+2026-06-01T06:11:48.253Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:11:48.289Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:11:48.290Z [WARN]: register error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:32.471Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:13:32.475Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:13:32.479Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:13:32.517Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-01T06:13:32.539Z [INFO]: in cotroller - sign up
+2026-06-01T06:13:32.971Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:13:32.974Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:32.975Z [WARN]: register error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:35.270Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:13:35.272Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:13:35.273Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:13:35.286Z [INFO]: in cotroller - sign up
+2026-06-01T06:13:35.715Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:13:35.718Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:35.718Z [WARN]: register error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:35.845Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:13:35.845Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:13:35.846Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:13:35.859Z [INFO]: in cotroller - sign up
+2026-06-01T06:13:36.042Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:13:36.042Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:13:36.043Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:13:36.055Z [INFO]: in cotroller - sign up
+2026-06-01T06:13:36.306Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:13:36.308Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.308Z [WARN]: register error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.311Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:13:36.312Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:13:36.312Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:13:36.322Z [INFO]: in cotroller - sign up
+2026-06-01T06:13:36.453Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:13:36.455Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.455Z [WARN]: register error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.749Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:13:36.751Z [ERROR]: addUser error: Unknown column 'phone' in 'field list'
+2026-06-01T06:13:36.752Z [WARN]: register error: Unknown column 'phone' in 'field list'
+2026-06-01T06:42:34.587Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:42:34.591Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:42:34.593Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:42:34.619Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-01T06:42:34.676Z [INFO]: in cotroller - sign up
+2026-06-01T06:42:35.324Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:42:35.327Z [ERROR]: addUser error: Unknown column 'street' in 'field list'
+2026-06-01T06:42:35.328Z [WARN]: register error: Unknown column 'street' in 'field list'
+2026-06-01T06:43:10.480Z [INFO]: verifyToken - path: /auth/register
+2026-06-01T06:43:10.482Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:43:10.483Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-01T06:43:10.525Z [INFO]: in cotroller - sign up
+2026-06-01T06:43:11.164Z [INFO]: addUser called for user: דן לב
+2026-06-01T06:43:11.239Z [INFO]: addUser successful, user id: 1
+2026-06-01T06:43:11.253Z [INFO]: register successful for national id: 987654321
+2026-06-01T06:43:40.253Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T06:43:40.254Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:43:40.254Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T06:43:40.966Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-01T06:57:39.373Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T06:57:39.373Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:57:39.374Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T06:57:40.066Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-01T06:57:42.199Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T06:57:42.200Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:57:42.200Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T06:57:42.218Z [WARN]: login error: User not found
+2026-06-01T06:58:06.587Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T06:58:06.590Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T06:58:06.594Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T06:58:07.275Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-01T08:00:29.364Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T08:00:29.366Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T08:00:29.366Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T08:00:29.390Z [WARN]: login error: User not found
+2026-06-01T08:12:11.559Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T08:12:11.560Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T08:12:11.561Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T08:12:12.245Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T08:12:12.245Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T08:12:12.246Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T08:12:12.262Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-01T08:12:12.909Z [INFO]: login successful for national id: 987654321 form institution: 123

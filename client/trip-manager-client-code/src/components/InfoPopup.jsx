@@ -88,13 +88,11 @@ export default function InfoPopup({ onClose }) {
   }
 
   async function saveProfile() {
+    return;
     setSaving(true);
     setError(null);
     try {
-      const res = await api.post(
-        `/api/users/${effectiveId}/change-password`,
-        draft,
-      );
+      const res = await api.post(`/api/users/${effectiveId}`, draft);
       const updated = normalize(res.data);
       setView(updated);
       setEditing(false);

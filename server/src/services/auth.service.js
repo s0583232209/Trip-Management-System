@@ -12,13 +12,12 @@ export const userHasRole = async (userId, allowedRoles) => {
   console.log(roles);
   const roleNames = roles.map((role) => role.role_name);
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
-  if (allowedRoles.some((role) => roleName == "trip leader"))
+  console.log(roleNames);
+  if (roleNames.find((role) => role.includes("trip leader")))
     return tripLeaderAccess(userId);
   return allowedRoles.some((role) => roleNames.includes(role));
 };
 function tripLeaderAccess(userId) {
-  //here - to go to the database and find on which trip he is leader, and get the date and them
-  //to compare the dates here,
   const tripDate = getUserRolesOnTripDay(userId);
   return tripDate == new Date();
 }

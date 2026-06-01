@@ -529,3 +529,24 @@
 2026-06-01T08:12:12.246Z [INFO]: user id:undefined, method:POST, url:/auth/login
 2026-06-01T08:12:12.262Z [INFO]: login successful for national id: 987654321 form institution: 123
 2026-06-01T08:12:12.909Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-01T09:13:51.444Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T09:13:51.447Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T09:13:51.449Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T09:13:51.476Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-01T09:13:51.546Z [WARN]: login error: User not found
+2026-06-01T09:13:53.188Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T09:13:53.189Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T09:13:53.190Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T09:13:53.238Z [WARN]: login error: User not found
+2026-06-01T09:13:54.372Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T09:13:54.373Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T09:13:54.373Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T09:13:54.389Z [WARN]: login error: User not found
+2026-06-01T10:05:15.394Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T10:05:15.396Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T10:05:15.397Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T10:05:16.403Z [INFO]: verifyToken - path: /auth/login
+2026-06-01T10:05:16.404Z [INFO]: verifyToken - skipping auth routes
+2026-06-01T10:05:16.406Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-01T10:05:16.465Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-01T10:05:17.184Z [INFO]: login successful for national id: 987654321 form institution: 123

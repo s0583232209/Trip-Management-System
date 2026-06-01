@@ -20,7 +20,7 @@ export default function UserDetails({ onSubmit }) {
   const nameRegex = /^[\p{L}\s]{2,}$/u;
   const nationalIdRegex = /^\d{9}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[\p{L}])[\p{L}\d\S]{6,}$/u;
-  const phoneRegex = /^\+?[\d\s\-]{7,15}$/;
+  const phoneRegex = /^\+?[\d\s-]{7,15}$/;
 
   function submitForm(event) {
     event.preventDefault();

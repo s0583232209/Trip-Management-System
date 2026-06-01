@@ -37,7 +37,8 @@ export default function SchoolDetails({ onSubmit }) {
 
       <label htmlFor="schoolInstitutionNumber">סמל מוסד</label>
       <input
-        type="number"
+        type="text"
+        inputMode="numeric"
         id="schoolInstitutionNumber"
         name="institutionNumber"
         value={formData.institutionNumber}
@@ -62,7 +63,7 @@ export default function SchoolDetails({ onSubmit }) {
         onChange={updateField}
       />
 
-      <label htmlFor="city">כתובת - עיר</label>
+      <label htmlFor="city">עיר</label>
       <input
         type="text"
         id="city"
@@ -71,7 +72,7 @@ export default function SchoolDetails({ onSubmit }) {
         onChange={updateField}
       />
 
-      <label htmlFor="street">כתובת - רחוב</label>
+      <label htmlFor="street">רחוב</label>
       <input
         type="text"
         id="street"
@@ -80,9 +81,10 @@ export default function SchoolDetails({ onSubmit }) {
         onChange={updateField}
       />
 
-      <label htmlFor="houseNumber">כתובת - מספר בית</label>
+      <label htmlFor="houseNumber">מספר בית</label>
       <input
-        type="number"
+        type="text"
+        inputMode="numeric"
         id="houseNumber"
         name="houseNumber"
         value={formData.houseNumber}
@@ -91,14 +93,15 @@ export default function SchoolDetails({ onSubmit }) {
 
       <label htmlFor="postalCode">מיקוד</label>
       <input
-        type="number"
+        type="text"
+        inputMode="numeric"
         id="postalCode"
         name="postalCode"
         value={formData.postalCode}
         onChange={updateField}
       />
 
-      <button type="submit">שמירת פרטי מוסד</button>
+      <button type="submit">הבא</button>
     </form>
   );
 }

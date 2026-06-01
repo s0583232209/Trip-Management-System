@@ -1,5 +1,6 @@
 import express from "express";
 import { configDotenv } from "dotenv";
+import cors from "cors";
 import authRouter from "./src/routes/auth.routes.js";
 import verifyToken from "./src/middlewares/auth.middleware.js";
 // import log from "./utils/logger.js";
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || "localhost";
 
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 app.use("/api", verifyToken)
 app.use("/api", logger);

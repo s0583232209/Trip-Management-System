@@ -55,12 +55,15 @@ export async function addUser(details) {
     log.info(`addUser called for user: ${details.fullName}`);
     const connection = await getConnection();
     const schoolResult = await connection.execute(
-      `INSERT INTO schools (name,institution_number,city,contact_email) VALUES (?,?,?,?)`,
+      `INSERT INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
       [
-        details.schoolName,
+        details.name,
         details.institutionNumber,
         details.city,
-        details.contactEmail,
+        details.email,
+        details.street || null,
+        details.houseNumber || null,
+        details.postalCode || null,
       ],
     );
     console.log(schoolResult);
@@ -70,8 +73,8 @@ export async function addUser(details) {
         schoolResult[0].insertId,
         details.fullName,
         details.nationalId,
-        details.email,
-        details.phoneNumber,
+        details.userEmail || null,
+        details.userPhoneNumber || null,
       ],
     );
     console.log(result, schoolResult);

@@ -3,7 +3,7 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import log from "../loggers/file.logger.js";
-
+import { getUserById } from "../controllers/users.controller.js";
 const router = express.Router();
 
 router.get("/", requireRole("principal"), (req, res) => {
@@ -11,9 +11,15 @@ router.get("/", requireRole("principal"), (req, res) => {
   console.log("in users router");
   res.send("users: get all users");
 });
-router.get("/:id", requireRole("principal"), (req, res) => {
-  res.send("users: get user by id");
-});
+router.get(
+  "/:id",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  (req, res) => {
+    if (req.body.userId != req.params.id && req.body.role != "principal")
+      res.status(401).send("access denied");
+    getUserById(req, res);
+  },
+);
 router.put("/:id", requireRole("principal"), (req, res) => {
   res.send("users: update user");
 });

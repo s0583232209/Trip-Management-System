@@ -11,9 +11,15 @@ router.get("/", requireRole("principal"), (req, res) => {
   console.log("in users router");
   res.send("users: get all users");
 });
-router.get("/:id", requireRole("principal"), (req, res) => {
-  res.send("users: get user by id");
-});
+router.get(
+  "/:id",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  (req, res) => {
+    res.send(
+      "users: get user by id, most chack that the users requested is the user that is loged in",
+    );
+  },
+);
 router.put("/:id", requireRole("principal"), (req, res) => {
   res.send("users: update user");
 });

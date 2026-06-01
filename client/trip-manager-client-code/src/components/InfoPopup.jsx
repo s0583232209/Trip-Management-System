@@ -91,7 +91,10 @@ export default function InfoPopup({ onClose }) {
     setSaving(true);
     setError(null);
     try {
-      const res = await api.put(`/api/users/${effectiveId}`, draft);
+      const res = await api.post(
+        `/api/users/${effectiveId}/change-password`,
+        draft,
+      );
       const updated = normalize(res.data);
       setView(updated);
       setEditing(false);

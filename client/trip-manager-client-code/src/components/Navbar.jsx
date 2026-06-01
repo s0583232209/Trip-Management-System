@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
+import InfoPopup from "./InfoPopup";
 import "./Navbar.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const user = JSON.parse(sessionStorage.getItem("current-user"));
+  const [showInfo, setShowInfo] = useState(false);
 
   function handleLogout() {
     sessionStorage.clear();
@@ -21,8 +24,10 @@ export default function Navbar() {
         {user?.role === "principal" && (
           <button className="navbar-btn" onClick={() => navigate("/add-employee")}>הוספת עובד</button>
         )}
+        <button className="navbar-btn" onClick={() => setShowInfo(true)}>פרופיל</button>
         <button className="navbar-btn navbar-btn--logout" onClick={handleLogout}>התנתקות</button>
       </div>
+      {showInfo && <InfoPopup onClose={() => setShowInfo(false)} />}
     </nav>
   );
 }

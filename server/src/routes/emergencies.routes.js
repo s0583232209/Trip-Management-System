@@ -1,6 +1,7 @@
 // emergency.routes.js
 
 import express from "express";
+import requireRole from "../middlewares/roleGuard.middlware.js";
 
 const router = express.Router({ mergeParams: true });
 

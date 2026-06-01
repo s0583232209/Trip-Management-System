@@ -1,0 +1,7 @@
+form:has(#fullName) button {
+  background-color: var(--sky-dark);
+}
+
+form:has(#fullName) button:hover {
+  background-color: var(--sky-mid);
+}

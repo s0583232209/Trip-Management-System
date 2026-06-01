@@ -1,0 +1,7 @@
+form:has(#schoolName) button {
+  background-color: var(--earth-mid);
+}
+
+form:has(#schoolName) button:hover {
+  background-color: var(--earth-dark);
+}

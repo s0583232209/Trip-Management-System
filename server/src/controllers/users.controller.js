@@ -32,6 +32,7 @@ export async function updateProfile(req, res) {
 export async function changePassword(req, res) {
   try {
     console.log("change password...............................");
+    if (req.body.userId != req.params.id) res.status(401).send("access denied");
     log.info(`change passwrod controller - userId: ${req.params.id}}`);
     const user = await usersService.changePassword(req.params.id, req.body);
     res.status(200).json(user);

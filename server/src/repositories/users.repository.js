@@ -21,6 +21,7 @@ export const getUserRoles = async (userId) => {
   return rows;
 };
 export async function getUserRolesOnTripDay(userId) {
+  log.info("in get users role on trip day");
   const connection = await getConnection(true);
   const [row] = await connection.execute(
     ` 

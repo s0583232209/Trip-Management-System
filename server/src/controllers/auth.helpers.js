@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { addToken } from "../repositories/auth.repository.js";
 import bcrypt from "bcrypt";
-import log from "../utils/logger.js";
+import log from "../loggers/file.logger.js";
 
 export async function tokenHandler(user, access) {
   const secretKey = access

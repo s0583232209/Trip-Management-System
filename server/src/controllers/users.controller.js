@@ -1,8 +1,8 @@
 //this is API layer
 import * as usersService from "../services/users.service.js";
-import log from "../utils/logger.js";
+import log from "../loggers/file.logger.js";
 
-export async function getById(req, res) {
+export async function getUserById(req, res) {
   try {
     const user = await usersService.getUserById(req.params.id);
     res.status(200).json(user);

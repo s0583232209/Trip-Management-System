@@ -33,22 +33,22 @@ export async function getUserRolesOnTripDay(userId) {
   //check this function
   return row[0].trip_date;
 }
-// export async function getById(id) {
-//   try {
-//     log.info(`getById users called with id: ${id}`);
-//     const connection = await getConnection();
-//     const [rows] = await connection.execute(
-//       "SELECT * FROM users WHERE id = ?;",
-//       [id],
-//     );
-//     if (!rows[0]) throw new Error("User not found");
-//     log.info(`getById users successful for id: ${id}`);
-//     return rows[0];
-//   } catch (err) {
-//     log.error(`getById users error: ${err.message}`);
-//     throw err;
-//   }
-// }
+export async function getById(id) {
+  try {
+    log.info(`getById users called with id: ${id}`);
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      "SELECT * FROM users WHERE id = ?;",
+      [id],
+    );
+    if (!rows[0]) throw new Error("User not found");
+    log.info(`getById users successful for id: ${id}`);
+    return rows[0];
+  } catch (err) {
+    log.error(`getById users error: ${err.message}`);
+    throw err;
+  }
+}
 
 export async function addUser(details) {
   try {
@@ -118,34 +118,34 @@ export async function addUser(details) {
 //   }
 // }
 
-// export async function getPasswordByUserId(userId) {
-//   try {
-//     const connection = await getConnection();
-//     const [rows] = await connection.execute(
-//       `SELECT hashed_password AS hashedPassword FROM passwords WHERE user_id=? AND is_active=TRUE`,
-//       [userId],
-//     );
-//     if (!rows[0]) throw new Error("Password not found");
-//     return rows[0];
-//   } catch (err) {
-//     log.error(`getPasswordByUserId error: ${err.message}`);
-//     throw err;
-//   }
-// }
+export async function getPasswordByUserId(userId) {
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      `SELECT hashed_password AS hashedPassword FROM user_passwords WHERE user_id=? AND is_active=TRUE`,
+      [userId],
+    );
+    if (!rows[0]) throw new Error("Password not found");
+    return rows[0];
+  } catch (err) {
+    log.error(`getPasswordByUserId error: ${err.message}`);
+    throw err;
+  }
+}
 
-// export async function getAllPasswordsByUserId(userId) {
-//   try {
-//     const connection = await getConnection();
-//     const [rows] = await connection.execute(
-//       `SELECT hashed_password AS hashedPassword FROM passwords WHERE user_id=?`,
-//       [userId],
-//     );
-//     return rows;
-//   } catch (err) {
-//     log.error(`getAllPasswordsByUserId error: ${err.message}`);
-//     throw err;
-//   }
-// }
+export async function getAllPasswordsByUserId(userId) {
+  try {
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      `SELECT password_hash AS hashedPassword FROM user_passwords WHERE user_id=?`,
+      [userId],
+    );
+    return rows;
+  } catch (err) {
+    log.error(`getAllPasswordsByUserId error: ${err.message}`);
+    throw err;
+  }
+}
 
 // export async function updateUsername(id, username) {
 //   try {

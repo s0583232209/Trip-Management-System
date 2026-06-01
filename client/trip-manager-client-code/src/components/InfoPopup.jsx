@@ -70,7 +70,9 @@ export default function InfoPopup({ onClose }) {
     }
     async function fetchUser() {
       try {
+        console.log("in fetch users");
         const res = await api.get(`/api/users/${effectiveId}`);
+        console.log(res);
         setView(normalize(res.data));
       } catch {
         setError("לא ניתן לטעון את הפרופיל.");
@@ -88,11 +90,13 @@ export default function InfoPopup({ onClose }) {
   }
 
   async function saveProfile() {
-    return;
     setSaving(true);
     setError(null);
     try {
-      const res = await api.post(`/api/users/${effectiveId}`, draft);
+      const res = await api.post(
+        `/api/users/${effectiveId}/change-password`,
+        draft,
+      );
       const updated = normalize(res.data);
       setView(updated);
       setEditing(false);
@@ -115,7 +119,7 @@ export default function InfoPopup({ onClose }) {
     setCredSaving(true);
     setCredError(null);
     try {
-      await api.put(`/api/users/${effectiveId}/credentials`, {
+      await api.post(`/api/users/${effectiveId}/change-password`, {
         currentPassword: cred.currentPassword,
         newPassword: cred.newPassword || undefined,
       });

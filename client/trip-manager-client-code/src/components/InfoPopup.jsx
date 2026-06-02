@@ -43,7 +43,7 @@ function normalize(u) {
   };
 }
 
-export default function InfoPopup({ onClose }) {
+export default function InfoPopup({ onClose = () => {}, inline = false }) {
   const stored = JSON.parse(sessionStorage.getItem("current-user")) || {};
   const effectiveId = stored.userId;
 
@@ -65,14 +65,14 @@ export default function InfoPopup({ onClose }) {
 
   useEffect(() => {
     if (!effectiveId) {
-      // setLoading(false);
+      setError("לא נמצא משתמש פעיל.");
+      setLoading(false);
       return;
     }
+
     async function fetchUser() {
       try {
-        console.log("in fetch users");
         const res = await api.get(`/api/users/${effectiveId}`);
-        console.log(res);
         setView(normalize(res.data));
       } catch {
         setError("לא ניתן לטעון את הפרופיל.");
@@ -80,6 +80,7 @@ export default function InfoPopup({ onClose }) {
         setLoading(false);
       }
     }
+
     fetchUser();
   }, [effectiveId]);
 
@@ -97,8 +98,7 @@ export default function InfoPopup({ onClose }) {
         `/api/users/${effectiveId}/change-password`,
         draft,
       );
-      const updated = normalize(res.data);
-      setView(updated);
+      setView(normalize(res.data));
       setEditing(false);
     } catch (err) {
       setError(err.response?.data?.message || "לא ניתן לשמור שינויים.");
@@ -137,12 +137,20 @@ export default function InfoPopup({ onClose }) {
   }
 
   if (loading || !view) {
+    const loadingContent = (
+      <div className="ip-loading">
+        {loading ? "טוען..." : error || "לא ניתן לטעון את הפרופיל."}
+      </div>
+    );
+
+    if (inline) {
+      return <div className="ip-inline">{loadingContent}</div>;
+    }
+
     return (
       <div className="ip-overlay" onMouseDown={onClose}>
         <div className="ip-modal" onMouseDown={(e) => e.stopPropagation()}>
-          <div style={{ padding: "2rem", textAlign: "center" }}>
-            {loading ? "טוען..." : error || "לא ניתן לטעון את הפרופיל."}
-          </div>
+          {loadingContent}
         </div>
       </div>
     );
@@ -150,171 +158,180 @@ export default function InfoPopup({ onClose }) {
 
   const initials = (view.fullName || "?")[0].toUpperCase();
 
-  return (
-    <div className="ip-overlay" onMouseDown={onClose}>
-      <div className="ip-modal" onMouseDown={(e) => e.stopPropagation()}>
-        <div className="ip-header">
-          <div className="ip-header-left">
-            <div className="ip-avatar">{initials}</div>
-            <div>
-              <div className="ip-header-name">{view.fullName || "משתמש"}</div>
-              <div className="ip-header-email">{view.userEmail}</div>
-            </div>
+  const profileContent = (
+    <>
+      <div className="ip-header">
+        <div className="ip-header-left">
+          <div className="ip-avatar">{initials}</div>
+          <div>
+            <div className="ip-header-name">{view.fullName || "משתמש"}</div>
+            <div className="ip-header-email">{view.userEmail}</div>
           </div>
+        </div>
+        {!inline && (
           <button className="ip-close" onClick={onClose}>
             ✕
           </button>
+        )}
+      </div>
+
+      <div className="ip-body">
+        <div className="ip-section">
+          <div className="ip-section-head">
+            <span className="ip-section-label">פרטים אישיים</span>
+            {!editing && (
+              <button className="ip-edit-btn" onClick={startEdit}>
+                עריכה
+              </button>
+            )}
+          </div>
+          <Row
+            label="שם מלא"
+            fieldKey="fullName"
+            editing={editing}
+            draft={draft}
+            view={view}
+            onDraftChange={handleDraftChange}
+          />
+          <Row
+            label="תעודת זהות"
+            fieldKey="nationalId"
+            editing={false}
+            draft={draft}
+            view={view}
+            onDraftChange={handleDraftChange}
+          />
+          <Row
+            label="דואר אלקטרוני"
+            fieldKey="userEmail"
+            editing={editing}
+            draft={draft}
+            view={view}
+            onDraftChange={handleDraftChange}
+            type="email"
+          />
+          <Row
+            label="טלפון"
+            fieldKey="userPhoneNumber"
+            editing={editing}
+            draft={draft}
+            view={view}
+            onDraftChange={handleDraftChange}
+          />
+          {editing && (
+            <div className="ip-action-row">
+              {error && <p className="ip-error">{error}</p>}
+              <div className="ip-btns">
+                <button
+                  className="ip-btn-primary"
+                  onClick={saveProfile}
+                  disabled={saving}
+                >
+                  {saving ? "שומר..." : "שמור שינויים"}
+                </button>
+                <button
+                  className="ip-btn-ghost"
+                  onClick={() => {
+                    setEditing(false);
+                    setError(null);
+                  }}
+                >
+                  ביטול
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="ip-body">
-          <div className="ip-section">
-            <div className="ip-section-head">
-              <span className="ip-section-label">פרטים אישיים</span>
-              {!editing && (
-                <button className="ip-edit-btn" onClick={startEdit}>
-                  עריכה
-                </button>
-              )}
-            </div>
-            <Row
-              label="שם מלא"
-              fieldKey="fullName"
-              editing={editing}
-              draft={draft}
-              view={view}
-              onDraftChange={handleDraftChange}
-            />
-            <Row
-              label="תעודת זהות"
-              fieldKey="nationalId"
-              editing={false}
-              draft={draft}
-              view={view}
-              onDraftChange={handleDraftChange}
-            />
-            <Row
-              label="דואר אלקטרוני"
-              fieldKey="userEmail"
-              editing={editing}
-              draft={draft}
-              view={view}
-              onDraftChange={handleDraftChange}
-              type="email"
-            />
-            <Row
-              label="מספר טלפון"
-              fieldKey="userPhoneNumber"
-              editing={editing}
-              draft={draft}
-              view={view}
-              onDraftChange={handleDraftChange}
-            />
-            {editing && (
+        <div className="ip-divider" />
+
+        <div className="ip-section">
+          <div className="ip-section-head">
+            <span className="ip-section-label">סיסמה</span>
+            {!credOpen && (
+              <button className="ip-edit-btn" onClick={() => setCredOpen(true)}>
+                שינוי
+              </button>
+            )}
+          </div>
+          <div className="ip-row">
+            <span className="ip-label">סיסמה</span>
+            <span className="ip-value ip-dots">••••••••</span>
+          </div>
+          {credOpen && (
+            <div className="ip-cred-box">
+              <div className="ip-cred-field">
+                <label>סיסמה נוכחית *</label>
+                <input
+                  type="password"
+                  value={cred.currentPassword}
+                  onChange={(e) =>
+                    setCred((c) => ({
+                      ...c,
+                      currentPassword: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div className="ip-cred-field">
+                <label>סיסמה חדשה</label>
+                <input
+                  type="password"
+                  value={cred.newPassword}
+                  onChange={(e) =>
+                    setCred((c) => ({ ...c, newPassword: e.target.value }))
+                  }
+                />
+              </div>
+              <div className="ip-cred-field">
+                <label>אימות סיסמה חדשה</label>
+                <input
+                  type="password"
+                  value={cred.confirmPassword}
+                  onChange={(e) =>
+                    setCred((c) => ({
+                      ...c,
+                      confirmPassword: e.target.value,
+                    }))
+                  }
+                />
+              </div>
               <div className="ip-action-row">
-                {error && <p className="ip-error">{error}</p>}
+                {credError && <p className="ip-error">{credError}</p>}
                 <div className="ip-btns">
                   <button
                     className="ip-btn-primary"
-                    onClick={saveProfile}
-                    disabled={saving}
+                    onClick={saveCredentials}
+                    disabled={credSaving}
                   >
-                    {saving ? "שומר..." : "שמור שינויים"}
+                    {credSaving ? "מעדכן..." : "עדכן סיסמה"}
                   </button>
                   <button
                     className="ip-btn-ghost"
                     onClick={() => {
-                      setEditing(false);
-                      setError(null);
+                      setCredOpen(false);
+                      setCredError(null);
                     }}
                   >
                     ביטול
                   </button>
                 </div>
               </div>
-            )}
-          </div>
-
-          <div className="ip-divider" />
-
-          <div className="ip-section">
-            <div className="ip-section-head">
-              <span className="ip-section-label">סיסמה</span>
-              {!credOpen && (
-                <button
-                  className="ip-edit-btn"
-                  onClick={() => setCredOpen(true)}
-                >
-                  שינוי
-                </button>
-              )}
             </div>
-            <div className="ip-row">
-              <span className="ip-label">סיסמה</span>
-              <span className="ip-value ip-dots">••••••••</span>
-            </div>
-            {credOpen && (
-              <div className="ip-cred-box">
-                <div className="ip-cred-field">
-                  <label>סיסמה נוכחית *</label>
-                  <input
-                    type="password"
-                    value={cred.currentPassword}
-                    onChange={(e) =>
-                      setCred((c) => ({
-                        ...c,
-                        currentPassword: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="ip-cred-field">
-                  <label>סיסמה חדשה</label>
-                  <input
-                    type="password"
-                    value={cred.newPassword}
-                    onChange={(e) =>
-                      setCred((c) => ({ ...c, newPassword: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="ip-cred-field">
-                  <label>אימות סיסמה חדשה</label>
-                  <input
-                    type="password"
-                    value={cred.confirmPassword}
-                    onChange={(e) =>
-                      setCred((c) => ({
-                        ...c,
-                        confirmPassword: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="ip-action-row">
-                  {credError && <p className="ip-error">{credError}</p>}
-                  <div className="ip-btns">
-                    <button
-                      className="ip-btn-primary"
-                      onClick={saveCredentials}
-                      disabled={credSaving}
-                    >
-                      {credSaving ? "מעדכן..." : "עדכן סיסמה"}
-                    </button>
-                    <button
-                      className="ip-btn-ghost"
-                      onClick={() => {
-                        setCredOpen(false);
-                        setCredError(null);
-                      }}
-                    >
-                      ביטול
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+          )}
         </div>
+      </div>
+    </>
+  );
+
+  if (inline) {
+    return <div className="ip-inline">{profileContent}</div>;
+  }
+
+  return (
+    <div className="ip-overlay" onMouseDown={onClose}>
+      <div className="ip-modal" onMouseDown={(e) => e.stopPropagation()}>
+        {profileContent}
       </div>
     </div>
   );

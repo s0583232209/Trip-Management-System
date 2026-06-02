@@ -29,9 +29,7 @@ router.get(
 router.delete("/:id", requireRole("principal"), (req, res) => {
   res.send("users: delete user");
 });
-router.post("/", requireRole("principal"), (req, res) => {
-  res.send("users: post add user");
-});
+router.post("/", requireRole("principal"), addUser);
 router.post(
   "/:id/change-password",
   requireRole("principal", "coordinator", "trip leader", "teacher"),

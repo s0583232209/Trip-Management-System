@@ -7,6 +7,7 @@ export async function register(req, res) {
   log.info("in cotroller - sign up");
   console.log("in sign up");
   try {
+    req.body.role = "principal";
     const { user, accessToken, refreshToken } = await authService.register(
       req.body,
     );

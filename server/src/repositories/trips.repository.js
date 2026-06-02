@@ -11,7 +11,7 @@ export async function getAll(userId) {
     WHERE users.id = ?`,
     [userId],
   );
-  dblog.info(`getAll trips by userId: ${userId}`); //fix this log
+  // dblog.info(`getAll trips by userId: ${userId}`); //fix this log
   log.info(`getAll trips by userId: ${userId}`);
   return rows;
 }

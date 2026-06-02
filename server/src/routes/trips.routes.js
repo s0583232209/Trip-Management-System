@@ -7,9 +7,11 @@ router.get(
   requireRole("principal", "coordinator"),
   tripsController.getAllTrips,
 );
-router.post("/", requireRole("principal", "coordinator"), (req, res) => {
-  res.send("trips: post add a trip");
-});
+router.post(
+  "/",
+  requireRole("principal", "coordinator"),
+  tripsController.addTrip,
+);
 router.get(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),

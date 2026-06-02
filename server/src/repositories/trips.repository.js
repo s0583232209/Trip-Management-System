@@ -28,3 +28,19 @@ export async function getById(tripId, userId) {
   log.info(`getTripById : ${tripId}`);
   return rows;
 }
+export default async function addTrip(tripDetails) {
+  const connection = await getConnection();
+  const [row] = connection.execute(
+    `INSERT INTO trips (school_id, trip_leader_id, title, trip_date, trip_status, route_geojson, parent_token) VALUES (?,?,?,?,?,?,?)`,
+    [
+      tripDetails.schoolId,
+      tripDetails.tripLeaderId,
+      tripDetails.title,
+      tripDetails.tripDate,
+      tripDetails.tripStatus,
+      tripDetails.routeGeoJson,
+      tripDetails.parentToken,
+    ],
+  );
+  return row;
+}

@@ -16,3 +16,17 @@ export async function getById(tripId, userId) {
     throw err;
   }
 }
+export async function addTrip(tripDetails) {
+  try {
+    const [school_id] = getById(tripDetails.tripLeaderId);
+    const newTrip = await addTrip({
+      schoolId: school_id,
+      ...tripDetails,
+    });
+    log.info(`trip added successfully`);
+    return newTrip;
+  } catch (err) {
+    log.warn(`error: ${err.message}`);
+    throw err;
+  }
+}

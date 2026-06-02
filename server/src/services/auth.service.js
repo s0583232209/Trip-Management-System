@@ -28,7 +28,9 @@ import { addUser, getUserById } from "../repositories/users.repository.js";
 export function createAccessToken(payload) {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
 }
-
+export function createParentToken(payload) {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+}
 export function createRefreshToken(payload) {
   return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
 }

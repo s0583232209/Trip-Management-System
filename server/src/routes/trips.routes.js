@@ -2,16 +2,20 @@ import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import * as tripsController from "../controllers/trips.controller.js";
 const router = express.Router();
-router.get("/", requireRole("principal", "coordinator"), tripsController.getAllTrips);
-router.post("/", requireRole("principal", "coordinator"), (req, res) => {
-  res.send("trips: post add a trip");
-});
+router.get(
+  "/",
+  requireRole("principal", "coordinator"),
+  tripsController.getAllTrips,
+);
+router.post(
+  "/",
+  requireRole("principal", "coordinator"),
+  tripsController.addTrip,
+);
 router.get(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
-  (req, res) => {
-    res.send("trips: get by id");
-  },
+  tripsController.getById,
 );
 router.delete("/:id", requireRole("principal", "coordinator"), (req, res) => {
   res.send("trips: delete by id");

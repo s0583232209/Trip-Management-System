@@ -1,5 +1,5 @@
 //this is API layer
-import log from "../loggers/file.logger";
+import log from "../loggers/file.logger.js";
 import * as tripsService from "../services/trips.service.js";
 export async function getAllTrips(req, res) {
   try {

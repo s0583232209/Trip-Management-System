@@ -26,7 +26,7 @@ app.use("/api", logger);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/trips/:id/files", filesRouter);
-app.use("/api/trips/:id/media", mediaRouter);
+app.use("/api/media", mediaRouter);
 app.use("/api/trips/:id/emergency", emergencyRouter);
 app.use("/api/trips", tripsRouter);
 app.use((err, req, res, next) => {

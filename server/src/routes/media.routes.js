@@ -2,14 +2,13 @@
 
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
+
 const router = express.Router({ mergeParams: true });
 
 router.get(
   "/",
   requireRole("principal", "coordinator", "trip leader", "teacher", "parent"),
-  () => {
-    return "media: get all";
-  },
+  res.message("in get all media"),
 );
 
 router.post("/", requireRole("trip leader", "teacher"), () => {

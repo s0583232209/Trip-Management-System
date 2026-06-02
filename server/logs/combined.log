@@ -1022,3 +1022,49 @@
 2026-06-02T12:39:32.363Z [INFO]: user id:undefined, method:POST, url:/users
 2026-06-02T12:39:32.365Z [INFO]: in require role middleware
 2026-06-02T12:39:32.380Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:02:17.880Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:02:17.882Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:02:17.882Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:02:17.952Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T18:02:18.369Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T18:02:22.452Z [INFO]: verifyToken - path: /trips
+2026-06-02T18:02:22.455Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:02:22.455Z [INFO]: user id:undefined, method:GET, url:/trips
+2026-06-02T18:02:22.456Z [INFO]: in require role middleware
+2026-06-02T18:02:22.466Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:02:22.477Z [WARN]: error: dblog.info is not a function
+2026-06-02T18:03:12.032Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:03:12.033Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:03:12.034Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:03:12.042Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T18:03:12.353Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T18:03:14.949Z [INFO]: verifyToken - path: /trips
+2026-06-02T18:03:14.951Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:03:14.951Z [INFO]: user id:undefined, method:GET, url:/trips
+2026-06-02T18:03:14.952Z [INFO]: in require role middleware
+2026-06-02T18:03:14.956Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:03:14.960Z [INFO]: getAll trips by userId: 1
+2026-06-02T18:03:14.961Z [INFO]: get all trips by userId: 1
+2026-06-02T18:03:29.616Z [INFO]: verifyToken - path: /media
+2026-06-02T18:03:29.617Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:03:29.617Z [INFO]: user id:undefined, method:GET, url:/media
+2026-06-02T18:04:08.181Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:04:08.182Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:04:08.182Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:04:08.190Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T18:04:08.458Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T18:04:22.321Z [INFO]: verifyToken - path: /media
+2026-06-02T18:04:22.323Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:04:22.323Z [INFO]: user id:undefined, method:GET, url:/media
+2026-06-02T18:04:22.324Z [INFO]: in require role middleware
+2026-06-02T18:04:22.328Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:05:20.795Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:05:20.797Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:05:20.798Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:05:20.808Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T18:05:21.085Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T18:05:24.229Z [INFO]: verifyToken - path: /media
+2026-06-02T18:05:24.231Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:05:24.231Z [INFO]: user id:undefined, method:GET, url:/media
+2026-06-02T18:05:24.232Z [INFO]: in require role middleware
+2026-06-02T18:05:24.236Z [INFO]: roles for user id:1,  roles: principal

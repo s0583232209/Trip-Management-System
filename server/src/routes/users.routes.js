@@ -7,6 +7,7 @@ import {
   getUserById,
   updateProfile,
   changePassword,
+  addUser,
 } from "../controllers/users.controller.js";
 const router = express.Router();
 
@@ -19,11 +20,7 @@ router.get(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
   getUserById,
-);
-// router.put(
-//   "/:id",
-//   requireRole("principal", "coordinator", "trip leader", "teacher"),
-//   changePassword,
+);//   changePassword,
 // );
 
 router.delete("/:id", requireRole("principal"), (req, res) => {

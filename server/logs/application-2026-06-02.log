@@ -33,3 +33,24 @@
 2026-06-02T16:25:37.565Z [INFO]: verifyToken - skipping auth routes
 2026-06-02T16:25:37.566Z [INFO]: user id:undefined, method:POST, url:/auth/register
 2026-06-02T16:25:37.625Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)
+2026-06-02T16:43:04.141Z [INFO]: verifyToken - path: /auth/register
+2026-06-02T16:43:04.145Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T16:43:04.147Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-02T16:43:04.198Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T16:43:04.424Z [INFO]: in cotroller - sign up
+2026-06-02T16:43:05.032Z [INFO]: addUser called for user: ישראל ישראלי
+2026-06-02T16:43:05.098Z [INFO]: addUser successful, user id: 1
+2026-06-02T16:43:05.122Z [INFO]: register successful for national id: 123456789
+2026-06-02T16:43:11.063Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T16:43:11.064Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T16:43:11.065Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T16:43:11.764Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T16:43:54.610Z [INFO]: verifyToken - path: /trips
+2026-06-02T16:43:54.617Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T16:43:54.618Z [INFO]: user id:undefined, method:GET, url:/trips
+2026-06-02T16:43:54.620Z [INFO]: in require role middleware
+2026-06-02T16:43:54.635Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T16:43:54.666Z [WARN]: error: dblog.info is not a function
+2026-06-02T16:44:04.273Z [INFO]: verifyToken - path: /media
+2026-06-02T16:44:04.275Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T16:44:04.276Z [INFO]: user id:undefined, method:GET, url:/media

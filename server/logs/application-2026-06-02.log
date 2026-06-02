@@ -29,3 +29,7 @@
 2026-06-02T12:39:32.363Z [INFO]: user id:undefined, method:POST, url:/users
 2026-06-02T12:39:32.365Z [INFO]: in require role middleware
 2026-06-02T12:39:32.380Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T16:25:37.561Z [INFO]: verifyToken - path: /auth/register
+2026-06-02T16:25:37.565Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T16:25:37.566Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-02T16:25:37.625Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)

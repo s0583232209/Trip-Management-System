@@ -1,7 +1,7 @@
 //this is the DAL
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
-import getConnection from "../config/db";
+import getConnection from "../config/db.js";
 export async function getAll(userId) {
   const connection = await getConnection();
   const [rows] = await connection.execute(

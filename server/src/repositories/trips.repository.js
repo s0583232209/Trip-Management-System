@@ -15,3 +15,16 @@ export async function getAll(userId) {
   log.info(`getAll trips by userId: ${userId}`);
   return rows;
 }
+export async function getById(tripId, userId) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT * FROM (SELECT * FROM trips
+    WHERE trips.id = ?)t
+    JOIN staff_trip ON staff_trip.trip_id=t.id
+    WHERE staff_trip.staff_id=?`,
+    [tripId, userId],
+  );
+  //db log!!!!!!!!!!!!!!!!!
+  log.info(`getTripById : ${tripId}`);
+  return rows;
+}

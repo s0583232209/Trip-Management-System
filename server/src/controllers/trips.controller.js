@@ -10,3 +10,14 @@ export async function getAllTrips(req, res) {
     res.status(500).json({ message: "Failed to get trips" });
   }
 }
+
+export async function getById(req, res) {
+  try {
+    const trip = await tripsService.getById(req.params.id, req.user.userId);
+    log.info(`the trip with id ${tripId} returned successfully`);
+    res.status(200).json(trip);
+  } catch (err) {
+    log.warn(`error: ${err.message}`);
+    res.status(500).json({ message: "Failed to get trip by id" });
+  }
+}

@@ -19,11 +19,22 @@
 
   --bg:          #ffffff;
   --surface:     #ffffff;
+  --surface-2:   #f8fafc;
   --border:      #e0e0e0;
+  --border-2:    #cbd5e1;
   --text:        #1a1a1a;
+  --text-2:      #111827;
   --text-muted:  #6b6b6b;
+  --primary:     #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --red:         #ef4444;
   --shadow:      0 4px 16px rgba(0,0,0,0.10);
   --radius:      10px;
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-xl:   20px;
+  --radius-full: 999px;
 }
 
 html {

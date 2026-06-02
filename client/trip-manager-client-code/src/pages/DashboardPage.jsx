@@ -8,37 +8,37 @@ const ACTIONS = {
     { label: "הוספת עובד", desc: "הוסף מורה, רכז או אחראי טיול", path: "/add-employee", color: "blue" },
     { label: "יצירת טיול", desc: "פתח טיול חדש ובחר מסלול", path: "/trips/new", color: "green" },
     { label: "ניהול טיולים", desc: "צפה, ערוך או מחק טיולים", path: "/trips", color: "brown" },
-    { label: "העלאת קבצים", desc: "הוסף קבצים לתיק הטיול", path: "/trips/files", color: "blue" },
-    { label: "אישור טיול סופי", desc: "אשר טיול לפני היציאה", path: "/trips/approve", color: "green" },
-    { label: "סגירת טיול", desc: "סגור טיול שהסתיים", path: "/trips/close", color: "brown" },
+    { label: "העלאת קבצים", desc: "הוסף קבצים לתיק הטיול", path: "/trips", color: "blue" },
+    { label: "אישור טיול סופי", desc: "אשר טיול לפני היציאה", path: "/trips", color: "green" },
+    { label: "סגירת טיול", desc: "סגור טיול שהסתיים", path: "/trips", color: "brown" },
   ],
   coordinator: [
     { label: "יצירת טיול", desc: "פתח טיול חדש ובחר מסלול", path: "/trips/new", color: "green" },
     { label: "ניהול טיולים", desc: "צפה, ערוך או מחק טיולים", path: "/trips", color: "brown" },
-    { label: "העלאת קבצים", desc: "הוסף קבצים לתיק הטיול", path: "/trips/files", color: "blue" },
-    { label: "אישור טיול סופי", desc: "אשר טיול לפני היציאה", path: "/trips/approve", color: "green" },
-    { label: "סגירת טיול", desc: "סגור טיול שהסתיים", path: "/trips/close", color: "brown" },
+    { label: "העלאת קבצים", desc: "הוסף קבצים לתיק הטיול", path: "/trips", color: "blue" },
+    { label: "אישור טיול סופי", desc: "אשר טיול לפני היציאה", path: "/trips", color: "green" },
+    { label: "סגירת טיול", desc: "סגור טיול שהסתיים", path: "/trips", color: "brown" },
   ],
   teacher: [
     { label: "צפייה בטיולים", desc: "צפה בפרטי הטיול והצוות", path: "/trips", color: "blue" },
     { label: "קריאת שמות", desc: "עדכן נוכחות תלמידים", path: "/trips/attendance", color: "green" },
-    { label: "העלאת תיעוד", desc: "העלה תמונות, וידאו ואודיו", path: "/trips/media", color: "brown" },
-    { label: "חרום מינורי", desc: "פתח או סגור אירוע חרום", path: "/trips/emergency", color: "blue" },
+    { label: "העלאת תיעוד", desc: "העלה תמונות, וידאו ואודיו", path: "/media", color: "brown" },
+    { label: "חרום מינורי", desc: "פתח או סגור אירוע חרום", path: "/trips", color: "blue" },
   ],
   "trip-leader-before": [
-    { label: "בחירת מסלול", desc: "בחר ועדכן את מסלול הטיול", path: "/trips/route", color: "green" },
-    { label: "הכנסת מלווים", desc: "הוסף נתוני מלווים לטיול", path: "/trips/staff", color: "blue" },
-    { label: "העלאת קבצים", desc: "הוסף קבצים לתיק הטיול", path: "/trips/files", color: "brown" },
+    { label: "בחירת מסלול", desc: "בחר ועדכן את מסלול הטיול", path: "/trips", color: "green" },
+    { label: "הכנסת מלווים", desc: "הוסף נתוני מלווים לטיול", path: "/trips", color: "blue" },
+    { label: "העלאת קבצים", desc: "הוסף קבצים לתיק הטיול", path: "/trips", color: "brown" },
   ],
   "trip-leader-day": [
-    { label: "קריאת שמות", desc: "עדכן נוכחות תלמידים", path: "/trips/attendance", color: "green" },
-    { label: "עדכון מסלול", desc: "עדכן את המסלול בזמן אמת", path: "/trips/route", color: "blue" },
-    { label: "חרום מלא", desc: "פתח אירוע חרום מלא", path: "/trips/emergency/full", color: "brown" },
-    { label: "העלאת תיעוד", desc: "העלה תמונות, וידאו ואודיו", path: "/trips/media", color: "blue" },
+    { label: "קריאת שמות", desc: "עדכן נוכחות תלמידים", path: "/trips", color: "green" },
+    { label: "עדכון מסלול", desc: "עדכן את המסלול בזמן אמת", path: "/trips", color: "blue" },
+    { label: "חרום מלא", desc: "פתח אירוע חירום מלא", path: "/trips", color: "brown" },
+    { label: "העלאת תיעוד", desc: "העלה תמונות, וידאו ואודיו", path: "/media", color: "blue" },
   ],
   parent: [
-    { label: "צפייה בתכנים", desc: "צפה בתיעוד שהועלה", path: "/trips/media", color: "blue" },
-    { label: "אנשי קשר", desc: "צפה בפרטי הצוות המלווה", path: "/trips/contacts", color: "green" },
+    { label: "צפייה בתכנים", desc: "צפה בתיעוד שהועלה", path: "/media", color: "blue" },
+    { label: "אנשי קשר", desc: "צפה בפרטי הצוות המלווה", path: "/trips", color: "green" },
   ],
 };
 
@@ -60,6 +60,15 @@ export default function DashboardPage() {
   }, []);
 
   const actions = ACTIONS[user?.role] || [];
+  const pageActions = [
+    ...actions,
+    {
+      label: "פרופיל",
+      desc: "צפה במידע אישי ופרטי מערכת",
+      path: "/profile",
+      color: "blue",
+    },
+  ];
 
   return (
     <>
@@ -70,7 +79,7 @@ export default function DashboardPage() {
           <p className="dashboard-sub">מה תרצה לעשות היום?</p>
         </div>
         <div className="dashboard-grid">
-          {actions.map((action) => (
+          {pageActions.map((action) => (
             <button
               key={action.label}
               className={`dashboard-card dashboard-card--${action.color}`}

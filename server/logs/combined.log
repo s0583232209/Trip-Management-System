@@ -1022,3 +1022,187 @@
 2026-06-02T12:39:32.363Z [INFO]: user id:undefined, method:POST, url:/users
 2026-06-02T12:39:32.365Z [INFO]: in require role middleware
 2026-06-02T12:39:32.380Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T16:27:22.700Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T16:27:22.704Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T16:27:22.707Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T16:27:22.743Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T16:27:23.506Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T16:27:47.634Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T16:27:47.635Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T16:27:47.636Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T16:27:48.319Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T16:27:50.669Z [INFO]: verifyToken - path: /users/1
+2026-06-02T16:27:50.679Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T16:27:50.681Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T16:27:50.684Z [INFO]: in require role middleware
+2026-06-02T16:27:50.702Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T16:27:50.706Z [INFO]: getById users called with id: 1
+2026-06-02T16:27:50.715Z [INFO]: getById users successful for id: 1
+2026-06-02T16:33:20.846Z [INFO]: verifyToken - path: /users/1
+2026-06-02T16:33:20.858Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T16:33:20.861Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T16:33:20.864Z [INFO]: in require role middleware
+2026-06-02T16:33:20.926Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-02T16:33:46.191Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T16:33:46.193Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T16:33:46.194Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T16:33:46.936Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T16:33:49.174Z [INFO]: verifyToken - path: /users/1
+2026-06-02T16:33:49.179Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T16:33:49.180Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T16:33:49.184Z [INFO]: in require role middleware
+2026-06-02T16:33:49.201Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T16:33:49.205Z [INFO]: getById users called with id: 1
+2026-06-02T16:33:49.245Z [INFO]: getById users successful for id: 1
+2026-06-02T18:04:31.200Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:04:31.204Z [WARN]: verifyToken - no token provided for path: /users/1
+2026-06-02T18:04:44.970Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:04:44.971Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:04:44.971Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:04:45.674Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T18:05:12.759Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:05:12.760Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:05:12.761Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:05:13.418Z [WARN]: login error: Incorrect password
+2026-06-02T18:07:04.945Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:07:04.947Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:07:04.948Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:07:05.644Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T18:09:40.825Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:09:40.831Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:09:40.832Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:09:40.833Z [INFO]: in require role middleware
+2026-06-02T18:09:40.840Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:09:40.847Z [INFO]: getById users called with id: 1
+2026-06-02T18:09:40.851Z [INFO]: getById users successful for id: 1
+2026-06-02T18:11:48.897Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:11:48.901Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:11:48.902Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:11:48.904Z [INFO]: in require role middleware
+2026-06-02T18:11:48.917Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:11:48.921Z [INFO]: getById users called with id: 1
+2026-06-02T18:11:48.924Z [INFO]: getById users successful for id: 1
+2026-06-02T18:11:58.135Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:11:58.139Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:11:58.140Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:11:58.141Z [INFO]: in require role middleware
+2026-06-02T18:11:58.146Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:11:58.149Z [INFO]: getById users called with id: 1
+2026-06-02T18:11:58.151Z [INFO]: getById users successful for id: 1
+2026-06-02T18:12:17.172Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:12:17.175Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:12:17.176Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:12:17.177Z [INFO]: in require role middleware
+2026-06-02T18:12:17.183Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:12:17.185Z [INFO]: getById users called with id: 1
+2026-06-02T18:12:17.188Z [INFO]: getById users successful for id: 1
+2026-06-02T18:14:29.332Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:14:29.335Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:14:29.336Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:14:29.337Z [INFO]: in require role middleware
+2026-06-02T18:14:29.343Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:14:29.344Z [INFO]: getById users called with id: 1
+2026-06-02T18:14:29.349Z [INFO]: getById users successful for id: 1
+2026-06-02T18:19:43.527Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:19:43.531Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:19:43.531Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:19:43.532Z [INFO]: in require role middleware
+2026-06-02T18:19:43.536Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:19:43.538Z [INFO]: getById users called with id: 1
+2026-06-02T18:19:43.540Z [INFO]: getById users successful for id: 1
+2026-06-02T18:31:35.118Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:31:35.118Z [WARN]: verifyToken - no token provided for path: /users/1
+2026-06-02T18:33:49.252Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:33:49.253Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:33:49.253Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:33:49.649Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T18:33:51.874Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:33:51.878Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:33:51.879Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:33:51.881Z [INFO]: in require role middleware
+2026-06-02T18:33:51.890Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:33:51.895Z [INFO]: getById users called with id: 1
+2026-06-02T18:33:51.900Z [INFO]: getById users successful for id: 1
+2026-06-02T18:33:59.600Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:33:59.605Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:33:59.607Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:33:59.611Z [INFO]: in require role middleware
+2026-06-02T18:33:59.618Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:33:59.624Z [INFO]: getById users called with id: 1
+2026-06-02T18:33:59.628Z [INFO]: getById users successful for id: 1
+2026-06-02T18:34:14.648Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:34:14.650Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:34:14.651Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:34:14.651Z [INFO]: in require role middleware
+2026-06-02T18:34:14.654Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:34:14.656Z [INFO]: getById users called with id: 1
+2026-06-02T18:34:14.658Z [INFO]: getById users successful for id: 1
+2026-06-02T18:34:28.786Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:34:28.791Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:34:28.792Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:34:28.794Z [INFO]: in require role middleware
+2026-06-02T18:34:28.801Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:34:28.805Z [INFO]: getById users called with id: 1
+2026-06-02T18:34:28.809Z [INFO]: getById users successful for id: 1
+2026-06-02T18:36:02.356Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:36:02.360Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:36:02.361Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:36:02.364Z [INFO]: in require role middleware
+2026-06-02T18:36:02.372Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:36:02.376Z [INFO]: getById users called with id: 1
+2026-06-02T18:36:02.380Z [INFO]: getById users successful for id: 1
+2026-06-02T18:39:00.622Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:39:00.626Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:39:00.626Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:39:00.628Z [INFO]: in require role middleware
+2026-06-02T18:39:00.632Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:39:00.635Z [INFO]: getById users called with id: 1
+2026-06-02T18:39:00.638Z [INFO]: getById users successful for id: 1
+2026-06-02T18:40:30.097Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:40:30.100Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:40:30.100Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:40:30.101Z [INFO]: in require role middleware
+2026-06-02T18:40:30.104Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:40:30.106Z [INFO]: getById users called with id: 1
+2026-06-02T18:40:30.107Z [INFO]: getById users successful for id: 1
+2026-06-02T18:45:43.243Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:45:43.246Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:45:43.246Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:45:43.247Z [INFO]: in require role middleware
+2026-06-02T18:45:43.250Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:45:43.251Z [INFO]: getById users called with id: 1
+2026-06-02T18:45:43.252Z [INFO]: getById users successful for id: 1
+2026-06-02T18:46:09.085Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:46:09.087Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:46:09.088Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:46:09.088Z [INFO]: in require role middleware
+2026-06-02T18:46:09.091Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:46:09.094Z [INFO]: getById users called with id: 1
+2026-06-02T18:46:09.097Z [INFO]: getById users successful for id: 1
+2026-06-02T18:46:40.851Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:46:40.855Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:46:40.856Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:46:40.861Z [INFO]: in require role middleware
+2026-06-02T18:46:40.870Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:46:40.874Z [INFO]: getById users called with id: 1
+2026-06-02T18:46:40.876Z [INFO]: getById users successful for id: 1
+2026-06-02T18:48:26.298Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:48:26.304Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:48:26.305Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:48:26.308Z [INFO]: in require role middleware
+2026-06-02T18:48:26.319Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:48:26.329Z [INFO]: getById users called with id: 1
+2026-06-02T18:48:26.338Z [INFO]: getById users successful for id: 1
+2026-06-02T18:51:47.599Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:51:47.601Z [WARN]: verifyToken - no token provided for path: /users/1
+2026-06-02T18:52:00.189Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T18:52:00.189Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T18:52:00.190Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T18:52:00.606Z [INFO]: login successful for national id: 987654321 form institution: 123
+2026-06-02T18:52:02.348Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:52:02.351Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:52:02.353Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:52:02.356Z [INFO]: in require role middleware
+2026-06-02T18:52:02.365Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:52:02.370Z [INFO]: getById users called with id: 1
+2026-06-02T18:52:02.374Z [INFO]: getById users successful for id: 1

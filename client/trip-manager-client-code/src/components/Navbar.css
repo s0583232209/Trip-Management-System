@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.navbar-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .navbar-logo {
   width: 36px;
   height: 36px;

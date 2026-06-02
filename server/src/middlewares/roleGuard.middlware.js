@@ -20,6 +20,7 @@ export default function requireRole (...allowedRoles) {
       next();
     } catch (error) {
       console.log(error)
+      console.log("middleware error...................")
       return res.status(500).json({
         message: "Server error",
       });

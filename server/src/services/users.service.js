@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import * as usersRepo from "../repositories/users.repository.js";
 
 export async function getUserById(id) {
+  console.log("in get by id from service")
   const user = await usersRepo.getById(id);
   if (!user) throw new Error("User not found");
   return user;
@@ -15,7 +16,7 @@ export async function updateProfile(id, details) {
   return user;
 }
 
-export async function password(
+export async function changePassword(
   id,
   { currentPassword, newUsername, newPassword },
 ) {

@@ -3,7 +3,11 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import log from "../loggers/file.logger.js";
-import { getUserById, addUser } from "../controllers/users.controller.js";
+import {
+  getUserById,
+  updateProfile,
+  changePassword,
+} from "../controllers/users.controller.js";
 const router = express.Router();
 
 router.get("/", requireRole("principal"), (req, res) => {
@@ -14,15 +18,14 @@ router.get("/", requireRole("principal"), (req, res) => {
 router.get(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
-  (req, res) => {
-    if (req.body.userId != req.params.id && req.body.role != "principal")
-      res.status(401).send("access denied");
-    getUserById(req, res);
-  },
+  getUserById,
 );
-router.put("/:id", requireRole("principal"), (req, res) => {
-  res.send("users: update user");
-});
+// router.put(
+//   "/:id",
+//   requireRole("principal", "coordinator", "trip leader", "teacher"),
+//   changePassword,
+// );
+
 router.delete("/:id", requireRole("principal"), (req, res) => {
   res.send("users: delete user");
 });
@@ -30,8 +33,6 @@ router.post("/", requireRole("principal"), addUser);
 router.post(
   "/:id/change-password",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
-  (req, res) => {
-    res.send("users: change password");
-  },
+  changePassword,
 );
 export default router;

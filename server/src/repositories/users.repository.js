@@ -36,6 +36,7 @@ export async function getUserRolesOnTripDay(userId) {
 }
 export async function getById(id) {
   try {
+    console.log("get by id repository");
     log.info(`getById users called with id: ${id}`);
     const connection = await getConnection();
     const [rows] = await connection.execute(
@@ -126,7 +127,7 @@ export async function getPasswordByUserId(userId) {
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute(
-      `SELECT hashed_password AS hashedPassword FROM user_passwords WHERE user_id=? AND is_active=TRUE`,
+      `SELECT password_hash AS hashedPassword FROM user_passwords WHERE user_id=? AND is_active=TRUE`,
       [userId],
     );
     if (!rows[0]) throw new Error("Password not found");
@@ -165,23 +166,23 @@ export async function getAllPasswordsByUserId(userId) {
 //   }
 // }
 
-// export async function updatePassword(userId, hashedPassword) {
-//   try {
-//     const connection = await getConnection();
-//     await connection.execute(
-//       `UPDATE passwords SET is_active=FALSE WHERE user_id=?`,
-//       [userId],
-//     );
-//     const [result] = await connection.execute(
-//       `INSERT INTO passwords (user_id, hashed_password, is_active) VALUES (?, ?, TRUE)`,
-//       [userId, hashedPassword],
-//     );
-//     return result.affectedRows > 0;
-//   } catch (err) {
-//     log.error(`updatePassword error: ${err.message}`);
-//     throw err;
-//   }
-// }
+export async function updatePassword(userId, hashedPassword) {
+  try {
+    const connection = await getConnection();
+    await connection.execute(
+      `UPDATE user_passwords SET is_active=FALSE WHERE user_id=?`,
+      [userId],
+    );
+    const [result] = await connection.execute(
+      `INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE)`,
+      [userId, hashedPassword],
+    );
+    return result.affectedRows > 0;
+  } catch (err) {
+    log.error(`updatePassword error: ${err.message}`);
+    throw err;
+  }
+}
 
 export async function getUserById(nationalId, institutionNumber) {
   const connection = await getConnection();

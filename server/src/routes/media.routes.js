@@ -8,7 +8,7 @@ const router = express.Router({ mergeParams: true });
 router.get(
   "/",
   requireRole("principal", "coordinator", "trip leader", "teacher", "parent"),
-  res.message("in get all media"),
+  mediaController.getAllMedia,
 );
 
 router.post("/", requireRole("trip leader", "teacher"), () => {

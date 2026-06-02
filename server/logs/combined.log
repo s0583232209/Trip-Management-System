@@ -991,3 +991,34 @@
 2026-06-01T15:50:13.088Z [INFO]: change passwrod controller - userId: 3}
 2026-06-01T15:50:13.090Z [ERROR]: getPasswordByUserId error: Password not found
 2026-06-01T15:50:13.090Z [WARN]: change passwrod error: Password not found
+2026-06-02T12:34:33.496Z [INFO]: verifyToken - path: /auth/register
+2026-06-02T12:34:33.498Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T12:34:33.498Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-02T12:34:33.596Z [INFO]: Connected to MySQL at undefined
+2026-06-02T12:34:33.696Z [INFO]: in cotroller - sign up
+2026-06-02T12:34:34.011Z [INFO]: addUser called for user: ישראל ישראלי
+2026-06-02T12:34:34.025Z [ERROR]: addUser error: Duplicate entry '410011' for key 'schools.institution_number'
+2026-06-02T12:34:34.026Z [WARN]: register error: Duplicate entry '410011' for key 'schools.institution_number'
+2026-06-02T12:35:02.342Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T12:35:02.343Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T12:35:02.344Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T12:35:02.686Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T12:35:34.839Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T12:35:34.840Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T12:35:34.840Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T12:35:35.469Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T12:39:02.972Z [INFO]: verifyToken - path: /users
+2026-06-02T12:39:02.973Z [WARN]: verifyToken - no token provided for path: /users
+2026-06-02T12:39:21.385Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T12:39:21.386Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T12:39:21.386Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T12:39:21.976Z [WARN]: login error: Incorrect password
+2026-06-02T12:39:27.383Z [INFO]: verifyToken - path: /auth/login
+2026-06-02T12:39:27.384Z [INFO]: verifyToken - skipping auth routes
+2026-06-02T12:39:27.384Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-02T12:39:27.985Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-02T12:39:32.344Z [INFO]: verifyToken - path: /users
+2026-06-02T12:39:32.362Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T12:39:32.363Z [INFO]: user id:undefined, method:POST, url:/users
+2026-06-02T12:39:32.365Z [INFO]: in require role middleware
+2026-06-02T12:39:32.380Z [INFO]: roles for user id:1,  roles: principal

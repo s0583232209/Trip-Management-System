@@ -2,7 +2,7 @@
 
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
-import * as mediaController from "../controllers/media.controller.js";
+
 const router = express.Router({ mergeParams: true });
 
 router.get(

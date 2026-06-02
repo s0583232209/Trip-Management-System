@@ -1,20 +1,30 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./UserDetails.css";
+
 const defaultUserDetails = {
   fullName: "",
   nationalId: "",
   password: "",
   userEmail: "",
   userPhoneNumber: "",
+  role: "",
 };
 
 export default function UserDetails({ onSubmit }) {
+  const location = useLocation();
+  const isAuth = location.pathname.includes("auth");
+
   const [formData, setFormData] = useState(defaultUserDetails);
   const [errors, setErrors] = useState({});
 
   function updateField(event) {
     const { name, value } = event.target;
-    setFormData((currentData) => ({ ...currentData, [name]: value }));
+
+    setFormData((currentData) => ({
+      ...currentData,
+      [name]: value,
+    }));
   }
 
   const nameRegex = /^[\p{L}\s]{2,}$/u;
@@ -24,14 +34,41 @@ export default function UserDetails({ onSubmit }) {
 
   function submitForm(event) {
     event.preventDefault();
+
     const newErrors = {};
-    if (!nameRegex.test(formData.fullName)) newErrors.fullName = "שם מלא חייב להכיל לפחות 2 אותיות בלבד";
-    if (!nationalIdRegex.test(formData.nationalId)) newErrors.nationalId = "מספר תעודת זהות חייב להכיל 9 ספרות בדיוק";
-    if (!passwordRegex.test(formData.password)) newErrors.password = "הסיסמה חייבת להכיל לפחות 6 תווים, אות אחת ומספר אחד";
-    if (formData.userEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)) newErrors.userEmail = "כתובת אימייל לא תקינה";
-    if (formData.userPhoneNumber && !phoneRegex.test(formData.userPhoneNumber)) newErrors.userPhoneNumber = "מספר טלפון לא תקין";
+
+    if (!nameRegex.test(formData.fullName)) {
+      newErrors.fullName = "שם מלא חייב להכיל לפחות 2 אותיות בלבד";
+    }
+
+    if (!nationalIdRegex.test(formData.nationalId)) {
+      newErrors.nationalId = "מספר תעודת זהות חייב להכיל 9 ספרות בדיוק";
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      newErrors.password =
+        "הסיסמה חייבת להכיל לפחות 6 תווים, אות אחת ומספר אחד";
+    }
+
+    if (
+      formData.userEmail &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)
+    ) {
+      newErrors.userEmail = "כתובת אימייל לא תקינה";
+    }
+
+    if (
+      formData.userPhoneNumber &&
+      !phoneRegex.test(formData.userPhoneNumber)
+    ) {
+      newErrors.userPhoneNumber = "מספר טלפון לא תקין";
+    }
+
     setErrors(newErrors);
-    if (Object.keys(newErrors).length === 0) onSubmit(formData);
+
+    if (Object.keys(newErrors).length === 0) {
+      onSubmit(formData);
+    }
   }
 
   return (
@@ -41,7 +78,7 @@ export default function UserDetails({ onSubmit }) {
         type="text"
         id="fullName"
         name="fullName"
-        autoComplete="שם מלא"
+        autoComplete="name"
         value={formData.fullName}
         onChange={updateField}
       />
@@ -52,7 +89,7 @@ export default function UserDetails({ onSubmit }) {
         type="text"
         id="nationalId"
         name="nationalId"
-        autoComplete="מספר תעודת זהות"
+        autoComplete="username"
         value={formData.nationalId}
         onChange={updateField}
       />
@@ -63,7 +100,7 @@ export default function UserDetails({ onSubmit }) {
         type="password"
         id="password"
         name="password"
-        autoComplete="סיסמה"
+        autoComplete="current-password"
         value={formData.password}
         onChange={updateField}
       />
@@ -89,7 +126,26 @@ export default function UserDetails({ onSubmit }) {
         value={formData.userPhoneNumber}
         onChange={updateField}
       />
-      {errors.userPhoneNumber && <p className="error">{errors.userPhoneNumber}</p>}
+      {errors.userPhoneNumber && (
+        <p className="error">{errors.userPhoneNumber}</p>
+      )}
+
+      {!isAuth && (
+        <>
+          <label htmlFor="userRole">תפקיד</label>
+          <select
+            id="userRole"
+            name="role"
+            value={formData.role}
+            onChange={updateField}
+          >
+            <option value="">בחר תפקיד</option>
+            <option value="coordinator">רכז טיולים</option>
+            <option value="trip leader">אחראי טיול</option>
+            <option value="teacher">מורה</option>
+          </select>
+        </>
+      )}
 
       <button type="submit">צור חשבון</button>
     </form>

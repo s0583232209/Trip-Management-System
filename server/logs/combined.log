@@ -1206,3 +1206,10 @@
 2026-06-02T18:52:02.365Z [INFO]: roles for user id:1,  roles: principal
 2026-06-02T18:52:02.370Z [INFO]: getById users called with id: 1
 2026-06-02T18:52:02.374Z [INFO]: getById users successful for id: 1
+2026-06-02T18:54:41.267Z [INFO]: verifyToken - path: /users/1
+2026-06-02T18:54:41.268Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-02T18:54:41.269Z [INFO]: user id:undefined, method:GET, url:/users/1
+2026-06-02T18:54:41.269Z [INFO]: in require role middleware
+2026-06-02T18:54:41.272Z [INFO]: roles for user id:1,  roles: principal
+2026-06-02T18:54:41.272Z [INFO]: getById users called with id: 1
+2026-06-02T18:54:41.274Z [INFO]: getById users successful for id: 1

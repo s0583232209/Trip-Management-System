@@ -249,10 +249,7 @@ export default function InfoPopup({ onClose = () => {}, inline = false }) {
           <div className="ip-section-head">
             <span className="ip-section-label">סיסמה</span>
             {!credOpen && (
-              <button
-                className="ip-edit-btn"
-                onClick={() => setCredOpen(true)}
-              >
+              <button className="ip-edit-btn" onClick={() => setCredOpen(true)}>
                 שינוי
               </button>
             )}

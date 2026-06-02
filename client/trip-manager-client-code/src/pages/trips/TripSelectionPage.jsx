@@ -16,7 +16,9 @@ export default function TripSelectionPage() {
       <Navbar />
       <main className="page-main">
         <h1 className="page-title">בחר טיול</h1>
-        <p>בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.</p>
+        <p>
+          בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.
+        </p>
         <div className="trips-cards">
           {sampleTrips.map((trip) => (
             <button

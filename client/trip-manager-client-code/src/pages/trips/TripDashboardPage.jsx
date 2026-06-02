@@ -13,10 +13,16 @@ export default function TripDashboardPage() {
         <h1 className="page-title">טיול {tripId}</h1>
         <p>בחר אם אתה רוצה להמשיך אל תכנון טיול או אל יום טיול.</p>
         <div className="trips-cards">
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/planning`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/planning`)}
+          >
             תכנון טיול
           </button>
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/day`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/day`)}
+          >
             יום טיול
           </button>
         </div>

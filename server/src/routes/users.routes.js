@@ -3,7 +3,7 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import log from "../loggers/file.logger.js";
-import { getUserById } from "../controllers/users.controller.js";
+import { getUserById, addUser } from "../controllers/users.controller.js";
 const router = express.Router();
 
 router.get("/", requireRole("principal"), (req, res) => {
@@ -26,9 +26,7 @@ router.put("/:id", requireRole("principal"), (req, res) => {
 router.delete("/:id", requireRole("principal"), (req, res) => {
   res.send("users: delete user");
 });
-router.post("/", requireRole("principal"), (req, res) => {
-  res.send("users: post add user");
-});
+router.post("/", requireRole("principal"), addUser);
 router.post(
   "/:id/change-password",
   requireRole("principal", "coordinator", "trip leader", "teacher"),

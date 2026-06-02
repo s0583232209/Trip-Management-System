@@ -36,3 +36,16 @@ export async function updateCredentials(req, res) {
     res.status(err.status || 500).json({ message: err.message });
   }
 }
+export async function addUser(req, res) {
+  try {
+    if (req.body.role === "principal")
+      res
+        .status("401")
+        .message("Bad Request: you can not add another principal");
+    const user = await usersService.addUser(req.body);
+    res.status(200).json(user);
+  } catch (err) {
+    log.warn(`addUser error: ${err.message}`);
+    res.status(500).json({ message: "Failed to add user" });
+  }
+}

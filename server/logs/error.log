@@ -34,3 +34,4 @@
 2026-06-01T15:36:51.942Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 2026-06-01T15:50:13.090Z [ERROR]: getPasswordByUserId error: Password not found
 2026-06-02T12:34:34.025Z [ERROR]: addUser error: Duplicate entry '410011' for key 'schools.institution_number'
+2026-06-02T16:25:37.625Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)

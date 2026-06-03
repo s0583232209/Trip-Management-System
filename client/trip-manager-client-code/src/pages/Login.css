@@ -91,6 +91,62 @@
   background: var(--sky-mid);
 }
 
+/* Back button uses the same visual style as the primary submit button */
+.auth-form-panel .auth-back-button {
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--sky-dark);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: 'Rubik', Arial, sans-serif;
+  transition: background 0.2s;
+}
+.auth-form-panel .auth-back-button:hover {
+  background: var(--sky-mid);
+}
+
+/* Center action buttons (back + submit) and add spacing */
+.auth-form-panel .form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.auth-form-panel .form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+/* Unified action buttons: share available space so they stay on the same row */
+.auth-form-panel .form-actions button {
+  padding: 10px 14px;
+  flex: 1 1 120px;
+  max-width: 220px;
+  min-width: 110px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin: 0;
+}
+.auth-form-panel .form-actions button[type="submit"] {
+  grid-column: auto !important;
+  margin-top: 0 !important;
+}
+
 .errorLog, .error {
   grid-column: 1 / -1;
   color: #c0392b;
@@ -126,4 +182,15 @@
 @media (max-width: 520px) {
   .auth-form-panel { padding: 28px 18px; }
   .auth-form-panel form { grid-template-columns: 1fr; }
+}
+
+/* On very small screens stack the action buttons */
+@media (max-width: 420px) {
+  .auth-form-panel .form-actions { flex-direction: column; gap: 10px; }
+  .auth-form-panel .form-actions button { width: 100%; max-width: none; }
+}
+
+/* Prevent label for school email from wrapping to a new line */
+.auth-form-panel label[for="schoolEmail"] {
+  white-space: nowrap;
 }

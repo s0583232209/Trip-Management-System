@@ -9,7 +9,11 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
-    if (status === 401) {
+    const requestUrl = error.config?.url || "";
+    const isLoginRequest = requestUrl.includes("/api/auth/login");
+    const isAlreadyLoginPage = window.location.pathname === "/login";
+
+    if (status === 401 && !isLoginRequest && !isAlreadyLoginPage) {
       window.location.href = "/login";
     } else if (status === 403) {
       window.location.href = "/access_denied";

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./UserDetails.css";
 
@@ -11,12 +11,23 @@ const defaultUserDetails = {
   role: "",
 };
 
-export default function UserDetails({ onSubmit }) {
+export default function UserDetails({
+  onSubmit,
+  onBack,
+  hideRoleSelect,
+  initialData,
+}) {
   const location = useLocation();
   const isAuth = location.pathname.includes("auth");
 
-  const [formData, setFormData] = useState(defaultUserDetails);
+  const [formData, setFormData] = useState(initialData || defaultUserDetails);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   function updateField(event) {
     const { name, value } = event.target;
@@ -31,6 +42,12 @@ export default function UserDetails({ onSubmit }) {
   const nationalIdRegex = /^\d{9}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[\p{L}])[\p{L}\d\S]{6,}$/u;
   const phoneRegex = /^\+?[\d\s-]{7,15}$/;
+
+  function handleBack() {
+    if (onBack) {
+      onBack(formData);
+    }
+  }
 
   function submitForm(event) {
     event.preventDefault();
@@ -79,6 +96,8 @@ export default function UserDetails({ onSubmit }) {
         id="fullName"
         name="fullName"
         autoComplete="name"
+        placeholder="*"
+        required
         value={formData.fullName}
         onChange={updateField}
       />
@@ -90,6 +109,8 @@ export default function UserDetails({ onSubmit }) {
         id="nationalId"
         name="nationalId"
         autoComplete="username"
+        placeholder="*"
+        required
         value={formData.nationalId}
         onChange={updateField}
       />
@@ -101,6 +122,8 @@ export default function UserDetails({ onSubmit }) {
         id="password"
         name="password"
         autoComplete="current-password"
+        placeholder="*"
+        required
         value={formData.password}
         onChange={updateField}
       />
@@ -130,7 +153,7 @@ export default function UserDetails({ onSubmit }) {
         <p className="error">{errors.userPhoneNumber}</p>
       )}
 
-      {!isAuth && (
+      {!isAuth && !hideRoleSelect && (
         <>
           <label htmlFor="userRole">תפקיד</label>
           <select
@@ -147,7 +170,18 @@ export default function UserDetails({ onSubmit }) {
         </>
       )}
 
-      <button type="submit">צור חשבון</button>
+      <div className="form-actions">
+        {onBack && (
+          <button
+            type="button"
+            onClick={handleBack}
+            className="auth-back-button"
+          >
+            חזרה
+          </button>
+        )}
+        <button type="submit">צור חשבון</button>
+      </div>
     </form>
   );
 }

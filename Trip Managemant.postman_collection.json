@@ -1,0 +1,169 @@
+{
+  "info": {
+    "_postman_id": "c098a6d7-eead-4eb4-8926-8b79d91c080d",
+    "name": "Trip Managemant",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54322976",
+    "_collection_link": "https://go.postman.co/collection/54322976-c098a6d7-eead-4eb4-8926-8b79d91c080d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create User - מנהל מוסד",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"schoolName\": \"שם מוסד\",\n  \"institutionNumber\": 123,\n  \"password\": \"Test1234!\",\n  \"city\": \"ירושלים\",\n  \"contactEmail\":\"Yossi@cohen.com\",\n  \"fullName\": \"שם מנהל מוסד\",\n  \"email\": \"email@gmail.com\",\n  \"nationalId\":123456789,\n  \"phoneNumber\":\"1234567890\",\n  \"role\":\"principal\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/logout",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "logout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "יצירת חשבון בית ספרי + מנהל מוסד",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"ישראל ישראלי\",\n  \"nationalId\": \"123456789\",\n  \"userEmail\": \"israel@example.com\",\n  \"email\": \"school@example.com\",\n  \"userPhoneNumber\": \"0501234567\",\n  \"password\": \"aaa111\",\n  \"role\": \"principal\",\n  \"name\": \"בית ספר אורט\",\n  \"institutionNumber\": 410011,\n  \"city\": \"תל אביב\",\n  \"street\": \"הרצל\",\n  \"houseNumber\": 5,\n  \"postalCode\": 6100000\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"John Doe\",\r\n  \"nationalId\": \"111111111\",\r\n  \"password\": \"Password123\",\r\n  \"userEmail\": \"john.doe@example.com\",\r\n  \"userPhoneNumber\": \"+972501234567\",\r\n  \"role\": \"teacher\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get all trips",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/trips",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "trips"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get all media",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/media",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "media"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add trip",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"schoolId\": 1,\r\n  \"tripLeaderId\": 123,\r\n  \"title\": \"Annual Science Trip\",\r\n  \"tripDate\": \"2026-06-15\",\r\n  \"tripStatus\": \"Scheduled\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/trips",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "trips"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

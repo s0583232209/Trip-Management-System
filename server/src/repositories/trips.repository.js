@@ -28,13 +28,18 @@ export async function getById(tripId, userId) {
   log.info(`getTripById : ${tripId}`);
   return rows;
 }
-export default async function addTrip(tripDetails) {
+export async function addTrip(tripDetails) {
   const connection = await getConnection();
-  const [row] = connection.execute(
+  const [row] = await connection.execute(
+    "SELECT id FROM users WHERE national_id=?",
+    [tripDetails.tripLeaderId],
+  );
+  if (!row) throw "no such user - tring to assign to the trip leader";
+  const [rows] = connection.execute(
     `INSERT INTO trips (school_id, trip_leader_id, title, trip_date, trip_status, route_geojson, parent_token) VALUES (?,?,?,?,?,?,?)`,
     [
       tripDetails.schoolId,
-      tripDetails.tripLeaderId,
+      row.id,
       tripDetails.title,
       tripDetails.tripDate,
       tripDetails.tripStatus,
@@ -42,5 +47,27 @@ export default async function addTrip(tripDetails) {
       tripDetails.parentToken,
     ],
   );
+  return rows;
+}
+export async function updateTrip(updateDetails) {
+  const connection = await getConnection();
+  const [id] = await connection.execute(
+    `SELECT id FROM users WHERE nationalId=?`,
+    [updateDetails.tripLeaderNationalId],
+  );
+  const [row] = await connection.execute(
+    `UPDATE trips SET (trip_leader_id,title,trip_date,trip_status,route_geojson)(?,?,?,?,?) WHERE id=?`,
+    [
+      id,
+      updateDetails.title,
+      updateDetails.tripStatus,
+      updateDetails.routeGeoJson,
+    ],
+  );
   return row;
+}
+export async function deleteTrip(tripId) {
+  const connection = getConnection();
+  const response = connection.execute(`DELETE FROM trips WHERE id=?`, [tirpId]);
+  return response;
 }

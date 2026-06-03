@@ -22,14 +22,33 @@ export async function getById(req, res) {
     res.status(500).json({ message: "Failed to get trip by id" });
   }
 }
-export async function addTrip(req, res) {
-  try {
-  } catch (err) {}
-}
+
 export async function createTrip(req, res) {
   try {
     const newTrip = await tripsService.addTrip(req.body);
     log.info(`new trip added successfully`);
     res.status(201).json(newTrip);
-  } catch (err) {}
+  } catch (err) {
+    log.warn(`creating trip failed`);
+    res.status(500).message(err.message);
+  }
+}
+export async function updateTrip(req, res) {
+  try {
+    const updatedTrip = await tripsService.updateTrip(req.body);
+    log.info(`update trip successfully, trip id: ${updateTrip.id}`);
+  } catch (err) {
+    log.warn(`updating trip failed`);
+    res.status(500).message("Updating failed");
+  }
+}
+export async function deleteTrip(req, res) {
+  try {
+    const response = await tripsService.deleteTrip(req.body.tripId);
+    log.info(`trip with id: ${req.body.tripId} deleted successfully`);
+    res.status(201).message("Trip deleted successfully");
+  } catch (err) {
+    log.warn(`deleting trip failed, from deleteTrip in trips.controller`);
+    res.status(500).message(err.message);
+  }
 }

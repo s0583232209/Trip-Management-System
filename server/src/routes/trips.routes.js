@@ -10,7 +10,7 @@ router.get(
 router.post(
   "/",
   requireRole("principal", "coordinator"),
-  tripsController.addTrip,
+  tripsController.createTrip,
 );
 router.get(
   "/:id",

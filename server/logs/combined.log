@@ -18,3 +18,8 @@
 2026-06-02T19:09:13.787Z [INFO]: roles for user id:1,  roles: principal
 2026-06-02T19:09:13.793Z [INFO]: getById users called with id: 1
 2026-06-02T19:09:13.800Z [INFO]: getById users successful for id: 1
+2026-06-03T15:03:44.302Z [INFO]: verifyToken - path: /auth/login
+2026-06-03T15:03:44.305Z [INFO]: verifyToken - skipping auth routes
+2026-06-03T15:03:44.306Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-03T15:03:44.567Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-03T15:03:45.241Z [INFO]: login successful for national id: 123456789 form institution: 410011

@@ -35,3 +35,26 @@
 2026-06-01T15:50:13.090Z [ERROR]: getPasswordByUserId error: Password not found
 2026-06-02T12:34:34.025Z [ERROR]: addUser error: Duplicate entry '410011' for key 'schools.institution_number'
 2026-06-02T16:25:37.625Z [ERROR]: Database connection failed: Access denied for user ''@'localhost' (using password: NO)
+2026-06-04T11:10:39.891Z [ERROR]: getById users error: User not found
+2026-06-04T11:14:26.138Z [ERROR]: getById users error: id is not defined
+2026-06-04T12:33:12.975Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-04T12:34:46.468Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-04T12:39:59.908Z [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-04T12:45:19.054Z [ERROR]: addUser error: Duplicate entry '123456' for key 'schools.institution_number'
+2026-06-04T12:45:28.711Z [ERROR]: addUser error: Duplicate entry '123456789' for key 'users.national_id'
+2026-06-04T12:45:40.894Z [ERROR]: addUser error: Duplicate entry '123455' for key 'schools.institution_number'
+2026-06-04T12:45:50.870Z [ERROR]: addUser error: Duplicate entry 'email@email.com' for key 'users.email'
+2026-06-04T12:45:59.101Z [ERROR]: addUser error: Duplicate entry '123123' for key 'schools.institution_number'
+2026-06-04T15:52:07.370Z [ERROR]: getById users error: User not found
+2026-06-04T17:54:45.432Z [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-04T17:56:52.420Z [ERROR]: getById users error: User not found
+2026-06-04T17:58:17.875Z [ERROR]: getById users error: User not found
+2026-06-04T17:58:51.527Z [ERROR]: getById users error: User not found
+2026-06-04T18:09:58.836Z [ERROR]: getById users error: User not found
+2026-06-04T18:10:38.254Z [ERROR]: getById users error: User not found
+2026-06-04T18:11:20.925Z [ERROR]: getById users error: User not found
+2026-06-04T18:13:44.059Z [ERROR]: getById users error: User not found
+2026-06-04T18:16:15.378Z [ERROR]: getById users error: User not found
+2026-06-04T18:18:36.951Z [ERROR]: getById users error: User not found
+2026-06-04T18:20:01.061Z [ERROR]: getById users error: User not found
+2026-06-04T18:20:42.230Z [ERROR]: getById users error: User not found

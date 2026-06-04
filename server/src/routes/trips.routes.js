@@ -21,6 +21,11 @@ router.delete("/:id", requireRole("principal", "coordinator"), (req, res) => {
   res.send("trips: delete by id");
 });
 router.put(
+  "/:id",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  tripsController.updateTrip,
+);
+router.put(
   "/:id/approve",
   requireRole("principal", "coordinator"),
   (req, res) => {

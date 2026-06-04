@@ -19,7 +19,10 @@ export async function getById(tripId, userId) {
 }
 export async function addTrip(tripDetails) {
   try {
-    const [school_id] = await getById(tripDetails.tripLeaderId);
+    const { school_id } = await usersRepo.getByNationalId(
+      tripDetails.tripLeaderId,
+    );
+    log.info(`the school id from add trip is: ${school_id}`);
     const newTrip = await tripsRepo.addTrip({
       schoolId: school_id,
       ...tripDetails,
@@ -33,13 +36,18 @@ export async function addTrip(tripDetails) {
 }
 export async function updateTrip(tripDetails) {
   try {
-    const [id] = await usersRepo.getById(tripDetails.tripLeaderNationalId);
+    const res = await usersRepo.getByNationalId(
+      tripDetails.tripLeaderNationalId,
+    );
+    console.log(res, "this is res in service")
     const updatedTrip = await tripsRepo.updateTrip({
-      tripLeaderId: id,
+      tripLeaderId: res.id,
       ...tripDetails,
     });
     return updateTrip;
   } catch (err) {
+    console.log(err, "this is the err in update trip service");
+    console.log(tripDetails, "this is the trip details in service");
     log.warn(
       `error: ${err.message}, from function updateTrip in trips.service`,
     );

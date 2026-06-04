@@ -2,6 +2,7 @@
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
+import * as usersRepo from "./users.repository.js";
 export async function getAll(userId) {
   const connection = await getConnection();
   const [rows] = await connection.execute(
@@ -30,44 +31,52 @@ export async function getById(tripId, userId) {
 }
 export async function addTrip(tripDetails) {
   const connection = await getConnection();
-  const [row] = await connection.execute(
+  const objectForRow = await connection.execute(
     "SELECT id FROM users WHERE national_id=?",
     [tripDetails.tripLeaderId],
   );
-  if (!row) throw "no such user - tring to assign to the trip leader";
-  const [rows] = connection.execute(
+  console.log(objectForRow, "this is the object for the trip leader");
+  const row = objectForRow[0];
+  console.log(row);
+  if (!row[0]) throw "no such user - tring to assign to the trip leader";
+  console.log(tripDetails, row[0].id);
+  const [rows] = await connection.execute(
     `INSERT INTO trips (school_id, trip_leader_id, title, trip_date, trip_status, route_geojson, parent_token) VALUES (?,?,?,?,?,?,?)`,
     [
       tripDetails.schoolId,
-      row.id,
-      tripDetails.title,
-      tripDetails.tripDate,
-      tripDetails.tripStatus,
-      tripDetails.routeGeoJson,
-      tripDetails.parentToken,
+      row[0].id,
+      tripDetails.title || null,
+      tripDetails.tripDate || null,
+      tripDetails.status || null,
+      tripDetails.routeGeoJson || null,
+      tripDetails.parentToken || null,
     ],
   );
+  console.log(rows, "end of add trip in service");
   return rows;
 }
 export async function updateTrip(updateDetails) {
   const connection = await getConnection();
-  const [id] = await connection.execute(
-    `SELECT id FROM users WHERE nationalId=?`,
-    [updateDetails.tripLeaderNationalId],
+  console.log(updateDetails, "updateDetails in repo");
+  const { id } = await usersRepo.getByNationalId(
+    updateDetails.tripLeaderNationalId,
   );
-  const [row] = await connection.execute(
-    `UPDATE trips SET (trip_leader_id,title,trip_date,trip_status,route_geojson)(?,?,?,?,?) WHERE id=?`,
+  console.log(updateDetails, "update details,", id, "id");
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
     [
       id,
       updateDetails.title,
-      updateDetails.tripStatus,
-      updateDetails.routeGeoJson,
+      updateDetails.tripDate || null,
+      updateDetails.routeGeoJson || null,
+      updateDetails.tripId,
     ],
   );
-  return row;
+  console.log(rows, "rows from update trip repo");
+  return rows;
 }
 export async function deleteTrip(tripId) {
-  const connection = getConnection();
+  const connection = await getConnection();
   const response = connection.execute(`DELETE FROM trips WHERE id=?`, [tirpId]);
   return response;
 }

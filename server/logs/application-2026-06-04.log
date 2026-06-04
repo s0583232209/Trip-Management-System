@@ -1,23 +1,3 @@
-
-2026-06-02T19:08:35.763Z [INFO]: verifyToken - path: /auth/login
-2026-06-02T19:08:35.766Z [INFO]: verifyToken - skipping auth routes
-2026-06-02T19:08:35.768Z [INFO]: user id:undefined, method:POST, url:/auth/login
-2026-06-02T19:08:35.847Z [INFO]: Connected to MySQL at 127.0.0.1
-2026-06-02T19:08:36.600Z [INFO]: login successful for national id: 123456789 form institution: 410011
-2026-06-02T19:08:39.717Z [INFO]: verifyToken - path: /users/1
-2026-06-02T19:08:39.723Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
-2026-06-02T19:08:39.724Z [INFO]: user id:undefined, method:GET, url:/users/1
-2026-06-02T19:08:39.726Z [INFO]: in require role middleware
-2026-06-02T19:08:39.747Z [INFO]: roles for user id:1,  roles: principal
-2026-06-02T19:08:39.752Z [INFO]: getById users called with id: 1
-2026-06-02T19:08:39.760Z [INFO]: getById users successful for id: 1
-2026-06-02T19:09:13.772Z [INFO]: verifyToken - path: /users/1
-2026-06-02T19:09:13.775Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
-2026-06-02T19:09:13.776Z [INFO]: user id:undefined, method:GET, url:/users/1
-2026-06-02T19:09:13.778Z [INFO]: in require role middleware
-2026-06-02T19:09:13.787Z [INFO]: roles for user id:1,  roles: principal
-2026-06-02T19:09:13.793Z [INFO]: getById users called with id: 1
-2026-06-02T19:09:13.800Z [INFO]: getById users successful for id: 1
 2026-06-04T11:01:13.311Z [INFO]: verifyToken - path: /trips
 2026-06-04T11:01:13.314Z [WARN]: verifyToken - no token provided for path: /trips
 2026-06-04T11:01:19.114Z [INFO]: verifyToken - path: /auth/login

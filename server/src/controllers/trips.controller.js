@@ -30,7 +30,7 @@ export async function createTrip(req, res) {
     res.status(201).json(newTrip);
   } catch (err) {
     log.warn(`creating trip failed`);
-    res.status(500).message(err.message);
+    res.status(500).json(err.message);
   }
 }
 export async function updateTrip(req, res) {
@@ -39,16 +39,16 @@ export async function updateTrip(req, res) {
     log.info(`update trip successfully, trip id: ${updateTrip.id}`);
   } catch (err) {
     log.warn(`updating trip failed`);
-    res.status(500).message("Updating failed");
+    res.status(500).json("Updating failed");
   }
 }
 export async function deleteTrip(req, res) {
   try {
     const response = await tripsService.deleteTrip(req.body.tripId);
     log.info(`trip with id: ${req.body.tripId} deleted successfully`);
-    res.status(201).message("Trip deleted successfully");
+    res.status(201).json("Trip deleted successfully");
   } catch (err) {
     log.warn(`deleting trip failed, from deleteTrip in trips.controller`);
-    res.status(500).message(err.message);
+    res.status(500).json(err.message);
   }
 }

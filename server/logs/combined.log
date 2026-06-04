@@ -1172,6 +1172,177 @@
 2026-06-04T18:54:07.457Z [INFO]: getById users called with national id: 123456789
 2026-06-04T18:54:07.460Z [INFO]: getById users successful for national id: 123456789
 2026-06-04T18:54:07.556Z [INFO]: update trip successfully, trip id: undefined
+2026-06-04T19:49:02.793Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:49:02.798Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:49:02.799Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:49:02.959Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:49:04.056Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:49:18.790Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:49:18.797Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:49:18.798Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:49:18.801Z [INFO]: in require role middleware
+2026-06-04T19:49:18.816Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:49:18.819Z [WARN]: error: authService is not defined, from approveTrip in trips.service
+2026-06-04T19:49:18.820Z [WARN]: approving trip failed
+2026-06-04T19:50:50.211Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:50:50.214Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:50:50.215Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:50:50.237Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:50:50.897Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:50:57.399Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:50:57.402Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:50:57.403Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:50:57.405Z [INFO]: in require role middleware
+2026-06-04T19:50:57.416Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:50:57.419Z [WARN]: error: authService is not defined, from approveTrip in trips.service
+2026-06-04T19:50:57.419Z [WARN]: approving trip failed
+2026-06-04T19:51:23.642Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:51:23.645Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:51:23.646Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:51:23.659Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:51:24.174Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:51:30.408Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:51:30.412Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:51:30.413Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:51:30.416Z [INFO]: in require role middleware
+2026-06-04T19:51:30.425Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:51:30.428Z [WARN]: error: tripId is not defined, from approveTrip in trips.service
+2026-06-04T19:51:30.429Z [WARN]: approving trip failed
+2026-06-04T19:52:43.492Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:52:43.495Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:52:43.496Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:52:43.517Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:52:44.119Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:52:46.260Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:52:46.264Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:52:46.264Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:52:46.267Z [INFO]: in require role middleware
+2026-06-04T19:52:46.276Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:52:46.282Z [WARN]: error: tripId is not defined, from approveTrip in trips.service
+2026-06-04T19:52:46.282Z [WARN]: approving trip failed
+2026-06-04T19:53:28.759Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:53:28.763Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:53:28.764Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:53:28.795Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:53:29.421Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:53:32.473Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:53:32.477Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:53:32.478Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:53:32.480Z [INFO]: in require role middleware
+2026-06-04T19:53:32.489Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:53:32.494Z [WARN]: error: authService.getParentToken is not a function, from approveTrip in trips.service
+2026-06-04T19:53:32.494Z [WARN]: approving trip failed
+2026-06-04T19:54:24.705Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:54:24.707Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:54:24.708Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:54:24.718Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:54:25.039Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:54:27.246Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:54:27.251Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:54:27.252Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:54:27.254Z [INFO]: in require role middleware
+2026-06-04T19:54:27.262Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:54:27.266Z [WARN]: error: authService.getParentToken is not a function, from approveTrip in trips.service
+2026-06-04T19:54:27.266Z [WARN]: approving trip failed
+2026-06-04T19:55:22.356Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:55:22.360Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:55:22.361Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:55:22.394Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:55:23.031Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:55:24.985Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:55:24.989Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:55:24.990Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:55:24.992Z [INFO]: in require role middleware
+2026-06-04T19:55:24.998Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:55:25.016Z [WARN]: error: Unknown column 'parent_toke' in 'field list', from approveTrip in trips.service
+2026-06-04T19:55:25.017Z [WARN]: approving trip failed
+2026-06-04T19:55:53.891Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:55:53.894Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:55:53.895Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:55:53.904Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:55:54.259Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:55:55.681Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:55:55.686Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:55:55.687Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:55:55.690Z [INFO]: in require role middleware
+2026-06-04T19:55:55.699Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:55:55.726Z [WARN]: error: Incorrect integer value: 'approved' for column 'trip_status' at row 1, from approveTrip in trips.service
+2026-06-04T19:55:55.727Z [WARN]: approving trip failed
+2026-06-04T19:57:57.625Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T19:57:57.629Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T19:57:57.630Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T19:57:57.692Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T19:57:58.315Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T19:58:02.001Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T19:58:02.006Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T19:58:02.007Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T19:58:02.010Z [INFO]: in require role middleware
+2026-06-04T19:58:02.023Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T19:58:02.040Z [WARN]: error: Data too long for column 'parent_token' at row 1, from approveTrip in trips.service
+2026-06-04T19:58:02.041Z [WARN]: approving trip failed
+2026-06-04T20:03:15.195Z [INFO]: verifyToken - path: /auth/register
+2026-06-04T20:03:15.200Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T20:03:15.202Z [INFO]: user id:undefined, method:POST, url:/auth/register
+2026-06-04T20:03:15.292Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T20:03:15.410Z [INFO]: in cotroller - sign up
+2026-06-04T20:03:15.981Z [INFO]: addUser called for user: ישראל ישראלי
+2026-06-04T20:03:16.033Z [INFO]: addUser successful, user id: 1
+2026-06-04T20:03:16.089Z [INFO]: register successful for national id: 123456789
+2026-06-04T20:03:42.659Z [INFO]: verifyToken - path: /trips/
+2026-06-04T20:03:42.662Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-04T20:03:42.663Z [INFO]: user id:undefined, method:POST, url:/trips/
+2026-06-04T20:03:42.665Z [INFO]: in require role middleware
+2026-06-04T20:03:42.677Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T20:03:42.679Z [INFO]: getById users called with national id: undefined
+2026-06-04T20:03:42.680Z [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+2026-06-04T20:03:42.680Z [WARN]: error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null, from function addTrip in trips.service
+2026-06-04T20:03:42.681Z [WARN]: creating trip failed
+2026-06-04T20:04:01.208Z [INFO]: verifyToken - path: /trips
+2026-06-04T20:04:01.209Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-04T20:04:01.209Z [INFO]: user id:undefined, method:POST, url:/trips
+2026-06-04T20:04:01.210Z [INFO]: in require role middleware
+2026-06-04T20:04:01.213Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T20:04:01.214Z [INFO]: getById users called with national id: 123456789
+2026-06-04T20:04:01.217Z [INFO]: getById users successful for national id: 123456789
+2026-06-04T20:04:01.218Z [INFO]: the school id from add trip is: 1
+2026-06-04T20:04:01.237Z [INFO]: trip added successfully
+2026-06-04T20:04:01.237Z [INFO]: new trip added successfully
+2026-06-04T20:04:32.752Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T20:04:32.754Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-04T20:04:32.754Z [INFO]: user id:undefined, method:POST, url:/trips/1/approve
+2026-06-04T20:04:44.318Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T20:04:44.320Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-04T20:04:44.321Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T20:04:44.322Z [INFO]: in require role middleware
+2026-06-04T20:04:44.326Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T20:04:44.336Z [INFO]: approved trip with id: 1
+2026-06-04T20:04:44.337Z [INFO]: trip with id: 1 approved successfully
+2026-06-04T20:04:44.338Z [WARN]: approving trip failed
+2026-06-04T20:06:15.400Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T20:06:15.402Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T20:06:15.403Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T20:06:15.450Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T20:06:15.921Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T20:06:18.624Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T20:06:18.629Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T20:06:18.630Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T20:06:18.632Z [INFO]: in require role middleware
+2026-06-04T20:06:18.643Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T20:06:18.656Z [INFO]: approved trip with id: 1
+2026-06-04T20:06:18.658Z [INFO]: trip with id: 1 approved successfully
+2026-06-04T20:06:18.659Z [WARN]: approving trip failed
+2026-06-04T20:11:57.566Z [INFO]: verifyToken - path: /auth/login
+2026-06-04T20:11:57.570Z [INFO]: verifyToken - skipping auth routes
+2026-06-04T20:11:57.571Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-04T20:11:57.636Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-04T20:11:58.358Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-04T20:12:01.465Z [INFO]: verifyToken - path: /trips/1/approve
+2026-06-04T20:12:01.475Z [INFO]: verifyToken - successful for user: undefined (id number: 1)
+2026-06-04T20:12:01.476Z [INFO]: user id:undefined, method:PUT, url:/trips/1/approve
+2026-06-04T20:12:01.479Z [INFO]: in require role middleware
+2026-06-04T20:12:01.492Z [INFO]: roles for user id:1,  roles: principal
+2026-06-04T20:12:01.523Z [INFO]: approved trip with id: 1
+2026-06-04T20:12:01.524Z [INFO]: trip with id: 1 approved successfully
 2026-06-04T18:56:46.887Z [INFO]: verifyToken - path: /auth/login
 2026-06-04T18:56:46.891Z [INFO]: verifyToken - skipping auth routes
 2026-06-04T18:56:46.892Z [INFO]: user id:undefined, method:POST, url:/auth/login

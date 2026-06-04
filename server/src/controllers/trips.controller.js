@@ -53,3 +53,15 @@ export async function deleteTrip(req, res) {
     res.status(500).json(err.message);
   }
 }
+export async function approveTrip(req, res) {
+  try {
+    const trip = await tripsService.approveTrip(req.body.tripId);
+    console.log(trip)
+    log.info(`trip with id: ${req.body.tripId} approved successfully`);
+    res.status(201).json(trip);
+  } catch (err) {
+    log.warn(`approving trip failed`);
+    res.status(500).json("Approving failed");
+  }
+}
+

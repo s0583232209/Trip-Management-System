@@ -28,9 +28,7 @@ router.put(
 router.put(
   "/:id/approve",
   requireRole("principal", "coordinator"),
-  (req, res) => {
-    res.send("trips: put, approve trip" + id);
-  },
+  tripsController.approveTrip,
 );
 router.put(
   "/:id/close",

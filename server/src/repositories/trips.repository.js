@@ -80,3 +80,11 @@ export async function deleteTrip(tripId) {
   const response = connection.execute(`DELETE FROM trips WHERE id=?`, [tirpId]);
   return response;
 }
+export async function approveTrip(tripId, parentToken) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_status=2,parent_token=? WHERE id=?`,
+    [parentToken, tripId],
+  );
+  return rows;
+}

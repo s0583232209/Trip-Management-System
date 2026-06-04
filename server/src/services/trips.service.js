@@ -2,6 +2,7 @@
 import log from "../loggers/file.logger.js";
 import * as tripsRepo from "../repositories/trips.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
+import * as authService from "./auth.service.js";
 export async function getAllTrips(userId) {
   const trips = await getAll(userId);
   log.info(`get all trips by userId: ${userId}`);
@@ -39,7 +40,7 @@ export async function updateTrip(tripDetails) {
     const res = await usersRepo.getByNationalId(
       tripDetails.tripLeaderNationalId,
     );
-    console.log(res, "this is res in service")
+    console.log(res, "this is res in service");
     const updatedTrip = await tripsRepo.updateTrip({
       tripLeaderId: res.id,
       ...tripDetails,
@@ -63,4 +64,23 @@ export async function deleteTrip(tripId) {
     log.warn(`error: ${err.message}, from deleteTrip in trips.service`);
     throw err;
   }
+}
+export async function approveTrip(tripId) {
+  try {
+    const parentToken = await createParentToken(tripId);
+    const approvedTrip = await tripsRepo.approveTrip(tripId, parentToken);
+    log.info(`approved trip with id: ${tripId}`);
+    return { parentToken, ...approvedTrip };
+  } catch (err) {
+    console.log(err, "this is err in approve trip service");
+    log.warn(`error: ${err.message}, from approveTrip in trips.service`);
+    throw err;
+  }
+}
+export async function createParentToken(tripId) {
+  const token = authService.createParentToken({
+    tripId,
+    tripDate: new Date(),
+  });
+  return token;
 }

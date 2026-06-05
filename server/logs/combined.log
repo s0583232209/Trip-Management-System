@@ -1358,3 +1358,24 @@
 2026-06-04T18:56:52.261Z [INFO]: getById users called with national id: 123456789
 2026-06-04T18:56:52.264Z [INFO]: getById users successful for national id: 123456789
 2026-06-04T18:56:52.325Z [INFO]: update trip successfully, trip id: undefined
+2026-06-05T08:49:27.601Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T08:49:27.603Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T08:49:27.604Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T08:49:27.939Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T08:49:28.733Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T08:50:16.718Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T08:50:16.719Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T08:50:16.719Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T08:50:17.036Z [WARN]: login error: Incorrect password
+2026-06-05T08:50:20.674Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T08:50:20.675Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T08:50:20.675Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T08:50:21.012Z [WARN]: login error: Incorrect password
+2026-06-05T08:50:32.523Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T08:50:32.523Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T08:50:32.524Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T08:50:32.857Z [WARN]: login error: Incorrect password
+2026-06-05T08:50:56.603Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T08:50:56.604Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T08:50:56.604Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T08:50:56.919Z [INFO]: login successful for national id: 123456789 form institution: 410011

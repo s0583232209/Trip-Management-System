@@ -1389,3 +1389,8 @@
 2026-06-05T09:14:31.172Z [INFO]: user id:undefined, method:POST, url:/auth/login
 2026-06-05T09:14:31.187Z [INFO]: Connected to MySQL at 127.0.0.1
 2026-06-05T09:14:31.536Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T09:24:28.211Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:24:28.218Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:24:28.219Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:24:28.312Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:24:28.778Z [INFO]: login successful for national id: 123456789 form institution: 410011

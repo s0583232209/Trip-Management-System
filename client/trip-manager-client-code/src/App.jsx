@@ -10,6 +10,7 @@ import TripSectionPage from "./pages/trips/TripSectionPage.jsx";
 import MediaPage from "./pages/media/MediaPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AddEmployeePage from "./pages/AddEmployeePage.jsx";
+import CreateTripPage from "./pages/trips/CreateTripPage.jsx"
 import "./App.css";
 
 function App() {
@@ -27,10 +28,13 @@ function App() {
         <Route
           path="/trips/:tripId/folder"
           element={
-            <TripSectionPage
-              title="תכנון טיול / תיק טיול"
-              description="כאן תוכל לנהל את תיק הטיול ולצרף מסמכים חשובים."
-            />
+            <>
+              <TripSectionPage
+                title="תכנון טיול / תיק טיול"
+                description="כאן תוכל לנהל את תיק הטיול ולצרף מסמכים חשובים."
+              />
+              <CreateTripPage></CreateTripPage>
+            </>
           }
         />
         <Route

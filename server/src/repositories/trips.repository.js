@@ -2,6 +2,7 @@
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
+import * as usersRepo from "./users.repository.js";
 export async function getAll(userId) {
   const connection = await getConnection();
   const [rows] = await connection.execute(
@@ -56,23 +57,34 @@ export async function addTrip(tripDetails) {
 }
 export async function updateTrip(updateDetails) {
   const connection = await getConnection();
-  const [id] = await connection.execute(
-    `SELECT id FROM users WHERE nationalId=?`,
-    [updateDetails.tripLeaderNationalId],
+  console.log(updateDetails, "updateDetails in repo");
+  const { id } = await usersRepo.getByNationalId(
+    updateDetails.tripLeaderNationalId,
   );
-  const [row] = await connection.execute(
-    `UPDATE trips SET (trip_leader_id,title,trip_date,trip_status,route_geojson)(?,?,?,?,?) WHERE id=?`,
+  console.log(updateDetails, "update details,", id, "id");
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
     [
       id,
       updateDetails.title,
-      updateDetails.tripStatus,
-      updateDetails.routeGeoJson,
+      updateDetails.tripDate || null,
+      updateDetails.routeGeoJson || null,
+      updateDetails.tripId,
     ],
   );
-  return row;
+  console.log(rows, "rows from update trip repo");
+  return rows;
 }
 export async function deleteTrip(tripId) {
   const connection = await getConnection();
   const response = connection.execute(`DELETE FROM trips WHERE id=?`, [tirpId]);
   return response;
+}
+export async function approveTrip(tripId, parentToken) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_status=2,parent_token=? WHERE id=?`,
+    [parentToken, tripId],
+  );
+  return rows;
 }

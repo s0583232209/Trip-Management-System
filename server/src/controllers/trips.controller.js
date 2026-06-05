@@ -37,6 +37,7 @@ export async function updateTrip(req, res) {
   try {
     const updatedTrip = await tripsService.updateTrip(req.body);
     log.info(`update trip successfully, trip id: ${updateTrip.id}`);
+    res.status(201).json(updatedTrip);
   } catch (err) {
     log.warn(`updating trip failed`);
     res.status(500).json("Updating failed");
@@ -52,3 +53,15 @@ export async function deleteTrip(req, res) {
     res.status(500).json(err.message);
   }
 }
+export async function approveTrip(req, res) {
+  try {
+    const trip = await tripsService.approveTrip(req.body.tripId);
+    console.log(trip)
+    log.info(`trip with id: ${req.body.tripId} approved successfully`);
+    res.status(201).json(trip);
+  } catch (err) {
+    log.warn(`approving trip failed`);
+    res.status(500).json("Approving failed");
+  }
+}
+

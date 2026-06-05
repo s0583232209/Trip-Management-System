@@ -1,0 +1,46 @@
+2026-06-05T09:00:43.139Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:00:43.141Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:00:43.142Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:00:43.205Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:00:43.613Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T09:02:50.077Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:02:50.080Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:02:50.081Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:02:50.105Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:02:50.134Z [WARN]: login error: User not found
+2026-06-05T09:03:02.358Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:03:02.359Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:03:02.360Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:03:02.691Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T09:09:18.734Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:09:18.737Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:09:18.738Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:09:18.758Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:09:18.785Z [WARN]: login error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM users
+    JOIN user_passwords ON users.id = user_passwords.user_id
+    JOIN' at line 4
+2026-06-05T09:10:22.196Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:10:22.197Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:10:22.198Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:10:22.212Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:10:22.546Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T09:11:46.725Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:11:46.728Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:11:46.729Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:11:46.744Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:11:47.088Z [WARN]: login error: roles is not defined
+2026-06-05T09:12:14.590Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:12:14.592Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:12:14.592Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:12:14.617Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:12:14.961Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T09:13:29.468Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:13:29.470Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:13:29.471Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:13:29.497Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:13:29.817Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-05T09:14:31.168Z [INFO]: verifyToken - path: /auth/login
+2026-06-05T09:14:31.170Z [INFO]: verifyToken - skipping auth routes
+2026-06-05T09:14:31.172Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-05T09:14:31.187Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-05T09:14:31.536Z [INFO]: login successful for national id: 123456789 form institution: 410011

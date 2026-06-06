@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import "./TripsPage.css";
@@ -26,11 +26,7 @@ function StopForm({ stop, index, onChange, onRemove }) {
     <div className="stop-card">
       <div className="stop-card-header">
         <span className="stop-index">עצירה {index + 1}</span>
-        <button
-          type="button"
-          className="stop-remove-btn"
-          onClick={() => onRemove(index)}
-        >
+        <button type="button" className="stop-remove-btn" onClick={() => onRemove(index)}>
           הסר
         </button>
       </div>
@@ -87,9 +83,7 @@ function StopForm({ stop, index, onChange, onRemove }) {
             value={stop.officialApproval || ""}
             onChange={handleField}
           />
-          <p className="field-hint">
-            אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך
-          </p>
+          <p className="field-hint">אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך</p>
         </>
       )}
 
@@ -113,21 +107,56 @@ const emptyStop = () => ({
   notes: "",
 });
 
-export default function CreateTripPage() {
+function parseStops(routeGeoJson) {
+  if (!routeGeoJson) return [emptyStop()];
+  try {
+    const parsed = JSON.parse(routeGeoJson);
+    if (Array.isArray(parsed.stops) && parsed.stops.length > 0)
+      return parsed.stops;
+  } catch {
+    /* ignore */
+  }
+  return [emptyStop()];
+}
+
+export default function UpdateTripPage() {
+  const { tripId } = useParams();
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
 
   const [formData, setFormData] = useState({
     title: "",
     tripDate: "",
-    tripLeaderId: "",
-    status: 1,
+    tripLeaderNationalId: "",
   });
-
   const [stops, setStops] = useState([emptyStop()]);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+
+  useEffect(() => {
+    async function fetchTrip() {
+      try {
+        const res = await api.get(`/api/trips/${tripId}`);
+        const trip = Array.isArray(res.data) ? res.data[0] : res.data;
+        if (trip) {
+          setFormData({
+            title: trip.title || "",
+            tripDate: trip.trip_date
+              ? new Date(trip.trip_date).toISOString().split("T")[0]
+              : "",
+            tripLeaderNationalId: trip.trip_leader_national_id || "",
+          });
+          setStops(parseStops(trip.route_geojson));
+        }
+      } catch {
+        setSubmitError("לא ניתן לטעון את פרטי הטיול");
+      } finally {
+        setFetching(false);
+      }
+    }
+    fetchTrip();
+  }, [tripId]);
 
   function updateField(e) {
     const { name, value } = e.target;
@@ -150,12 +179,11 @@ export default function CreateTripPage() {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = "שם הטיול הוא שדה חובה";
     if (!formData.tripDate) newErrors.tripDate = "תאריך הטיול הוא שדה חובה";
-    if (!formData.tripLeaderId.trim())
-      newErrors.tripLeaderId = "מספר ת.ז. של אחראי הטיול הוא שדה חובה";
+    if (!formData.tripLeaderNationalId.trim())
+      newErrors.tripLeaderNationalId = "מספר ת.ז. של אחראי הטיול הוא שדה חובה";
 
     stops.forEach((stop, i) => {
-      if (!stop.name.trim())
-        newErrors[`stop_${i}_name`] = `שם עצירה ${i + 1} חסר`;
+      if (!stop.name.trim()) newErrors[`stop_${i}_name`] = `שם עצירה ${i + 1} חסר`;
       if (!stop.type) newErrors[`stop_${i}_type`] = `סוג עצירה ${i + 1} חסר`;
       if (stop.type === "מסלול הליכה" && !stop.trailCondition)
         newErrors[`stop_${i}_condition`] = `מצב מסלול עצירה ${i + 1} חסר`;
@@ -176,36 +204,41 @@ export default function CreateTripPage() {
     setLoading(true);
     try {
       const routeGeoJson = JSON.stringify({ stops });
-
-      const payload = {
+      await api.put(`/api/trips/${tripId}`, {
+        tripId,
         title: formData.title,
         tripDate: formData.tripDate,
-        tripLeaderId: formData.tripLeaderId,
-        status: formData.data["code"],
+        tripLeaderNationalId: formData.tripLeaderNationalId,
         routeGeoJson,
-      };
-      console.log(payload);
-      const response = await api.post("/api/trips", payload);
-      navigate(`/trips/${response.data.insertId || response.data.id || ""}`);
+      });
+      navigate(`/trips/${tripId}`);
     } catch (err) {
       setSubmitError(
-        err.response?.data?.message ||
-          err.response?.data ||
-          "יצירת הטיול נכשלה, נסה שנית",
+        err.response?.data?.message || err.response?.data || "עדכון הטיול נכשל, נסה שנית"
       );
     } finally {
       setLoading(false);
     }
   }
 
+  if (fetching) {
+    return (
+      <>
+        <Navbar />
+        <main className="page-main">
+          <p>טוען...</p>
+        </main>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">יצירת טיול חדש</h1>
+        <h1 className="page-title">עדכון טיול — {formData.title || tripId}</h1>
 
         <form className="trip-form" onSubmit={handleSubmit} noValidate>
-          {/* ── Trip meta ── */}
           <section className="form-section">
             <h2 className="form-section-title">פרטי הטיול</h2>
 
@@ -233,23 +266,22 @@ export default function CreateTripPage() {
             <label>מספר ת.ז. של אחראי הטיול</label>
             <input
               type="text"
-              name="tripLeaderId"
+              name="tripLeaderNationalId"
               placeholder="9 ספרות *"
               required
-              value={formData.tripLeaderId}
+              value={formData.tripLeaderNationalId}
               onChange={updateField}
             />
-            {errors.tripLeaderId && (
-              <p className="error">{errors.tripLeaderId}</p>
+            {errors.tripLeaderNationalId && (
+              <p className="error">{errors.tripLeaderNationalId}</p>
             )}
           </section>
 
-          {/* ── Stops / Route ── */}
           <section className="form-section">
             <h2 className="form-section-title">מסלול הטיול — עצירות</h2>
             <p className="form-section-hint">
-              הוסף את כל העצירות לפי הסדר. לכל עצירה יש לציין שם וסוג. סוגי
-              האטרקציה דורשים אישור רשמי; מסלולי הליכה דורשים ציון מצב המסלול.
+              ערוך את העצירות לפי הסדר. לכל עצירה יש לציין שם וסוג. אטרקציות
+              דורשות אישור רשמי; מסלולי הליכה דורשים ציון מצב.
             </p>
 
             {stops.map((stop, i) => (
@@ -262,7 +294,6 @@ export default function CreateTripPage() {
               />
             ))}
 
-            {/* per-stop errors summary */}
             {Object.keys(errors)
               .filter((k) => k.startsWith("stop_"))
               .map((k) => (
@@ -276,15 +307,13 @@ export default function CreateTripPage() {
             </button>
           </section>
 
-          {submitError && (
-            <p className="error form-submit-error">{submitError}</p>
-          )}
+          {submitError && <p className="error form-submit-error">{submitError}</p>}
 
           <div className="form-actions-row">
             <button
               type="button"
               className="trip-form-btn trip-form-btn--ghost"
-              onClick={() => navigate("/trips")}
+              onClick={() => navigate(`/trips/${tripId}`)}
             >
               ביטול
             </button>
@@ -293,7 +322,7 @@ export default function CreateTripPage() {
               className="trip-form-btn trip-form-btn--primary"
               disabled={loading}
             >
-              {loading ? "שומר..." : "צור טיול"}
+              {loading ? "שומר..." : "שמור שינויים"}
             </button>
           </div>
         </form>

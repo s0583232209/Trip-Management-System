@@ -181,8 +181,9 @@ export default function CreateTripPage() {
         title: formData.title,
         tripDate: formData.tripDate,
         tripLeaderId: formData.tripLeaderId,
-        status: formData.data["code"],
+        status: 1,
         routeGeoJson,
+        schoolId: 1,
       };
       console.log(payload);
       const response = await api.post("/api/trips", payload);

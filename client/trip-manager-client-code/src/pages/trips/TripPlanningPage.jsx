@@ -13,17 +13,35 @@ export default function TripPlanningPage() {
         <h1 className="page-title">תכנון טיול — טיול {tripId}</h1>
         <p>בחר קטגוריה מתוך תכנון הטיול.</p>
         <div className="trips-cards">
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/folder`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/folder`)}
+          >
             תיק טיול
           </button>
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/staff`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/staff`)}
+          >
             אנשי צוות
           </button>
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/equipment`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/equipment`)}
+          >
             ציוד
           </button>
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/documents`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/documents`)}
+          >
             מסמכים
+          </button>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/route`)}
+          >
+            עדכון מסלול וצפיה בפרטי מסלול
           </button>
         </div>
       </main>

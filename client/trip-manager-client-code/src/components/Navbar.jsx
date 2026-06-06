@@ -18,6 +18,9 @@ export default function Navbar() {
         <span className="navbar-title">מסלול בטוח</span>
       </div>
       <div className="navbar-links">
+        <button className="navbar-btn" onClick={() => navigate("/")}>
+          תפריט
+        </button>
         <button className="navbar-btn" onClick={() => navigate("/trips")}>
           טיולים
         </button>

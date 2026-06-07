@@ -10,6 +10,7 @@ const storage = multer.diskStorage({
       __dirname,
       "../../uploads/trips",
       tripId.toString(),
+      "documents",
     );
 
     if (!fs.existsSync(uploadPath)) {

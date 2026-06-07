@@ -15,3 +15,12 @@ export async function uploadFile(req, res) {
     res.status(500).send("error: " + error);
   }
 }
+export async function getFile(req, res, next) {
+  try {
+    const file = await fileService.getFile(req.params.id);
+
+    res.sendFile(file.fullPath);
+  } catch (err) {
+    next(err);
+  }
+}

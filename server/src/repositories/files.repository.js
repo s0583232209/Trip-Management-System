@@ -38,3 +38,15 @@ export async function upload(file) {
   console.log(a, "this is the result from repo");
   return a.insertId;
 }
+export async function getById(id) {
+  const connection = await getConnection();
+  const sql = `
+        SELECT *
+        FROM trip_files
+        WHERE id = ?
+    `;
+
+  const [rows] = await connection.execute(sql, [id]);
+
+  return rows[0];
+}

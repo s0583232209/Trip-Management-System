@@ -521,3 +521,7 @@ INSERT INTO roles (role_name)Values('principal');
 INSERT INTO roles (role_name)VALUES('coordinator');
 INSERT INTO roles (role_name)VALUES('trip leader');
 INSERT INTO roles (role_name)VALUES('teacher');
+
+INSERT INTO emergency_types (type_name, severity_level) VALUES ('minor', 1);
+INSERT INTO emergency_types (type_name, severity_level) VALUES ('moderate', 2);
+INSERT INTO emergency_types (type_name, severity_level) VALUES ('critical', 3);

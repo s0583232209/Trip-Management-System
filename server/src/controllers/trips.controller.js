@@ -15,7 +15,8 @@ export async function getAllTrips(req, res) {
 export async function getById(req, res) {
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
-    log.info(`the trip with id ${tripId} returned successfully`);
+    log.info(`the trip with id ${req.params.id} returned successfully`);
+    console.log(trip, "this is trip from controller")
     res.status(200).json(trip);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -56,7 +57,7 @@ export async function deleteTrip(req, res) {
 export async function approveTrip(req, res) {
   try {
     const trip = await tripsService.approveTrip(req.body.tripId);
-    console.log(trip)
+    console.log(trip);
     log.info(`trip with id: ${req.body.tripId} approved successfully`);
     res.status(201).json(trip);
   } catch (err) {
@@ -64,4 +65,3 @@ export async function approveTrip(req, res) {
     res.status(500).json("Approving failed");
   }
 }
-

@@ -18,7 +18,7 @@ export async function getAll(userId) {
 }
 export async function getById(tripId, userId) {
   const connection = await getConnection();
-  const [rows] = await connection.execute(
+  const res = await connection.execute(
     `SELECT * FROM (SELECT * FROM trips
     WHERE trips.id = ?)t
     JOIN staff_trip ON staff_trip.trip_id=t.id
@@ -27,7 +27,8 @@ export async function getById(tripId, userId) {
   );
   //db log!!!!!!!!!!!!!!!!!
   log.info(`getTripById : ${tripId}`);
-  return rows;
+  console.log(res,'this is rows in repo');
+  return res;
 }
 export async function addTrip(tripDetails) {
   const connection = await getConnection();

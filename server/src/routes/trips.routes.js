@@ -1,7 +1,7 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import * as tripsController from "../controllers/trips.controller.js";
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 router.get(
   "/",
   requireRole("principal", "coordinator"),

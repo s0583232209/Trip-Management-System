@@ -16,7 +16,11 @@ export async function getById(req, res) {
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
     log.info(`the trip with id ${req.params.id} returned successfully`);
+<<<<<<< HEAD
     console.log(trip, "this is trip from controller")
+=======
+    console.log(trip,'this is ther trip')
+>>>>>>> Trips
     res.status(200).json(trip);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -56,9 +60,15 @@ export async function deleteTrip(req, res) {
 }
 export async function approveTrip(req, res) {
   try {
+<<<<<<< HEAD
     const trip = await tripsService.approveTrip(req.body.tripId);
     console.log(trip);
     log.info(`trip with id: ${req.body.tripId} approved successfully`);
+=======
+    const trip = await tripsService.approveTrip(req.params.id);
+    console.log(trip)
+    log.info(`trip with id: ${req.params.id} approved successfully`);
+>>>>>>> Trips
     res.status(201).json(trip);
   } catch (err) {
     log.warn(`approving trip failed`);

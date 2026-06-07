@@ -145,7 +145,7 @@ export default function UpdateTripPage() {
       try {
         console.log('in fetch trip')
         const res = await api.get(`/api/trips/${tripId}`);
-        console.log(res,res.data[0])
+       
       
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (trip) {

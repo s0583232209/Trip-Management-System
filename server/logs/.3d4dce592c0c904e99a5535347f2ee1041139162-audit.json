@@ -46,9 +46,15 @@
             "hash": "340383bd7da4ec5966898efc465283b5a2145d13e92fab87975535d677003105"
         },
         {
+<<<<<<< HEAD
             "date": 1780779659990,
             "name": "logs\\application-2026-06-07.log",
             "hash": "4570522de1fb33c444f96df44390653db9ce06e0e0643b19707cc6c22f6e91e7"
+=======
+            "date": 1780819572988,
+            "name": "logs\\application-2026-06-07.log",
+            "hash": "efbb3083ab53481658004fb21a777506a796a498b54387cdea3a034c97d211f4"
+>>>>>>> Trips
         }
     ],
     "hashType": "sha256"

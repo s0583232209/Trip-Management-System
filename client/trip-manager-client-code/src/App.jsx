@@ -13,6 +13,7 @@ import AddEmployeePage from "./pages/AddEmployeePage.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import "./App.css";
 import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
+import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
 
 function App() {
   return (
@@ -115,10 +116,7 @@ function App() {
         <Route
           path="/trips/:tripId/approve"
           element={
-            <TripSectionPage
-              title="אישור טיול סופי"
-              description="כאן תוכל לאשר את הטיול לפני היציאה."
-            />
+            <ApproveTripPage></ApproveTripPage>
           }
         />
         <Route

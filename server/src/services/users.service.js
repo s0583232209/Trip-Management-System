@@ -54,7 +54,7 @@ export async function changePassword(
 }
 export async function addUser(body) {
   const hashedPassword = await bcrypt.hash(body.password, 12);
-  const user = await userssRepo.addUser({ ...body, password: hashedPassword });
+  const user = await usersRepo.addUser({ ...body, password: hashedPassword });
   delete user.password;
   return user;
 }

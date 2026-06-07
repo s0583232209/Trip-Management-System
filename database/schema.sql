@@ -1,6 +1,6 @@
 DROP DATABASE `trip_manager`;
 CREATE DATABASE IF NOT EXISTS trip_manager
-    CHARACTER SET utf8mb4
+    CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 -- DROP SCHEMA tirp_manager;
 USE trip_manager;
@@ -23,7 +23,7 @@ CREATE TABLE schools (
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     role_name VARCHAR(100) NOT NULL UNIQUE
-   
+    
 );
 
 -- 3. טבלת משתמשים
@@ -106,19 +106,37 @@ CREATE TABLE file_types(
 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 type_name VARCHAR(10) NOT NULL UNIQUE);
 CREATE TABLE trip_files (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
+
     trip_id INT NOT NULL,
-    uploader_id INT NULL,
-    file_type INT,
+
+    uploaded_by INT NOT NULL,
+
     original_name VARCHAR(255) NOT NULL,
-    stored_path VARCHAR(500) NOT NULL,
-    mime_type VARCHAR(100),
-    size_bytes BIGINT,
-    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
-    FOREIGN KEY (uploader_id) REFERENCES users(id) ON DELETE SET NULL,
-        FOREIGN KEY (file_type) REFERENCES file_types(id) ON DELETE SET NULL
-) ;
+
+    stored_name VARCHAR(255) NOT NULL,
+
+    relative_path VARCHAR(500) NOT NULL,
+
+    mime_type VARCHAR(100) NOT NULL,
+
+    file_extension VARCHAR(20),
+
+    file_size BIGINT NOT NULL,
+
+    description VARCHAR(500),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    deleted_at TIMESTAMP NULL DEFAULT NULL,   
+        FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE SET NULL,
+        FOREIGN KEY (uploaded_by)REFERENCES users(id) ON DELETE SET NULL
+
+);
 
 -- 10. טבלת רמות/סוגי חירום (תיקון הערה: "לעשות עוד רמות... בטוח לעשות טבלה נפרדת")
 CREATE TABLE emergency_types (
@@ -155,13 +173,13 @@ CREATE TABLE audit_log (
     message LONGTEXT NOT NULL,
     -- ip_address VARCHAR(45),
     action_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    -- FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+    -- FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL 
 ) ;
 CREATE TABLE staff_trip(
 staff_id INT,
 trip_id INT,
-FOREIGN KEY (staff_id) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+FOREIGN KEY (staff_id)	REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (trip_id)	REFERENCES trips(id) ON DELETE CASCADE
 )
 ;
 CREATE TABLE external_role(
@@ -184,3 +202,5 @@ select * from user_roles limit 10;
 select * from user_passwords limit 19;
 select * from roles limit 10;
 select * from trips limit 10;
+select * from staff_trip limit 10;
+INSERT INTO staff_trip (staff_id,trip_id)VALUES(1,1);

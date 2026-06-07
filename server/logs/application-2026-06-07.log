@@ -460,3 +460,13 @@
 07.06.2026, 18:48:07 [INFO]: user id:undefined, method:POST, url:/trips/1/files
 07.06.2026, 18:48:07 [INFO]: in require role middleware
 07.06.2026, 18:48:07 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:49:05 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:49:05 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:49:05 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:49:05 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:49:06 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:49:30 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:49:30 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:49:30 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:49:30 [INFO]: in require role middleware
+07.06.2026, 18:49:30 [INFO]: roles for user id:1,  roles: principal

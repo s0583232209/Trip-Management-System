@@ -86,7 +86,7 @@ export async function register(body) {
     body.password || body.nationalId,
     12,
   );
-  const user = await addUser({ ...body, password: hashedPassword });
+  const user = await addUser({ ...body, password: hashedPassword },true);
   delete user.password;
   console.log(user);
   const payload = {

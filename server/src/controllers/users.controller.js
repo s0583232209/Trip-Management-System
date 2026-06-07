@@ -44,10 +44,16 @@ export async function changePassword(req, res) {
 export async function addUser(req, res) {
   try {
     if (req.body.role === "principal")
-      res
-        .status("401")
-        .message("Bad Request: you can not add another principal");
-    const user = await usersService.addUser(req.body);
+      return res
+        .status(401)
+        .json({ message: "Bad Request: you can not add another principal" });
+    const user = await usersService.addUser(
+      {
+        ...req.body,
+        principalId: req.user.userId,
+      },
+      false,
+    );
     res.status(200).json(user);
   } catch (err) {
     log.warn(`addUser error: ${err.message}`);

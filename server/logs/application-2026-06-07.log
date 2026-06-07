@@ -622,3 +622,179 @@
 07.06.2026, 18:49:30 [INFO]: in require role middleware
 07.06.2026, 18:49:30 [INFO]: roles for user id:1,  roles: principal
 >>>>>>> Files
+07.06.2026, 20:27:33 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:27:33 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:27:33 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:27:33 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:27:34 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:28:20 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:28:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:28:20 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:28:20 [INFO]: in require role middleware
+07.06.2026, 20:28:20 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:28:20 [INFO]: getById users called with id: 1
+07.06.2026, 20:28:20 [INFO]: getById users successful for id: 1
+07.06.2026, 20:28:20 [INFO]: verifyToken - path: /users
+07.06.2026, 20:28:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:28:20 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:28:20 [INFO]: in require role middleware
+07.06.2026, 20:28:20 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:28:20 [INFO]: addUser called for user: רכז טיולים
+07.06.2026, 20:28:20 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+07.06.2026, 20:28:20 [WARN]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+07.06.2026, 20:42:20 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:42:20 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:42:20 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:42:21 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:42:21 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:43:05 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:43:05 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:43:05 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:43:05 [INFO]: in require role middleware
+07.06.2026, 20:43:05 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:43:05 [INFO]: getById users called with id: 1
+07.06.2026, 20:43:05 [INFO]: getById users successful for id: 1
+07.06.2026, 20:43:05 [INFO]: verifyToken - path: /users
+07.06.2026, 20:43:05 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:43:05 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:43:05 [INFO]: in require role middleware
+07.06.2026, 20:43:05 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:43:06 [INFO]: getById users called with id: undefined
+07.06.2026, 20:44:30 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:44:30 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:44:30 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:44:30 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:44:31 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:45:26 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:45:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:45:26 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:45:26 [INFO]: in require role middleware
+07.06.2026, 20:45:26 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:45:26 [INFO]: getById users called with id: 1
+07.06.2026, 20:45:26 [INFO]: getById users successful for id: 1
+07.06.2026, 20:45:26 [INFO]: verifyToken - path: /users
+07.06.2026, 20:45:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:45:26 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:45:26 [INFO]: in require role middleware
+07.06.2026, 20:45:26 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:45:27 [INFO]: getById users called with id: undefined
+07.06.2026, 20:53:48 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:53:48 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:53:48 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:53:49 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:53:49 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:55:37 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:55:37 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:55:37 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:55:37 [INFO]: in require role middleware
+07.06.2026, 20:55:37 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:55:37 [INFO]: getById users called with id: 1
+07.06.2026, 20:55:37 [INFO]: getById users successful for id: 1
+07.06.2026, 20:55:38 [INFO]: verifyToken - path: /users
+07.06.2026, 20:55:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:55:38 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:55:38 [INFO]: in require role middleware
+07.06.2026, 20:55:38 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:55:38 [INFO]: getById users called with id: 1
+07.06.2026, 20:55:38 [WARN]: addUser error: Cannot read properties of undefined (reading '0')
+07.06.2026, 20:55:38 [INFO]: getById users successful for id: 1
+07.06.2026, 20:58:45 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:58:45 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:58:45 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:58:45 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:58:45 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:59:16 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:59:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:59:16 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:59:16 [INFO]: in require role middleware
+07.06.2026, 20:59:16 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:59:16 [INFO]: getById users called with id: 1
+07.06.2026, 20:59:16 [INFO]: getById users successful for id: 1
+07.06.2026, 20:59:16 [INFO]: verifyToken - path: /users
+07.06.2026, 20:59:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:59:16 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:59:16 [INFO]: in require role middleware
+07.06.2026, 20:59:16 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:59:17 [INFO]: getById users called with id: 1
+07.06.2026, 20:59:17 [WARN]: addUser error: Cannot read properties of undefined (reading '0')
+07.06.2026, 20:59:17 [INFO]: getById users successful for id: 1
+07.06.2026, 21:00:27 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:00:27 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:00:27 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:00:27 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:00:27 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:00:56 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:00:56 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:00:56 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:00:56 [INFO]: in require role middleware
+07.06.2026, 21:00:56 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:00:56 [INFO]: getById users called with id: 1
+07.06.2026, 21:00:56 [INFO]: getById users successful for id: 1
+07.06.2026, 21:00:56 [INFO]: verifyToken - path: /users
+07.06.2026, 21:00:56 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:00:56 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:00:56 [INFO]: in require role middleware
+07.06.2026, 21:00:56 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:00:57 [WARN]: addUser error: Cannot read properties of undefined (reading 'insertId')
+07.06.2026, 21:03:22 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:03:22 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:03:22 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:03:22 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:03:22 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:03:48 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:03:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:03:48 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:03:48 [INFO]: in require role middleware
+07.06.2026, 21:03:48 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:03:48 [INFO]: getById users called with id: 1
+07.06.2026, 21:03:48 [INFO]: getById users successful for id: 1
+07.06.2026, 21:03:48 [INFO]: verifyToken - path: /users
+07.06.2026, 21:03:49 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:03:49 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:03:49 [INFO]: in require role middleware
+07.06.2026, 21:03:49 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:03:49 [WARN]: addUser error: Data too long for column 'role_name' at row 1
+07.06.2026, 21:07:41 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:07:41 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:07:41 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:07:41 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:07:42 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:08:08 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:08:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:08:08 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:08:08 [INFO]: in require role middleware
+07.06.2026, 21:08:08 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:08:08 [INFO]: getById users called with id: 1
+07.06.2026, 21:08:08 [INFO]: getById users successful for id: 1
+07.06.2026, 21:08:08 [INFO]: verifyToken - path: /users
+07.06.2026, 21:08:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:08:08 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:08:08 [INFO]: in require role middleware
+07.06.2026, 21:08:08 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:08:09 [WARN]: addUser error: Duplicate entry '999999999' for key 'users.national_id'
+07.06.2026, 21:09:29 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:09:29 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:09:29 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:09:29 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:09:30 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:10:00 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:10:00 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:10:00 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:10:00 [INFO]: in require role middleware
+07.06.2026, 21:10:00 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:10:00 [INFO]: getById users called with id: 1
+07.06.2026, 21:10:00 [INFO]: getById users successful for id: 1
+07.06.2026, 21:10:00 [INFO]: verifyToken - path: /users
+07.06.2026, 21:10:00 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:10:00 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:10:00 [INFO]: in require role middleware
+07.06.2026, 21:10:00 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:10:01 [INFO]: addUser successful, user id: undefined
+07.06.2026, 21:10:14 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:10:14 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:10:14 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:10:15 [INFO]: login successful for national id: 999999999 form institution: 410011
+07.06.2026, 21:13:08 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:13:08 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:13:08 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:13:09 [INFO]: login successful for national id: 123456789 form institution: 410011

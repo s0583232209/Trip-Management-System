@@ -11,6 +11,7 @@ export async function getAllTrips(userId) {
 export async function getById(tripId, userId) {
   try {
     const trip = await tripsRepo.getAll(tripId, userId);
+    console.log(trip, "this is the trip from the service");
     log.info(`get trip by id: ${tripId} and userId: ${userId}`);
     return trip;
   } catch (err) {
@@ -45,7 +46,7 @@ export async function updateTrip(tripDetails) {
       tripLeaderId: res.id,
       ...tripDetails,
     });
-    return updateTrip;
+    return updatedTrip;
   } catch (err) {
     console.log(err, "this is the err in update trip service");
     console.log(tripDetails, "this is the trip details in service");

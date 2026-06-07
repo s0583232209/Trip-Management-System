@@ -138,6 +138,7 @@ export default function UpdateTripPage() {
     async function fetchTrip() {
       try {
         const res = await api.get(`/api/trips/${tripId}`);
+        console.log(res)
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (trip) {
           setFormData({

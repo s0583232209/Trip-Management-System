@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 import UserDetails from "../components/UserDetails.jsx";
+import api from "../api.js";
 import "./trips/TripsPage.css";
 
 export default function AddEmployeePage() {
@@ -14,9 +15,20 @@ export default function AddEmployeePage() {
     }
   }, [user.role, navigate]);
 
-  function handleUserSubmit(formData) {
-    console.log("הוספת משתמש חדש:", formData);
-    alert("טופס הוספת משתמש נשלח. יש לממש ב-API כדי לשמור באופן ממשי.");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  async function handleUserSubmit(formData) {
+    setError("");
+    setSuccess("");
+    try {
+      const principalRes = await api.get(`/api/users/${user.userId}`);
+      const schoolId = principalRes.data.school_id;
+      await api.post("/api/users", { ...formData, schoolId });
+      setSuccess("המשתמש נוסף בהצלחה!");
+    } catch (err) {
+      setError(err.response?.data?.message || "הוספת המשתמש נכשלה, נסה שנית");
+    }
   }
 
   if (user.role !== "principal") {
@@ -37,6 +49,8 @@ export default function AddEmployeePage() {
       <main className="page-main">
         <h1 className="page-title">ניהול המשתמשים</h1>
         <p>הוסף משתמש חדש למערכת.</p>
+        {error && <p className="errorLog">{error}</p>}
+        {success && <p style={{ color: "green" }}>{success}</p>}
         <div className="trips-cards">
           <div className="trip-card">
             <UserDetails onSubmit={handleUserSubmit} />

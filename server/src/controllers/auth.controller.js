@@ -59,6 +59,7 @@ export async function login(req, res) {
     log.info(
       `login successful for national id: ${req.body.nationalId} form institution: ${req.body.institutionNumber}`,
     );
+    console.log(user, "this is user fomr auth cotroller");
     authService.sendAuthResponse(res, user, 200, accessToken, refreshToken);
   } catch (err) {
     log.warn(`login error: ${err.message}`);

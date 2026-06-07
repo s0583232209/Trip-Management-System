@@ -30,6 +30,13 @@ export default function TripSelectionPage() {
             </button>
           ))}
         </div>
+        <br/>
+        <div>
+
+          <button className="trip-card" onClick={() => navigate(`/trips/new`)}>
+            יצירת טיול חדש
+          </button>
+        </div>
       </main>
     </>
   );

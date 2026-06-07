@@ -15,7 +15,12 @@ export async function getAllTrips(req, res) {
 export async function getById(req, res) {
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
-    log.info(`the trip with id ${tripId} returned successfully`);
+    log.info(`the trip with id ${req.params.id} returned successfully`);
+<<<<<<< HEAD
+    console.log(trip, "this is trip from controller")
+=======
+    console.log(trip,'this is ther trip')
+>>>>>>> Trips
     res.status(200).json(trip);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -37,6 +42,7 @@ export async function updateTrip(req, res) {
   try {
     const updatedTrip = await tripsService.updateTrip(req.body);
     log.info(`update trip successfully, trip id: ${updateTrip.id}`);
+    res.status(201).json(updatedTrip);
   } catch (err) {
     log.warn(`updating trip failed`);
     res.status(500).json("Updating failed");
@@ -50,5 +56,22 @@ export async function deleteTrip(req, res) {
   } catch (err) {
     log.warn(`deleting trip failed, from deleteTrip in trips.controller`);
     res.status(500).json(err.message);
+  }
+}
+export async function approveTrip(req, res) {
+  try {
+<<<<<<< HEAD
+    const trip = await tripsService.approveTrip(req.body.tripId);
+    console.log(trip);
+    log.info(`trip with id: ${req.body.tripId} approved successfully`);
+=======
+    const trip = await tripsService.approveTrip(req.params.id);
+    console.log(trip)
+    log.info(`trip with id: ${req.params.id} approved successfully`);
+>>>>>>> Trips
+    res.status(201).json(trip);
+  } catch (err) {
+    log.warn(`approving trip failed`);
+    res.status(500).json("Approving failed");
   }
 }

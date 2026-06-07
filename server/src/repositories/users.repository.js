@@ -34,10 +34,10 @@ export async function getUserRolesOnTripDay(userId) {
   //check this function
   return row[0].trip_date;
 }
-export async function getbyNationalId(nationalId) {
+export async function getByNationalId(nationalId) {
   try {
-    console.log("get by id repository");
-    log.info(`getById users called with id: ${nationalId}`);
+    console.log("get by national id repository");
+    log.info(`getById users called with national id: ${nationalId}`);
     const connection = await getConnection();
     const [rows] = await connection.execute(
       "SELECT * FROM users WHERE national_id = ?;",

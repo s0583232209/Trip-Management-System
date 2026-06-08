@@ -2610,3 +2610,159 @@
 08.06.2026, 09:01:00 [INFO]: in require role middleware
 08.06.2026, 09:01:00 [INFO]: roles for user id:1,  roles: principal
 08.06.2026, 09:01:00 [INFO]: addUser successful, user id: undefined
+08.06.2026, 09:13:43 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:13:44 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:13:44 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:13:44 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 09:13:44 [WARN]: login error: User not found
+08.06.2026, 09:13:54 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:13:54 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:13:54 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:13:54 [WARN]: login error: User not found
+08.06.2026, 09:14:11 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:14:11 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:14:11 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:14:11 [WARN]: login error: Incorrect password
+08.06.2026, 09:14:26 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:14:26 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:14:26 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:14:27 [WARN]: login error: Incorrect password
+08.06.2026, 09:15:05 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:15:05 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:15:05 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:15:06 [WARN]: login error: Incorrect password
+08.06.2026, 09:15:15 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:15:15 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:15:15 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:15:15 [WARN]: login error: Incorrect password
+08.06.2026, 09:15:17 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:15:17 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:15:17 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:15:17 [WARN]: login error: Incorrect password
+08.06.2026, 09:15:32 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:15:32 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:15:32 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:15:32 [INFO]: login successful for national id: 111111111 form institution: 410011
+08.06.2026, 09:16:41 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:16:41 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:16:41 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:16:42 [WARN]: login error: Incorrect password
+08.06.2026, 09:16:49 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:16:49 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:16:49 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:16:50 [INFO]: login successful for national id: 111111111 form institution: 410011
+08.06.2026, 09:17:10 [INFO]: verifyToken - path: /users/9
+08.06.2026, 09:17:10 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+08.06.2026, 09:17:10 [INFO]: user id:undefined, method:GET, url:/users/9
+08.06.2026, 09:17:10 [INFO]: in require role middleware
+08.06.2026, 09:17:10 [INFO]: roles for user id:9,  roles: teacher
+08.06.2026, 09:17:10 [INFO]: getById users called with id: 9
+08.06.2026, 09:17:10 [INFO]: getById users successful for id: 9
+08.06.2026, 09:17:34 [INFO]: verifyToken - path: /users/9/change-password
+08.06.2026, 09:17:34 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+08.06.2026, 09:17:34 [INFO]: user id:undefined, method:POST, url:/users/9/change-password
+08.06.2026, 09:17:34 [INFO]: in require role middleware
+08.06.2026, 09:17:34 [INFO]: roles for user id:9,  roles: teacher
+08.06.2026, 09:17:34 [INFO]: change passwrod controller - userId: 9}
+08.06.2026, 09:17:35 [INFO]: getById users called with id: 9
+08.06.2026, 09:17:35 [INFO]: getById users successful for id: 9
+08.06.2026, 09:17:35 [WARN]: change passwrod error: Cannot set headers after they are sent to the client
+08.06.2026, 09:22:30 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:22:30 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:22:30 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:22:30 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 09:22:30 [WARN]: login error: User not found
+08.06.2026, 09:22:42 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:22:42 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:22:42 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:22:42 [WARN]: login error: User not found
+08.06.2026, 09:22:42 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:22:42 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:22:42 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:22:42 [WARN]: login error: User not found
+08.06.2026, 09:22:50 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:22:50 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:22:50 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:22:50 [WARN]: login error: Incorrect password
+08.06.2026, 09:22:58 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:22:58 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:22:58 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:22:59 [INFO]: login successful for national id: 111111111 form institution: 410011
+08.06.2026, 09:23:02 [INFO]: verifyToken - path: /users/9
+08.06.2026, 09:23:02 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+08.06.2026, 09:23:02 [INFO]: user id:undefined, method:GET, url:/users/9
+08.06.2026, 09:23:02 [INFO]: in require role middleware
+08.06.2026, 09:23:02 [INFO]: roles for user id:9,  roles: teacher
+08.06.2026, 09:23:02 [INFO]: getById users called with id: 9
+08.06.2026, 09:23:02 [INFO]: getById users successful for id: 9
+08.06.2026, 09:23:21 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:23:21 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:23:21 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:23:21 [WARN]: login error: User not found
+08.06.2026, 09:23:27 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:23:27 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:23:27 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:23:27 [WARN]: login error: User not found
+08.06.2026, 09:23:34 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:23:34 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:23:34 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:23:34 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:23:37 [INFO]: verifyToken - path: /users/5
+08.06.2026, 09:23:37 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:23:37 [INFO]: user id:undefined, method:GET, url:/users/5
+08.06.2026, 09:23:37 [INFO]: in require role middleware
+08.06.2026, 09:23:37 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:23:37 [INFO]: getById users called with id: 5
+08.06.2026, 09:23:37 [INFO]: getById users successful for id: 5
+08.06.2026, 09:24:06 [INFO]: verifyToken - path: /users/5/change-password
+08.06.2026, 09:24:06 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:24:06 [INFO]: user id:undefined, method:POST, url:/users/5/change-password
+08.06.2026, 09:24:06 [INFO]: in require role middleware
+08.06.2026, 09:24:06 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:24:27 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:24:27 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:24:27 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:24:28 [WARN]: login error: Incorrect password
+08.06.2026, 09:24:36 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:24:36 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:24:36 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:24:37 [WARN]: login error: Incorrect password
+08.06.2026, 09:24:42 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:24:42 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:24:42 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:24:42 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:26:10 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:26:10 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:26:10 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:26:10 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 09:26:10 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:26:12 [INFO]: verifyToken - path: /users/5
+08.06.2026, 09:26:12 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:26:12 [INFO]: user id:undefined, method:GET, url:/users/5
+08.06.2026, 09:26:12 [INFO]: in require role middleware
+08.06.2026, 09:26:12 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:26:12 [INFO]: getById users called with id: 5
+08.06.2026, 09:26:12 [INFO]: getById users successful for id: 5
+08.06.2026, 09:26:29 [INFO]: verifyToken - path: /users/5/change-password
+08.06.2026, 09:26:29 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:26:29 [INFO]: user id:undefined, method:POST, url:/users/5/change-password
+08.06.2026, 09:26:29 [INFO]: in require role middleware
+08.06.2026, 09:26:29 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:27:14 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:27:14 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:27:14 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:27:14 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 09:27:14 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:27:16 [INFO]: verifyToken - path: /users/5
+08.06.2026, 09:27:16 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:27:16 [INFO]: user id:undefined, method:GET, url:/users/5
+08.06.2026, 09:27:16 [INFO]: in require role middleware
+08.06.2026, 09:27:16 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:27:16 [INFO]: getById users called with id: 5
+08.06.2026, 09:27:16 [INFO]: getById users successful for id: 5
+08.06.2026, 09:27:32 [INFO]: verifyToken - path: /users/5/change-password
+08.06.2026, 09:27:32 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:27:32 [INFO]: user id:undefined, method:POST, url:/users/5/change-password
+08.06.2026, 09:27:32 [INFO]: in require role middleware
+08.06.2026, 09:27:32 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:27:32 [WARN]: change passwrod error: Cannot read properties of undefined (reading 'userId')

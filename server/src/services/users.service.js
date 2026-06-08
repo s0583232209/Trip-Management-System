@@ -28,7 +28,7 @@ export async function changePassword(
     throw err;
   }
 
-  if (newUsername) await usersRepo.updateUsername(id, newUsername); // check if it is needed
+  //if (newUsername) await usersRepo.updateUsername(id, newUsername); // check if it is needed
 
   if (newPassword) {
     const allPasswords = await usersRepo.getAllPasswordsByUserId(id);

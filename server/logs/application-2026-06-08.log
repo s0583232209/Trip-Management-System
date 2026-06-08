@@ -250,3 +250,27 @@
 08.06.2026, 09:27:32 [INFO]: in require role middleware
 08.06.2026, 09:27:32 [INFO]: roles for user id:5,  roles: coordinator
 08.06.2026, 09:27:32 [WARN]: change passwrod error: Cannot read properties of undefined (reading 'userId')
+08.06.2026, 09:28:04 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:28:04 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:28:04 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:28:04 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 09:28:05 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:28:06 [INFO]: verifyToken - path: /users/5
+08.06.2026, 09:28:06 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:28:06 [INFO]: user id:undefined, method:GET, url:/users/5
+08.06.2026, 09:28:06 [INFO]: in require role middleware
+08.06.2026, 09:28:06 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:28:06 [INFO]: getById users called with id: 5
+08.06.2026, 09:28:06 [INFO]: getById users successful for id: 5
+08.06.2026, 09:28:20 [INFO]: verifyToken - path: /users/5/change-password
+08.06.2026, 09:28:20 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:28:20 [INFO]: user id:undefined, method:POST, url:/users/5/change-password
+08.06.2026, 09:28:20 [INFO]: in require role middleware
+08.06.2026, 09:28:20 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:28:20 [INFO]: change passwrod controller - userId: 5}
+08.06.2026, 09:28:21 [INFO]: getById users called with id: 5
+08.06.2026, 09:28:21 [INFO]: getById users successful for id: 5
+08.06.2026, 09:28:35 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:28:35 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:28:35 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:28:35 [INFO]: login successful for national id: 999999999 form institution: 410011

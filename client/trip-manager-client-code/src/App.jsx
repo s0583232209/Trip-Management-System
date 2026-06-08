@@ -18,7 +18,6 @@ import UploadTripFile from "./pages/trips/UploadFilesPage.jsx";
 import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
 import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
-import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 
 function App() {
   return (

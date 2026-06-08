@@ -1,3 +1,151 @@
+<<<<<<< HEAD
+2026-06-06T21:00:59.971Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:01:00.070Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:01:00.071Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:01:00.076Z [INFO]: in require role middleware
+2026-06-06T21:01:00.113Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:01:00.121Z [INFO]: getAll trips by userId: 1
+2026-06-06T21:01:00.122Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:01:00.123Z [WARN]: error: tripId is not defined
+2026-06-06T21:04:54.002Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:04:54.011Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:04:54.012Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:04:54.663Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:08:34.688Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:08:34.724Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:08:34.724Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:08:34.729Z [INFO]: in require role middleware
+2026-06-06T21:08:34.796Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:08:34.807Z [INFO]: getAll trips by userId: 1
+2026-06-06T21:08:34.808Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:08:34.809Z [WARN]: error: tripId is not defined
+2026-06-06T21:11:45.515Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:11:45.517Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:11:45.519Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:11:45.571Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-06T21:11:45.653Z [WARN]: login error: User not found
+2026-06-06T21:11:55.041Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:11:55.042Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:11:55.043Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:11:55.705Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:12:17.668Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:12:17.672Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:12:17.673Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:12:17.675Z [INFO]: in require role middleware
+2026-06-06T21:12:17.681Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:12:17.702Z [INFO]: getTripById : 1
+2026-06-06T21:12:17.702Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:12:17.703Z [WARN]: error: tripId is not defined
+2026-06-06T21:13:01.106Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:13:01.108Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:13:01.108Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:13:01.109Z [INFO]: in require role middleware
+2026-06-06T21:13:01.112Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:13:01.116Z [INFO]: getTripById : 1
+2026-06-06T21:13:01.116Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:13:01.117Z [WARN]: error: tripId is not defined
+2026-06-06T21:13:11.443Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:13:11.451Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:13:11.452Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:13:11.455Z [INFO]: in require role middleware
+2026-06-06T21:13:11.491Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-06T21:13:42.076Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:13:42.077Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:13:42.079Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:13:42.107Z [WARN]: login error: User not found
+2026-06-06T21:13:46.921Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:13:46.922Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:13:46.923Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:13:47.576Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:14:02.129Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:14:02.131Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:14:02.131Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:14:02.133Z [INFO]: in require role middleware
+2026-06-06T21:14:02.139Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:14:02.148Z [INFO]: getTripById : 1
+2026-06-06T21:14:02.149Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:14:02.149Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:14:51.166Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:14:51.168Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:14:51.169Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:14:51.169Z [INFO]: in require role middleware
+2026-06-06T21:14:51.174Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:14:51.176Z [INFO]: getTripById : 1
+2026-06-06T21:14:51.177Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:14:51.177Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:14:57.654Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:14:57.657Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:14:57.657Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:14:57.658Z [INFO]: in require role middleware
+2026-06-06T21:14:57.664Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:14:57.678Z [INFO]: getTripById : 1
+2026-06-06T21:14:57.679Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:14:57.679Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:14:59.895Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:14:59.897Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:14:59.897Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:14:59.898Z [INFO]: in require role middleware
+2026-06-06T21:14:59.902Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:14:59.906Z [INFO]: getTripById : 1
+2026-06-06T21:14:59.906Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:14:59.907Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:15:46.708Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:15:46.711Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:15:46.713Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:15:46.742Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-06T21:15:47.399Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:15:54.718Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:15:54.722Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:15:54.723Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:15:54.726Z [INFO]: in require role middleware
+2026-06-06T21:15:54.732Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:15:54.740Z [INFO]: getTripById : 1
+2026-06-06T21:15:54.741Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:15:54.741Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:17:20.789Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:17:20.793Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:17:20.794Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:17:20.814Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-06T21:17:21.479Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:17:26.606Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:17:26.610Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:17:26.611Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:17:26.613Z [INFO]: in require role middleware
+2026-06-06T21:17:26.617Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:17:26.624Z [INFO]: getTripById : 1
+2026-06-06T21:17:26.625Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:17:26.626Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:17:51.848Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:17:51.861Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:17:51.862Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:17:51.865Z [INFO]: in require role middleware
+2026-06-06T21:17:51.921Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-06T21:18:02.843Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:18:02.844Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:18:02.845Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:18:03.506Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:18:08.093Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:18:08.095Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:18:08.096Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:18:08.098Z [INFO]: in require role middleware
+2026-06-06T21:18:08.102Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:18:08.113Z [INFO]: getTripById : 1
+2026-06-06T21:18:08.119Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:18:08.122Z [INFO]: the trip with id 1 returned successfully
+2026-06-06T21:20:04.556Z [INFO]: verifyToken - path: /auth/login
+2026-06-06T21:20:04.559Z [INFO]: verifyToken - skipping auth routes
+2026-06-06T21:20:04.561Z [INFO]: user id:undefined, method:POST, url:/auth/login
+2026-06-06T21:20:04.593Z [INFO]: Connected to MySQL at 127.0.0.1
+2026-06-06T21:20:05.246Z [INFO]: login successful for national id: 123456789 form institution: 410011
+2026-06-06T21:20:10.857Z [INFO]: verifyToken - path: /trips/1
+2026-06-06T21:20:10.860Z [INFO]: verifyToken - successful for user: principal (id number: 1)
+2026-06-06T21:20:10.862Z [INFO]: user id:undefined, method:GET, url:/trips/1
+2026-06-06T21:20:10.866Z [INFO]: in require role middleware
+2026-06-06T21:20:10.877Z [INFO]: roles for user id:1,  roles: principal
+2026-06-06T21:20:10.884Z [INFO]: getAll trips by userId: 1
+2026-06-06T21:20:10.885Z [INFO]: get trip by id: 1 and userId: 1
+2026-06-06T21:20:10.885Z [INFO]: the trip with id 1 returned successfully
+=======
 2026-06-07T08:06:29.186Z [INFO]: verifyToken - path: /auth/login
 2026-06-07T08:06:29.189Z [INFO]: verifyToken - skipping auth routes
 2026-06-07T08:06:29.190Z [INFO]: user id:undefined, method:POST, url:/auth/login
@@ -209,3 +357,697 @@
 2026-06-07T08:20:32.974Z [INFO]: getAll trips by userId: 1
 2026-06-07T08:20:32.978Z [INFO]: get trip by id: 1 and userId: 1
 2026-06-07T08:20:32.979Z [INFO]: the trip with id 1 returned successfully
+<<<<<<< HEAD
+>>>>>>> Trips
+=======
+07.06.2026, 17:16:14 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:16:14 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:16:14 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:16:14 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 17:16:14 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:20:43 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:20:43 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:20:43 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:20:43 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:21:49 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:21:49 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:21:49 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:21:49 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:21:56 [INFO]: verifyToken - path: /trips/1
+07.06.2026, 17:21:56 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:21:56 [INFO]: user id:undefined, method:GET, url:/trips/1
+07.06.2026, 17:21:56 [INFO]: in require role middleware
+07.06.2026, 17:21:56 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 17:21:56 [INFO]: getAll trips by userId: 1
+07.06.2026, 17:21:56 [INFO]: get trip by id: 1 and userId: 1
+07.06.2026, 17:21:56 [INFO]: the trip with id 1 returned successfully
+07.06.2026, 17:22:41 [INFO]: verifyToken - path: /files
+07.06.2026, 17:22:41 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:22:41 [INFO]: user id:undefined, method:POST, url:/files
+07.06.2026, 17:31:11 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:31:11 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:31:11 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:31:11 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 17:31:11 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:31:41 [INFO]: verifyToken - path: /files
+07.06.2026, 17:31:41 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:31:41 [INFO]: user id:undefined, method:POST, url:/files
+07.06.2026, 17:42:40 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:42:40 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:42:40 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:42:40 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 17:42:40 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:42:50 [INFO]: verifyToken - path: /trips/1
+07.06.2026, 17:42:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:42:50 [INFO]: user id:undefined, method:GET, url:/trips/1
+07.06.2026, 17:42:50 [INFO]: in require role middleware
+07.06.2026, 17:42:50 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 17:42:50 [INFO]: getAll trips by userId: 1
+07.06.2026, 17:42:50 [INFO]: get trip by id: 1 and userId: 1
+07.06.2026, 17:42:50 [INFO]: the trip with id 1 returned successfully
+07.06.2026, 17:43:12 [INFO]: verifyToken - path: /files
+07.06.2026, 17:43:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:43:12 [INFO]: user id:undefined, method:POST, url:/files
+07.06.2026, 17:43:25 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:43:25 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:43:25 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:43:26 [WARN]: login error: Incorrect password
+07.06.2026, 17:43:40 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:43:40 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:43:40 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:43:40 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:44:06 [INFO]: verifyToken - path: /files
+07.06.2026, 17:44:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:44:06 [INFO]: user id:undefined, method:POST, url:/files
+07.06.2026, 17:45:40 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:45:40 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:45:40 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:45:40 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 17:45:41 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:46:03 [INFO]: verifyToken - path: /files
+07.06.2026, 17:46:03 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:46:03 [INFO]: user id:undefined, method:POST, url:/files
+07.06.2026, 17:47:11 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:47:11 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:47:11 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:47:11 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:49:13 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:49:13 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:49:13 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:49:13 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 17:49:13 [WARN]: login error: Incorrect password
+07.06.2026, 17:49:18 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:49:18 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:49:18 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:49:18 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:50:21 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:50:21 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:50:21 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:50:21 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 17:50:22 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:51:52 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:51:52 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:51:52 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:51:52 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:56:17 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 17:56:17 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 17:56:17 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 17:56:18 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 17:56:57 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 17:56:57 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:56:57 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 17:56:57 [INFO]: in require role middleware
+07.06.2026, 17:56:57 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 17:57:33 [INFO]: verifyToken - path: /trips/1/files/
+07.06.2026, 17:57:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:57:33 [INFO]: user id:undefined, method:POST, url:/trips/1/files/
+07.06.2026, 17:57:33 [INFO]: in require role middleware
+07.06.2026, 17:57:33 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 17:59:54 [INFO]: verifyToken - path: /trips/1/files%0A
+07.06.2026, 17:59:54 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 17:59:54 [INFO]: user id:undefined, method:POST, url:/trips/1/files%0A
+07.06.2026, 18:00:17 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:00:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:00:17 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:00:17 [INFO]: in require role middleware
+07.06.2026, 18:00:17 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:04:42 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:04:42 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:04:42 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:04:42 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:04:43 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:05:27 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:05:27 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:05:27 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:05:27 [INFO]: in require role middleware
+07.06.2026, 18:05:27 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:06:58 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:06:58 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:06:58 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:06:58 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:07:23 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:07:23 [WARN]: verifyToken - no token provided for path: /trips/1/files
+07.06.2026, 18:09:07 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:09:07 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:09:07 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:09:07 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:09:21 [INFO]: verifyToken - path: /trips/1
+07.06.2026, 18:09:21 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:09:21 [INFO]: user id:undefined, method:GET, url:/trips/1
+07.06.2026, 18:09:21 [INFO]: in require role middleware
+07.06.2026, 18:09:21 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:09:21 [INFO]: getAll trips by userId: 1
+07.06.2026, 18:09:21 [INFO]: get trip by id: 1 and userId: 1
+07.06.2026, 18:09:21 [INFO]: the trip with id 1 returned successfully
+07.06.2026, 18:09:52 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:09:52 [WARN]: verifyToken - no token provided for path: /trips/1/files
+07.06.2026, 18:12:52 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:12:52 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:12:52 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:12:52 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:13:47 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:13:47 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:13:47 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:13:48 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:18:58 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:18:58 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:18:58 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:18:58 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:18:59 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:19:10 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:19:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:19:10 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:19:10 [INFO]: in require role middleware
+07.06.2026, 18:19:10 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:21:17 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:21:17 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:21:17 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:21:17 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:21:17 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:21:32 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:21:32 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:21:32 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:21:32 [INFO]: in require role middleware
+07.06.2026, 18:21:32 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:24:39 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:24:39 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:24:39 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:24:39 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:24:39 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:24:51 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:24:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:24:51 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:24:51 [INFO]: in require role middleware
+07.06.2026, 18:24:51 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:34:46 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:34:46 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:34:46 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:34:46 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:34:46 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:35:15 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:35:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:35:15 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:35:15 [INFO]: in require role middleware
+07.06.2026, 18:35:15 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:37:10 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:37:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:37:10 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:37:10 [INFO]: in require role middleware
+07.06.2026, 18:37:10 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:37:26 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:37:26 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:37:26 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:37:26 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:37:50 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:37:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:37:50 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:37:50 [INFO]: in require role middleware
+07.06.2026, 18:37:50 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:38:20 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:38:20 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:38:20 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:38:21 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:38:38 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:38:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:38:38 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:38:38 [INFO]: in require role middleware
+07.06.2026, 18:38:38 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:44:06 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:44:06 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:44:06 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:44:06 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:44:06 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:44:29 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:44:29 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:44:29 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:44:29 [INFO]: in require role middleware
+07.06.2026, 18:44:29 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:44:53 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:44:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:44:53 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:44:53 [INFO]: in require role middleware
+07.06.2026, 18:44:53 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:45:13 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:45:13 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:45:13 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:45:13 [INFO]: in require role middleware
+07.06.2026, 18:45:13 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:45:34 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:45:34 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:45:34 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:45:35 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:45:50 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:45:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:45:50 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:45:50 [INFO]: in require role middleware
+07.06.2026, 18:45:50 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:47:42 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:47:42 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:47:42 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:47:42 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:47:42 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:48:07 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:48:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:48:07 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:48:07 [INFO]: in require role middleware
+07.06.2026, 18:48:07 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 18:49:05 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 18:49:05 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 18:49:05 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 18:49:05 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 18:49:06 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 18:49:30 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 18:49:30 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 18:49:30 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 18:49:30 [INFO]: in require role middleware
+07.06.2026, 18:49:30 [INFO]: roles for user id:1,  roles: principal
+>>>>>>> Files
+07.06.2026, 20:27:33 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:27:33 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:27:33 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:27:33 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:27:34 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:28:20 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:28:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:28:20 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:28:20 [INFO]: in require role middleware
+07.06.2026, 20:28:20 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:28:20 [INFO]: getById users called with id: 1
+07.06.2026, 20:28:20 [INFO]: getById users successful for id: 1
+07.06.2026, 20:28:20 [INFO]: verifyToken - path: /users
+07.06.2026, 20:28:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:28:20 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:28:20 [INFO]: in require role middleware
+07.06.2026, 20:28:20 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:28:20 [INFO]: addUser called for user: רכז טיולים
+07.06.2026, 20:28:20 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+07.06.2026, 20:28:20 [WARN]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+07.06.2026, 20:42:20 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:42:20 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:42:20 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:42:21 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:42:21 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:43:05 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:43:05 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:43:05 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:43:05 [INFO]: in require role middleware
+07.06.2026, 20:43:05 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:43:05 [INFO]: getById users called with id: 1
+07.06.2026, 20:43:05 [INFO]: getById users successful for id: 1
+07.06.2026, 20:43:05 [INFO]: verifyToken - path: /users
+07.06.2026, 20:43:05 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:43:05 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:43:05 [INFO]: in require role middleware
+07.06.2026, 20:43:05 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:43:06 [INFO]: getById users called with id: undefined
+07.06.2026, 20:44:30 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:44:30 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:44:30 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:44:30 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:44:31 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:45:26 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:45:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:45:26 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:45:26 [INFO]: in require role middleware
+07.06.2026, 20:45:26 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:45:26 [INFO]: getById users called with id: 1
+07.06.2026, 20:45:26 [INFO]: getById users successful for id: 1
+07.06.2026, 20:45:26 [INFO]: verifyToken - path: /users
+07.06.2026, 20:45:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:45:26 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:45:26 [INFO]: in require role middleware
+07.06.2026, 20:45:26 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:45:27 [INFO]: getById users called with id: undefined
+07.06.2026, 20:53:48 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:53:48 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:53:48 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:53:49 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:53:49 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:55:37 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:55:37 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:55:37 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:55:37 [INFO]: in require role middleware
+07.06.2026, 20:55:37 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:55:37 [INFO]: getById users called with id: 1
+07.06.2026, 20:55:37 [INFO]: getById users successful for id: 1
+07.06.2026, 20:55:38 [INFO]: verifyToken - path: /users
+07.06.2026, 20:55:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:55:38 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:55:38 [INFO]: in require role middleware
+07.06.2026, 20:55:38 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:55:38 [INFO]: getById users called with id: 1
+07.06.2026, 20:55:38 [WARN]: addUser error: Cannot read properties of undefined (reading '0')
+07.06.2026, 20:55:38 [INFO]: getById users successful for id: 1
+07.06.2026, 20:58:45 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 20:58:45 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 20:58:45 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 20:58:45 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 20:58:45 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 20:59:16 [INFO]: verifyToken - path: /users/1
+07.06.2026, 20:59:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:59:16 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 20:59:16 [INFO]: in require role middleware
+07.06.2026, 20:59:16 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:59:16 [INFO]: getById users called with id: 1
+07.06.2026, 20:59:16 [INFO]: getById users successful for id: 1
+07.06.2026, 20:59:16 [INFO]: verifyToken - path: /users
+07.06.2026, 20:59:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 20:59:16 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 20:59:16 [INFO]: in require role middleware
+07.06.2026, 20:59:16 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 20:59:17 [INFO]: getById users called with id: 1
+07.06.2026, 20:59:17 [WARN]: addUser error: Cannot read properties of undefined (reading '0')
+07.06.2026, 20:59:17 [INFO]: getById users successful for id: 1
+07.06.2026, 21:00:27 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:00:27 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:00:27 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:00:27 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:00:27 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:00:56 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:00:56 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:00:56 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:00:56 [INFO]: in require role middleware
+07.06.2026, 21:00:56 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:00:56 [INFO]: getById users called with id: 1
+07.06.2026, 21:00:56 [INFO]: getById users successful for id: 1
+07.06.2026, 21:00:56 [INFO]: verifyToken - path: /users
+07.06.2026, 21:00:56 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:00:56 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:00:56 [INFO]: in require role middleware
+07.06.2026, 21:00:56 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:00:57 [WARN]: addUser error: Cannot read properties of undefined (reading 'insertId')
+07.06.2026, 21:03:22 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:03:22 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:03:22 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:03:22 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:03:22 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:03:48 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:03:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:03:48 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:03:48 [INFO]: in require role middleware
+07.06.2026, 21:03:48 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:03:48 [INFO]: getById users called with id: 1
+07.06.2026, 21:03:48 [INFO]: getById users successful for id: 1
+07.06.2026, 21:03:48 [INFO]: verifyToken - path: /users
+07.06.2026, 21:03:49 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:03:49 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:03:49 [INFO]: in require role middleware
+07.06.2026, 21:03:49 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:03:49 [WARN]: addUser error: Data too long for column 'role_name' at row 1
+07.06.2026, 21:07:41 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:07:41 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:07:41 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:07:41 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:07:42 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:08:08 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:08:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:08:08 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:08:08 [INFO]: in require role middleware
+07.06.2026, 21:08:08 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:08:08 [INFO]: getById users called with id: 1
+07.06.2026, 21:08:08 [INFO]: getById users successful for id: 1
+07.06.2026, 21:08:08 [INFO]: verifyToken - path: /users
+07.06.2026, 21:08:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:08:08 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:08:08 [INFO]: in require role middleware
+07.06.2026, 21:08:08 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:08:09 [WARN]: addUser error: Duplicate entry '999999999' for key 'users.national_id'
+07.06.2026, 21:09:29 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:09:29 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:09:29 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:09:29 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 21:09:30 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 21:10:00 [INFO]: verifyToken - path: /users/1
+07.06.2026, 21:10:00 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:10:00 [INFO]: user id:undefined, method:GET, url:/users/1
+07.06.2026, 21:10:00 [INFO]: in require role middleware
+07.06.2026, 21:10:00 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:10:00 [INFO]: getById users called with id: 1
+07.06.2026, 21:10:00 [INFO]: getById users successful for id: 1
+07.06.2026, 21:10:00 [INFO]: verifyToken - path: /users
+07.06.2026, 21:10:00 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 21:10:00 [INFO]: user id:undefined, method:POST, url:/users
+07.06.2026, 21:10:00 [INFO]: in require role middleware
+07.06.2026, 21:10:00 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 21:10:01 [INFO]: addUser successful, user id: undefined
+07.06.2026, 21:10:14 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:10:14 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:10:14 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:10:15 [INFO]: login successful for national id: 999999999 form institution: 410011
+07.06.2026, 21:13:08 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 21:13:08 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 21:13:08 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 21:13:09 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:07:35 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:07:35 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:07:35 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:07:35 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:07:36 [INFO]: login successful for national id: 999999999 form institution: 410011
+07.06.2026, 22:08:28 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 22:08:28 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+07.06.2026, 22:08:28 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 22:08:28 [INFO]: in require role middleware
+07.06.2026, 22:08:28 [INFO]: roles for user id:5,  roles: coordinator
+07.06.2026, 22:09:45 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:09:45 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:09:45 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:09:46 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:10:12 [INFO]: verifyToken - path: /trips/1/files/2
+07.06.2026, 22:10:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:10:12 [INFO]: user id:undefined, method:GET, url:/trips/1/files/2
+07.06.2026, 22:10:12 [INFO]: in require role middleware
+07.06.2026, 22:10:12 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:10:47 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:10:47 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:10:47 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:10:47 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:10:48 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:10:57 [INFO]: verifyToken - path: /trips/1/files/2
+07.06.2026, 22:10:57 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:10:57 [INFO]: user id:undefined, method:GET, url:/trips/1/files/2
+07.06.2026, 22:10:57 [INFO]: in require role middleware
+07.06.2026, 22:10:57 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:13:29 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:13:29 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:13:29 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:13:29 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:13:29 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:13:31 [INFO]: verifyToken - path: /trips/1/files/2
+07.06.2026, 22:13:31 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:13:31 [INFO]: user id:undefined, method:GET, url:/trips/1/files/2
+07.06.2026, 22:13:31 [INFO]: in require role middleware
+07.06.2026, 22:13:31 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:15:54 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:15:54 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:15:54 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:15:54 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:15:55 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:15:58 [INFO]: verifyToken - path: /trips/1/files/2
+07.06.2026, 22:15:58 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:15:58 [INFO]: user id:undefined, method:GET, url:/trips/1/files/2
+07.06.2026, 22:15:58 [INFO]: in require role middleware
+07.06.2026, 22:15:58 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:17:41 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:17:41 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:17:41 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:17:41 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:17:41 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:17:43 [INFO]: verifyToken - path: /trips/1/files/2
+07.06.2026, 22:17:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:17:43 [INFO]: user id:undefined, method:GET, url:/trips/1/files/2
+07.06.2026, 22:17:43 [INFO]: in require role middleware
+07.06.2026, 22:17:43 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:19:08 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:19:08 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:19:08 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:19:08 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:19:09 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:19:40 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 22:19:40 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:19:40 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 22:19:40 [INFO]: in require role middleware
+07.06.2026, 22:19:40 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:20:00 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:20:00 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:20:00 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:20:00 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:20:06 [INFO]: verifyToken - path: /trips/1/files/2
+07.06.2026, 22:20:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:20:06 [INFO]: user id:undefined, method:GET, url:/trips/1/files/2
+07.06.2026, 22:20:06 [INFO]: in require role middleware
+07.06.2026, 22:20:06 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:20:11 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:20:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:20:11 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:20:11 [INFO]: in require role middleware
+07.06.2026, 22:20:11 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:21:18 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:21:18 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:21:18 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:21:18 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:21:18 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:21:41 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 22:21:41 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:21:41 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 22:21:41 [INFO]: in require role middleware
+07.06.2026, 22:21:41 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:22:20 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:22:20 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:22:20 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:22:20 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:22:22 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:22:22 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:22:22 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:22:22 [INFO]: in require role middleware
+07.06.2026, 22:22:22 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:25:23 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:25:23 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:25:23 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:25:23 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:25:23 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:25:26 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:25:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:25:26 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:25:26 [INFO]: in require role middleware
+07.06.2026, 22:25:26 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:25:52 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:25:52 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:25:52 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:25:52 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:25:52 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:25:54 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:25:54 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:25:54 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:25:54 [INFO]: in require role middleware
+07.06.2026, 22:25:54 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:28:31 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:28:31 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:28:31 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:28:31 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:28:31 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:28:35 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:28:35 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:28:35 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:28:35 [INFO]: in require role middleware
+07.06.2026, 22:28:35 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:29:06 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:29:06 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:29:06 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:29:06 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:29:06 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:29:09 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:29:09 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:29:09 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:29:09 [INFO]: in require role middleware
+07.06.2026, 22:29:09 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:29:34 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:29:34 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:29:34 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:29:34 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:29:35 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:29:37 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:29:37 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:29:37 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:29:37 [INFO]: in require role middleware
+07.06.2026, 22:29:37 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:30:15 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:30:15 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:30:15 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:30:15 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:30:15 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:30:18 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:30:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:30:18 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:30:18 [INFO]: in require role middleware
+07.06.2026, 22:30:18 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:30:39 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:30:39 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:30:39 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:30:40 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:30:40 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:30:42 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:30:42 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:30:42 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:30:42 [INFO]: in require role middleware
+07.06.2026, 22:30:42 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:36:36 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:36:36 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:36:36 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:36:36 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:36:36 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:36:38 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:36:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:36:38 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:36:38 [INFO]: in require role middleware
+07.06.2026, 22:36:38 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:37:00 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:37:00 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:37:00 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:37:00 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:37:01 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:37:03 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:37:03 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:37:03 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:37:03 [INFO]: in require role middleware
+07.06.2026, 22:37:03 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:37:33 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:37:33 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:37:33 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:37:33 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:37:34 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:37:36 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:37:36 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:37:36 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:37:36 [INFO]: in require role middleware
+07.06.2026, 22:37:36 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:41:20 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:41:20 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:41:20 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:41:20 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:41:21 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:41:24 [INFO]: verifyToken - path: /trips/1/files/3
+07.06.2026, 22:41:24 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:41:24 [INFO]: user id:undefined, method:GET, url:/trips/1/files/3
+07.06.2026, 22:41:24 [INFO]: in require role middleware
+07.06.2026, 22:41:24 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:42:01 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:42:01 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:42:01 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:42:02 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:42:21 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 22:42:21 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:42:21 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 22:42:21 [INFO]: in require role middleware
+07.06.2026, 22:42:21 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:42:47 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:42:47 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:42:47 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:42:47 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:42:50 [INFO]: verifyToken - path: /trips/1/files/5
+07.06.2026, 22:42:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:42:50 [INFO]: user id:undefined, method:GET, url:/trips/1/files/5
+07.06.2026, 22:42:50 [INFO]: in require role middleware
+07.06.2026, 22:42:50 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:51:34 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:51:34 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:51:34 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:51:34 [INFO]: Connected to MySQL at 127.0.0.1
+07.06.2026, 22:51:34 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:52:05 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:52:05 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:52:05 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:52:05 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:52:22 [INFO]: verifyToken - path: /trips/1/files
+07.06.2026, 22:52:22 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:52:22 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+07.06.2026, 22:52:22 [INFO]: in require role middleware
+07.06.2026, 22:52:22 [INFO]: roles for user id:1,  roles: principal
+07.06.2026, 22:53:12 [INFO]: verifyToken - path: /auth/login
+07.06.2026, 22:53:12 [INFO]: verifyToken - skipping auth routes
+07.06.2026, 22:53:12 [INFO]: user id:undefined, method:POST, url:/auth/login
+07.06.2026, 22:53:13 [INFO]: login successful for national id: 123456789 form institution: 410011
+07.06.2026, 22:53:20 [INFO]: verifyToken - path: /trips/1/files/6
+07.06.2026, 22:53:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+07.06.2026, 22:53:20 [INFO]: user id:undefined, method:GET, url:/trips/1/files/6
+07.06.2026, 22:53:20 [INFO]: in require role middleware
+07.06.2026, 22:53:20 [INFO]: roles for user id:1,  roles: principal

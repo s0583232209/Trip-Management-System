@@ -68,10 +68,9 @@ export async function getById(id) {
     throw err;
   }
 }
-
-export async function addUser(details) {
+async function addUserPrincipal(details) {
   try {
-    log.info(`addUser called for user: ${details.fullName}`);
+    log.info(`addUserPrincipal called for user: ${details.fullName}`);
     const connection = await getConnection();
     const schoolResult = await connection.execute(
       `INSERT INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
@@ -97,17 +96,44 @@ export async function addUser(details) {
       ],
     );
     console.log(result, schoolResult);
-    await connection.execute(
-      "INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
-      [result.insertId, details.password],
-    );
-    await connection.execute(
-      `INSERT INTO user_roles (user_id,role_name)VALUES(?,?)`,
-      [result.insertId, details.role],
-    );
-    log.info(`addUser successful, user id: ${result.insertId}`);
-    return { userId: result.insertId, ...details };
   } catch (err) {
+    console.log(err);
+  }
+}
+export async function addUser(details, principal) {
+  let id;
+  console.log(details, "this is details from add User");
+
+  const connection = await getConnection();
+  if (principal) {
+    id = addUserPrincipal(details);
+  } else {
+    const [result] = await connection.execute(
+      "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",
+      [
+        details.schoolId,
+        details.fullName,
+        details.nationalId,
+        details.userEmail || null,
+        details.userPhoneNumber || null,
+      ],
+    );
+    console.log(result, "result from else add user");
+    id = result.insertId;
+    console.log(id, "this is the new id");
+  }
+  console.log(details.role, "this is the role");
+  const result = await connection.execute(
+    "INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
+    [id, details.password],
+  );
+  await connection.execute(
+    `INSERT INTO user_roles (user_id,role_name)VALUES(?,?)`,
+    [id, details.role],
+  );
+  log.info(`addUser successful, user id: ${result.insertId}`);
+  return { userId: id, ...details };
+  {
     log.error(`addUser error: ${err.message}`);
     throw err;
   }

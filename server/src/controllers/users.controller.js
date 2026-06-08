@@ -32,7 +32,9 @@ export async function updateProfile(req, res) {
 export async function changePassword(req, res) {
   try {
     console.log("change password...............................");
-    if (req.body.userId != req.params.id) res.status(401).send("access denied");
+    console.log("userId=", req.user.userId, "params id=", req.params.id);
+    if (req.user.userId != req.params.id)
+      return res.status(401).send("access denied");
     log.info(`change passwrod controller - userId: ${req.params.id}}`);
     const user = await usersService.changePassword(req.params.id, req.body);
     res.status(200).json(user);
@@ -44,10 +46,16 @@ export async function changePassword(req, res) {
 export async function addUser(req, res) {
   try {
     if (req.body.role === "principal")
-      res
-        .status("401")
-        .message("Bad Request: you can not add another principal");
-    const user = await usersService.addUser(req.body);
+      return res
+        .status(401)
+        .json({ message: "Bad Request: you can not add another principal" });
+    const user = await usersService.addUser(
+      {
+        ...req.body,
+        principalId: req.user.userId,
+      },
+      false,
+    );
     res.status(200).json(user);
   } catch (err) {
     log.warn(`addUser error: ${err.message}`);

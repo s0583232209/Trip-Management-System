@@ -26,7 +26,11 @@ function StopForm({ stop, index, onChange, onRemove }) {
     <div className="stop-card">
       <div className="stop-card-header">
         <span className="stop-index">עצירה {index + 1}</span>
-        <button type="button" className="stop-remove-btn" onClick={() => onRemove(index)}>
+        <button
+          type="button"
+          className="stop-remove-btn"
+          onClick={() => onRemove(index)}
+        >
           הסר
         </button>
       </div>
@@ -83,7 +87,9 @@ function StopForm({ stop, index, onChange, onRemove }) {
             value={stop.officialApproval || ""}
             onChange={handleField}
           />
-          <p className="field-hint">אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך</p>
+          <p className="field-hint">
+            אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך
+          </p>
         </>
       )}
 
@@ -137,8 +143,10 @@ export default function UpdateTripPage() {
   useEffect(() => {
     async function fetchTrip() {
       try {
+        console.log('in fetch trip')
         const res = await api.get(`/api/trips/${tripId}`);
-        console.log(res)
+       
+      
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (trip) {
           setFormData({
@@ -184,7 +192,8 @@ export default function UpdateTripPage() {
       newErrors.tripLeaderNationalId = "מספר ת.ז. של אחראי הטיול הוא שדה חובה";
 
     stops.forEach((stop, i) => {
-      if (!stop.name.trim()) newErrors[`stop_${i}_name`] = `שם עצירה ${i + 1} חסר`;
+      if (!stop.name.trim())
+        newErrors[`stop_${i}_name`] = `שם עצירה ${i + 1} חסר`;
       if (!stop.type) newErrors[`stop_${i}_type`] = `סוג עצירה ${i + 1} חסר`;
       if (stop.type === "מסלול הליכה" && !stop.trailCondition)
         newErrors[`stop_${i}_condition`] = `מצב מסלול עצירה ${i + 1} חסר`;
@@ -215,7 +224,9 @@ export default function UpdateTripPage() {
       navigate(`/trips/${tripId}`);
     } catch (err) {
       setSubmitError(
-        err.response?.data?.message || err.response?.data || "עדכון הטיול נכשל, נסה שנית"
+        err.response?.data?.message ||
+          err.response?.data ||
+          "עדכון הטיול נכשל, נסה שנית",
       );
     } finally {
       setLoading(false);
@@ -308,7 +319,9 @@ export default function UpdateTripPage() {
             </button>
           </section>
 
-          {submitError && <p className="error form-submit-error">{submitError}</p>}
+          {submitError && (
+            <p className="error form-submit-error">{submitError}</p>
+          )}
 
           <div className="form-actions-row">
             <button

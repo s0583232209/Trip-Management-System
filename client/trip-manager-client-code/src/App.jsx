@@ -14,6 +14,9 @@ import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import "./App.css";
 import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
 import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
+import UploadTripFile from "./pages/trips/UploadFilesPage.jsx";
+import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
+
 
 function App() {
   return (
@@ -44,10 +47,7 @@ function App() {
         <Route
           path="/trips/:tripId/staff"
           element={
-            <TripSectionPage
-              title="תכנון טיול / אנשי צוות"
-              description="כאן תוכל לנהל את צוות המלווה לטיול."
-            />
+            <ManageTripStaffPage></ManageTripStaffPage>
           }
         />
         <Route
@@ -106,18 +106,11 @@ function App() {
         />
         <Route
           path="/trips/:tripId/files"
-          element={
-            <TripSectionPage
-              title="העלאת קבצים"
-              description="עמוד להעלאת קבצים ותמיכה במסמכים בטיול."
-            />
-          }
+          element={<UploadTripFile></UploadTripFile>}
         />
         <Route
           path="/trips/:tripId/approve"
-          element={
-            <ApproveTripPage></ApproveTripPage>
-          }
+          element={<ApproveTripPage></ApproveTripPage>}
         />
         <Route
           path="/trips/:tripId/close"

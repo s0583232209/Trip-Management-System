@@ -65,4 +65,13 @@ export async function approveTrip(req, res) {
     res.status(500).json("Approving failed");
   }
 }
-
+export async function addStaff(req, res) {
+  try {
+    await tripsService.addStaff(req.params.id, req.body.nationalIds);
+    log.info(`staff added to trip: ${req.params.id}`);
+    res.status(201).json({ message: "Staff added successfully" });
+  } catch (err) {
+    log.warn(`adding staff failed: ${err.message}`);
+    res.status(500).json({ message: err.message });
+  }
+}

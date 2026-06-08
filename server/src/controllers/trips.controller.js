@@ -47,8 +47,8 @@ export async function updateTrip(req, res) {
 }
 export async function deleteTrip(req, res) {
   try {
-    const response = await tripsService.deleteTrip(req.body.tripId);
-    log.info(`trip with id: ${req.body.tripId} deleted successfully`);
+    const response = await tripsService.deleteTrip(req.params.id);
+    log.info(`trip with id: ${req.params.id} deleted successfully`);
     res.status(201).json("Trip deleted successfully");
   } catch (err) {
     log.warn(`deleting trip failed, from deleteTrip in trips.controller`);

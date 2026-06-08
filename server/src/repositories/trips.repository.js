@@ -125,7 +125,7 @@ export async function updateTrip(updateDetails) {
 }
 export async function deleteTrip(tripId) {
   const connection = await getConnection();
-  const response = connection.execute(`DELETE FROM trips WHERE id=?`, [tripId]);
+  const response = await connection.execute(`DELETE FROM trips WHERE id=?`, [tripId]);
   return response;
 }
 export async function approveTrip(tripId, parentToken) {

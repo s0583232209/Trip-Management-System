@@ -7,30 +7,39 @@ export async function getAll(userId) {
   const connection = await getConnection();
   console.log(userId);
   const res = await connection.execute(
-    `SELECT * FROM trips
+    `SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status
+    FROM trips
     JOIN staff_trip ON trips.id = staff_trip.trip_id
-    JOIN users ON staff_trip.staff_id = users.id
-   WHERE users.id = ? `,
+    WHERE staff_trip.staff_id = ?`,
     [userId],
   );
-  console.log(res, "this is res from repo service");
+  // SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status, trips.route_geojson
+  //   FROM trips
+  //   JOIN staff_trip ON trips.id = staff_trip.trip_id
+  //   JOIN users ON staff_trip.staff_id = users.id
+  //  WHERE users.id = ?
+  console.log(res[0], "this is res[0] from repo trips");
   // dblog.info(`getAll trips by userId: ${userId}`); //fix this log
   log.info(`getAll trips by userId: ${userId}`);
-  return res;
+  return res[0];
 }
 export async function getById(tripId, userId) {
   const connection = await getConnection();
   const res = await connection.execute(
-    `SELECT * FROM (SELECT * FROM trips
-    WHERE trips.id = ?)t
-    JOIN staff_trip ON staff_trip.trip_id=t.id
-    WHERE staff_trip.staff_id=?`,
+    `SELECT t.*, u.national_id AS tripLeaderNationalId
+      FROM (SELECT * FROM trips WHERE trips.id = ?) t
+      JOIN users u ON u.id = t.trip_leader_id
+      JOIN staff_trip ON staff_trip.trip_id = t.id
+      WHERE staff_trip.staff_id = ? `,
     [tripId, userId],
   );
+  //SELECT * FROM (SELECT * FROM trips
+    // WHERE trips.id = ?)t
+    // JOIN staff_trip ON staff_trip.trip_id=t.id
+    // WHERE staff_trip.staff_id=?
   //db log!!!!!!!!!!!!!!!!!
   log.info(`getTripById : ${tripId}`);
-  console.log(res, "this is rows in repo");
-  return res;
+  return res[0][0];
 }
 export async function addTrip(tripDetails, staffIdsArray = []) {
   const connection = await getConnection();

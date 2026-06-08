@@ -10,7 +10,7 @@ export async function getAllTrips(userId) {
 }
 export async function getById(tripId, userId) {
   try {
-    const trip = await tripsRepo.getAll(tripId, userId);
+    const trip = await tripsRepo.getById(tripId,userId);
     console.log(trip, "this is the trip from the service");
     log.info(`get trip by id: ${tripId} and userId: ${userId}`);
     console.log(trip, "thi is thrip in service");

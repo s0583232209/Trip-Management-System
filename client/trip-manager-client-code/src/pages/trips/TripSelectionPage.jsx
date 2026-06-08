@@ -30,7 +30,7 @@ export default function TripSelectionPage() {
               className="trip-card"
               onClick={() => navigate(`/trips/${trip.id}`)}
             >
-              {trip.name}
+              {trip.title}
             </button>
           ))}
         </div>

@@ -692,3 +692,55 @@
 08.06.2026, 12:39:37 [INFO]: getTripById : 1
 08.06.2026, 12:39:37 [INFO]: get trip by id: 1 and userId: 1
 08.06.2026, 12:39:37 [INFO]: the trip with id 1 returned successfully
+08.06.2026, 12:53:31 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 12:53:31 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 12:53:31 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 12:53:32 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 12:53:32 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 12:57:00 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 12:57:00 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 12:57:00 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 12:57:00 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 12:57:58 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 12:57:58 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 12:57:58 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 12:57:58 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 12:57:58 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 12:58:28 [INFO]: verifyToken - path: /trips/1/emergency
+08.06.2026, 12:58:28 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 12:58:28 [INFO]: user id:undefined, method:POST, url:/trips/1/emergency
+08.06.2026, 12:58:28 [INFO]: in require role middleware
+08.06.2026, 12:58:28 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 12:59:55 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 12:59:55 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 12:59:55 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 12:59:55 [WARN]: login error: Incorrect password
+08.06.2026, 13:00:15 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 13:00:15 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 13:00:15 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 13:00:15 [WARN]: login error: Incorrect password
+08.06.2026, 13:00:52 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 13:00:52 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 13:00:52 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 13:00:52 [INFO]: login successful for national id: 111111111 form institution: 410011
+08.06.2026, 13:00:59 [INFO]: verifyToken - path: /trips/1/emergency
+08.06.2026, 13:00:59 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+08.06.2026, 13:00:59 [INFO]: user id:undefined, method:POST, url:/trips/1/emergency
+08.06.2026, 13:00:59 [INFO]: in require role middleware
+08.06.2026, 13:00:59 [INFO]: roles for user id:9,  roles: teacher
+08.06.2026, 13:00:59 [INFO]: createEmergency called with data: {"emergencyTypeId":2,"description":"תלמיד התעלף, נדרש פינוי מוסדר לא חושש לחיי אדם.","locationLat":31.7683,"locationLng":35.2137,"tripId":"1","openedBy":9}
+08.06.2026, 13:00:59 [ERROR]: Error occurred while creating emergency: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
+08.06.2026, 13:00:59 [ERROR]: EmergenciesController - create error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
+08.06.2026, 13:04:53 [INFO]: verifyToken - path: /trips/1
+08.06.2026, 13:04:53 [WARN]: verifyToken - no token provided for path: /trips/1
+08.06.2026, 13:28:14 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 13:28:14 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 13:28:14 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 13:28:15 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 13:28:15 [INFO]: login successful for national id: 111111111 form institution: 410011
+08.06.2026, 13:28:18 [INFO]: verifyToken - path: /trips/1/emergency
+08.06.2026, 13:28:18 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+08.06.2026, 13:28:18 [INFO]: user id:undefined, method:POST, url:/trips/1/emergency
+08.06.2026, 13:28:18 [INFO]: in require role middleware
+08.06.2026, 13:28:18 [INFO]: roles for user id:9,  roles: teacher
+08.06.2026, 13:28:18 [INFO]: createEmergency called with data: {"emergencyTypeId":2,"description":"תלמיד התעלף, נדרש פינוי מוסדר לא חושש לחיי אדם.","locationLat":31.7683,"locationLng":35.2137,"tripId":"1","openedBy":9}

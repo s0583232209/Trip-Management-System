@@ -18,6 +18,7 @@ import UploadTripFile from "./pages/trips/UploadFilesPage.jsx";
 import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
 import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
+import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 
 function App() {
   return (
@@ -28,7 +29,6 @@ function App() {
         <Route path="/register/:step" element={<Register />} />
         <Route path="/" element={<DashboardPage />} />
         <Route path="/trips" element={<TripSelectionPage />} />
-        <Route path="/trips/new" element={<CreateTripPage />} />
         <Route path="/trips/:tripId" element={<TripDashboardPage />} />
         <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
         <Route path="/trips/:tripId/day" element={<TripDayPage />} />

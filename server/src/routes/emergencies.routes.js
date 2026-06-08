@@ -13,13 +13,13 @@ router.get(
 
 router.post(
   "/",
-  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  requireRole("trip leader", "teacher"),
   emergenciesController.create,
 );
 
 router.put(
   "/:emergencyId",
-  requireRole("principal", "coordinator", "trip leader"),
+  requireRole("trip leader", "teacher"),
   emergenciesController.update,
 );
 

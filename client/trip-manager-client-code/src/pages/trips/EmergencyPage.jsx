@@ -17,10 +17,6 @@ export default function EmergencyPage() {
     description: "",
   });
 
-  useEffect(() => {
-    fetchEmergencies();
-  }, [tripId]);
-
   const fetchEmergencies = async () => {
     setLoading(true);
     try {
@@ -33,6 +29,13 @@ export default function EmergencyPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    async function fetchTrip() {
+      await fetchEmergencies();
+    }
+    fetchTrip();
+  }, [tripId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -128,8 +131,7 @@ export default function EmergencyPage() {
                 className="emergency-select"
               >
                 <option value="1">🟢 קל (פציעה קלה, עיכוב זמני)</option>
-                <option value="2">🟠 בינוני (נדרש חילוץ / פינוי רפואי)</option>
-                <option value="3">🔴 קריטי (סכנת חיים / אירוע ביטחוני)</option>
+                <option value="2">🔴 קריטי (נדרש חילוץ / פינוי רפואי)</option>
               </select>
 
               <label htmlFor="description">תיאור האירוע</label>

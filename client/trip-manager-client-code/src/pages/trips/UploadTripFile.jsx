@@ -2,7 +2,15 @@ import { useState } from "react";
 import api from "../../api.js";
 import "./TripForms.css";
 
-export default function UploadTripFile({ tripId, onUploadSuccess }) {
+// UploadTripFile.jsx
+
+export default function UploadTripFile({
+  tripId,
+  documentType,
+  existingFile,
+  onUploadSuccess,
+  compact = false,
+}) {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,7 +39,8 @@ export default function UploadTripFile({ tripId, onUploadSuccess }) {
     // יצירת אובייקט FormData להתאמה ל-Multer בשרת
     const formData = new FormData();
     formData.append("file", file); // תואם ל-req.file בשרת
-    formData.append("tripId", 1); // תואם ל-req.body.tripId
+    formData.append("tripId", tripId);
+    formData.append("documentType", documentType);
     formData.append("description", description); // תואם ל-req.body.description
 
     try {
@@ -64,10 +73,23 @@ export default function UploadTripFile({ tripId, onUploadSuccess }) {
   return (
     <div
       className="trip-form"
-      style={{ maxWidth: "500px", margin: "1rem auto" }}
+      style={
+        compact
+          ? {
+              maxWidth: "100%",
+              margin: 0,
+              padding: 0,
+              boxShadow: "none",
+              border: "none",
+            }
+          : {
+              maxWidth: "500px",
+              margin: "1rem auto",
+            }
+      }
     >
       <section className="form-section">
-        <h3 className="form-section-title">העלאת מסמך / קובץ לטיול</h3>
+        {!compact && <h2>העלאת מסמך / קובץ לטיול</h2>}
 
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="trip-file-input">בחר קובץ (עד 20MB)</label>
@@ -113,7 +135,7 @@ export default function UploadTripFile({ tripId, onUploadSuccess }) {
               disabled={loading}
               style={{ width: "100%" }}
             >
-              {loading ? "מעלה קובץ..." : "העלה קובץ לשרת"}
+              {loading ? "מעלה..." : existingFile ? "החלף קובץ" : "העלה קובץ"}
             </button>
           </div>
         </form>

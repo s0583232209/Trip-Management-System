@@ -1,0 +1,266 @@
+import { useEffect, useState } from "react";
+import Navbar from "../../components/Navbar.jsx";
+import api from "../../api.js";
+import "./TripsPage.css";
+import "./TripForms.css";
+export const STOP_TYPES = [
+  { value: "מסלול הליכה", label: "מסלול הליכה" },
+  { value: "גינה לעצירה", label: "גינה לעצירה" },
+  { value: "אטרקציה", label: "אטרקציה" },
+];
+
+export const TRAIL_CONDITIONS = [
+  { value: "יבש", label: "יבש" },
+  { value: "רטוב", label: "רטוב" },
+];
+
+export const emptyStop = () => ({
+  name: "",
+  type: "",
+  trailCondition: "",
+  officialApproval: "",
+  notes: "",
+});
+
+function StopForm({ stop, index, onChange, onRemove }) {
+  function handleField(e) {
+    const { name, value } = e.target;
+    onChange(index, { ...stop, [name]: value });
+  }
+
+
+  return (
+    <div className="stop-card">
+      <div className="stop-card-header">
+        <span className="stop-index">עצירה {index + 1}</span>
+        <button
+          type="button"
+          className="stop-remove-btn"
+          onClick={() => onRemove(index)}
+        >
+          הסר
+        </button>
+      </div>
+
+      <label>שם העצירה</label>
+      <input
+        type="text"
+        name="name"
+        required
+        placeholder="*"
+        value={stop.name || ""}
+        onChange={handleField}
+      />
+
+      <label>סוג העצירה</label>
+      <select name="type" value={stop.type || ""} onChange={handleField} required>
+        <option value="">בחר סוג</option>
+        {STOP_TYPES.map((t) => (
+          <option key={t.value} value={t.value}>
+            {t.label}
+          </option>
+        ))}
+      </select>
+
+      {stop.type === "מסלול הליכה" && (
+        <>
+          <label>מצב המסלול</label>
+          <select
+            name="trailCondition"
+            value={stop.trailCondition || ""}
+            onChange={handleField}
+            required
+          >
+            <option value="">בחר מצב</option>
+            {TRAIL_CONDITIONS.map((c) => (
+              <option key={c.value} value={c.value}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
+
+      {stop.type === "אטרקציה" && (
+        <>
+          <label>
+            אישור רשמי <span className="required-badge">חובה</span>
+          </label>
+          <input
+            type="text"
+            name="officialApproval"
+            placeholder="מספר אישור / גורם מאשר *"
+            required
+            value={stop.officialApproval || ""}
+            onChange={handleField}
+          />
+          <p className="field-hint">
+            אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך
+          </p>
+        </>
+      )}
+
+      <label>הערות (אופציונלי)</label>
+      <input
+        type="text"
+        name="notes"
+        placeholder="הערות נוספות"
+        value={stop.notes || ""}
+        onChange={handleField}
+      />
+    </div>
+  );
+}
+
+export default function TripForm({
+  pageTitle,
+  leaderIdField,
+  stopsHint,
+  formData,
+  stops,
+  errors,
+  submitError,
+  loading,
+  onFieldChange,
+  onStopChange,
+  onRemoveStop,
+  onAddStop,
+  onSubmit,
+  onCancel,
+  submitLabel,
+  loadingLabel,
+  writeAccess,
+}) {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (!writeAccess) return;
+    async function getUsers() {
+      const res = await api.get("/api/users");
+      setUsers(res.data);
+    }
+    getUsers();
+  }, [writeAccess]);
+
+  return (
+    <>
+      <Navbar />
+      <main className="page-main">
+        <h1 className="page-title">{pageTitle}</h1>
+
+        <form className="trip-form" onSubmit={onSubmit} noValidate>
+          {/* ── Trip meta ── */}
+          <section className="form-section">
+            <h2 className="form-section-title">פרטי הטיול</h2>
+
+            <label>שם הטיול</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="*"
+              required
+              value={formData.title}
+              onChange={onFieldChange}
+            />
+            {errors.title && <p className="error">{errors.title}</p>}
+
+            <label>תאריך הטיול</label>
+            <input
+              type="date"
+              name="tripDate"
+              required
+              value={formData.tripDate}
+              onChange={onFieldChange}
+            />
+            {errors.tripDate && <p className="error">{errors.tripDate}</p>}
+
+            {writeAccess ? (
+              <>
+                <label>אחראי הטיול</label>
+                <select
+                  name={leaderIdField}
+                  value={formData[leaderIdField]}
+                  onChange={onFieldChange}
+                  required
+                >
+                  <option value="">בחר אחראי טיול</option>
+                  {users.map((u) => (
+                    <option key={u.user_id} value={u.user_id}>
+                      {u.full_name}
+                    </option>
+                  ))}
+                </select>
+              </>
+            ) : (
+              <>
+                <label>מספר ת.ז. של אחראי הטיול</label>
+                <input
+                  type="text"
+                  name={leaderIdField}
+                  placeholder="9 ספרות *"
+                  required
+                  readOnly
+                  value={formData[leaderIdField]}
+                  onChange={onFieldChange}
+                />
+              </>
+            )}
+            {errors[leaderIdField] && (
+              <p className="error">{errors[leaderIdField]}</p>
+            )}
+          </section>
+
+          {/* ── Stops / Route ── */}
+          <section className="form-section">
+            <h2 className="form-section-title">מסלול הטיול — עצירות</h2>
+            <p className="form-section-hint">{stopsHint}</p>
+
+            {stops.map((stop, i) => (
+              <StopForm
+                key={i}
+                stop={stop}
+                index={i}
+                onChange={onStopChange}
+                onRemove={onRemoveStop}
+              />
+            ))}
+
+            {/* per-stop errors summary */}
+            {Object.keys(errors)
+              .filter((k) => k.startsWith("stop_"))
+              .map((k) => (
+                <p key={k} className="error">
+                  {errors[k]}
+                </p>
+              ))}
+
+            <button type="button" className="add-stop-btn" onClick={onAddStop}>
+              + הוסף עצירה
+            </button>
+          </section>
+
+          {submitError && (
+            <p className="error form-submit-error">{submitError}</p>
+          )}
+
+          <div className="form-actions-row">
+            <button
+              type="button"
+              className="trip-form-btn trip-form-btn--ghost"
+              onClick={onCancel}
+            >
+              ביטול
+            </button>
+            <button
+              type="submit"
+              className="trip-form-btn trip-form-btn--primary"
+              disabled={loading}
+            >
+              {loading ? loadingLabel : submitLabel}
+            </button>
+          </div>
+        </form>
+      </main>
+    </>
+  );
+}

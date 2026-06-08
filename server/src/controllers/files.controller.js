@@ -1,5 +1,14 @@
 //this is API layer
 import * as fileService from "../services/files.service.js";
+export async function getAllFiles(req, res) {
+  try {
+    const files = await fileService.getAllFiles(req.params.id);
+    console.log('in get all file in contorller, files=',files)
+    res.status(200).json(files);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 export async function uploadFile(req, res) {
   console.log("in file controller upload");
   try {

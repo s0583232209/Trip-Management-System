@@ -8,19 +8,16 @@ import {
   updateProfile,
   changePassword,
   addUser,
+  getAllUsersBySchool,
 } from "../controllers/users.controller.js";
 const router = express.Router();
 
-router.get("/", requireRole("principal"), (req, res) => {
-  log.info("in get all users");
-  console.log("in users router");
-  res.send("users: get all users");
-});
+router.get("/", requireRole("principal", "coordinator"), getAllUsersBySchool);
 router.get(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
   getUserById,
-);//   changePassword,
+); //   changePassword,
 // );
 
 router.delete("/:id", requireRole("principal"), (req, res) => {

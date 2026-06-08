@@ -250,3 +250,18 @@ export async function getUserById(nationalId, institutionNumber) {
   );
   return rows[0];
 }
+export async function getAllUsers(userId) {
+  const connection = await getConnection();
+  try {
+    const [rows] = await connection.execute(
+      ` SELECT users.id as user_id, users.full_name, users.email, users.phone 
+FROM users 
+WHERE users.school_id = (SELECT school_id FROM users WHERE users.id = ?);`,
+      [userId],
+    );
+    console.log(rows, "rows from get all users repo");
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+}

@@ -1,0 +1,69 @@
+/* TripLeadersKit.css */
+
+.trip-kit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.trip-kit-card {
+  background: white;
+  border: 2px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trip-kit-card--done {
+  border-color: #2e8b57;
+}
+
+.trip-kit-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.trip-kit-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.trip-kit-header p {
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.trip-kit-status {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.trip-kit-card--done .trip-kit-status {
+  background: #2e8b57;
+  color: white;
+}
+
+.trip-kit-current-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 8px;
+}
+
+.trip-kit-open-btn {
+  cursor: pointer;
+}

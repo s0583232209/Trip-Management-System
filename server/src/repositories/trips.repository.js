@@ -2,7 +2,6 @@
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
-import * as usersRepo from "./users.repository.js";
 export async function getAll(userId) {
   const connection = await getConnection();
   console.log(userId);
@@ -45,13 +44,7 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
-    const objectForRow = await connection.execute(
-      "SELECT id FROM users WHERE national_id=?",
-      [tripDetails.tripLeaderId],
-    );
-    const row = objectForRow[0];
-    if (!row[0]) throw "no such user - tring to assign to the trip leader";
-    const tripLeaderDbId = row[0].id;
+    const tripLeaderDbId = tripDetails.tripLeaderId;
     const [rows] = await connection.execute(
       `INSERT INTO trips (school_id, trip_leader_id, title, trip_date, trip_status, route_geojson, parent_token) VALUES (?,?,?,?,?,?,?)`,
       [
@@ -101,14 +94,10 @@ export async function updateTrip(updateDetails) {
   try {
     await connection.beginTransaction();
     console.log(updateDetails, "updateDetails in repo");
-    const { id } = await usersRepo.getByNationalId(
-      updateDetails.tripLeaderNationalId,
-    );
-    console.log(updateDetails, "update details,", id, "id");
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [
-        id,
+        updateDetails.tripLeaderId,
         updateDetails.title,
         updateDetails.tripDate || null,
         updateDetails.routeGeoJson || null,

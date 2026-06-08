@@ -14,7 +14,7 @@ import AddEmployeePage from "./pages/AddEmployeePage.jsx";
 import "./App.css";
 import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
 import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
-import UploadTripFile from "./pages/trips/UploadFilesPage.jsx";
+import UploadTripFile from "./pages/trips/UploadTripFile.jsx";
 import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
 import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
@@ -104,10 +104,7 @@ function App() {
         <Route
           path="/trips/:tripId/route"
           element={
-            <TripSectionPage
-              title="עדכון מסלול"
-              description="כאן תוכל לעדכן ולקבע את המסלול בזמן אמת."
-            />
+            <UpdateTripPage></UpdateTripPage>
           }
         />
         <Route

@@ -32,6 +32,12 @@ export async function uploadFile(data) {
   }
 }
 
+export async function getAllFiles(tripId) {
+  const files = await filesRepository.getAllByTripId(tripId);
+  console.log("in get all files servie, files=",files)
+  return files;
+}
+
 export async function getFile(id) {
   const file = await filesRepository.getById(id);
   if (!file) {

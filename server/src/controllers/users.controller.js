@@ -62,3 +62,13 @@ export async function addUser(req, res) {
     res.status(500).json({ message: "Failed to add user" });
   }
 }
+export async function getAllUsersBySchool(req, res) {
+  try {
+    console.log("get all users by school", req.user);
+    const users = await usersService.getAllUsers(req.user.userId);
+    res.status(200).json(users);
+  } catch (err) {
+    log.warn(`getAllUsers error: ${err.message}`);
+    res.status(500).json({ message: "Failed to get all users" });
+  }
+}

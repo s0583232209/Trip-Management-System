@@ -1,117 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
-import "./TripsPage.css";
-import "./TripForms.css";
-
-const STOP_TYPES = [
-  { value: "מסלול הליכה", label: "מסלול הליכה" },
-  { value: "גינה לעצירה", label: "גינה לעצירה" },
-  { value: "אטרקציה", label: "אטרקציה" },
-];
-
-const TRAIL_CONDITIONS = [
-  { value: "יבש", label: "יבש" },
-  { value: "רטוב", label: "רטוב" },
-];
-
-function StopForm({ stop, index, onChange, onRemove }) {
-  function handleField(e) {
-    const { name, value } = e.target;
-    onChange(index, { ...stop, [name]: value });
-  }
-
-  return (
-    <div className="stop-card">
-      <div className="stop-card-header">
-        <span className="stop-index">עצירה {index + 1}</span>
-        <button
-          type="button"
-          className="stop-remove-btn"
-          onClick={() => onRemove(index)}
-        >
-          הסר
-        </button>
-      </div>
-
-      <label>שם העצירה</label>
-      <input
-        type="text"
-        name="name"
-        required
-        placeholder="*"
-        value={stop.name}
-        onChange={handleField}
-      />
-
-      <label>סוג העצירה</label>
-      <select name="type" value={stop.type} onChange={handleField} required>
-        <option value="">בחר סוג</option>
-        {STOP_TYPES.map((t) => (
-          <option key={t.value} value={t.value}>
-            {t.label}
-          </option>
-        ))}
-      </select>
-
-      {stop.type === "מסלול הליכה" && (
-        <>
-          <label>מצב המסלול</label>
-          <select
-            name="trailCondition"
-            value={stop.trailCondition || ""}
-            onChange={handleField}
-            required
-          >
-            <option value="">בחר מצב</option>
-            {TRAIL_CONDITIONS.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
-        </>
-      )}
-
-      {stop.type === "אטרקציה" && (
-        <>
-          <label>
-            אישור רשמי <span className="required-badge">חובה</span>
-          </label>
-          <input
-            type="text"
-            name="officialApproval"
-            placeholder="מספר אישור / גורם מאשר *"
-            required
-            value={stop.officialApproval || ""}
-            onChange={handleField}
-          />
-          <p className="field-hint">
-            אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך
-          </p>
-        </>
-      )}
-
-      <label>הערות (אופציונלי)</label>
-      <input
-        type="text"
-        name="notes"
-        placeholder="הערות נוספות"
-        value={stop.notes || ""}
-        onChange={handleField}
-      />
-    </div>
-  );
-}
-
-const emptyStop = () => ({
-  name: "",
-  type: "",
-  trailCondition: "",
-  officialApproval: "",
-  notes: "",
-});
+import TripForm, { emptyStop } from "./TripForm.jsx";
 
 export default function CreateTripPage() {
   const navigate = useNavigate();
@@ -200,105 +90,24 @@ export default function CreateTripPage() {
   }
 
   return (
-    <>
-      <Navbar />
-      <main className="page-main">
-        <h1 className="page-title">יצירת טיול חדש</h1>
-
-        <form className="trip-form" onSubmit={handleSubmit} noValidate>
-          {/* ── Trip meta ── */}
-          <section className="form-section">
-            <h2 className="form-section-title">פרטי הטיול</h2>
-
-            <label>שם הטיול</label>
-            <input
-              type="text"
-              name="title"
-              placeholder="*"
-              required
-              value={formData.title}
-              onChange={updateField}
-            />
-            {errors.title && <p className="error">{errors.title}</p>}
-
-            <label>תאריך הטיול</label>
-            <input
-              type="date"
-              name="tripDate"
-              required
-              value={formData.tripDate}
-              onChange={updateField}
-            />
-            {errors.tripDate && <p className="error">{errors.tripDate}</p>}
-
-            <label>מספר ת.ז. של אחראי הטיול</label>
-            <input
-              type="text"
-              name="tripLeaderId"
-              placeholder="9 ספרות *"
-              required
-              value={formData.tripLeaderId}
-              onChange={updateField}
-            />
-            {errors.tripLeaderId && (
-              <p className="error">{errors.tripLeaderId}</p>
-            )}
-          </section>
-
-          {/* ── Stops / Route ── */}
-          <section className="form-section">
-            <h2 className="form-section-title">מסלול הטיול — עצירות</h2>
-            <p className="form-section-hint">
-              הוסף את כל העצירות לפי הסדר. לכל עצירה יש לציין שם וסוג. סוגי
-              האטרקציה דורשים אישור רשמי; מסלולי הליכה דורשים ציון מצב המסלול.
-            </p>
-
-            {stops.map((stop, i) => (
-              <StopForm
-                key={i}
-                stop={stop}
-                index={i}
-                onChange={updateStop}
-                onRemove={removeStop}
-              />
-            ))}
-
-            {/* per-stop errors summary */}
-            {Object.keys(errors)
-              .filter((k) => k.startsWith("stop_"))
-              .map((k) => (
-                <p key={k} className="error">
-                  {errors[k]}
-                </p>
-              ))}
-
-            <button type="button" className="add-stop-btn" onClick={addStop}>
-              + הוסף עצירה
-            </button>
-          </section>
-
-          {submitError && (
-            <p className="error form-submit-error">{submitError}</p>
-          )}
-
-          <div className="form-actions-row">
-            <button
-              type="button"
-              className="trip-form-btn trip-form-btn--ghost"
-              onClick={() => navigate("/trips")}
-            >
-              ביטול
-            </button>
-            <button
-              type="submit"
-              className="trip-form-btn trip-form-btn--primary"
-              disabled={loading}
-            >
-              {loading ? "שומר..." : "צור טיול"}
-            </button>
-          </div>
-        </form>
-      </main>
-    </>
+    <TripForm
+      pageTitle="יצירת טיול חדש"
+      leaderIdField="tripLeaderId"
+      stopsHint="הוסף את כל העצירות לפי הסדר. לכל עצירה יש לציין שם וסוג. סוגי האטרקציה דורשים אישור רשמי; מסלולי הליכה דורשים ציון מצב המסלול."
+      formData={formData}
+      stops={stops}
+      errors={errors}
+      submitError={submitError}
+      loading={loading}
+      onFieldChange={updateField}
+      onStopChange={updateStop}
+      onRemoveStop={removeStop}
+      onAddStop={addStop}
+      onSubmit={handleSubmit}
+      onCancel={() => navigate("/trips")}
+      submitLabel="צור טיול"
+      loadingLabel="שומר..."
+      writeAccess={user.role == "principal" || user.role == "coordinator"}
+    />
   );
 }

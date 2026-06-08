@@ -66,3 +66,7 @@ export async function addUser(body) {
   delete user.password;
   return user;
 }
+export async function getAllUsers(userId) {
+  const users = await usersRepo.getAllUsers(userId);
+  return users;
+}

@@ -5,13 +5,11 @@ import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 const router = express.Router({ mergeParams: true });
 
-// router.get(
-//   "/",
-//   requireRole("principal", "coordinator", "trip leader", "teacher"),
-//   () => {
-//     return "files: get all";
-//   },
-// );
+router.get(
+  "/",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  filesController.getAllFiles,
+);
 
 router.post(
   "/",

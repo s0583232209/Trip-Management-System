@@ -62,7 +62,7 @@ export default function UserDetails({
       newErrors.nationalId = "מספר תעודת זהות חייב להכיל 9 ספרות בדיוק";
     }
 
-    if (!passwordRegex.test(formData.password)) {
+    if (isAuth && !passwordRegex.test(formData.password)) {
       newErrors.password =
         "הסיסמה חייבת להכיל לפחות 6 תווים, אות אחת ומספר אחד";
     }
@@ -116,18 +116,22 @@ export default function UserDetails({
       />
       {errors.nationalId && <p className="error">{errors.nationalId}</p>}
 
-      <label htmlFor="password">סיסמה</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        autoComplete="current-password"
-        placeholder="*"
-        required
-        value={formData.password}
-        onChange={updateField}
-      />
-      {errors.password && <p className="error">{errors.password}</p>}
+      {isAuth && (
+        <>
+          <label htmlFor="password">סיסמה</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autoComplete="current-password"
+            placeholder="*"
+            required
+            value={formData.password}
+            onChange={updateField}
+          />
+          {errors.password && <p className="error">{errors.password}</p>}
+        </>
+      )}
 
       <label htmlFor="userEmail">כתובת דואר אלקטרוני</label>
       <input

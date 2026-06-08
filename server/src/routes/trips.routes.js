@@ -1,10 +1,10 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import * as tripsController from "../controllers/trips.controller.js";
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 router.get(
   "/",
-  requireRole("principal", "coordinator"),
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
   tripsController.getAllTrips,
 );
 router.post(
@@ -47,8 +47,6 @@ router.get(
 router.post(
   "/:id/staff",
   requireRole("principal", "coordinator"),
-  (req, res) => {
-    res.send("trips: post, staff");
-  },
+  tripsController.addStaff,
 );
 export default router;

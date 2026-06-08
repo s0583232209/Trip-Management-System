@@ -12,6 +12,11 @@ import MediaPage from "./pages/media/MediaPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AddEmployeePage from "./pages/AddEmployeePage.jsx";
 import "./App.css";
+import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
+import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
+import UploadTripFile from "./pages/trips/UploadFilesPage.jsx";
+import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
+import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
 
 function App() {
   return (
@@ -28,20 +33,14 @@ function App() {
         <Route
           path="/trips/:tripId/folder"
           element={
-            <TripSectionPage
-              title="תכנון טיול / תיק טיול"
-              description="כאן תוכל לנהל את תיק הטיול ולצרף מסמכים חשובים."
-            />
+            <>
+            <TripsLeaderKit></TripsLeaderKit>
+            </>
           }
         />
         <Route
           path="/trips/:tripId/staff"
-          element={
-            <TripSectionPage
-              title="תכנון טיול / אנשי צוות"
-              description="כאן תוכל לנהל את צוות המלווה לטיול."
-            />
-          }
+          element={<ManageTripStaffPage></ManageTripStaffPage>}
         />
         <Route
           path="/trips/:tripId/equipment"
@@ -53,13 +52,8 @@ function App() {
           }
         />
         <Route
-          path="/trips/:tripId/documents"
-          element={
-            <TripSectionPage
-              title="תכנון טיול / מסמכים"
-              description="כאן תוכל להעלות ולצפות במסמכים של הטיול."
-            />
-          }
+          path="/trips/:tripId/trip-leaders-kit"
+          element={<TripsLeaderKit></TripsLeaderKit>}
         />
         <Route
           path="/trips/:tripId/attendance"
@@ -91,21 +85,11 @@ function App() {
         />
         <Route
           path="/trips/:tripId/files"
-          element={
-            <TripSectionPage
-              title="העלאת קבצים"
-              description="עמוד להעלאת קבצים ותמיכה במסמכים בטיול."
-            />
-          }
+          element={<UploadTripFile></UploadTripFile>}
         />
         <Route
           path="/trips/:tripId/approve"
-          element={
-            <TripSectionPage
-              title="אישור טיול סופי"
-              description="כאן תוכל לאשר את הטיול לפני היציאה."
-            />
-          }
+          element={<ApproveTripPage></ApproveTripPage>}
         />
         <Route
           path="/trips/:tripId/close"

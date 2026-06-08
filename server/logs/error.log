@@ -60,3 +60,8 @@
 2026-06-04T18:20:42.230Z [ERROR]: getById users error: User not found
 2026-06-04T20:03:42.680Z [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 2026-06-06T20:13:27.475Z [ERROR]: getById users error: User not found
+07.06.2026, 20:28:20 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+07.06.2026, 20:43:06 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+07.06.2026, 20:45:27 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+08.06.2026, 13:00:59 [ERROR]: Error occurred while creating emergency: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
+08.06.2026, 13:00:59 [ERROR]: EmergenciesController - create error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))

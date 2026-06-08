@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import * as usersRepo from "../repositories/users.repository.js";
 
 export async function getUserById(id) {
-  console.log("in get by id from service")
+  console.log("in get by id from service");
   const user = await usersRepo.getById(id);
   if (!user) throw new Error("User not found");
   return user;
@@ -28,7 +28,7 @@ export async function changePassword(
     throw err;
   }
 
-  if (newUsername) await usersRepo.updateUsername(id, newUsername); // check if it is needed
+  //if (newUsername) await usersRepo.updateUsername(id, newUsername); // check if it is needed
 
   if (newPassword) {
     const allPasswords = await usersRepo.getAllPasswordsByUserId(id);
@@ -53,8 +53,16 @@ export async function changePassword(
   return user;
 }
 export async function addUser(body) {
-  const hashedPassword = await bcrypt.hash(body.password, 12);
-  const user = await userssRepo.addUser({ ...body, password: hashedPassword });
+  const hashedPassword = await bcrypt.hash(`${body.nationalId}abc`, 12);
+  console.log(
+    hashedPassword,
+    body.nationalId,
+    "this is from add user in users.service",
+  );
+  console.log(body);
+  body.password = hashedPassword;
+  console.log(body);
+  const user = await usersRepo.addUser(body);
   delete user.password;
   return user;
 }

@@ -8,6 +8,7 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error("API Error:", error);
     const status = error.response?.status;
     const requestUrl = error.config?.url || "";
     const isLoginRequest = requestUrl.includes("/api/auth/login");

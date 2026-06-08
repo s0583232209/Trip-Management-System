@@ -1,7 +1,153 @@
-form:has(#fullName) button {
-  background-color: var(--sky-dark);
+/* קונטיינר הטופס הראשי - מתאים לסגנון של trip-form */
+form:has(#fullName) {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  direction: rtl; /* תמיכה מלאה בכתיבה מימין לשמאל */
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
-form:has(#fullName) button:hover {
-  background-color: var(--sky-mid);
+/* כותרת מדומה לפסקה הראשונה בטופס (אופציונלי, במידה ותרצה להוסיף מעל תגית form) */
+form:has(#fullName)::before {
+  content: "פרטי משתמש";
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 0.75rem;
+}
+
+/* עיצוב תוויות הטקסט (Labels) */
+form:has(#fullName) label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #344054;
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+  text-align: right;
+}
+
+/* ביטול מרווח עליון ללייבל הראשון בטופס */
+form:has(#fullName) label:first-of-type {
+  margin-top: 0;
+}
+
+/* עיצוב שדות הקלט (Inputs) ותיבות הבחירה (Select) */
+form:has(#fullName) input[type="text"],
+form:has(#fullName) input[type="password"],
+form:has(#fullName) input[type="email"],
+form:has(#fullName) select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #101828;
+  background-color: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  text-align: right;
+}
+
+/* עיצוב ה-Placeholders (הכוכביות המקוריות בקוד שלך) */
+form:has(#fullName) input::placeholder {
+  color: #fda29b; /* גוון אדמדם עדין המציין שדה חובה */
+  font-weight: bold;
+}
+
+/* מצב פוקוס (Focus) לשדות - תואם לשאר האתר */
+form:has(#fullName) input:focus,
+form:has(#fullName) select:focus {
+  border-color: #3b82f6; /* כחול מודרני או צבע הנושא של האתר */
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background-color: #f8fafc;
+}
+
+/* עיצוב הודעות השגיאה המופיעות מתחת לשדות */
+form:has(#fullName) .error {
+  color: #d92d20; /* אדום התראה חזק וברור */
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0.35rem 0 0 0;
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+
+/* הוספת אייקון התראה קטן לפני טקסט השגיאה באמצעות CSS */
+form:has(#fullName) .error::before {
+  content: "⚠️";
+  margin-left: 4px;
+  font-size: 0.9rem;
+}
+
+/* קונטיינר כפתורי הפעולה בתחתית הטופס */
+form:has(#fullName) .form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #edf2f7;
+  flex-direction: row-reverse; /* מסדר את הכפתורים מימין לשמאל: שליחה קודם, חזרה אחר כך */
+}
+
+/* עיצוב בסיסי ואחיד לכל כפתורי הטופס */
+form:has(#fullName) .form-actions button {
+  flex: 1; /* מעניק להם רוחב שווה זה לצד זה */
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+/* כפתורSubmit / צור חשבון - כפתור ראשי (Primary) */
+form:has(#fullName) .form-actions button[type="submit"] {
+  background-color: #1e40af; /* כחול כהה עמוק/צבע מותג */
+  color: #ffffff;
+  border: 1px solid #1e40af;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+form:has(#fullName) .form-actions button[type="submit"]:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* כפתור חזרה - כפתור משני (Ghost/Secondary) */
+form:has(#fullName) .form-actions .auth-back-button {
+  background-color: #ffffff;
+  color: #344054;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+form:has(#fullName) .form-actions .auth-back-button:hover {
+  background-color: #f9fafb;
+  color: #1d2939;
+  border-color: #d0d5dd;
+}
+
+/* התאמה רספונסיבית למסכים קטנים (טלפונים) */
+@media (max-width: 480px) {
+  form:has(#fullName) {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  form:has(#fullName) .form-actions {
+    flex-direction: column; /* במסכים קטנים הכפתורים יעמדו אחד מעל השני */
+  }
 }

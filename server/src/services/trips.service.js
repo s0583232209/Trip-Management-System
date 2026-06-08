@@ -4,7 +4,7 @@ import * as tripsRepo from "../repositories/trips.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
 import * as authService from "./auth.service.js";
 export async function getAllTrips(userId) {
-  const trips = await getAll(userId);
+  const trips = await tripsRepo.getAll(userId);
   log.info(`get all trips by userId: ${userId}`);
   return trips;
 }
@@ -13,7 +13,7 @@ export async function getById(tripId, userId) {
     const trip = await tripsRepo.getAll(tripId, userId);
     console.log(trip, "this is the trip from the service");
     log.info(`get trip by id: ${tripId} and userId: ${userId}`);
-    console.log(trip,"thi is thrip in service")
+    console.log(trip, "thi is thrip in service");
     return trip;
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -79,7 +79,19 @@ export async function approveTrip(tripId) {
     throw err;
   }
 }
-export async function createParentToken(tripId) {
+export async function addStaff(tripId, nationalIds) {
+  try {
+    const users = await Promise.all(
+      nationalIds.map((id) => usersRepo.getByNationalId(id)),
+    );
+    const staffIds = users.map((u) => u.id);
+    await tripsRepo.addStaff(tripId, staffIds);
+    log.info(`staff added to trip: ${tripId}`);
+  } catch (err) {
+    log.warn(`error: ${err.message}, from addStaff in trips.service`);
+    throw err;
+  }
+
   const token = authService.createParentToken({
     tripId,
     tripDate: new Date(),

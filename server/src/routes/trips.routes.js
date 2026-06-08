@@ -47,8 +47,6 @@ router.get(
 router.post(
   "/:id/staff",
   requireRole("principal", "coordinator"),
-  (req, res) => {
-    res.send("trips: post, staff");
-  },
+  tripsController.addStaff,
 );
 export default router;

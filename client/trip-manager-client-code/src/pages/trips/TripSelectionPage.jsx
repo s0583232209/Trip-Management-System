@@ -1,16 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import api from "../../api.js";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
 import "./TripsPage.css";
 
-const sampleTrips = [
-  { id: "101", name: "טיול חורף ליער" },
-  { id: "102", name: "טיול מדע במוזיאון" },
-  { id: "103", name: "טיול סוף שנה" },
-];
-
 export default function TripSelectionPage() {
   const navigate = useNavigate();
-
+  const [trips, setTrips] = useState([]);
+  useEffect(()=> {
+    async function getTrips() {
+      const trips = await api.get("/api/trips");
+      console.log(trips);
+      setTrips(trips.data);
+    };
+    getTrips();
+  }, []);
   return (
     <>
       <Navbar />
@@ -20,7 +24,7 @@ export default function TripSelectionPage() {
           בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.
         </p>
         <div className="trips-cards">
-          {sampleTrips.map((trip) => (
+          {trips.map((trip) => (
             <button
               key={trip.id}
               className="trip-card"
@@ -30,9 +34,8 @@ export default function TripSelectionPage() {
             </button>
           ))}
         </div>
-        <br/>
+        <br />
         <div>
-
           <button className="trip-card" onClick={() => navigate(`/trips/new`)}>
             יצירת טיול חדש
           </button>

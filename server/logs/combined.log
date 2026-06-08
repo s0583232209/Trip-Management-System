@@ -2790,3 +2790,125 @@
 08.06.2026, 09:28:35 [INFO]: verifyToken - skipping auth routes
 08.06.2026, 09:28:35 [INFO]: user id:undefined, method:POST, url:/auth/login
 08.06.2026, 09:28:35 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:48:31 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 09:48:31 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 09:48:31 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 09:48:31 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 09:48:31 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 09:48:35 [INFO]: verifyToken - path: /trips
+08.06.2026, 09:48:35 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 09:48:35 [INFO]: user id:undefined, method:GET, url:/trips
+08.06.2026, 09:48:35 [INFO]: in require role middleware
+08.06.2026, 09:48:35 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 09:48:35 [INFO]: getAll trips by userId: 5
+08.06.2026, 09:48:35 [INFO]: get all trips by userId: 5
+08.06.2026, 10:11:27 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 10:11:27 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 10:11:27 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 10:11:27 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 10:11:28 [INFO]: login successful for national id: 999999999 form institution: 410011
+08.06.2026, 10:12:31 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:12:31 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 10:12:31 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:12:31 [INFO]: in require role middleware
+08.06.2026, 10:12:31 [INFO]: roles for user id:5,  roles: coordinator
+08.06.2026, 10:12:31 [INFO]: getById users called with national id: 111111111
+08.06.2026, 10:12:31 [INFO]: getById users successful for national id: 111111111
+08.06.2026, 10:12:31 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:12:31 [WARN]: error: coordinatorAndPrincipal is not iterable, from function addTrip in trips.service
+08.06.2026, 10:12:31 [WARN]: creating trip failed
+08.06.2026, 10:13:01 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:13:01 [INFO]: verifyToken - successful for user: coordinator (id number: 5)
+08.06.2026, 10:13:01 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:13:01 [INFO]: in require role middleware
+08.06.2026, 10:13:01 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 10:13:13 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 10:13:13 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 10:13:13 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 10:13:14 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 10:13:50 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:13:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:13:50 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:13:50 [INFO]: in require role middleware
+08.06.2026, 10:13:50 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 10:13:50 [INFO]: getById users called with national id: 111111111
+08.06.2026, 10:13:50 [INFO]: getById users successful for national id: 111111111
+08.06.2026, 10:13:50 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:13:50 [WARN]: error: Incorrect integer value: '[{"id":5},{"id":1}]' for column 'staff_id' at row 2, from function addTrip in trips.service
+08.06.2026, 10:13:50 [WARN]: creating trip failed
+08.06.2026, 10:23:33 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:23:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:23:33 [INFO]: user id:undefined, method:GET, url:/trips
+08.06.2026, 10:23:33 [INFO]: in require role middleware
+08.06.2026, 10:23:33 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 10:41:10 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:41:10 [WARN]: verifyToken - no token provided for path: /trips
+08.06.2026, 10:43:46 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 10:43:46 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 10:43:46 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 10:43:47 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 10:43:54 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:43:54 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:43:54 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:43:54 [INFO]: in require role middleware
+08.06.2026, 10:43:54 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 10:43:54 [INFO]: getById users called with national id: 123456789
+08.06.2026, 10:43:54 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 10:43:54 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:43:54 [WARN]: error: Incorrect integer value: 'pending' for column 'trip_status' at row 1, from function addTrip in trips.service
+08.06.2026, 10:43:54 [WARN]: creating trip failed
+08.06.2026, 10:45:20 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:45:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:45:20 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:45:20 [INFO]: in require role middleware
+08.06.2026, 10:45:20 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 10:45:20 [INFO]: getById users called with national id: 123456789
+08.06.2026, 10:45:20 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 10:45:20 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:45:20 [WARN]: error: Incorrect integer value: '[{"id":5},{"id":1}]' for column 'staff_id' at row 2, from function addTrip in trips.service
+08.06.2026, 10:45:20 [WARN]: creating trip failed
+08.06.2026, 10:47:38 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 10:47:38 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 10:47:38 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 10:47:38 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 10:47:38 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 10:47:40 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:47:40 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:47:40 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:47:40 [INFO]: in require role middleware
+08.06.2026, 10:47:40 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 10:47:40 [INFO]: getById users called with national id: 123456789
+08.06.2026, 10:47:40 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 10:47:40 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:47:40 [WARN]: error: Assignment to constant variable., from function addTrip in trips.service
+08.06.2026, 10:47:40 [WARN]: creating trip failed
+08.06.2026, 10:47:55 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 10:47:55 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 10:47:55 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 10:47:55 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 10:47:55 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 10:47:57 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:47:57 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:47:57 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:47:57 [INFO]: in require role middleware
+08.06.2026, 10:47:57 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 10:47:57 [INFO]: getById users called with national id: 123456789
+08.06.2026, 10:47:57 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 10:47:57 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:47:57 [WARN]: error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null, from function addTrip in trips.service
+08.06.2026, 10:47:57 [WARN]: creating trip failed
+08.06.2026, 10:48:15 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 10:48:15 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 10:48:15 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 10:48:15 [INFO]: Connected to MySQL at 127.0.0.1
+08.06.2026, 10:48:16 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 10:48:18 [INFO]: verifyToken - path: /trips
+08.06.2026, 10:48:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 10:48:18 [INFO]: user id:undefined, method:POST, url:/trips
+08.06.2026, 10:48:18 [INFO]: in require role middleware
+08.06.2026, 10:48:18 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 10:48:18 [INFO]: getById users called with national id: 123456789
+08.06.2026, 10:48:18 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 10:48:18 [INFO]: the school id from add trip is: 1
+08.06.2026, 10:48:18 [INFO]: trip added successfully
+08.06.2026, 10:48:18 [INFO]: new trip added successfully

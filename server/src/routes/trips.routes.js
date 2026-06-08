@@ -4,7 +4,7 @@ import * as tripsController from "../controllers/trips.controller.js";
 const router = express.Router({ mergeParams: true });
 router.get(
   "/",
-  requireRole("principal", "coordinator"),
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
   tripsController.getAllTrips,
 );
 router.post(

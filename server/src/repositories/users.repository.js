@@ -103,37 +103,40 @@ async function addUserPrincipal(details) {
 export async function addUser(details, principal) {
   let id;
   console.log(details, "this is details from add User");
-
   const connection = await getConnection();
-  if (principal) {
-    id = addUserPrincipal(details);
-  } else {
-    const [result] = await connection.execute(
-      "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",
-      [
-        details.schoolId,
-        details.fullName,
-        details.nationalId,
-        details.userEmail || null,
-        details.userPhoneNumber || null,
-      ],
+  try {
+    await connection.beginTransaction();
+    if (principal) {
+      id = await addUserPrincipal(details);
+    } else {
+      const [result] = await connection.execute(
+        "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",
+        [
+          details.schoolId,
+          details.fullName,
+          details.nationalId,
+          details.userEmail || null,
+          details.userPhoneNumber || null,
+        ],
+      );
+      console.log(result, "result from else add user");
+      id = result.insertId;
+      console.log(id, "this is the new id");
+    }
+    console.log(details.role, "this is the role");
+    await connection.execute(
+      "INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
+      [id, details.password],
     );
-    console.log(result, "result from else add user");
-    id = result.insertId;
-    console.log(id, "this is the new id");
-  }
-  console.log(details.role, "this is the role");
-  const result = await connection.execute(
-    "INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
-    [id, details.password],
-  );
-  await connection.execute(
-    `INSERT INTO user_roles (user_id,role_name)VALUES(?,?)`,
-    [id, details.role],
-  );
-  log.info(`addUser successful, user id: ${result.insertId}`);
-  return { userId: id, ...details };
-  {
+    await connection.execute(
+      `INSERT INTO user_roles (user_id,role_name)VALUES(?,?)`,
+      [id, details.role],
+    );
+    await connection.commit();
+    log.info(`addUser successful, user id: ${id}`);
+    return { userId: id, ...details };
+  } catch (err) {
+    await connection.rollback();
     log.error(`addUser error: ${err.message}`);
     throw err;
   }
@@ -212,6 +215,7 @@ export async function getAllPasswordsByUserId(userId) {
 export async function updatePassword(userId, hashedPassword) {
   try {
     const connection = await getConnection();
+    await connection.beginTransaction();
     await connection.execute(
       `UPDATE user_passwords SET is_active=FALSE WHERE user_id=?`,
       [userId],
@@ -220,8 +224,11 @@ export async function updatePassword(userId, hashedPassword) {
       `INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE)`,
       [userId, hashedPassword],
     );
+    await connection.commit();
     return result.affectedRows > 0;
   } catch (err) {
+    const connection = await getConnection();
+    await connection.rollback();
     log.error(`updatePassword error: ${err.message}`);
     throw err;
   }

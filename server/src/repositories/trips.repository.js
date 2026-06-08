@@ -44,6 +44,7 @@ export async function getById(tripId, userId) {
 export async function addTrip(tripDetails, staffIdsArray = []) {
   const connection = await getConnection();
   try {
+    await connection.beginTransaction();
     const objectForRow = await connection.execute(
       "SELECT id FROM users WHERE national_id=?",
       [tripDetails.tripLeaderId],
@@ -97,23 +98,30 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
 }
 export async function updateTrip(updateDetails) {
   const connection = await getConnection();
-  console.log(updateDetails, "updateDetails in repo");
-  const { id } = await usersRepo.getByNationalId(
-    updateDetails.tripLeaderNationalId,
-  );
-  console.log(updateDetails, "update details,", id, "id");
-  const [rows] = await connection.execute(
-    `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
-    [
-      id,
-      updateDetails.title,
-      updateDetails.tripDate || null,
-      updateDetails.routeGeoJson || null,
-      updateDetails.tripId,
-    ],
-  );
-  console.log(rows, "rows from update trip repo");
-  return rows;
+  try {
+    await connection.beginTransaction();
+    console.log(updateDetails, "updateDetails in repo");
+    const { id } = await usersRepo.getByNationalId(
+      updateDetails.tripLeaderNationalId,
+    );
+    console.log(updateDetails, "update details,", id, "id");
+    const [rows] = await connection.execute(
+      `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
+      [
+        id,
+        updateDetails.title,
+        updateDetails.tripDate || null,
+        updateDetails.routeGeoJson || null,
+        updateDetails.tripId,
+      ],
+    );
+    await connection.commit();
+    console.log(rows, "rows from update trip repo");
+    return rows;
+  } catch (err) {
+    await connection.rollback();
+    throw err;
+  }
 }
 export async function deleteTrip(tripId) {
   const connection = await getConnection();
@@ -122,11 +130,18 @@ export async function deleteTrip(tripId) {
 }
 export async function approveTrip(tripId, parentToken) {
   const connection = await getConnection();
-  const [rows] = await connection.execute(
-    `UPDATE trips SET trip_status=2,parent_token=? WHERE id=?`,
-    [parentToken, tripId],
-  );
-  return rows;
+  try {
+    await connection.beginTransaction();
+    const [rows] = await connection.execute(
+      `UPDATE trips SET trip_status=2,parent_token=? WHERE id=?`,
+      [parentToken, tripId],
+    );
+    await connection.commit();
+    return rows;
+  } catch (err) {
+    await connection.rollback();
+    throw err;
+  }
 }
 export async function addStaff(tripsId, staffIdsArray = []) {
   const connection = await getConnection();

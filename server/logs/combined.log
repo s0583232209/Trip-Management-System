@@ -3260,3 +3260,63 @@
 08.06.2026, 13:28:18 [INFO]: in require role middleware
 08.06.2026, 13:28:18 [INFO]: roles for user id:9,  roles: teacher
 08.06.2026, 13:28:18 [INFO]: createEmergency called with data: {"emergencyTypeId":2,"description":"תלמיד התעלף, נדרש פינוי מוסדר לא חושש לחיי אדם.","locationLat":31.7683,"locationLng":35.2137,"tripId":"1","openedBy":9}
+08.06.2026, 13:34:22 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 13:34:22 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 13:34:22 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 13:34:22 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 13:34:37 [INFO]: verifyToken - path: /trips
+08.06.2026, 13:34:37 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:34:37 [INFO]: user id:undefined, method:GET, url:/trips
+08.06.2026, 13:34:37 [INFO]: in require role middleware
+08.06.2026, 13:34:37 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:34:37 [INFO]: getAll trips by userId: 1
+08.06.2026, 13:34:37 [INFO]: get all trips by userId: 1
+08.06.2026, 13:35:03 [INFO]: verifyToken - path: /trips
+08.06.2026, 13:35:03 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:35:03 [INFO]: user id:undefined, method:GET, url:/trips
+08.06.2026, 13:35:03 [INFO]: in require role middleware
+08.06.2026, 13:35:03 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:35:03 [INFO]: getAll trips by userId: 1
+08.06.2026, 13:35:03 [INFO]: get all trips by userId: 1
+08.06.2026, 13:35:33 [INFO]: verifyToken - path: /trips/1/files
+08.06.2026, 13:35:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:35:33 [INFO]: user id:undefined, method:POST, url:/trips/1/files
+08.06.2026, 13:35:33 [INFO]: in require role middleware
+08.06.2026, 13:35:33 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:36:15 [INFO]: verifyToken - path: /auth/login
+08.06.2026, 13:36:15 [INFO]: verifyToken - skipping auth routes
+08.06.2026, 13:36:15 [INFO]: user id:undefined, method:POST, url:/auth/login
+08.06.2026, 13:36:15 [INFO]: login successful for national id: 123456789 form institution: 410011
+08.06.2026, 13:36:32 [INFO]: verifyToken - path: /trips
+08.06.2026, 13:36:32 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:36:32 [INFO]: user id:undefined, method:GET, url:/trips
+08.06.2026, 13:36:32 [INFO]: in require role middleware
+08.06.2026, 13:36:32 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:36:32 [INFO]: getAll trips by userId: 1
+08.06.2026, 13:36:32 [INFO]: get all trips by userId: 1
+08.06.2026, 13:36:35 [INFO]: verifyToken - path: /trips/1
+08.06.2026, 13:36:35 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:36:35 [INFO]: user id:undefined, method:GET, url:/trips/1
+08.06.2026, 13:36:35 [INFO]: in require role middleware
+08.06.2026, 13:36:35 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:36:35 [INFO]: getTripById : 1
+08.06.2026, 13:36:35 [INFO]: get trip by id: 1 and userId: 1
+08.06.2026, 13:36:35 [INFO]: the trip with id 1 returned successfully
+08.06.2026, 13:40:39 [INFO]: verifyToken - path: /trips/1
+08.06.2026, 13:40:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:40:39 [INFO]: user id:undefined, method:PUT, url:/trips/1
+08.06.2026, 13:40:39 [INFO]: in require role middleware
+08.06.2026, 13:40:39 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:40:39 [INFO]: getById users called with national id: 123456789
+08.06.2026, 13:40:39 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 13:40:39 [INFO]: getById users called with national id: 123456789
+08.06.2026, 13:40:39 [INFO]: getById users successful for national id: 123456789
+08.06.2026, 13:40:39 [INFO]: update trip successfully, trip id: undefined
+08.06.2026, 13:40:42 [INFO]: verifyToken - path: /trips/1
+08.06.2026, 13:40:42 [INFO]: verifyToken - successful for user: principal (id number: 1)
+08.06.2026, 13:40:42 [INFO]: user id:undefined, method:GET, url:/trips/1
+08.06.2026, 13:40:42 [INFO]: in require role middleware
+08.06.2026, 13:40:42 [INFO]: roles for user id:1,  roles: principal
+08.06.2026, 13:40:42 [INFO]: getTripById : 1
+08.06.2026, 13:40:42 [INFO]: get trip by id: 1 and userId: 1
+08.06.2026, 13:40:42 [INFO]: the trip with id 1 returned successfully

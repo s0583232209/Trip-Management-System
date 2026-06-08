@@ -39,24 +39,30 @@ export async function addTrip(tripDetails) {
   );
   const row = objectForRow[0];
   if (!row[0]) throw "no such user - tring to assign to the trip leader";
-  const [rows] = await connection.execute(
-    `INSERT INTO trips (school_id, trip_leader_id, title, trip_date, trip_status, route_geojson, parent_token) VALUES (?,?,?,?,?,?,?)`,
-    [
-      tripDetails.schoolId,
-      row[0].id,
-      tripDetails.title || null,
-      tripDetails.tripDate || null,
-      tripDetails.status || null,
-      tripDetails.routeGeoJson || null,
-      tripDetails.parentToken || null,
-    ],
-  );
-  const x = await connection.execute(
-    `INSERT INTO staff_trip (staff_id, trip_id) VALUES (?, ?)`,
-    [tripDetails.staffIds, rows.insertId],
-  );
-  console.log(rows, "end of add trip in service");
-  return rows;
+  try {
+    const [rows] = await connection.execute(
+      `INSERT INTO trips (school_id, trip_leader_id, title, trip_date, trip_status, route_geojson, parent_token) VALUES (?,?,?,?,?,?,?)`,
+      [
+        tripDetails.schoolId,
+        row[0].id,
+        tripDetails.title || null,
+        tripDetails.tripDate || null,
+        tripDetails.status || null,
+        tripDetails.routeGeoJson || null,
+        tripDetails.parentToken || null,
+      ],
+    );
+    const x = await connection.execute(
+      `INSERT INTO staff_trip (staff_id, trip_id) VALUES (?, ?)`,
+      [tripDetails.staffIds, rows.insertId],
+    );
+    return rows;
+  } catch (e) {
+    await connection.rolback();
+    console.log(e);
+    log.error(`addTrip error: ${e.message}`);
+    return null;
+  }
 }
 export async function updateTrip(updateDetails) {
   const connection = await getConnection();

@@ -3,7 +3,7 @@ import log from "../loggers/file.logger.js";
 
 export async function getByTripId(req, res) {
   try {
-    const tripId = req.params.id; // מגיע מתוך /api/trips/:id
+    const tripId = req.params.id || req.params.tripId;
     const emergencies = await emergenciesService.getEmergenciesByTripId(tripId);
     res.status(200).json(emergencies);
   } catch (error) {
@@ -14,19 +14,17 @@ export async function getByTripId(req, res) {
 
 export async function create(req, res) {
   try {
-    const emergencyData = { 
-      ...req.body, 
-      tripId: req.params.id,            // נלקח אוטומטית מהנתיב ב-server.js
-      openedBy: req.user?.userId || 0   // נלקח מהטוקן המאומת (auth.middleware)
+    const emergencyData = {
+      ...req.body,
+      tripId: req.params.id || req.params.tripId,
+      openedBy: req.user?.userId || null,
     };
     const newEmergency =
       await emergenciesService.createEmergency(emergencyData);
-    res
-      .status(201)
-      .json({
-        message: "Emergency created successfully",
-        emergency: newEmergency,
-      });
+    res.status(201).json({
+      message: "Emergency created successfully",
+      emergency: newEmergency,
+    });
   } catch (error) {
     log.error(`EmergenciesController - create error: ${error.message}`);
     res.status(500).json({ message: "Internal server error" });
@@ -35,7 +33,7 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   try {
-    const emergencyId = req.params.emergencyId; // משתמש בפרמטר המעודכן שהגדרנו בראוט
+    const emergencyId = req.params.emergencyId;
     const emergencyData = req.body;
     await emergenciesService.updateEmergency(emergencyId, emergencyData);
     res.status(200).json({ message: "Emergency updated successfully" });

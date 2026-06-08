@@ -7,10 +7,10 @@ import TripDashboardPage from "./pages/trips/TripDashboardPage.jsx";
 import TripPlanningPage from "./pages/trips/TripPlanningPage.jsx";
 import TripDayPage from "./pages/trips/TripDayPage.jsx";
 import TripSectionPage from "./pages/trips/TripSectionPage.jsx";
+import EmergencyPage from "./pages/trips/EmergencyPage.jsx";
 import MediaPage from "./pages/media/MediaPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AddEmployeePage from "./pages/AddEmployeePage.jsx";
-import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import "./App.css";
 import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
 import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
@@ -27,11 +27,8 @@ function App() {
         <Route path="/register/:step" element={<Register />} />
         <Route path="/" element={<DashboardPage />} />
         <Route path="/trips" element={<TripSelectionPage />} />
-        <Route path="/trips/new" element={<CreateTripPage />} />
         <Route path="/trips/:tripId" element={<TripDashboardPage />} />
         <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
-        <Route path="/trips/new" element={<CreateTripPage />} />
-        <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
         <Route path="/trips/:tripId/day" element={<TripDayPage />} />
         <Route
           path="/trips/:tripId/folder"
@@ -67,15 +64,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/trips/:tripId/emergency"
-          element={
-            <TripSectionPage
-              title="יום טיול / מצב חירום"
-              description="דווח על מצב חירום וקבל הנחיות לפעולה מהירה."
-            />
-          }
-        />
+        <Route path="/trips/:tripId/emergency" element={<EmergencyPage />} />
         <Route
           path="/trips/:tripId/contacts"
           element={

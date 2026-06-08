@@ -17,9 +17,11 @@ router.get(
   requireRole("principal", "coordinator", "trip leader", "teacher"),
   tripsController.getById,
 );
-router.delete("/:id", requireRole("principal", "coordinator"), (req, res) => {
-  res.send("trips: delete by id");
-});
+router.delete(
+  "/:id",
+  requireRole("principal", "coordinator"),
+  tripsController.deleteTrip,
+);
 router.put(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),

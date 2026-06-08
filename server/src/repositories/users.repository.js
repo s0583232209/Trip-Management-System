@@ -125,7 +125,7 @@ export async function addUser(details, principal) {
   console.log(details.role, "this is the role");
   const result = await connection.execute(
     "INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
-    [id, details.nationalId],
+    [id, details.password],
   );
   await connection.execute(
     `INSERT INTO user_roles (user_id,role_name)VALUES(?,?)`,

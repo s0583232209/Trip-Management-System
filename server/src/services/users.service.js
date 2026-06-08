@@ -53,11 +53,16 @@ export async function changePassword(
   return user;
 }
 export async function addUser(body) {
-  const hashedPassword = await bcrypt.hash(
-    body.password || String(body.nationalId),
-    12,
+  const hashedPassword = await bcrypt.hash(`${body.nationalId}abc`, 12);
+  console.log(
+    hashedPassword,
+    body.nationalId,
+    "this is from add user in users.service",
   );
-  const user = await usersRepo.addUser({ ...body, password: hashedPassword });
+  console.log(body);
+  body.password = hashedPassword;
+  console.log(body);
+  const user = await usersRepo.addUser(body);
   delete user.password;
   return user;
 }

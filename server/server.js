@@ -6,7 +6,7 @@ import verifyToken from "./src/middlewares/auth.middleware.js";
 import tripsRouter from "./src/routes/trips.routes.js";
 import filesRouter from "./src/routes/files.routes.js";
 import mediaRouter from "./src/routes/media.routes.js";
-import emergencyRouter from "./src/routes/emergencies.routes.js";
+import emergenciesRouter from "./src/routes/emergencies.routes.js";
 import logger from "./src/middlewares/logger.middleware.js";
 import usersRouter from "./src/routes/users.routes.js";
 import cookieParser from "cookie-parser";
@@ -26,7 +26,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/trips/:id/files", filesRouter);
 app.use("/api/media", mediaRouter);
-app.use("/api/trips/:id/emergency", emergencyRouter);
+app.use("/api/trips/:id/emergencies", emergenciesRouter);
 app.use("/api/trips", tripsRouter);
 app.use((err, req, res, next) => {
   // log.error(`Unhandled error: ${err.message}, stack: ${err.stack}`);

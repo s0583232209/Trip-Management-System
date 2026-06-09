@@ -62,10 +62,15 @@ export default function UpdateTripPage() {
           setStops(parseStops(trip.route_geojson || trip.routeGeoJson));
         } else {
           setSubmitError("לא נמצאו נתונים עבור טיול זה");
+          //navigate("/not-found", { replace: true });
         }
       } catch (err) {
         console.error("Error fetching trip details:", err);
-        setSubmitError("לא ניתן לטעון את פרטי הטיול הנוכחיים מהשרת");
+        if (err.response?.status === 404) {
+          navigate("/not-found", { replace: true });
+        } else {
+          setSubmitError("לא ניתן לטעון את פרטי הטיול הנוכחיים מהשרת");
+        }
       } finally {
         setFetching(false);
       }

@@ -12,6 +12,11 @@ export default function EmergencyPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
+  const isPrincipal = user.role === "principal";
+  const isCoordinator = user.role === "coordinator";
+  const isPrincipalOrIsCoordinator = isPrincipal || isCoordinator;
+
   const [formData, setFormData] = useState({
     emergencyTypeId: "1",
     description: "",
@@ -20,7 +25,7 @@ export default function EmergencyPage() {
   const fetchEmergencies = async () => {
     setLoading(true);
     try {
-      const response = await api.get(`/api/trips/${tripId}/emergency`);
+      const response = await api.get(`/api/trips/${tripId}/emergencies`);
       setEmergencies(response.data);
     } catch (err) {
       console.error("Error fetching emergencies:", err);
@@ -45,7 +50,7 @@ export default function EmergencyPage() {
   const submitEmergency = async (lat, lng) => {
     setIsSubmitting(true);
     try {
-      await api.post(`/api/trips/${tripId}/emergency`, {
+      await api.post(`/api/trips/${tripId}/emergencies`, {
         emergencyTypeId: parseInt(formData.emergencyTypeId),
         description: formData.description,
         locationLat: lat,
@@ -89,7 +94,7 @@ export default function EmergencyPage() {
     if (!window.confirm("האם אתה בטוח שברצונך לסגור אירוע חירום זה?")) return;
 
     try {
-      await api.put(`/api/trips/${tripId}/emergency/${emergencyId}/close`, {
+      await api.put(`/api/trips/${tripId}/emergencies/${emergencyId}/close`, {
         status: "closed",
         description: "האירוע נסגר על ידי מנהל/אחראי טיול",
       });
@@ -119,41 +124,43 @@ export default function EmergencyPage() {
         {error && <p className="error form-submit-error">{error}</p>}
 
         <div className="emergency-content">
-          <section className="form-section emergency-form-section">
-            <h2 className="form-section-title">דיווח על אירוע חדש</h2>
-            <form onSubmit={handleReportEmergency} className="trip-form">
-              <label htmlFor="emergencyTypeId">רמת חומרה</label>
-              <select
-                id="emergencyTypeId"
-                name="emergencyTypeId"
-                value={formData.emergencyTypeId}
-                onChange={handleInputChange}
-                className="emergency-select"
-              >
-                <option value="1">🟢 קל (פציעה קלה, עיכוב זמני)</option>
-                <option value="2">🔴 קריטי (נדרש חילוץ / פינוי רפואי)</option>
-              </select>
+          {!isPrincipalOrIsCoordinator && (
+            <section className="form-section emergency-form-section">
+              <h2 className="form-section-title">דיווח על אירוע חדש</h2>
+              <form onSubmit={handleReportEmergency} className="trip-form">
+                <label htmlFor="emergencyTypeId">רמת חומרה</label>
+                <select
+                  id="emergencyTypeId"
+                  name="emergencyTypeId"
+                  value={formData.emergencyTypeId}
+                  onChange={handleInputChange}
+                  className="emergency-select"
+                >
+                  <option value="1">🟢 קל (פציעה קלה, עיכוב זמני)</option>
+                  <option value="2">🔴 קריטי (נדרש חילוץ / פינוי רפואי)</option>
+                </select>
 
-              <label htmlFor="description">תיאור האירוע</label>
-              <textarea
-                id="description"
-                name="description"
-                rows="4"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="פרט מה קרה, מי מעורב, ומה מצב הנפגעים..."
-                className="emergency-textarea"
-              ></textarea>
+                <label htmlFor="description">תיאור האירוע</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows="4"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  placeholder="פרט מה קרה, מי מעורב, ומה מצב הנפגעים..."
+                  className="emergency-textarea"
+                ></textarea>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="trip-form-btn trip-form-btn--danger"
-              >
-                {isSubmitting ? "שולח דיווח..." : "🚨 דווח עכשיו (כולל נ.צ)"}
-              </button>
-            </form>
-          </section>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="trip-form-btn trip-form-btn--danger"
+                >
+                  {isSubmitting ? "שולח דיווח..." : "🚨 דווח עכשיו (כולל נ.צ)"}
+                </button>
+              </form>
+            </section>
+          )}
 
           <section className="form-section emergency-history-section">
             <h2 className="form-section-title">היסטוריית אירועים בטיול</h2>
@@ -187,7 +194,7 @@ export default function EmergencyPage() {
                         {em.location_lng.toFixed(4)}
                       </p>
                     )}
-                    {em.status === "open" && (
+                    {em.status === "open" && !isPrincipalOrIsCoordinator && (
                       <button
                         className="trip-form-btn trip-form-btn--primary btn-close-emergency"
                         onClick={() => handleCloseEmergency(em.id)}

@@ -1,0 +1,18 @@
+09.06.2026, 00:00:01 [INFO]: verifyToken - path: /trips/9
+09.06.2026, 00:00:02 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+09.06.2026, 00:00:02 [INFO]: user id:undefined, method:GET, url:/trips/9
+09.06.2026, 00:00:02 [INFO]: in require role middleware
+09.06.2026, 00:00:02 [INFO]: roles for user id:9,  roles: teacher
+09.06.2026, 00:00:02 [INFO]: getTripById : 9
+09.06.2026, 00:00:02 [INFO]: get trip by id: 9 and userId: 9
+09.06.2026, 00:00:02 [INFO]: the trip with id 9 returned successfully
+09.06.2026, 00:00:17 [INFO]: verifyToken - path: /trips/9
+09.06.2026, 00:00:17 [INFO]: verifyToken - successful for user: teacher (id number: 9)
+09.06.2026, 00:00:17 [INFO]: user id:undefined, method:GET, url:/trips/9
+09.06.2026, 00:00:17 [INFO]: in require role middleware
+09.06.2026, 00:00:17 [INFO]: roles for user id:9,  roles: teacher
+09.06.2026, 00:00:17 [INFO]: getTripById : 9
+09.06.2026, 00:00:17 [INFO]: get trip by id: 9 and userId: 9
+09.06.2026, 00:00:17 [INFO]: the trip with id 9 returned successfully
+09.06.2026, 07:58:15 [INFO]: verifyToken - path: /trips/9
+09.06.2026, 07:58:15 [WARN]: verifyToken - no token provided for path: /trips/9

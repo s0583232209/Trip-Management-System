@@ -232,7 +232,7 @@ export default function TripForm({
                 <p key={k} className="error">
                   {errors[k]}
                 </p>
-              ))}
+              ))}//check what this do
 
             <button type="button" className="add-stop-btn" onClick={onAddStop}>
               + הוסף עצירה

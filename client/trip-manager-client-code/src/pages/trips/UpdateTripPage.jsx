@@ -38,7 +38,7 @@ export default function UpdateTripPage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
-  console.log(user.role==="principal", "user.role==pricipal");
+  console.log(user.role === "principal", "user.role==pricipal");
   // טעינת הנתונים הישנים של הטיול והשמתם כברירת מחדל בטופס
   useEffect(() => {
     async function fetchTrip() {
@@ -46,7 +46,7 @@ export default function UpdateTripPage() {
         setFetching(true);
         const res = await api.get(`/api/trips/${tripId}`);
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
-
+        console.log(trip);
         if (trip) {
           setFormData({
             title: trip.title || "",
@@ -54,8 +54,8 @@ export default function UpdateTripPage() {
               ? new Date(trip.trip_date).toISOString().split("T")[0]
               : "",
             // תמיכה בשמות שונים של מפתחות שיכולים להגיע מה-DB (camelCase או snake_case)
-            tripLeaderNationalId:
-              trip.tripLeaderNationalId || trip.trip_leader_national_id || "",
+            tripLeaderNationalId: trip.tripLeaderNationalId || "",
+            tripLeaderName: trip.tripLeaderFullName || "",
           });
 
           // חילוץ העצירות הקיימות מהמידע הגיאוגרפי/מסלול הישן
@@ -163,7 +163,7 @@ export default function UpdateTripPage() {
   return (
     <TripForm
       pageTitle={`עדכון טיול — ${formData.title || tripId}`}
-      leaderIdField="tripLeaderNationalId"
+      leaderIdField="tripLeaderName"
       stopsHint="ערוך את העצירות לפי הסדר. לכל עצירה יש לציין שם וסוג. אטרקציות דורשות אישור רשמי; מסלולי הליכה דורשים ציון מצב."
       formData={formData}
       stops={stops}

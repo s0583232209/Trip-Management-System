@@ -23,9 +23,11 @@ export async function getAll(userId) {
   return res[0];
 }
 export async function getById(tripId, userId) {
+  //make more sense to return here also the trip leader name, and not only the id
+
   const connection = await getConnection();
   const res = await connection.execute(
-    `SELECT t.*, u.national_id AS tripLeaderNationalId
+    `SELECT t.*, u.national_id AS tripLeaderNationalId, u.full_name AS tripLeaderFullName
       FROM (SELECT * FROM trips WHERE trips.id = ?) t
       JOIN users u ON u.id = t.trip_leader_id
       JOIN staff_trip ON staff_trip.trip_id = t.id
@@ -33,9 +35,9 @@ export async function getById(tripId, userId) {
     [tripId, userId],
   );
   //SELECT * FROM (SELECT * FROM trips
-    // WHERE trips.id = ?)t
-    // JOIN staff_trip ON staff_trip.trip_id=t.id
-    // WHERE staff_trip.staff_id=?
+  // WHERE trips.id = ?)t
+  // JOIN staff_trip ON staff_trip.trip_id=t.id
+  // WHERE staff_trip.staff_id=?
   //db log!!!!!!!!!!!!!!!!!
   log.info(`getTripById : ${tripId}`);
   return res[0][0];
@@ -114,7 +116,9 @@ export async function updateTrip(updateDetails) {
 }
 export async function deleteTrip(tripId) {
   const connection = await getConnection();
-  const response = await connection.execute(`DELETE FROM trips WHERE id=?`, [tripId]);
+  const response = await connection.execute(`DELETE FROM trips WHERE id=?`, [
+    tripId,
+  ]);
   return response;
 }
 export async function approveTrip(tripId, parentToken) {

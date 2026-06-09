@@ -84,7 +84,7 @@ const ACTIONS = {
     {
       label: "קריאת שמות",
       desc: "עדכן נוכחות תלמידים",
-      path: "/trips/attendance",
+      path: "/trips",
       color: "green",
     },
     {
@@ -135,7 +135,7 @@ const ACTIONS = {
     },
     {
       label: "חרום מלא",
-      desc: "פתח אירוע חירום מלא",
+      desc: "פתח אירוע חרום מלא",
       path: "/trips",
       color: "brown",
     },
@@ -180,15 +180,6 @@ export default function DashboardPage() {
   }, []);
 
   const actions = ACTIONS[user?.role] || [];
-  const pageActions = [
-    ...actions,
-    {
-      label: "פרופיל",
-      desc: "צפה במידע אישי ופרטי מערכת",
-      path: "/profile",
-      color: "blue",
-    },
-  ];
 
   return (
     <>
@@ -201,7 +192,7 @@ export default function DashboardPage() {
           <p className="dashboard-sub">מה תרצה לעשות היום?</p>
         </div>
         <div className="dashboard-grid">
-          {pageActions.map((action) => (
+          {actions.map((action) => (
             <button
               key={action.label}
               className={`dashboard-card dashboard-card--${action.color}`}

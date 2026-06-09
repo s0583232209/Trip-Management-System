@@ -7,19 +7,26 @@ import {
 } from "../repositories/users.repository.js";
 import log from "../loggers/file.logger.js";
 export const userHasRole = async (userId, allowedRoles) => {
-  console.log("in has role of service");
   const roles = await getUserRoles(userId);
-  console.log(roles);
   const roleNames = roles.map((role) => role.role_name);
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
-  console.log(roleNames);
-  if (roleNames.find((role) => role.includes("trip leader")))
-    return tripLeaderAccess(userId);
-  return allowedRoles.some((role) => roleNames.includes(role));
+
+  // בדוק קודם תפקידים קבועים (מנהל, רכז, מורה) — גם אם המשתמש הוא גם אחראי טיול
+  const permanentRoles = roleNames.filter((r) => r !== "trip leader");
+  if (allowedRoles.some((role) => permanentRoles.includes(role))) return true;
+
+  // רק אחראי טיול טהור — בדוק לפי תאריך הטיול
+  if (roleNames.includes("trip leader") && allowedRoles.includes("trip leader"))
+    return await tripLeaderAccess(userId);
+
+  return false;
 };
-function tripLeaderAccess(userId) {
-  const tripDate = getUserRolesOnTripDay(userId);
-  return tripDate == new Date();
+async function tripLeaderAccess(userId) {
+  const tripDate = await getUserRolesOnTripDay(userId);
+  if (!tripDate) return false;
+  const today = new Date().toISOString().split("T")[0];
+  const tripDay = new Date(tripDate).toISOString().split("T")[0];
+  return today === tripDay;
 }
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";

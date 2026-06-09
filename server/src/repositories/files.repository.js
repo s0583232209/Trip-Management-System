@@ -1,10 +1,11 @@
 //this is the DAL
 import getConnection from "../config/db.js";
 export async function upload(file) {
-  console.log("in repo uploading file");
+  console.log("in repo uploading file=", file);
   const sql = `
         INSERT INTO trip_files (
             trip_id,
+            trip_kit,
             uploaded_by,
             original_name,
             stored_name,
@@ -14,9 +15,10 @@ export async function upload(file) {
             file_size,
             description
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)`;
   const params = [
     file.tripId,
+    file.tripKit || null,
     file.uploaderId,
     file.originalName,
     file.storedName,
@@ -41,7 +43,7 @@ export async function upload(file) {
 export async function getAllByTripId(tripId) {
   const connection = await getConnection();
   const [rows] = await connection.execute(
-    `SELECT id, trip_id, uploader_id, original_name, stored_path, mime_type, size_bytes, uploaded_at FROM trip_files WHERE trip_id = ?`,
+    `SELECT id, trip_id, uploaded_by, original_name, relative_path, mime_type, file_size, created_at FROM trip_files WHERE trip_id = ?`,
     [tripId],
   );
   console.log("in get all files repository, files=", rows);
@@ -57,5 +59,17 @@ export async function getById(id) {
 
   const [rows] = await connection.execute(sql, [id]);
 
+  return rows[0];
+}
+export async function getKit(kitId) {
+  const connection = await getConnection();
+  const sql = `
+        SELECT *
+        FROM trip_files
+        WHERE trip_kit= ?
+    `;
+
+  const [rows] = await connection.execute(sql, [kitId]);
+  console.log(rows);
   return rows[0];
 }

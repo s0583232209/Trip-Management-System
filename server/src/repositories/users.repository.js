@@ -27,7 +27,7 @@ export async function getUserRolesOnTripDay(userId) {
     ` 
      SELECT trips.trip_date
      FROM trips
-     WHERE trip_leader.id=?
+     WHERE trip_leader_id=?
     `,
     [userId],
   );
@@ -68,37 +68,31 @@ export async function getById(id) {
     throw err;
   }
 }
-async function addUserPrincipal(details) {
-  try {
-    log.info(`addUserPrincipal called for user: ${details.fullName}`);
-    const connection = await getConnection();
-    const schoolResult = await connection.execute(
-      `INSERT INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
-      [
-        details.name,
-        details.institutionNumber,
-        details.city,
-        details.email,
-        details.street || null,
-        details.houseNumber || null,
-        details.postalCode || null,
-      ],
-    );
-    console.log(schoolResult);
-    const [result] = await connection.execute(
-      "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",
-      [
-        schoolResult[0].insertId,
-        details.fullName,
-        details.nationalId,
-        details.userEmail || null,
-        details.userPhoneNumber || null,
-      ],
-    );
-    console.log(result, schoolResult);
-  } catch (err) {
-    console.log(err);
-  }
+async function addUserPrincipal(details, connection) {
+  log.info(`addUserPrincipal called for user: ${details.fullName}`);
+  const schoolResult = await connection.execute(
+    `INSERT INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
+    [
+      details.name,
+      details.institutionNumber,
+      details.city,
+      details.email,
+      details.street || null,
+      details.houseNumber || null,
+      details.postalCode || null,
+    ],
+  );
+  const [result] = await connection.execute(
+    "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",
+    [
+      schoolResult[0].insertId,
+      details.fullName,
+      details.nationalId,
+      details.userEmail || null,
+      details.userPhoneNumber || null,
+    ],
+  );
+  return result.insertId;
 }
 export async function addUser(details, principal) {
   let id;
@@ -107,7 +101,7 @@ export async function addUser(details, principal) {
   try {
     await connection.beginTransaction();
     if (principal) {
-      id = await addUserPrincipal(details);
+      id = await addUserPrincipal(details, connection);
     } else {
       const [result] = await connection.execute(
         "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",

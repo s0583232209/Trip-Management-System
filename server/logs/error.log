@@ -65,3 +65,7 @@
 07.06.2026, 20:45:27 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 08.06.2026, 13:00:59 [ERROR]: Error occurred while creating emergency: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
 08.06.2026, 13:00:59 [ERROR]: EmergenciesController - create error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
+09.06.2026, 14:56:09 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+09.06.2026, 15:19:58 [ERROR]: addUser error: Data too long for column 'role_name' at row 1
+09.06.2026, 15:19:58 [ERROR]: addUser error: Data too long for column 'role_name' at row 1
+09.06.2026, 15:23:43 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null

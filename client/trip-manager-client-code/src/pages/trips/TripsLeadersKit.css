@@ -1,69 +1,177 @@
-/* TripLeadersKit.css */
-
-.trip-kit-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+/* ── Kit page header ── */
+.kit-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
-.trip-kit-card {
-  background: white;
-  border: 2px solid #d9d9d9;
-  border-radius: 12px;
-  padding: 18px;
+/* ── Progress bar ── */
+.kit-progress-bar-wrap {
+  height: 8px;
+  background: var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.kit-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sky-dark), var(--sky-mid));
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+  min-width: 4px;
+}
+
+/* ── Required docs grid ── */
+.kit-required-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ── Document card ── */
+.kit-doc-card {
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.trip-kit-card--done {
-  border-color: #2e8b57;
-}
-
-.trip-kit-header {
-  display: flex;
   gap: 12px;
-  align-items: flex-start;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.trip-kit-header h3 {
-  margin: 0;
-  font-size: 18px;
+.kit-doc-card:hover {
+  box-shadow: var(--shadow);
 }
 
-.trip-kit-header p {
-  margin: 6px 0 0;
-  color: #666;
-  font-size: 14px;
+.kit-doc-card--done {
+  border-color: #16a34a;
+  background: #f0fdf4;
 }
 
-.trip-kit-status {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #ececec;
+/* ── Card header ── */
+.kit-doc-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-weight: bold;
+  gap: 12px;
+}
+
+.kit-doc-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
   flex-shrink: 0;
 }
 
-.trip-kit-card--done .trip-kit-status {
-  background: #2e8b57;
-  color: white;
+.kit-doc-badge--done {
+  background: #16a34a;
+  color: #fff;
+  font-size: 16px;
 }
 
-.trip-kit-current-file {
+.kit-doc-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ── Uploaded indicator ── */
+.kit-doc-uploaded-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #dcfce7;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.kit-doc-filename {
+  color: #166534;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.kit-doc-ok-label {
+  color: #16a34a;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ── All-files list ── */
+.kit-files-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.kit-file-row {
+  display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
-  background: #f7f7f7;
-  border-radius: 8px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
-.trip-kit-open-btn {
-  cursor: pointer;
+.kit-file-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.kit-file-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kit-file-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.kit-open-btn {
+  padding: 5px 14px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .kit-required-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kit-page-header {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

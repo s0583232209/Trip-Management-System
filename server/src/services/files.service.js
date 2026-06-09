@@ -1,5 +1,15 @@
 import * as filesRepository from "../repositories/files.repository.js";
 import path from "path";
+export async function getKit(tripId) {
+  try {
+    const kit = await filesRepository.getAllByTripId(tripId);
+    console.log(kit);
+    return kit;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 export async function uploadFile(data) {
   console.log("in file service upload", data);
   try {
@@ -19,6 +29,7 @@ export async function uploadFile(data) {
       mimeType: data.file.mimetype,
       size: data.file.size,
       description: data.description,
+      tripKit: data.tripKit || null,
     };
     console.log(fileToSave, "file to save in service");
     const id = await filesRepository.upload(fileToSave);
@@ -34,7 +45,7 @@ export async function uploadFile(data) {
 
 export async function getAllFiles(tripId) {
   const files = await filesRepository.getAllByTripId(tripId);
-  console.log("in get all files servie, files=",files)
+  console.log("in get all files servie, files=", files);
   return files;
 }
 

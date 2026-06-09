@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useId } from "react";
 import api from "../../api.js";
 import "./TripForms.css";
 
@@ -7,10 +7,12 @@ import "./TripForms.css";
 export default function UploadTripFile({
   tripId,
   documentType,
+  fileCode,
   existingFile,
   onUploadSuccess,
   compact = false,
 }) {
+  const inputId = useId();
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,21 +40,24 @@ export default function UploadTripFile({
 
     // יצירת אובייקט FormData להתאמה ל-Multer בשרת
     const formData = new FormData();
-    formData.append("file", file); // תואם ל-req.file בשרת
+    formData.append("file", file);
     formData.append("tripId", tripId);
     formData.append("documentType", documentType);
-    formData.append("description", description); // תואם ל-req.body.description
+    formData.append("description", description);
+    if (fileCode != null) formData.append("fileCode", fileCode);
+
+    const url = fileCode != null
+      ? `api/trips/${tripId}/files/kit`
+      : `api/trips/${tripId}/files`;
 
     try {
-      // שליחת הבקשה עם ה-FormData. Axios יגדיר את ה-Content-Type המתאים אוטומטית
-      const response = await api.post("api/trips/1/files", formData);
+      const response = await api.post(url, formData);
       console.log(response);
       setSuccessMessage("הקובץ הועלה בהצלחה!");
       setFile(null);
       setDescription("");
 
-      // איפוס שדה ה-Input בקוד ידני
-      const fileInput = document.getElementById("trip-file-input");
+      const fileInput = document.getElementById(inputId);
       if (fileInput) fileInput.value = "";
 
       // הפעלת פונקציית Callback במידה וההורה רוצה לרענן את רשימת הקבצים
@@ -92,9 +97,9 @@ export default function UploadTripFile({
         {!compact && <h2>העלאת מסמך / קובץ לטיול</h2>}
 
         <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="trip-file-input">בחר קובץ (עד 20MB)</label>
+          <label htmlFor={inputId}>בחר קובץ (עד 20MB)</label>
           <input
-            id="trip-file-input"
+            id={inputId}
             type="file"
             required
             onChange={handleFileChange}

@@ -2,6 +2,7 @@
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
+import { getByNationalId } from "./users.repository.js";
 export async function getAll(userId) {
   const connection = await getConnection();
   console.log(userId);
@@ -60,6 +61,13 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       ],
     );
     const newTripId = rows.insertId;
+    await connection.execute(`INSERT INTO trip_kit (trip_id) VALUES (?)`, [
+      newTripId,
+    ]);
+    await connection.execute(
+      `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
+      [tripLeaderDbId],
+    );
 
     // 3. בניית מערך של כל אנשי הצוות שצריכים להשתבץ לטיול (אחראי הטיול + מנהל + רכז)
     // נשתמש ב-Set כדי למנוע כפילויות במקרה שאחראי הטיול הוא גם הרכז
@@ -95,16 +103,23 @@ export async function updateTrip(updateDetails) {
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
+
+    const { id } = await getByNationalId(updateDetails.tripLeaderNationalId);
+    console.log("this is id from from update trip of the trip leadre, id=", id);
     console.log(updateDetails, "updateDetails in repo");
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [
-        updateDetails.tripLeaderId,
+        id,
         updateDetails.title,
         updateDetails.tripDate || null,
         updateDetails.routeGeoJson || null,
         updateDetails.tripId,
       ],
+    );
+    await connection.execute(
+      `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
+      [updateDetails.tripLeaderId],
     );
     await connection.commit();
     console.log(rows, "rows from update trip repo");

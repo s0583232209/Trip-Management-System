@@ -168,7 +168,6 @@ export default function UserDetails({
           >
             <option value="">בחר תפקיד</option>
             <option value="coordinator">רכז טיולים</option>
-            <option value="trip leader">אחראי טיול</option>
             <option value="teacher">מורה</option>
           </select>
         </>

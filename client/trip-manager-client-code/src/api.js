@@ -17,7 +17,8 @@ api.interceptors.response.use(
     if (status === 401 && !isLoginRequest && !isAlreadyLoginPage) {
       window.location.href = "/login";
     } else if (status === 403) {
-      window.location.href = "/unauthorized";
+    
+      // window.location.href = "/unauthorized";
     }
     return Promise.reject(error);
   },

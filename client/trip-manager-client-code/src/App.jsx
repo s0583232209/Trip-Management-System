@@ -17,6 +17,8 @@ import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
 import UploadTripFile from "./pages/trips/UploadTripFile.jsx";
 import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
 import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
+import Unauthorized from "./pages/Unauthorized.jsx";
+import NotFound from "./pages/NotFound.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
         <Route path="/register/:step" element={<Register />} />
         <Route path="/" element={<DashboardPage />} />
         <Route path="/trips" element={<TripSelectionPage />} />
+        <Route path="/trips/new" element={<CreateTripPage />} />
         <Route path="/trips/:tripId" element={<TripDashboardPage />} />
         <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
         <Route path="/trips/:tripId/day" element={<TripDayPage />} />
@@ -65,7 +68,7 @@ function App() {
             />
           }
         />
-        <Route path="/trips/:tripId/emergency" element={<EmergencyPage />} />
+        <Route path="/trips/:tripId/emergencies" element={<EmergencyPage />} />
         <Route
           path="/trips/:tripId/contacts"
           element={
@@ -103,12 +106,10 @@ function App() {
         />
         <Route
           path="/trips/:tripId/route"
-          element={
-            <UpdateTripPage></UpdateTripPage>
-          }
+          element={<UpdateTripPage></UpdateTripPage>}
         />
         <Route
-          path="/trips/:tripId/emergency/full"
+          path="/trips/:tripId/emergencies/full"
           element={
             <TripSectionPage
               title="חרום מלא"
@@ -120,7 +121,9 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/add-employee" element={<AddEmployeePage />} />
         <Route path="/admin" element={<AddEmployeePage />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
     </BrowserRouter>
   );

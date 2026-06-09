@@ -38,7 +38,7 @@ export default function UpdateTripPage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
-  console.log(user.role==="principal", "user.role==pricipal");
+  console.log(user.role === "principal", "user.role==pricipal");
   // טעינת הנתונים הישנים של הטיול והשמתם כברירת מחדל בטופס
   useEffect(() => {
     async function fetchTrip() {
@@ -62,10 +62,15 @@ export default function UpdateTripPage() {
           setStops(parseStops(trip.route_geojson || trip.routeGeoJson));
         } else {
           setSubmitError("לא נמצאו נתונים עבור טיול זה");
+          //navigate("/not-found", { replace: true });
         }
       } catch (err) {
         console.error("Error fetching trip details:", err);
-        setSubmitError("לא ניתן לטעון את פרטי הטיול הנוכחיים מהשרת");
+        if (err.response?.status === 404) {
+          navigate("/not-found", { replace: true });
+        } else {
+          setSubmitError("לא ניתן לטעון את פרטי הטיול הנוכחיים מהשרת");
+        }
       } finally {
         setFetching(false);
       }

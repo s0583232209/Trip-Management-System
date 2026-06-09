@@ -52,7 +52,7 @@ export default function TripsPage() {
               </button>
               <button
                 className="trip-card"
-                onClick={() => navigate("/trips/emergency")}
+                onClick={() => navigate("/trips/emergencies")}
               >
                 מצב חירום
               </button>

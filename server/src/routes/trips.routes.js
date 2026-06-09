@@ -36,9 +36,9 @@ router.put(
   "/:id/close",
   requireRole("principal", "coordinator"),
   (req, res) => {
-    res.send("trips: put, close trip" + id);
+    res.send("trips: put, close trip" + id);//req.params.id ?
   },
-);
+)
 router.get(
   "/:id/staff",
   requireRole("principal", "coordinator", "trip leader", "teacher"),

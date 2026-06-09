@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
@@ -8,6 +8,22 @@ export default function TripPlanningPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    api
+      .get(`/api/trips/${tripId}`)
+      .then((res) => {
+        const trip = Array.isArray(res.data) ? res.data[0] : res.data;
+        if (!trip) {
+          navigate("/not-found", { replace: true });
+        }
+      })
+      .catch((err) => {
+        if (err.response?.status === 404) {
+          navigate("/not-found", { replace: true });
+        }
+      });
+  }, [tripId, navigate]);
 
   async function handleDelete() {
     if (!window.confirm("האם אתה בטוח שברצונך למחוק את הטיול?")) return;

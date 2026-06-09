@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 import UserDetails from "../components/UserDetails.jsx";
 import api from "../api.js";
@@ -32,15 +32,7 @@ export default function AddEmployeePage() {
   }
 
   if (user.role !== "principal") {
-    return (
-      <>
-        <Navbar />
-        <main className="page-main">
-          <h1 className="page-title">גישה נדחשה</h1>
-          <p>אין לך גישה לעמוד זה.</p>
-        </main>
-      </>
-    );
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return (

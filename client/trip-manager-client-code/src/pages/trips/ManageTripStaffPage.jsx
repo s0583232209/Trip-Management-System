@@ -1,13 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import AddTripTeachers from "./AddTripTeachers.jsx";
 import AddTripExternalStaff from "./AddExternalStaff.jsx";
+import { canManageTrip } from "../../permissions.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
 export default function ManageTripStaffPage() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+
+  if (!canManageTrip()) return <Navigate to="/unauthorized" replace />;
 
   return (
     <>

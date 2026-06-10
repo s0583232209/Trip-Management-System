@@ -31,10 +31,17 @@ function App() {
         <Route path="/register/:step" element={<Register />} />
         <Route path="/" element={<DashboardPage />} />
         <Route path="/trips" element={<TripSelectionPage />} />
+
+        {/* יצירת טיול — מנהל ורכז בלבד */}
         <Route path="/trips/new" element={<CreateTripPage />} />
+
         <Route path="/trips/:tripId" element={<TripDashboardPage />} />
         <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
         <Route path="/trips/:tripId/day" element={<TripDayPage />} />
+        <Route path="/trips/:tripId/folder" element={<TripsLeaderKit />} />
+        <Route path="/trips/:tripId/trip-leaders-kit" element={<TripsLeaderKit />} />
+        <Route path="/trips/:tripId/staff" element={<ManageTripStaffPage />} />
+
         {/* <Route path="/trips/:tripId/trip-day" element={<TripDayPage />} /> */}
 
         <Route
@@ -57,10 +64,6 @@ function App() {
               description="כאן תוכל לתכנן ולעקוב אחרי ציוד לטיול."
             />
           }
-        />
-        <Route
-          path="/trips/:tripId/trip-leaders-kit"
-          element={<TripsLeaderKit></TripsLeaderKit>}
         />
         <Route
           path="/trips/:tripId/attendance"
@@ -90,27 +93,16 @@ function App() {
             />
           }
         />
-        <Route
-          path="/trips/:tripId/files"
-          element={<UploadTripFile></UploadTripFile>}
-        />
-        <Route
-          path="/trips/:tripId/approve"
-          element={<ApproveTripPage></ApproveTripPage>}
-        />
+
+        <Route path="/trips/:tripId/files" element={<UploadTripFile />} />
+        <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />
         <Route
           path="/trips/:tripId/close"
-          element={
-            <TripSectionPage
-              title="סגירת טיול"
-              description="כאן תוכל לסגור טיול שהסתיים בהצלחה."
-            />
-          }
+          element={<TripSectionPage title="סגירת טיול" description="כאן תוכל לסגור טיול שהסתיים בהצלחה." />}
         />
-        <Route
-          path="/trips/:tripId/route"
-          element={<UpdateTripPage></UpdateTripPage>}
-        />
+
+        <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
+
         <Route
           path="/trips/:tripId/emergencies/full"
           element={
@@ -120,10 +112,13 @@ function App() {
             />
           }
         />
+
         <Route path="/media" element={<MediaPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+
         <Route path="/add-employee" element={<AddEmployeePage />} />
         <Route path="/admin" element={<AddEmployeePage />} />
+
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />

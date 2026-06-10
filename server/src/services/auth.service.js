@@ -12,10 +12,6 @@ export const userHasRole = async (userId, allowedRoles) => {
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
   return allowedRoles.some((role) => roleNames.includes(role));
 };
-function tripLeaderAccess(userId) {
-  const tripDate = getUserRolesOnTripDay(userId);
-  return tripDate == new Date();
-}
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { addUser, getUserById } from "../repositories/users.repository.js";

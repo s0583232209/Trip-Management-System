@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
+import { canManageTrip } from "../../permissions.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
 export default function ApproveTripPage() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+
+  if (!canManageTrip()) return <Navigate to="/unauthorized" replace />;
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

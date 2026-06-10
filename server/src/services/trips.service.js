@@ -37,15 +37,32 @@ export async function addTrip(tripDetails) {
 }
 export async function updateTrip(tripDetails) {
   try {
+    let tripLeaderId;
+    const val = String(tripDetails.tripLeaderNationalId || "").trim();
+
+    if (val.length === 9 && !isNaN(Number(val))) {
+      // ת"ז תקין — מחפש לפי national_id
+      const user = await usersRepo.getByNationalId(val);
+      tripLeaderId = user.id;
+    } else if (val && !isNaN(Number(val))) {
+      // DB id מספרי (מה-dropdown)
+      tripLeaderId = Number(val);
+    } else {
+      // שומר את הערך הקיים מה-DB
+      const existing = await tripsRepo.getById(tripDetails.tripId, null);
+      tripLeaderId = existing?.trip_leader_id || null;
+    }
+
     const updatedTrip = await tripsRepo.updateTrip({
-      tripLeaderId: tripDetails.tripLeaderNationalId,
-      ...tripDetails,
+      tripLeaderId,
+      tripId: tripDetails.tripId,
+      title: tripDetails.title,
+      tripDate: tripDetails.tripDate,
+      routeGeoJson: tripDetails.routeGeoJson,
     });
     return updatedTrip;
   } catch (err) {
-    log.warn(
-      `error: ${err.message}, from function updateTrip in trips.service`,
-    );
+    log.warn(`error: ${err.message}, from function updateTrip in trips.service`);
     throw err;
   }
 }
@@ -61,7 +78,7 @@ export async function deleteTrip(tripId) {
 }
 export async function approveTrip(tripId) {
   try {
-    const parentToken = await createParentToken(tripId);
+    const parentToken = authService.createParentToken(tripId);
     const approvedTrip = await tripsRepo.approveTrip(tripId, parentToken);
     log.info(`approved trip with id: ${tripId}`);
     return { parentToken, ...approvedTrip };

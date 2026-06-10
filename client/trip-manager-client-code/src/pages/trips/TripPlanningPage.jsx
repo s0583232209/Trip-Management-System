@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
+import { canManageTrip, canUpdateRoute, canViewTripDetails } from "../../permissions.js";
 import "./TripsPage.css";
 
 export default function TripPlanningPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
   const [error, setError] = useState("");
+  const [tripDate, setTripDate] = useState(null);
 
   useEffect(() => {
     api
@@ -16,6 +18,8 @@ export default function TripPlanningPage() {
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (!trip) {
           navigate("/not-found", { replace: true });
+        } else {
+          setTripDate(trip.trip_date);
         }
       })
       .catch((err) => {
@@ -48,12 +52,14 @@ export default function TripPlanningPage() {
           >
             תיק טיול
           </button>
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/staff`)}
-          >
-            אנשי צוות
-          </button>
+          {canManageTrip() && (
+            <button
+              className="trip-card"
+              onClick={() => navigate(`/trips/${tripId}/staff`)}
+            >
+              אנשי צוות
+            </button>
+          )}
           <button
             className="trip-card"
             onClick={() => navigate(`/trips/${tripId}/equipment`)}
@@ -66,17 +72,21 @@ export default function TripPlanningPage() {
           >
             מסמכים
           </button>
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/route`)}
-          >
-            עדכון מסלול וצפיה בפרטי מסלול
-          </button>
-          <form>
-            <button className="trip-card" type="button" onClick={handleDelete}>
-              מחק טיול
+          {canViewTripDetails() && (
+            <button
+              className="trip-card"
+              onClick={() => navigate(`/trips/${tripId}/route`)}
+            >
+              {canUpdateRoute(tripDate) ? "עדכון מסלול וצפיה בפרטי מסלול" : "צפייה בפרטי מסלול"}
             </button>
-          </form>
+          )}
+          {canManageTrip() && (
+            <form>
+              <button className="trip-card" type="button" onClick={handleDelete}>
+                מחק טיול
+              </button>
+            </form>
+          )}
           {error && <p className="error">{error}</p>}
         </div>
       </main>

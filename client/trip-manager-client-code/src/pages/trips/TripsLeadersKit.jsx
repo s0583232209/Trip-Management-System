@@ -29,9 +29,6 @@ export default function TripsLeadersKit() {
   const [fetching, setFetching]           = useState(true);
   const [fetchError, setFetchError]       = useState("");
 
-  // fileCode → { id, fileName } — tracked for this session after each upload
-  const [sessionUploads, setSessionUploads] = useState({});
-
   // extra non-required upload slots added by the user
   const [additionalSlots, setAdditionalSlots] = useState([]);
 
@@ -51,8 +48,13 @@ export default function TripsLeadersKit() {
     }
   }
 
-  function handleRequiredUpload(fileCode, result) {
-    setSessionUploads((prev) => ({ ...prev, [fileCode]: result }));
+  // בנייה מהשרת — שומרת על מצב גם אחרי רענון דף
+  const uploadedByCode = {};
+  uploadedFiles.forEach((f) => {
+    if (f.file_code) uploadedByCode[f.file_code] = f;
+  });
+
+  function handleRequiredUpload() {
     fetchFiles();
   }
 
@@ -68,7 +70,7 @@ export default function TripsLeadersKit() {
     setAdditionalSlots((prev) => prev.filter((k) => k !== key));
   }
 
-  const doneCount = Object.keys(sessionUploads).length;
+  const doneCount = Object.keys(uploadedByCode).length;
 
   return (
     <>
@@ -84,7 +86,7 @@ export default function TripsLeadersKit() {
             <p className="form-section-hint">
               {fetching
                 ? "טוען נתונים..."
-                : `${doneCount} מתוך ${REQUIRED_DOCS.length} מסמכי חובה הועלו בסשן זה · סה״כ ${uploadedFiles.length} קבצים בטיול`}
+                : `${doneCount} מתוך ${REQUIRED_DOCS.length} מסמכי חובה הועלו · סה״כ ${uploadedFiles.length} קבצים בטיול`}
             </p>
           </div>
           <button
@@ -114,12 +116,12 @@ export default function TripsLeadersKit() {
           <h2 className="form-section-title">מסמכי חובה — תיק הטיול</h2>
           <p className="form-section-hint">
             יש להעלות את כל המסמכים הנדרשים לפי אוגדן הטיולים 2025.
-            מסמך שהועלה בסשן הנוכחי מסומן בירוק.
+            מסמך שהועלה מסומן בירוק.
           </p>
 
           <div className="kit-required-grid">
             {REQUIRED_DOCS.map((doc) => {
-              const uploaded = sessionUploads[doc.fileCode];
+              const uploaded = uploadedByCode[doc.fileCode];
               return (
                 <div
                   key={doc.fileCode}
@@ -134,7 +136,7 @@ export default function TripsLeadersKit() {
 
                   {uploaded && (
                     <div className="kit-doc-uploaded-row">
-                      <span className="kit-doc-filename">{uploaded.fileName}</span>
+                      <span className="kit-doc-filename">{uploaded.original_name}</span>
                       <span className="kit-doc-ok-label">הועלה</span>
                     </div>
                   )}
@@ -142,11 +144,9 @@ export default function TripsLeadersKit() {
                   <UploadTripFile
                     compact
                     tripId={tripId}
-                    documentType={doc.fileCode}
+                    fileCode={doc.fileCode}
                     existingFile={uploaded || null}
-                    onUploadSuccess={(result) =>
-                      handleRequiredUpload(doc.fileCode, result)
-                    }
+                    onUploadSuccess={handleRequiredUpload}
                   />
                 </div>
               );

@@ -1,5 +1,6 @@
 import { useState, useId } from "react";
 import api from "../../api.js";
+import { openFile } from "../../services/files.service.js";
 import "./TripForms.css";
 
 // UploadTripFile.jsx
@@ -95,6 +96,29 @@ export default function UploadTripFile({
     >
       <section className="form-section">
         {!compact && <h2>העלאת מסמך / קובץ לטיול</h2>}
+
+        {existingFile && (
+          <button
+            type="button"
+            className="kit-existing-file-link"
+            onClick={() => openFile(tripId, existingFile.id)}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "right",
+              background: "none",
+              border: "none",
+              padding: 0,
+              marginBottom: "0.75rem",
+              color: "var(--sky-dark)",
+              fontWeight: 600,
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            {existingFile.original_name || existingFile.fileName}
+          </button>
+        )}
 
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor={inputId}>בחר קובץ (עד 20MB)</label>

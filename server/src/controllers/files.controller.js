@@ -14,11 +14,12 @@ export async function addToKit(req, res) {
     console.log("req.file=", req.file);
     console.log("req.body.description=", req.body.description);
     console.log("req.user=", req.user);
+    // OLD (without fileCode): fileService.uploadFile({ tripKit: req.params.id, file, tripId, description, user })
     const file = await fileService.uploadFile({
-      tripKit: req.params.id,
       file: req.file,
       tripId: req.params.id,
       description: req.body.description,
+      fileCode: req.body.fileCode,
       user: req.user,
     });
     res.status(201).json(file);

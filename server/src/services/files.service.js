@@ -1,9 +1,16 @@
 import * as filesRepository from "../repositories/files.repository.js";
 import path from "path";
+// OLD getKit (used getAllByTripId — returned all files without file_code filter):
+// export async function getKit(tripId) {
+//   try {
+//     const kit = await filesRepository.getAllByTripId(tripId);
+//     return kit;
+//   } catch (error) { return null; }
+// }
 export async function getKit(tripId) {
   try {
-    const kit = await filesRepository.getAllByTripId(tripId);
-    console.log(kit);
+    const kit = await filesRepository.getKit(tripId);
+    console.log("getKit service, kit=", kit);
     return kit;
   } catch (error) {
     console.log(error);
@@ -20,6 +27,8 @@ export async function uploadFile(data) {
       data.file.filename,
     );
 
+    // OLD fileToSave (without fileCode):
+    // const fileToSave = { tripId, uploaderId, originalName, storedName, relativePath, mimeType, size, description, tripKit: data.tripKit || null };
     const fileToSave = {
       tripId: data.tripId,
       uploaderId: data.user.userId,
@@ -29,7 +38,7 @@ export async function uploadFile(data) {
       mimeType: data.file.mimetype,
       size: data.file.size,
       description: data.description,
-      tripKit: data.tripKit || null,
+      fileCode: data.fileCode ? Number(data.fileCode) : null,
     };
     console.log(fileToSave, "file to save in service");
     const id = await filesRepository.upload(fileToSave);

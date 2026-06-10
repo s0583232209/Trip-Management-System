@@ -22,7 +22,7 @@ export const emptyStop = () => ({
   notes: "",
 });
 
-function StopForm({ stop, index, onChange, onRemove }) {
+function StopForm({ stop, index, onChange, onRemove, writeAccess }) {
   function handleField(e) {
     const { name, value } = e.target;
     onChange(index, { ...stop, [name]: value });
@@ -33,13 +33,15 @@ function StopForm({ stop, index, onChange, onRemove }) {
     <div className="stop-card">
       <div className="stop-card-header">
         <span className="stop-index">עצירה {index + 1}</span>
-        <button
-          type="button"
-          className="stop-remove-btn"
-          onClick={() => onRemove(index)}
-        >
-          הסר
-        </button>
+        {writeAccess && (
+          <button
+            type="button"
+            className="stop-remove-btn"
+            onClick={() => onRemove(index)}
+          >
+            הסר
+          </button>
+        )}
       </div>
 
       <label>שם העצירה</label>
@@ -142,6 +144,40 @@ export default function TripForm({
     getUsers();
   }, [writeAccess]);
 
+  if (!writeAccess) {
+    return (
+      <>
+        <Navbar />
+        <main className="page-main">
+          <h1 className="page-title">{pageTitle}</h1>
+          <section className="form-section">
+            <h2 className="form-section-title">פרטי הטיול</h2>
+            <p><strong>שם הטיול:</strong> {formData.title}</p>
+            <p><strong>תאריך:</strong> {formData.tripDate}</p>
+          </section>
+          <section className="form-section">
+            <h2 className="form-section-title">מסלול הטיול — עצירות</h2>
+            {stops.length === 0 ? (
+              <p>אין עצירות מוגדרות לטיול זה.</p>
+            ) : (
+              <ul style={{ listStyle: "none", padding: 0 }}>
+                {stops.map((stop, i) => (
+                  <li key={i} className="stop-card" style={{ marginBottom: "1rem" }}>
+                    <p><strong>עצירה {i + 1}:</strong> {stop.name}</p>
+                    <p><strong>סוג:</strong> {stop.type}</p>
+                    {stop.trailCondition && <p><strong>מצב מסלול:</strong> {stop.trailCondition}</p>}
+                    {stop.officialApproval && <p><strong>אישור רשמי:</strong> {stop.officialApproval}</p>}
+                    {stop.notes && <p><strong>הערות:</strong> {stop.notes}</p>}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        </main>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -222,6 +258,7 @@ export default function TripForm({
                 index={i}
                 onChange={onStopChange}
                 onRemove={onRemoveStop}
+                writeAccess={writeAccess}
               />
             ))}
 
@@ -234,31 +271,35 @@ export default function TripForm({
                 </p>
               ))}//check what this do
 
-            <button type="button" className="add-stop-btn" onClick={onAddStop}>
-              + הוסף עצירה
-            </button>
+            {writeAccess && (
+              <button type="button" className="add-stop-btn" onClick={onAddStop}>
+                + הוסף עצירה
+              </button>
+            )}
           </section>
 
           {submitError && (
             <p className="error form-submit-error">{submitError}</p>
           )}
 
-          <div className="form-actions-row">
-            <button
-              type="button"
-              className="trip-form-btn trip-form-btn--ghost"
-              onClick={onCancel}
-            >
-              ביטול
-            </button>
-            <button
-              type="submit"
-              className="trip-form-btn trip-form-btn--primary"
-              disabled={loading}
-            >
-              {loading ? loadingLabel : submitLabel}
-            </button>
-          </div>
+          {writeAccess && (
+            <div className="form-actions-row">
+              <button
+                type="button"
+                className="trip-form-btn trip-form-btn--ghost"
+                onClick={onCancel}
+              >
+                ביטול
+              </button>
+              <button
+                type="submit"
+                className="trip-form-btn trip-form-btn--primary"
+                disabled={loading}
+              >
+                {loading ? loadingLabel : submitLabel}
+              </button>
+            </div>
+          )}
         </form>
       </main>
     </>

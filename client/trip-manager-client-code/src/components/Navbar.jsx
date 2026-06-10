@@ -23,7 +23,10 @@ export default function Navbar() {
         const trips = res.data;
         if (!trips || !trips.length) return;
         for (let i = 0; i < trips.length; i++) {
-          if (new Date(trips[i].trip_date).toDateString() === new Date().toDateString()) {
+          if (
+            new Date(trips[i].trip_date).toDateString() ===
+            new Date().toDateString()
+          ) {
             setTripDayOfTrip(trips[i].id);
             break;
           }
@@ -61,7 +64,10 @@ export default function Navbar() {
         osc.type = "square";
         osc.frequency.setValueAtTime(880, ctx.currentTime + startTime);
         gain.gain.setValueAtTime(0.6, ctx.currentTime + startTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startTime + 0.35);
+        gain.gain.exponentialRampToValueAtTime(
+          0.001,
+          ctx.currentTime + startTime + 0.35,
+        );
         osc.start(ctx.currentTime + startTime);
         osc.stop(ctx.currentTime + startTime + 0.35);
       });
@@ -73,43 +79,74 @@ export default function Navbar() {
   const isCritical = alert?.emergencyTypeId >= 2;
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand" onClick={() => navigate("/")}>
-        <img src={icon} alt="לוגו" className="navbar-logo" />
-        <span className="navbar-title">מסלול בטוח</span>
-      </div>
-      <div className="navbar-links">
-        <button className="navbar-btn" onClick={() => navigate("/")}>
-          בית
-        </button>
-        <button className="navbar-btn" onClick={() => navigate("/trips")}>
-          טיולים
-        </button>
-        <button className="navbar-btn" onClick={() => navigate("/media")}>
-          מדיה
-        </button>
-        <button className="navbar-btn" onClick={() => navigate("/profile")}>
-          פרופיל
-        </button>
-        {user?.role === "principal" && (
-          <button
-            className="navbar-btn"
-            onClick={() => navigate("/add-employee")}
-          >
-            ניהול
+    <>
+      <nav className="navbar">
+        <div className="navbar-brand" onClick={() => navigate("/")}>
+          <img src={icon} alt="לוגו" className="navbar-logo" />
+          <span className="navbar-title">מסלול בטוח</span>
+        </div>
+        <div className="navbar-links">
+          <button className="navbar-btn" onClick={() => navigate("/")}>
+            בית
           </button>
-        )}
-      </div>
-      <div className="navbar-actions">
-        <button
-          className="navbar-btn navbar-btn--logout"
-          onClick={handleLogout}
+          <button className="navbar-btn" onClick={() => navigate("/trips")}>
+            טיולים
+          </button>
+          <button className="navbar-btn" onClick={() => navigate("/media")}>
+            מדיה
+          </button>
+          <button className="navbar-btn" onClick={() => navigate("/profile")}>
+            פרופיל
+          </button>
+          {user?.role === "principal" && (
+            <button
+              className="navbar-btn"
+              onClick={() => navigate("/add-employee")}
+            >
+              ניהול
+            </button>
+          )}
+        </div>
+        <div className="navbar-actions">
+          {user?.role === "principal" && (
+            <button
+              className="navbar-btn"
+              onClick={() => navigate("/add-employee")}
+            >
+              הוספת עובד
+            </button>
+          )}
+          <button
+            className="navbar-btn navbar-btn--logout"
+            onClick={handleLogout}
+          >
+            התנתקות
+          </button>
+        </div>
+      </nav>
+
+      {alert && (
+        <div
+          className={`emergency-banner ${isCritical ? "banner-critical" : "banner-minor"}`}
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 99,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            padding: "0.6rem 1.5rem",
+            width: "100%",
+            boxSizing: "border-box",
+          }}
         >
           <span>{isCritical ? "🚨" : "⚠️"}</span>
           <span style={{ flex: 1 }}>
             {isCritical ? "חירום קריטי" : "חירום מינורי"}: {alert.description}
           </span>
-          <button onClick={() => navigate(`/trips/${tripDayOfTrip}/emergency`)}>צפה בפרטים</button>
+          <button onClick={() => navigate(`/trips/${tripDayOfTrip}/emergency`)}>
+            צפה בפרטים
+          </button>
           <button onClick={() => setAlert(null)}>✕</button>
         </div>
       )}

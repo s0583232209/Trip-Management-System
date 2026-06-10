@@ -114,7 +114,7 @@ export default function AddTripExternalStaff() {
                     disabled={loading}
                     style={{ width: "100%", padding: "0.75rem", borderRadius: "8px" }}
                   >
-                    <option value="guard">מאבטח חמוש</option>
+                    <option value="1">מאבטח חמוש</option>
                     <option value="medic">חובש מלווה</option>
                     <option value="paramedic">פראמדיק / רופא</option>
                     <option value="guard-medic">מאבטח שהוא גם חובש</option>

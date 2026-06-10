@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
@@ -8,12 +8,32 @@ import "./TripForms.css";
 export default function AddTripTeachers() {
   const { tripId } = useParams();
   const navigate = useNavigate();
-
+  let i = 0;
   const [nationalIds, setNationalIds] = useState([""]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const [tripStaff, setTripStaff] = useState([]);
+  const [schoolTeachers, setSchoolTeachers] = useState([]);
+  useEffect(() => {
+    async function getStaff() {
+      const res = await api.get(`api/trips/${tripId}/staff`);
+      console.log(res.data);
+      const staff = res.data;
+      setTripStaff(staff);
+      console.log(tripStaff);
+    }
+    getStaff();
+  }, []);
+  useEffect(() => {
+    async function getStaff() {
+      const res = await api.get(`api/users`);
+      console.log(res.data);
+      const teachers = res.data;
+      setSchoolTeachers(teachers);
+    }
+    getStaff();
+  }, []);
   function updateField(index, value) {
     setNationalIds((prev) => prev.map((id, i) => (i === index ? value : id)));
   }
@@ -74,13 +94,17 @@ export default function AddTripTeachers() {
                   marginBottom: "1rem",
                 }}
               >
-                <input
-                  type="text"
-                  placeholder="תעודת זהות (9 ספרות) *"
-                  value={id}
-                  onChange={(e) => updateField(i, e.target.value)}
-                  disabled={loading}
-                />
+                <select>
+                  {console.log(tripStaff)}
+                  {tripStaff.map((teacher) => (
+                    <option
+                      key={`${teacher.full_name}${i++}`}
+                      value={teacher.id}
+                    >
+                      {teacher.full_name}
+                    </option>
+                  ))}
+                </select>
                 {nationalIds.length > 1 && (
                   <button
                     type="button"
@@ -135,6 +159,17 @@ export default function AddTripTeachers() {
             </button>
           </div>
         </form>
+        <div>
+          <h4>מורים שכבר יש לטיול</h4>
+          <select>
+            {console.log(schoolTeachers)}
+            {schoolTeachers.map((teacher) => (
+              <option key={`${teacher.full_name}${i++}`} value={teacher.id}>
+                {teacher.full_name}
+              </option>
+            ))}
+          </select>
+        </div>
       </main>
     </>
   );

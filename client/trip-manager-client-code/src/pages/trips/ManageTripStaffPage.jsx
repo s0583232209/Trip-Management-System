@@ -34,16 +34,30 @@ export default function ManageTripStaffPage() {
         <StaffContactsView onRefresh={refreshRef} />
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", margin: "2rem 0 1rem" }}>
-          <button className="trip-form-btn trip-form-btn--primary" onClick={() => { setShowAddTeacher((v) => !v); setShowAddExternal(false); }}>
+          <button
+            className="trip-form-btn trip-form-btn--primary"
+            onClick={() => { setShowAddTeacher((v) => !v); setShowAddExternal(false); }}
+          >
             {showAddTeacher ? "סגור" : "+ הוסף מורה"}
           </button>
-          <button className="trip-form-btn trip-form-btn--primary" onClick={() => { setShowAddExternal((v) => !v); setShowAddTeacher(false); }}>
+          <button
+            className="trip-form-btn trip-form-btn--primary"
+            onClick={() => { setShowAddExternal((v) => !v); setShowAddTeacher(false); }}
+          >
             {showAddExternal ? "סגור" : "+ הוסף צוות חיצוני"}
           </button>
         </div>
 
-        {showAddTeacher && <div style={{ marginBottom: "2rem" }}><AddTripTeachers onSuccess={handleSuccess} /></div>}
-        {showAddExternal && <div style={{ marginBottom: "2rem" }}><AddTripExternalStaff onSuccess={handleSuccess} /></div>}
+        {showAddTeacher && (
+          <div style={{ marginBottom: "2rem" }}>
+            <AddTripTeachers onSuccess={handleSuccess} />
+          </div>
+        )}
+        {showAddExternal && (
+          <div style={{ marginBottom: "2rem" }}>
+            <AddTripExternalStaff onSuccess={handleSuccess} />
+          </div>
+        )}
 
         <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
           <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/planning`)}>

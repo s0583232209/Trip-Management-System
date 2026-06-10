@@ -12,12 +12,12 @@ export default function TripContactsPage() {
       <Navbar />
       <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
         <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
-          אנשי קשר לטיול {tripId}
+          אנשי קשר — טיול {tripId}
         </h1>
         <StaffContactsView />
         <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
-          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}`)}>
-            חזרה
+          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/day`)}>
+            חזרה ליום הטיול
           </button>
         </div>
       </main>

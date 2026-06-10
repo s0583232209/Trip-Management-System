@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api";
 import Navbar from "../../components/Navbar.jsx";
-import { canHandleMinorEmergency, canHandleCriticalEmergency } from "../../permissions.js";
+import {
+  canHandleMinorEmergency,
+  canHandleCriticalEmergency,
+} from "../../permissions.js";
 import "./EmergencyPage.css";
 import socket from "../../socket.js";
 
@@ -13,7 +16,35 @@ export default function EmergencyPage() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tripDate, setTripDate] = useState(null);
+  const [isRinging, setIsRinging] = useState(false);
   const navigate = useNavigate();
+  const audioRef = useRef(null);
+  const ringTimerRef = useRef(null);
+  const [canReport, setCanRepo] = useState(true);
+  const [allowedTypes, setAllowedTypes] = useState([]);
+  function startAlarm() {
+    if (!audioRef.current) {
+      audioRef.current = new Audio(
+        "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3",
+      );
+      audioRef.current.loop = true;
+    }
+    audioRef.current.play().catch(() => {});
+    setIsRinging(true);
+    clearTimeout(ringTimerRef.current);
+    ringTimerRef.current = setTimeout(() => stopAlarm(), 30000);
+  }
+
+  function stopAlarm() {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    clearTimeout(ringTimerRef.current);
+    setIsRinging(false);
+  }
+
+  useEffect(() => () => stopAlarm(), []);
 
   const [formData, setFormData] = useState({
     emergencyTypeId: "1",
@@ -46,40 +77,45 @@ export default function EmergencyPage() {
     }
     init();
   }, [tripId]);
-useEffect(() => {
-  socket.emit("join-trip", tripId);
+  useEffect(() => {
+    socket.emit("join-trip", tripId);
 
-  const canMinor = canHandleMinorEmergency();
-  const canCritical = canHandleCriticalEmergency(tripDate);
-  const canReport = canMinor || canCritical;
+    const canMinor = canHandleMinorEmergency();
+    const canCritical = canHandleCriticalEmergency(tripDate);
+    const canReport = canMinor || canCritical;
 
-  // מסנן את אפשרויות החומרה לפי הרשאות
-  const allowedTypes = [
-    ...(canMinor ? [{ value: "1", label: "🟢 קל (פציעה קלה, עיכוב זמני)" }] : []),
-    ...(canCritical ? [{ value: "2", label: "🔴 קריטי (נדרש חילוץ / פינוי רפואי)" }] : []),
-  ];
+    // מסנן את אפשרויות החומרה לפי הרשאות
+    const allowedTypes = [
+      ...(canMinor
+        ? [{ value: "1", label: "🟢 קל (פציעה קלה, עיכוב זמני)" }]
+        : []),
+      ...(canCritical
+        ? [{ value: "2", label: "🔴 קריטי (נדרש חילוץ / פינוי רפואי)" }]
+        : []),
+    ];
 
-  // מגיע כשמישהו אחר בצוות פותח חירום
-  socket.on("emergency-alert", (data) => {
-    // מוסיפים את החירום החדש לרשימה בלי לעשות fetch מחדש
-    setEmergencies((prev) => [data.emergency, ...prev]);
-  });
+    setAllowedTypes(allowedTypes);
+    // מגיע כשמישהו אחר בצוות פותח חירום
+    socket.on("emergency-alert", (data) => {
+      setEmergencies((prev) => [data.emergency, ...prev]);
+      startAlarm();
+    });
 
-  // מגיע כשחירום נסגר
-  socket.on("emergency-closed", ({ emergencyId }) => {
-    setEmergencies((prev) =>
-      prev.map((em) =>
-        em.id === emergencyId ? { ...em, status: "closed" } : em
-      )
-    );
-  });
+    // מגיע כשחירום נסגר
+    socket.on("emergency-closed", ({ emergencyId }) => {
+      setEmergencies((prev) =>
+        prev.map((em) =>
+          em.id === emergencyId ? { ...em, status: "closed" } : em,
+        ),
+      );
+    });
 
-  return () => {
-    socket.emit("leave-trip", tripId);
-    socket.off("emergency-alert");
-    socket.off("emergency-closed");
-  };
-}, [tripId]);
+    return () => {
+      socket.emit("leave-trip", tripId);
+      socket.off("emergency-alert");
+      socket.off("emergency-closed");
+    };
+  }, [tripId]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -87,6 +123,7 @@ useEffect(() => {
 
   const submitEmergency = async (lat, lng) => {
     setIsSubmitting(true);
+    stopAlarm();
     try {
       await api.post(`/api/trips/${tripId}/emergencies`, {
         emergencyTypeId: parseInt(formData.emergencyTypeId),
@@ -95,7 +132,10 @@ useEffect(() => {
         locationLng: lng,
         status: 1,
       });
-      setFormData({ emergencyTypeId: allowedTypes[0]?.value || "1", description: "" });
+      setFormData({
+        emergencyTypeId: allowedTypes[0]?.value || "1",
+        description: "",
+      });
       fetchEmergencies();
     } catch (err) {
       console.error("Error creating emergency:", err);
@@ -169,6 +209,17 @@ useEffect(() => {
           </button>
         </div>
 
+        {isRinging && (
+          <div className="alarm-banner">
+            <span>🚨 אזעקת חירום פעילה!</span>
+            <button
+              className="trip-form-btn trip-form-btn--ghost alarm-stop-btn"
+              onClick={stopAlarm}
+            >
+              עצור אזעקה
+            </button>
+          </div>
+        )}
         {error && <p className="error form-submit-error">{error}</p>}
 
         <div className="emergency-content">
@@ -218,7 +269,9 @@ useEffect(() => {
             {loading ? (
               <p>טוען נתונים...</p>
             ) : emergencies.length === 0 ? (
-              <p className="no-emergencies">לא דווחו אירועי חירום בטיול זה. 🙏</p>
+              <p className="no-emergencies">
+                לא דווחו אירועי חירום בטיול זה. 🙏
+              </p>
             ) : (
               <ul className="emergencies-list">
                 {emergencies.map((em) => (
@@ -228,9 +281,7 @@ useEffect(() => {
                   >
                     <div className="emergency-card-header">
                       <span className="emergency-status-badge">
-                        {em.status === 1
-                          ? "🔴 אירוע פעיל"
-                          : "🟢 טופל ונסגר"}
+                        {em.status === 1 ? "🔴 אירוע פעיל" : "🟢 טופל ונסגר"}
                       </span>
                       <span className="emergency-time">
                         {new Date(em.opened_at).toLocaleString("he-IL")}

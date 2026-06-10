@@ -153,14 +153,24 @@ export async function addStaff(tripsId, staffIdsArray = []) {
 export async function getAllStaff(tripId) {
   try {
     const connection = await getConnection();
-    const saff = await connection.execute(
-      `SELECT u.id, u.full_name, u.email, u.phone
-    FROM users u
-    JOIN staff_trip st ON u.id = st.staff_id
-    WHERE st.trip_id = ?;`,
+    const [employees] = await connection.execute(
+      `SELECT u.id, u.full_name, u.email, u.phone, GROUP_CONCAT(ur.role_name SEPARATOR ', ') AS roles
+      FROM users u
+      JOIN staff_trip st ON u.id = st.staff_id
+      JOIN user_roles ur ON ur.user_id = u.id
+      WHERE st.trip_id = ?
+      GROUP BY u.id, u.full_name, u.email, u.phone`,
       [tripId],
     );
-    return saff[0];
+    const [externalEmployees] = await connection.execute(
+      `SELECT e.id, e.phone, er.role_name AS role
+      FROM external_employees e
+      JOIN external_role er ON e.external_role = er.id
+      JOIN external_staff_trip t ON e.id = t.staff_id
+      WHERE t.trip_id = ?`,
+      [tripId],
+    );
+    return { employees, externalEmployees };
   } catch (err) {
     throw err;
   }

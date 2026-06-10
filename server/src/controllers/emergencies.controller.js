@@ -29,7 +29,6 @@ export async function create(req, res) {
     }
 
     const newEmergency = await emergenciesService.createEmergency(emergencyData);
-    const newEmergency = await emergenciesService.createEmergency(emergencyData);
     const tripId = emergencyData.tripId;
     io.to(`trip-${tripId}`).emit("emergency-alert", {
       emergency: newEmergency,

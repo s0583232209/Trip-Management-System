@@ -1,176 +1,138 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
-export default function AddTripTeachers() {
-  const { tripId } = useParams();
+export default function AddTripTeachers({ onSuccess } = {}) {
+  const { tripId: paramTripId } = useParams();
   const navigate = useNavigate();
-  let i = 0;
-  const [nationalIds, setNationalIds] = useState([""]);
+  const tripId = paramTripId;
+  const [selectedIds, setSelectedIds] = useState([""]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [tripStaff, setTripStaff] = useState([]);
   const [schoolTeachers, setSchoolTeachers] = useState([]);
+
   useEffect(() => {
-    async function getStaff() {
-      const res = await api.get(`api/trips/${tripId}/staff`);
-      console.log(res.data);
-      const staff = res.data;
-      setTripStaff(staff);
-      console.log(tripStaff);
+    async function fetchData() {
+      const [staffRes, usersRes] = await Promise.all([
+        api.get(`/api/trips/${tripId}/staff`),
+        api.get(`/api/users`),
+      ]);
+      setTripStaff(staffRes.data.employees ?? staffRes.data ?? []);
+      setSchoolTeachers(usersRes.data ?? []);
     }
-    getStaff();
-  }, []);
-  useEffect(() => {
-    async function getStaff() {
-      const res = await api.get(`api/users`);
-      console.log(res.data);
-      const teachers = res.data;
-      setSchoolTeachers(teachers);
-    }
-    getStaff();
-  }, []);
+    fetchData();
+  }, [tripId]);
+
+  const assignedIds = new Set(tripStaff.map((s) => s.user_id ?? s.id));
+
+  function availableTeachers(currentValue) {
+    const otherSelected = new Set(selectedIds.filter((id) => id !== currentValue && id !== ""));
+    return schoolTeachers.filter(
+      (t) => !assignedIds.has(t.user_id ?? t.id) && !otherSelected.has(String(t.user_id ?? t.id))
+    );
+  }
+
   function updateField(index, value) {
-    setNationalIds((prev) => prev.map((id, i) => (i === index ? value : id)));
+    setSelectedIds((prev) => prev.map((id, i) => (i === index ? value : id)));
   }
 
   function addField() {
-    setNationalIds((prev) => [...prev, ""]);
+    setSelectedIds((prev) => [...prev, ""]);
   }
 
   function removeField(index) {
-    setNationalIds((prev) => prev.filter((_, i) => i !== index));
+    setSelectedIds((prev) => prev.filter((_, i) => i !== index));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
     setSuccess("");
-    const filled = nationalIds.filter((id) => id.trim() !== "");
+    const filled = selectedIds.filter((id) => id !== "");
     if (filled.length === 0) {
-      setError("יש להזין לפחות מספר תעודת זהות אחד של מורה");
+      setError("יש לבחור לפחות מורה אחד");
       return;
     }
     setLoading(true);
     try {
-      // Directs payload to your educational staff endpoint
-      await api.post(`/api/trips/${tripId}/staff`, { nationalIds: filled });
-      setSuccess("מורים ומלווים חינוכיים שויכו לטיול בהצלחה!");
-      setNationalIds([""]);
+      const nationalIds = filled.map(
+        (id) => schoolTeachers.find((t) => String(t.user_id ?? t.id) === id)?.national_id
+      ).filter(Boolean);
+      await api.post(`/api/trips/${tripId}/staff`, { nationalIds });
+      setSuccess("המורים שויכו לטיול בהצלחה!");
+      setSelectedIds([""]);
+      const staffRes = await api.get(`/api/trips/${tripId}/staff`);
+      setTripStaff(staffRes.data.employees ?? staffRes.data ?? []);
+      if (onSuccess) onSuccess();
     } catch (err) {
-      setError(
-        err.response?.data?.message || "הוספת צוות המורים נכשלה, נסה שנית",
-      );
+      setError(err.response?.data?.message || "הוספת המורים נכשלה, נסה שנית");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <>
-      <main className="page-main">
-        <h1 className="page-title">שיבוץ צוות מורים ומלווים לטיול {tripId}</h1>
-        <form className="trip-form" onSubmit={handleSubmit} noValidate>
-          <section className="form-section">
-            <h2 className="form-section-title">
-              שיוך מורים ומחנכים מלווים (לפי ת.ז)
-            </h2>
-            <p className="form-section-hint">
-              הזן את מספרי תעודות הזהות של המורים והרכזים המלווים את הטיול
-              הנוכחי.
-            </p>
+    <main className="page-main">
+      <h1 className="page-title">שיבוץ מורים מלווים לטיול</h1>
+      <form className="trip-form" onSubmit={handleSubmit} noValidate>
+        <section className="form-section">
+          <h2 className="form-section-title">הוספת מורים מלווים</h2>
+          <p className="form-section-hint">
+            בחר מורים מהרשימה להוספה לטיול. מורים שכבר משובצים לטיול אינם מופיעים ברשימה.
+          </p>
 
-            {nationalIds.map((id, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  gap: "0.5rem",
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <select>
-                  {console.log(tripStaff)}
-                  {tripStaff.map((teacher) => (
-                    <option
-                      key={`${teacher.full_name}${i++}`}
-                      value={teacher.id}
-                    >
-                      {teacher.full_name}
-                    </option>
-                  ))}
-                </select>
-                {nationalIds.length > 1 && (
-                  <button
-                    type="button"
-                    className="stop-remove-btn"
-                    onClick={() => removeField(i)}
-                  >
-                    הסר
-                  </button>
-                )}
-              </div>
-            ))}
+          {selectedIds.map((val, i) => (
+            <div key={i} style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "1rem" }}>
+              <select value={val} onChange={(e) => updateField(i, e.target.value)}>
+                <option value="">-- בחר מורה --</option>
+                {availableTeachers(val).map((t) => (
+                  <option key={t.user_id ?? t.id} value={String(t.user_id ?? t.id)}>
+                    {t.full_name}
+                  </option>
+                ))}
+              </select>
+              {selectedIds.length > 1 && (
+                <button type="button" className="stop-remove-btn" onClick={() => removeField(i)}>
+                  הסר
+                </button>
+              )}
+            </div>
+          ))}
 
-            <button
-              type="button"
-              className="add-stop-btn"
-              onClick={addField}
-              disabled={loading}
-            >
-              + הוסף מורה מלווה
-            </button>
-          </section>
+          <button type="button" className="add-stop-btn" onClick={addField} disabled={loading}>
+            + הוסף מורה
+          </button>
+        </section>
 
-          {error && <p className="error form-submit-error">{error}</p>}
-          {success && (
-            <p
-              style={{
-                color: "green",
-                fontWeight: "bold",
-                textAlign: "right",
-                marginTop: "1rem",
-              }}
-            >
-              {success}
-            </p>
-          )}
+        {error && <p className="error form-submit-error">{error}</p>}
+        {success && <p style={{ color: "green", fontWeight: "bold", textAlign: "right", marginTop: "1rem" }}>{success}</p>}
 
-          <div className="form-actions-row">
-            <button
-              type="button"
-              className="trip-form-btn trip-form-btn--ghost"
-              onClick={() => navigate(`/trips/${tripId}/planning`)}
-              disabled={loading}
-            >
-              ביטול
-            </button>
-            <button
-              type="submit"
-              className="trip-form-btn trip-form-btn--primary"
-              disabled={loading}
-            >
-              {loading ? "שומר..." : "שמור צוות חינוכי"}
-            </button>
-          </div>
-        </form>
-        <div>
-          <h4>מורים שכבר יש לטיול</h4>
-          <select>
-            {console.log(schoolTeachers)}
-            {schoolTeachers.map((teacher) => (
-              <option key={`${teacher.full_name}${i++}`} value={teacher.id}>
-                {teacher.full_name}
-              </option>
-            ))}
-          </select>
+        <div className="form-actions-row">
+          <button type="button" className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/planning`)} disabled={loading}>
+            ביטול
+          </button>
+          <button type="submit" className="trip-form-btn trip-form-btn--primary" disabled={loading}>
+            {loading ? "שומר..." : "שמור"}
+          </button>
         </div>
-      </main>
-    </>
+      </form>
+
+      <div style={{ marginTop: "2rem" }}>
+        <h4>מורים משובצים לטיול</h4>
+        {tripStaff.length === 0 ? (
+          <p>אין מורים משובצים עדיין</p>
+        ) : (
+          <ul>
+            {tripStaff.map((t) => (
+              <li key={t.user_id ?? t.id}>{t.full_name}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </main>
   );
 }

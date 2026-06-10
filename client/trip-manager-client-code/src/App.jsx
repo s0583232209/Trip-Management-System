@@ -21,6 +21,7 @@ import Unauthorized from "./pages/Unauthorized.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -41,6 +42,20 @@ function App() {
         <Route path="/trips/:tripId/trip-leaders-kit" element={<TripsLeaderKit />} />
         <Route path="/trips/:tripId/staff" element={<ManageTripStaffPage />} />
 
+        {/* <Route path="/trips/:tripId/trip-day" element={<TripDayPage />} /> */}
+
+        <Route
+          path="/trips/:tripId/folder"
+          element={
+            <>
+              <TripsLeaderKit></TripsLeaderKit>
+            </>
+          }
+        />
+        <Route
+          path="/trips/:tripId/staff"
+          element={<ManageTripStaffPage></ManageTripStaffPage>}
+        />
         <Route
           path="/trips/:tripId/equipment"
           element={

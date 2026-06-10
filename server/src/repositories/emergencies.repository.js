@@ -33,7 +33,7 @@ export async function createEmergency(emergencyData) {
         emergencyData.openedBy || null,
         emergencyData.emergencyTypeId || 1,
         emergencyData.description,
-        emergencyData.status || "open",
+        emergencyData.status || 1,
         emergencyData.locationLat || null,
         emergencyData.locationLng || null,
       ],
@@ -72,7 +72,7 @@ export async function updateEmergency(emergencyId, emergencyData) {
       "UPDATE emergencies SET description = ?, status = ?, location_lat = ?, location_lng = ?, closed_at = ? WHERE id = ?",
       [
         emergencyData.description,
-        emergencyData.status || "open",
+        emergencyData.status || 1,
         emergencyData.locationLat || null,
         emergencyData.locationLng || null,
         emergencyData.status === "closed" ? new Date() : null,

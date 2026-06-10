@@ -65,3 +65,17 @@
 07.06.2026, 20:45:27 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 08.06.2026, 13:00:59 [ERROR]: Error occurred while creating emergency: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
 08.06.2026, 13:00:59 [ERROR]: EmergenciesController - create error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_3` FOREIGN KEY (`emergency_type_id`) REFERENCES `emergency_types` (`id`))
+09.06.2026, 14:56:09 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+09.06.2026, 15:19:58 [ERROR]: addUser error: Data too long for column 'role_name' at row 1
+09.06.2026, 15:19:58 [ERROR]: addUser error: Data too long for column 'role_name' at row 1
+09.06.2026, 15:23:43 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+10.06.2026, 16:38:08 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:38:08 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:42:20 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:42:20 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:44:22 [ERROR]: Error occurred while creating emergency: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
+10.06.2026, 16:44:22 [ERROR]: EmergenciesController - create error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
+10.06.2026, 16:48:53 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:48:53 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 17:02:14 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 17:02:14 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1

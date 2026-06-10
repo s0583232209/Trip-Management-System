@@ -4,8 +4,21 @@ import upload from "../middlewares/upload.middleware.js";
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 const router = express.Router({ mergeParams: true });
-
-// צפייה ברשימת קבצים — מנהל, רכז, אחראי, מורה
+router.get(
+  "/kit",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  filesController.getKit,
+);
+router.post(
+  "/kit",
+  requireRole("principal", "coordinator"),
+  upload.single("file"),
+  (req, res, next) => {
+    console.log("req.file:", req.file);
+    next();
+  },
+  filesController.addToKit,
+);
 router.get(
   "/",
   requireRole("principal", "coordinator", "trip leader", "teacher"),

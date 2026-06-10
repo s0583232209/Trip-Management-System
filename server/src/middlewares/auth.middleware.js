@@ -20,8 +20,9 @@ export default async function verifyToken(req, res, next) {
         return res.status(403).send("Failed to authenticate");
       }
       req.user = decoded;
+      // console.log("decoded:", decoded);
       log.info(
-        `verifyToken - successful for user: ${decoded.role} (id number: ${decoded.userId})`,
+        `verifyToken - successful for user: ${decoded.role} (id number: ${decoded.id})`,
       );
       next();
     });

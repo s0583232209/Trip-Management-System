@@ -4,7 +4,7 @@ import log from "../loggers/file.logger.js";
 
 export async function getUserById(req, res) {
   try {
-    console.log("get user by id");
+    // console.log("get user by id");
     const user = await usersService.getUserById(req.params.id);
     res.status(200).json(user);
   } catch (err) {
@@ -18,7 +18,7 @@ export async function updateProfile(req, res) {
     log.info(
       `updateProfile controller - userId: ${req.params.id}, body: ${JSON.stringify(req.body)}`,
     );
-    console.log("updateProfile...............................");
+    // console.log("updateProfile...............................");
     const user = await usersService.updateProfile(req.params.id, req.body);
     res.status(200).json(user);
   } catch (err) {
@@ -31,8 +31,9 @@ export async function updateProfile(req, res) {
 
 export async function changePassword(req, res) {
   try {
-    console.log("change password...............................");
-    console.log("userId=", req.user.userId, "params id=", req.params.id);
+    // console.log("change password...............................");
+    // console.log("userId=", req.user.userId, "params id=", req.params.id);
+    
     if (req.user.userId != req.params.id)
       return res.status(401).send("access denied");
     log.info(`change passwrod controller - userId: ${req.params.id}}`);
@@ -64,7 +65,7 @@ export async function addUser(req, res) {
 }
 export async function getAllUsersBySchool(req, res) {
   try {
-    console.log("get all users by school", req.user);
+    // console.log("get all users by school", req.user);
     const users = await usersService.getAllUsers(req.user.userId);
     res.status(200).json(users);
   } catch (err) {

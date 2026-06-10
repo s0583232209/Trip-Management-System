@@ -1,0 +1,98 @@
+/* ── Emergency banner ── */
+.emergency-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 2px solid;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+
+.banner-critical {
+  background: #ffebee;
+  border-color: #d32f2f;
+  color: #b71c1c;
+}
+
+.banner-minor {
+  background: #fff8e1;
+  border-color: #f57f17;
+  color: #e65100;
+}
+
+.banner-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.banner-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.banner-btn:hover {
+  opacity: 0.8;
+}
+
+.banner-btn--view {
+  background: #d32f2f;
+  color: #fff;
+}
+
+.banner-minor .banner-btn--view {
+  background: #f57f17;
+}
+
+.banner-btn--close {
+  background: transparent;
+  color: inherit;
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+/* ── Emergency card variant ── */
+.trip-card--emergency {
+  border: 2px solid #ffcdd2;
+  color: #c62828;
+}
+
+.trip-card--emergency-active {
+  background: #ffebee;
+  border-color: #d32f2f;
+  animation: card-pulse 2s infinite;
+}
+
+@keyframes card-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(211, 47, 47, 0.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(211, 47, 47, 0); }
+  100% { box-shadow: 0 0 0 0   rgba(211, 47, 47, 0); }
+}

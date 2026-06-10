@@ -46,13 +46,13 @@ export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
 
 export async function login(user) {
   const row = await getUserById(user.nationalId, user.institutionNumber);
-  console.log(row);
+  // console.log(row);
   if (!row) throw new Error("User not found");
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
   if (!isMatch) throw new Error("Incorrect password");
-  console.log(user, row);
+  // console.log(user, row);
   const roles= await getUserRoles(row.userId);
-  console.log(roles[0].role_name);
+  // console.log(roles[0].role_name);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,
@@ -79,7 +79,7 @@ export async function register(body) {
   );
   const user = await addUser({ ...body, password: hashedPassword },true);
   delete user.password;
-  console.log(user);
+  // console.log(user);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,

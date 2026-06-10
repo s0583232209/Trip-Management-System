@@ -21,7 +21,11 @@
     "multer": "^2.1.1",
     "mysql2": "^3.22.4",
     "simple-node-logger": "^21.8.12",
+    "socket.io": "^4.8.3",
     "winston": "^3.19.0",
     "winston-daily-rotate-file": "^5.0.0"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
   }
 }

@@ -13,7 +13,7 @@ export default async function loggerRepo(log) {
       log.newValues ?? null,
     ],
   );
-  console.log('end of logger repo')
+  // console.log('end of logger repo')
 }
 // id INT AUTO_INCREMENT PRIMARY KEY,
 // user_id INT NULL,

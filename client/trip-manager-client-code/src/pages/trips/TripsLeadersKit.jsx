@@ -1,393 +1,230 @@
-// import { useState, useEffect } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-// import Navbar from "../../components/Navbar.jsx";
-// import api from "../../api.js";
-// import "./TripsPage.css";
-// import "./TripForms.css";
-
-// export default function TripsLeaderKit() {
-//   const { tripId } = useParams();
-//   const navigate = useNavigate();
-
-//   const [loading, setLoading] = useState(false);
-//   const [fetching, setFetching] = useState(false);
-//   const [error, setError] = useState("");
-//   const [success, setSuccess] = useState("");
-
-//   // 1. מסמכי חובה רשמיים מתוך אוגדן הטיולים
-//   const [officialDocs, setOfficialDocs] = useState({
-//     appointmentLetter: { file: null, label: "נספח ב' - כתב מינוי לאחראי/ת טיול בחתימת המנהל/ת" },
-//     principalApproval: { file: null, label: "נספח ג' - אישור מנהל/ת ביה\"ס ליציאה לטיול" },
-//     securityApproval: { file: null, label: "אישור ביטחוני מהלשכה לתיאום טיולים (חדר מצב)" },
-//     exceptionalActivity: { file: null, label: "נספח ד' - אישור מנהל/ת ביה\"ס לפעילות חריגה בטיול (אם יש)" },
-//     parentApprovals: { file: null, label: "נספח ה' - ריכוז אישורי הורים על השתתפות בנם/בתם" },
-//     studentListThreeCopies: { file: null, label: "רשימת תלמידים משתתפים (עותק לאחראי, אוטובוס ומזכירות)" },
-//     medicalRestrictions: { file: null, label: "נספח ו' - רשימת תלמידים עם מגבלות רפואיות" },
-//     medicalReferralForm: { file: null, label: "נספח ז' - טופס הפניה לטיפול רפואי לתלמיד שנפגע" },
-//     injuredStudentList: { file: null, label: "נספח ח' - רשימת תלמידים שנפגעו במהלך טיול (טופס מעקב)" },
-//     volunteerInsurance: { file: null, label: "נספח ט' - טופס ביטוח למתנדב / הורה מלווה" },
-//     emergencyContacts: { file: null, label: "נספח י' - רשימת מלווים וטלפונים חיוניים בטיול" },
-//     firingInstructions: { file: null, label: "נספח י\"א - הוראות פתיחה באש למאבטחים" },
-//     busTeacherInstructions: { file: null, label: "נספח י\"ב - הנחיות למורה אחראי/ת באוטובוס" },
-//     classTeacherInstructions: { file: null, label: "נספח י\"ג - הנחיות למורה אחראי/ת כיתה" },
-//     weatherUpdate: { file: null, label: "עדכון מזג אויר והתאמתו לטיול (הדפסת תחזית עדכנית)" },
-//     phoneCoordination: { file: null, label: "אישור ביצוע תיאום טלפוני כנדרש באישור הטיול" },
-//     areaMap: { file: null, label: "המצאות מפת אזור הטיול כולל מפת סימון שבילים בתוקף" },
-//     preliminaryTour: { file: null, label: "אישור ביצוע סיור הכנה מקדים ע\"י אחראי הטיול" },
-//   });
-
-//   // 2. מסמכים נוספים שהמשתמש יכול להוסיף באופן דינמי
-//   const [additionalFiles, setAdditionalFiles] = useState([]);
-
-//   // טעינת מסמכים קיימים במידה והמשתמש נכנס לערוך תיק קיים
-//   useEffect(() => {
-//     async function fetchFolder() {
-//       if (!tripId) return;
-//       try {
-//         setFetching(true);
-//         const res = await api.get(`/api/trips/${tripId}/files`).catch(() => null);
-//         if (res && res.data) {
-//           // כאן ניתן למפות קבצים קיימים מהשרת (למשל להציג שמות קבצים שכבר הועלו)
-//           // בהתאם למבנה ה-API שלך
-//         }
-//       } catch (err) {
-//         console.error("Failed to load Folder", err);
-//       } finally {
-//         setFetching(false);
-//       }
-//     }
-//     fetchFolder();
-//   }, [tripId]);
-
-//   // שינוי קובץ רשמי
-//   function handleOfficialFileChange(key, file) {
-//     setOfficialDocs((prev) => ({
-//       ...prev,
-//       [key]: { ...prev[key], file },
-//     }));
-//   }
-
-//   // ניהול מסמכים דינמיים נוספים
-//   function handleAddAdditionalFile() {
-//     setAdditionalFiles((prev) => [...prev, { file: null, description: "" }]);
-//   }
-
-//   function handleRemoveAdditionalFile(index) {
-//     setAdditionalFiles((prev) => prev.filter((_, i) => i !== index));
-//   }
-
-//   function handleAdditionalFileChange(index, field, value) {
-//     setAdditionalFiles((prev) =>
-//       prev.map((item, i) => (i === index ? { ...item, [field]: value } : item))
-//     );
-//   }
-
-//   // שליחת תיק הטיול לשרת
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     setError("");
-//     setSuccess("");
-//     setLoading(true);
-
-//     try {
-//       const formData = new FormData();
-//       formData.append("tripId", tripId);
-
-//       // 1. הוספת קבצי החובה הרשמיים
-//       Object.keys(officialDocs).forEach((key) => {
-//         if (officialDocs[key].file) {
-//           formData.append(`official_${key}`, officialDocs[key].file);
-//         }
-//       });
-
-//       // 2. הוספת קבצים אקסטרה דינמיים
-//       let extraCount = 0;
-//       additionalFiles.forEach((item) => {
-//         if (item.file) {
-//           formData.append("additionalFiles", item.file);
-//           formData.append(`additionalDescription_${extraCount}`, item.description);
-//           extraCount++;
-//         }
-//       });
-// console.log(formData)
-//       await api.post(`/api/trips/${tripId}/files`, formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       });
-
-//       setSuccess("אוגדן ותיק הטיול עודכנו ונשמרו בהצלחה במערכת!");
-//     } catch (err) {
-//       console.error(err);
-//       setError(err.response?.data?.message || "שמירת תיק אוגדן הטיול נכשלה.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
-
-//   if (fetching) {
-//     return (
-//       <>
-//         <Navbar />
-//         <main className="page-main" style={{ textAlign: "center", padding: "3rem" }}>
-//           <h2>טוען את מסמכי אוגדן הטיול...</h2>
-//         </main>
-//       </>
-//     );
-//   }
-
-//   return (
-//     <>
-//       <Navbar />
-//       <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
-//         <h1 className="page-title">בניית אוגדן ותיק טיול — טיול {tripId}</h1>
-
-//         <form className="trip-form" onSubmit={handleSubmit} noValidate>
-
-//           {/* חלק א': אישורים ביטחוניים וניהוליים */}
-//           <section className="form-section">
-//             <h2 className="form-section-title">חלק א': אישורים ביטחוניים וניהוליים</h2>
-//             <p className="form-section-hint">יש להעלות את מסמכי החתימות הרשמיים ואישורי המנהל.</p>
-
-//             <div className="stop-card" style={{ padding: "1.25rem" }}>
-//               <label>{officialDocs.appointmentLetter.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("appointmentLetter", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.principalApproval.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("principalApproval", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.securityApproval.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("securityApproval", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.exceptionalActivity.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("exceptionalActivity", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.preliminaryTour.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("preliminaryTour", e.target.files[0])} disabled={loading} />
-//             </div>
-//           </section>
-
-//           {/* חלק ב': מסמכי כיתה, תלמידים ורפואה */}
-//           <section className="form-section">
-//             <h2 className="form-section-title">חלק ב': רשימות תלמידים ומסמכים רפואיים</h2>
-//             <p className="form-section-hint font-weight-bold">אישורי הורים, רשימות עותקים ונספחי בטיחות רפואיים.</p>
-
-//             <div className="stop-card" style={{ padding: "1.25rem" }}>
-//               <label>{officialDocs.parentApprovals.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("parentApprovals", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.studentListThreeCopies.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("studentListThreeCopies", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.medicalRestrictions.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("medicalRestrictions", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.medicalReferralForm.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("medicalReferralForm", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.injuredStudentList.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("injuredStudentList", e.target.files[0])} disabled={loading} />
-//             </div>
-//           </section>
-
-//           {/* חלק ג': לוגיסטיקה, שטח והנחיות צוות */}
-//           <section className="form-section">
-//             <h2 className="form-section-title">חלק ג': לוגיסטיקה, נהלים ושטח</h2>
-//             <p className="form-section-hint">הנחיות לצוותי הביטחון, מפות, תיאומים ומזג אוויר.</p>
-
-//             <div className="stop-card" style={{ padding: "1.25rem" }}>
-//               <label>{officialDocs.volunteerInsurance.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("volunteerInsurance", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.emergencyContacts.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("emergencyContacts", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.firingInstructions.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("firingInstructions", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.busTeacherInstructions.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("busTeacherInstructions", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.classTeacherInstructions.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("classTeacherInstructions", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.weatherUpdate.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("weatherUpdate", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.phoneCoordination.label}</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("phoneCoordination", e.target.files[0])} disabled={loading} />
-
-//               <label style={{ marginTop: "1rem" }}>{officialDocs.areaMap.label} *</label>
-//               <input type="file" onChange={(e) => handleOfficialFileChange("areaMap", e.target.files[0])} disabled={loading} />
-//             </div>
-//           </section>
-
-//           {/* חלק ד': קבצים ומסמכים נוספים בהתאמה אישית */}
-//           <section className="form-section">
-//             <h2 className="form-section-title">מסמכים וקבצים נוספים לתיק הטיול</h2>
-//             <p className="form-section-hint">צריך להעלות קבצים נוספים? לחץ על הכפתור מטה והוסף כמה שצריך.</p>
-
-//             {additionalFiles.map((item, index) => (
-//               <div key={index} className="stop-card" style={{ padding: "1.25rem", marginBottom: "1rem" }}>
-//                 <div className="stop-card-header" style={{ marginBottom: "0.75rem" }}>
-//                   <span className="stop-index">מסמך נוסף {index + 1}</span>
-//                   <button type="button" className="stop-remove-btn" onClick={() => handleRemoveAdditionalFile(index)}>
-//                     הסר
-//                   </button>
-//                 </div>
-
-//                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", alignItems: "end" }}>
-//                   <div>
-//                     <label>בחר קובץ</label>
-//                     <input
-//                       type="file"
-//                       onChange={(e) => handleAdditionalFileChange(index, "file", e.target.files[0])}
-//                       required
-//                       disabled={loading}
-//                     />
-//                   </div>
-//                   <div>
-//                     <label>תיאור / כותרת הקובץ</label>
-//                     <input
-//                       type="text"
-//                       placeholder="לדוגמה: תעודת מגיש עזרה ראשונה מעודכנת"
-//                       value={item.description}
-//                       onChange={(e) => handleAdditionalFileChange(index, "description", e.target.value)}
-//                       disabled={loading}
-//                     />
-//                   </div>
-//                 </div>
-//               </div>
-//             ))}
-
-//             <button type="button" className="add-stop-btn" onClick={handleAddAdditionalFile} disabled={loading}>
-//               + הוסף מסמך נוסף לתיק הטיול
-//             </button>
-//           </section>
-
-//           {/* הודעות שגיאה והצלחה */}
-//           {error && <p className="error form-submit-error">{error}</p>}
-//           {success && <p style={{ color: "green", fontWeight: "bold", textAlign: "right", marginTop: "1rem" }}>{success}</p>}
-
-//           {/* כפתורי שמירה וביטול */}
-//           <div className="form-actions-row">
-//             <button
-//               type="button"
-//               className="trip-form-btn trip-form-btn--ghost"
-//               onClick={() => navigate(`/trips/${tripId}`)}
-//               disabled={loading}
-//             >
-//               ביטול
-//             </button>
-//             <button
-//               type="submit"
-//               className="trip-form-btn trip-form-btn--primary"
-//               disabled={loading}
-//             >
-//               {loading ? "שומר תיק טיול..." : "שמור אוגדן טיול"}
-//             </button>
-//           </div>
-
-//         </form>
-//       </main>
-//     </>
-//   );
-// }
-// TripLeadersKit.jsx
-
-import "./TripsLeadersKit.css";
-import UploadTripFile from "./UploadTripFile.jsx";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
+import UploadTripFile from "./UploadTripFile.jsx";
+import { getTripFiles, openFile } from "../../services/files.service.js";
+import "./TripsPage.css";
+import "./TripForms.css";
+import "./TripsLeadersKit.css";
 
-const requiredFiles = [
-  {
-    key: "principalApproval",
-    title: "אישור מנהל ורכז טיולים",
-    description: "האישור הרשמי לביצוע הטיול",
-  },
-  {
-    key: "parentsApproval",
-    title: "אישורי הורים",
-    description: "אישורים חתומים מכלל ההורים",
-  },
-  {
-    key: "medicalForms",
-    title: "טפסים רפואיים",
-    description: "רשימת תלמידים עם מידע רפואי",
-  },
-  {
-    key: "securityApproval",
-    title: "אישור ביטחוני",
-    description: "אישור הגורמים המוסמכים",
-  },
-  {
-    key: "studentsList",
-    title: "רשימת משתתפים",
-    description: "רשימת כלל התלמידים והמלווים",
-  },
-  {
-    key: "schedule",
-    title: "תוכנית הטיול",
-    description: "לו״ז ומסלול הטיול",
-  },
+const REQUIRED_DOCS = [
+  { fileCode: 1,  title: "מינוי אחראי טיול" },
+  { fileCode: 2,  title: "אישור יציאה לטיול ממנהל מוסד" },
+  { fileCode: 3,  title: "אישורי הורים" },
+  { fileCode: 4,  title: "רשימת תלמידים" },
+  { fileCode: 5,  title: "רשימת תלמידים עם מגבלות רפואיות" },
+  { fileCode: 6,  title: "טופס הפניה לטיפול רפואי לתלמיד שנפגע במהלך טיול" },
+  { fileCode: 7,  title: "רשימת תלמידים שנפגעו במהלך טיול" },
+  { fileCode: 8,  title: "טופס ביטוח למתנדב" },
+  { fileCode: 9,  title: "רשימת מלווים וטלפונים חיוניים בטיול" },
+  { fileCode: 10, title: "הנחיות למורה אחראי כיתה" },
+  { fileCode: 11, title: "טופס תיאום טיולים מאושר" },
 ];
 
-export default function TripLeadersKit({
-  tripId,
-  uploadedFiles = [],
-  onUploadSuccess,
-  onOpenFile,
-}) {
+export default function TripsLeadersKit() {
+  const { tripId } = useParams();
+  const navigate = useNavigate();
+
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [fetching, setFetching]           = useState(true);
+  const [fetchError, setFetchError]       = useState("");
+
+  // extra non-required upload slots added by the user
+  const [additionalSlots, setAdditionalSlots] = useState([]);
+
+  useEffect(() => {
+    fetchFiles();
+  }, [tripId]);
+
+  async function fetchFiles() {
+    try {
+      setFetching(true);
+      const files = await getTripFiles(tripId);
+      setUploadedFiles(files || []);
+    } catch {
+      setFetchError("לא ניתן לטעון קבצים קיימים");
+    } finally {
+      setFetching(false);
+    }
+  }
+
+  // בנייה מהשרת — שומרת על מצב גם אחרי רענון דף
+  const uploadedByCode = {};
+  uploadedFiles.forEach((f) => {
+    if (f.file_code) uploadedByCode[f.file_code] = f;
+  });
+
+  function handleRequiredUpload() {
+    fetchFiles();
+  }
+
+  function handleAdditionalUpload() {
+    fetchFiles();
+  }
+
+  function addExtraSlot() {
+    setAdditionalSlots((prev) => [...prev, Date.now()]);
+  }
+
+  function removeExtraSlot(key) {
+    setAdditionalSlots((prev) => prev.filter((k) => k !== key));
+  }
+
+  const doneCount = Object.keys(uploadedByCode).length;
+
   return (
     <>
-      <Navbar></Navbar>
-      <div className="trip-kit-grid">
-        {requiredFiles.map((requiredFile) => {
-          const existingFile = uploadedFiles.find(
-            (file) => file.documentType === requiredFile.key,
-          );
+      <Navbar />
+      <main className="page-main">
 
-          return (
-            <div
-              key={requiredFile.key}
-              className={`trip-kit-card ${
-                existingFile ? "trip-kit-card--done" : ""
-              }`}
-            >
-              <div className="trip-kit-header">
-                <span className="trip-kit-status">
-                  {existingFile ? "✓" : "○"}
-                </span>
+        {/* ─── כותרת עמוד ─── */}
+        <div className="kit-page-header">
+          <div>
+            <h1 className="page-title" style={{ marginBottom: 4 }}>
+              תיק הטיול
+            </h1>
+            <p className="form-section-hint">
+              {fetching
+                ? "טוען נתונים..."
+                : `${doneCount} מתוך ${REQUIRED_DOCS.length} מסמכי חובה הועלו · סה״כ ${uploadedFiles.length} קבצים בטיול`}
+            </p>
+          </div>
+          <button
+            className="trip-form-btn trip-form-btn--ghost"
+            onClick={() => navigate(`/trips/${tripId}`)}
+          >
+            חזרה לטיול
+          </button>
+        </div>
 
-                <div>
-                  <h3>{requiredFile.title}</h3>
-                  <p>{requiredFile.description}</p>
+        {fetchError && (
+          <p className="error form-submit-error" style={{ marginBottom: "1.5rem" }}>
+            {fetchError}
+          </p>
+        )}
+
+        {/* ─── פס התקדמות ─── */}
+        <div className="kit-progress-bar-wrap">
+          <div
+            className="kit-progress-bar-fill"
+            style={{ width: `${(doneCount / REQUIRED_DOCS.length) * 100}%` }}
+          />
+        </div>
+
+        {/* ─── מסמכי חובה ─── */}
+        <section className="form-section" style={{ marginTop: "1.5rem" }}>
+          <h2 className="form-section-title">מסמכי חובה — תיק הטיול</h2>
+          <p className="form-section-hint">
+            יש להעלות את כל המסמכים הנדרשים לפי אוגדן הטיולים 2025.
+            מסמך שהועלה מסומן בירוק.
+          </p>
+
+          <div className="kit-required-grid">
+            {REQUIRED_DOCS.map((doc) => {
+              const uploaded = uploadedByCode[doc.fileCode];
+              return (
+                <div
+                  key={doc.fileCode}
+                  className={`kit-doc-card ${uploaded ? "kit-doc-card--done" : ""}`}
+                >
+                  <div className="kit-doc-header">
+                    <span className={`kit-doc-badge ${uploaded ? "kit-doc-badge--done" : ""}`}>
+                      {uploaded ? "✓" : doc.fileCode}
+                    </span>
+                    <h3 className="kit-doc-title">{doc.title}</h3>
+                  </div>
+
+                  {uploaded && (
+                    <div className="kit-doc-uploaded-row">
+                      <span className="kit-doc-filename">{uploaded.original_name}</span>
+                      <span className="kit-doc-ok-label">הועלה</span>
+                    </div>
+                  )}
+
+                  <UploadTripFile
+                    compact
+                    tripId={tripId}
+                    fileCode={doc.fileCode}
+                    existingFile={uploaded || null}
+                    onUploadSuccess={handleRequiredUpload}
+                  />
                 </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ─── קבצים נוספים ─── */}
+        <section className="form-section">
+          <h2 className="form-section-title">קבצים נוספים לתיק הטיול</h2>
+          <p className="form-section-hint">
+            ניתן להוסיף כל מסמך נוסף שאינו ברשימת החובה.
+          </p>
+
+          {additionalSlots.map((key, i) => (
+            <div key={key} className="kit-doc-card" style={{ marginBottom: "1rem" }}>
+              <div className="kit-doc-header">
+                <span className="kit-doc-badge">{REQUIRED_DOCS.length + i + 1}</span>
+                <h3 className="kit-doc-title">מסמך נוסף {i + 1}</h3>
+                <button
+                  type="button"
+                  className="stop-remove-btn"
+                  style={{ marginRight: "auto" }}
+                  onClick={() => removeExtraSlot(key)}
+                >
+                  הסר
+                </button>
               </div>
-
-              {existingFile && (
-                <div className="trip-kit-current-file">
-                  <span>{existingFile.original_name}</span>
-
-                  <button
-                    type="button"
-                    className="trip-kit-open-btn"
-                    onClick={() => onOpenFile(existingFile.id)}
-                  >
-                    פתח קובץ
-                  </button>
-                </div>
-              )}
-
               <UploadTripFile
                 compact
                 tripId={tripId}
-                documentType={requiredFile.key}
-                existingFile={existingFile}
-                onUploadSuccess={onUploadSuccess}
+                documentType={`extra_${i + 1}`}
+                onUploadSuccess={handleAdditionalUpload}
               />
             </div>
-          );
-        })}
-      </div>
+          ))}
+
+          <button
+            type="button"
+            className="add-stop-btn"
+            onClick={addExtraSlot}
+          >
+            + הוסף מסמך נוסף לתיק הטיול
+          </button>
+        </section>
+
+        {/* ─── רשימת כל הקבצים שהועלו ─── */}
+        {!fetching && uploadedFiles.length > 0 && (
+          <section className="form-section">
+            <h2 className="form-section-title">
+              כל הקבצים שהועלו לטיול ({uploadedFiles.length})
+            </h2>
+            <ul className="kit-files-list">
+              {uploadedFiles.map((file) => (
+                <li key={file.id} className="kit-file-row">
+                  <span className="kit-file-icon">📄</span>
+                  <span className="kit-file-name">{file.original_name}</span>
+                  {(file.uploaded_at || file.created_at) && (
+                    <span className="kit-file-date">
+                      {new Date(
+                        file.uploaded_at || file.created_at,
+                      ).toLocaleDateString("he-IL")}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    className="trip-form-btn trip-form-btn--ghost kit-open-btn"
+                    onClick={() => openFile(tripId, file.id)}
+                  >
+                    פתח
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+      </main>
     </>
   );
 }

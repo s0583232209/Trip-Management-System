@@ -6,11 +6,11 @@ export default function requireRole (...allowedRoles) {
     try {
   log.info("in require role middleware")
 
-  console.log(req.user)
+  // console.log(req.user)
       const userId = req.user.userId;
-      console.log(userId)
+      // console.log(userId)
       const allowed = await userHasRole(userId, allowedRoles);
-      console.log(allowed)
+      // console.log(allowed)
       if (!allowed) {
         return res.status(403).json({
           message: "Forbidden",
@@ -19,8 +19,8 @@ export default function requireRole (...allowedRoles) {
 
       next();
     } catch (error) {
-      console.log(error)
-      console.log("middleware error...................")
+      // console.log(error)
+      // console.log("middleware error...................")
       return res.status(500).json({
         message: "Server error",
       });

@@ -1,5 +1,6 @@
 import * as emergenciesService from "../services/emergencies.service.js";
 import log from "../loggers/file.logger.js";
+import { io } from "../../server.js"; // ← שורה חדשה
 
 export async function getByTripId(req, res) {
   try {
@@ -28,6 +29,12 @@ export async function create(req, res) {
     }
 
     const newEmergency = await emergenciesService.createEmergency(emergencyData);
+    const newEmergency = await emergenciesService.createEmergency(emergencyData);
+    const tripId = emergencyData.tripId;
+    io.to(`trip-${tripId}`).emit("emergency-alert", {
+      emergency: newEmergency,
+      timestamp: new Date().toISOString(),
+    });
     res.status(201).json({
       message: "Emergency created successfully",
       emergency: newEmergency,
@@ -40,9 +47,12 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   try {
-    const emergencyId = req.params.emergencyId;
-    const emergencyData = req.body;
-    await emergenciesService.updateEmergency(emergencyId, emergencyData);
+    const tripId = req.params.id || req.params.tripId;
+    const newEmergency = await emergenciesService.updateEmergency(emergencyId, emergencyData);
+    io.to(`trip-${tripId}`).emit("emergency-alert", {
+      emergency: newEmergency,
+      timestamp: new Date().toISOString(),
+    });
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {
     log.error(`EmergenciesController - update error: ${error.message}`);

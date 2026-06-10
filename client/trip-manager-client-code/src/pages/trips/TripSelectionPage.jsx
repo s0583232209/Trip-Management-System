@@ -2,6 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../api.js";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
+import { canManageTrip } from "../../permissions.js";
 import "./TripsPage.css";
 
 export default function TripSelectionPage() {
@@ -36,9 +37,11 @@ export default function TripSelectionPage() {
         </div>
         <br />
         <div>
-          <button className="trip-card" onClick={() => navigate(`/trips/new`)}>
-            יצירת טיול חדש
-          </button>
+          {canManageTrip() && (
+            <button className="trip-card" onClick={() => navigate(`/trips/new`)}>
+              יצירת טיול חדש
+            </button>
+          )}
         </div>
       </main>
     </>

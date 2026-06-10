@@ -24,19 +24,25 @@ export async function getAll(userId) {
 }
 export async function getById(tripId, userId) {
   const connection = await getConnection();
-  const res = await connection.execute(
-    `SELECT t.*, u.national_id AS tripLeaderNationalId
-      FROM (SELECT * FROM trips WHERE trips.id = ?) t
-      JOIN users u ON u.id = t.trip_leader_id
-      JOIN staff_trip ON staff_trip.trip_id = t.id
-      WHERE staff_trip.staff_id = ? `,
-    [tripId, userId],
-  );
-  //SELECT * FROM (SELECT * FROM trips
-    // WHERE trips.id = ?)t
-    // JOIN staff_trip ON staff_trip.trip_id=t.id
-    // WHERE staff_trip.staff_id=?
-  //db log!!!!!!!!!!!!!!!!!
+  let res;
+  if (userId === null) {
+    // בדיקה פנימית ללא בדיקת staff
+    res = await connection.execute(
+      `SELECT t.*, u.national_id AS tripLeaderNationalId
+        FROM (SELECT * FROM trips WHERE trips.id = ?) t
+        LEFT JOIN users u ON u.id = t.trip_leader_id`,
+      [tripId]
+    );
+  } else {
+    res = await connection.execute(
+      `SELECT t.*, u.national_id AS tripLeaderNationalId
+        FROM (SELECT * FROM trips WHERE trips.id = ?) t
+        JOIN users u ON u.id = t.trip_leader_id
+        JOIN staff_trip ON staff_trip.trip_id = t.id
+        WHERE staff_trip.staff_id = ? `,
+      [tripId, userId],
+    );
+  }
   log.info(`getTripById : ${tripId}`);
   return res[0][0];
 }
@@ -93,19 +99,20 @@ export async function updateTrip(updateDetails) {
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
-    console.log(updateDetails, "updateDetails in repo");
+    const params = [
+      updateDetails.tripLeaderId,
+      updateDetails.title,
+      updateDetails.tripDate ? updateDetails.tripDate.split("T")[0] : null,
+      updateDetails.routeGeoJson || null,
+      updateDetails.tripId,
+    ];
+    log.info(`updateTrip params: ${JSON.stringify(params)}`);
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
-      [
-        updateDetails.tripLeaderId,
-        updateDetails.title,
-        updateDetails.tripDate || null,
-        updateDetails.routeGeoJson || null,
-        updateDetails.tripId,
-      ],
+      params,
     );
+    log.info(`updateTrip affectedRows: ${rows.affectedRows}`);
     await connection.commit();
-    console.log(rows, "rows from update trip repo");
     return rows;
   } catch (err) {
     await connection.rollback();

@@ -5,28 +5,35 @@ import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 const router = express.Router({ mergeParams: true });
 
+// צפייה ברשימת קבצים — מנהל, רכז, אחראי, מורה
 router.get(
   "/",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
   filesController.getAllFiles,
 );
 
+// העלאת קובץ לתיק טיול — מנהל ורכז טיולים
 router.post(
   "/",
   requireRole("principal", "coordinator"),
   upload.single("file"),
   filesController.uploadFile,
-  () => console.log("in the router"),
 );
 
+// הורדת/פתיחת קובץ — מנהל, רכז, אחראי, מורה
 router.get(
   "/:id",
-  requireRole("principal", "coordinator", "trip leader"),
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
   filesController.getFile,
 );
 
-router.delete("/:id", requireRole("principal", "coordinator"), () => {
-  return "files: delete by id";
-});
+// מחיקת קובץ מתיק טיול — מנהל ורכז טיולים
+router.delete(
+  "/:id",
+  requireRole("principal", "coordinator"),
+  (req, res) => {
+    res.send("files: delete by id");
+  },
+);
 
 export default router;

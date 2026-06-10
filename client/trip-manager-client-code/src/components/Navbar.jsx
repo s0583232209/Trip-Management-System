@@ -19,7 +19,7 @@ export default function Navbar() {
       </div>
       <div className="navbar-links">
         <button className="navbar-btn" onClick={() => navigate("/")}>
-          תפריט
+          בית
         </button>
         <button className="navbar-btn" onClick={() => navigate("/trips")}>
           טיולים
@@ -40,14 +40,6 @@ export default function Navbar() {
         )}
       </div>
       <div className="navbar-actions">
-        {user?.role === "principal" && (
-          <button
-            className="navbar-btn"
-            onClick={() => navigate("/add-employee")}
-          >
-            הוספת עובד
-          </button>
-        )}
         <button
           className="navbar-btn navbar-btn--logout"
           onClick={handleLogout}

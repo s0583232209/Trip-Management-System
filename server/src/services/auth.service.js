@@ -7,20 +7,11 @@ import {
 } from "../repositories/users.repository.js";
 import log from "../loggers/file.logger.js";
 export const userHasRole = async (userId, allowedRoles) => {
-  console.log("in has role of service");
   const roles = await getUserRoles(userId);
-  console.log(roles);
   const roleNames = roles.map((role) => role.role_name);
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
-  console.log(roleNames);
-  if (roleNames.find((role) => role.includes("trip leader")))
-    return tripLeaderAccess(userId);
   return allowedRoles.some((role) => roleNames.includes(role));
 };
-function tripLeaderAccess(userId) {
-  const tripDate = getUserRolesOnTripDay(userId);
-  return tripDate == new Date();
-}
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { addUser, getUserById } from "../repositories/users.repository.js";

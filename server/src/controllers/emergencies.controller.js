@@ -19,8 +19,15 @@ export async function create(req, res) {
       tripId: req.params.id || req.params.tripId,
       openedBy: req.user?.userId || null,
     };
-    const newEmergency =
-      await emergenciesService.createEmergency(emergencyData);
+
+    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול ביום הטיול
+    if (parseInt(emergencyData.emergencyTypeId) === 2) {
+      if (req.user?.role !== "trip leader") {
+        return res.status(403).json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
+      }
+    }
+
+    const newEmergency = await emergenciesService.createEmergency(emergencyData);
     res.status(201).json({
       message: "Emergency created successfully",
       emergency: newEmergency,

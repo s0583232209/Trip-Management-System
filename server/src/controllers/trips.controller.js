@@ -76,3 +76,30 @@ export async function addStaff(req, res) {
     res.status(500).json({ message: err.message });
   }
 }
+export async function getAllStaff(req, res) {
+  try {
+    const staff = await tripsService.getAllStaff(req.params.id);
+    res.status(201).json(staff);
+  } catch (err) {
+    log.warn(`getting staff failed: ${err.message}`);
+    res.status(500).json({ message: err.message });
+  }
+}
+export async function deleteStaff(req, res) {
+  try {
+    await tripsService.deleteStaff(req.params.id, req.body.nationalIds);
+    res.status(201).json({ message: "Staff deleted successfully" });
+  } catch (err) {
+    log.warn(`deleting staff failed: ${err.message}`);
+    res.status(500).json({ message: err.message });
+  }
+}
+export async function addExternalStaff(req, res) {
+  try {
+    await tripsService.addExternalStaff(req.params.id, req.body);
+    res.status(201).json({ message: "External staff added successfully" });
+  } catch (err) {
+    log.warn(`adding external staff failed: ${err.message}`);
+    res.status(500).json({ message: err.message });
+  }
+}

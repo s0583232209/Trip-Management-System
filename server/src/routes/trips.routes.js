@@ -42,13 +42,20 @@ router.put(
 router.get(
   "/:id/staff",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
-  (req, res) => {
-    res.send("trips: get, staff");
-  },
+  tripsController.getAllStaff,
 );
 router.post(
   "/:id/staff",
   requireRole("principal", "coordinator"),
   tripsController.addStaff,
 );
+router.delete(
+  "/:id/staff/:userId",
+  requireRole("principal", "coordinator"),
+  tripsController.deleteStaff,
+);
+router.post("/:id/external-staff",
+  requireRole("principal", "coordinator"),
+  tripsController.addExternalStaff,
+)
 export default router;

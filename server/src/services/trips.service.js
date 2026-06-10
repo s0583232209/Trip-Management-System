@@ -10,7 +10,7 @@ export async function getAllTrips(userId) {
 }
 export async function getById(tripId, userId) {
   try {
-    const trip = await tripsRepo.getById(tripId,userId);
+    const trip = await tripsRepo.getById(tripId, userId);
     // console.log(trip, "this is the trip from the service");
     log.info(`get trip by id: ${tripId} and userId: ${userId}`);
     // console.log(trip, "thi is thrip in service");
@@ -89,4 +89,38 @@ export async function addStaff(tripId, nationalIds) {
     tripDate: new Date(),
   });
   return token;
+}
+export async function getAllStaff(tripId) {
+  try {
+    const staff = await tripsRepo.getAllStaff(tripId);
+    log.info(`all staff returned successfully`);
+    return staff;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from getAllStaff in trips.service`);
+    throw err;
+  }
+}
+export async function deleteStaff(req, res) {
+  res.status(900);
+}
+// export async function deleteStaff(tripId, nationalId) {//this function is wrong!!!!!!!
+//   try {
+//     const users = await getByNationalId(nationalId);
+//     const await =tripsRepo.deleteStaff(tripId, staffId);
+//     log.info(`staff deleted from trip: ${tripId}`);
+//   } catch (err) {
+//     log.warn(`error: ${err.message}, from deleteStaff in trips.service`);
+//     throw err;
+//   }
+// }
+export async function addExternalStaff(tripId, staffDetails) {
+  try {
+    console.log("in add staff service, details=", staffDetails);
+    const newStaff = await tripsRepo.addExternalStaff(tripId, staffDetails);
+    log.info(`external staff added to trip: ${tripId}`);
+    return newStaff;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from addExternalStaff in trips.service`);
+    throw err;
+  }
 }

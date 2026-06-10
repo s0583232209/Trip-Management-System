@@ -6,7 +6,7 @@ export async function upload(file) {
   // const sql = `INSERT INTO trip_files (trip_id, trip_kit, uploaded_by, original_name, stored_name, relative_path, mime_type, file_extension, file_size, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)`;
   // const params = [file.tripId, file.tripKit || null, file.uploaderId, file.originalName, file.storedName, file.relativePath || "retlevit path", file.mimeType, file.extension || null, file.size, file.description];
   const sql = `
-        INSERT INTO trip_files (
+        INSERT IGNORE INTO trip_files (
             trip_id,
             uploaded_by,
             original_name,

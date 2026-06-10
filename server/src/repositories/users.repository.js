@@ -71,7 +71,7 @@ export async function getById(id) {
 async function addUserPrincipal(details, connection) {
   log.info(`addUserPrincipal called for user: ${details.fullName}`);
   const schoolResult = await connection.execute(
-    `INSERT INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
+    `INSERT IGNORE INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
     [
       details.name,
       details.institutionNumber,
@@ -119,11 +119,11 @@ export async function addUser(details, principal) {
     }
     console.log(details.role, "this is the role");
     await connection.execute(
-      "INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
+        "INSERT IGNORE INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
       [id, details.password],
     );
     await connection.execute(
-      `INSERT INTO user_roles (user_id,role_name)VALUES(?,?)`,
+      `INSERT IGNORE INTO user_roles (user_id,role_name)VALUES(?,?)`,
       [id, details.role],
     );
     await connection.commit();
@@ -215,7 +215,7 @@ export async function updatePassword(userId, hashedPassword) {
       [userId],
     );
     const [result] = await connection.execute(
-      `INSERT INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE)`,
+      `INSERT IGNORE INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE)`,
       [userId, hashedPassword],
     );
     await connection.commit();

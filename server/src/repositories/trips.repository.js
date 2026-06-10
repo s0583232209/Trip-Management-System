@@ -5,7 +5,6 @@ import getConnection from "../config/db.js";
 import { getByNationalId } from "./users.repository.js";
 export async function getAll(userId) {
   const connection = await getConnection();
-  // console.log(userId);
   const res = await connection.execute(
     `SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status
     FROM trips
@@ -13,19 +12,10 @@ export async function getAll(userId) {
     WHERE staff_trip.staff_id = ?`,
     [userId],
   );
-  // SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status, trips.route_geojson
-  //   FROM trips
-  //   JOIN staff_trip ON trips.id = staff_trip.trip_id
-  //   JOIN users ON staff_trip.staff_id = users.id
-  //  WHERE users.id = ?
-  // console.log(res[0], "this is res[0] from repo trips");
-  // dblog.info(`getAll trips by userId: ${userId}`); //fix this log
   log.info(`getAll trips by userId: ${userId}`);
   return res[0];
 }
 export async function getById(tripId, userId) {
-  //make more sense to return here also the trip leader name, and not only the id
-
   const connection = await getConnection();
   const res = await connection.execute(
     `SELECT t.*, u.national_id AS tripLeaderNationalId, u.full_name AS tripLeaderFullName
@@ -35,11 +25,7 @@ export async function getById(tripId, userId) {
       WHERE staff_trip.staff_id = ? `,
     [tripId, userId],
   );
-  //SELECT * FROM (SELECT * FROM trips
-  // WHERE trips.id = ?)t
-  // JOIN staff_trip ON staff_trip.trip_id=t.id
-  // WHERE staff_trip.staff_id=?
-  //db log!!!!!!!!!!!!!!!!!
+
   log.info(`getTripById : ${tripId}`);
   return res[0][0];
 }
@@ -156,11 +142,58 @@ export async function addStaff(tripsId, staffIdsArray = []) {
 
   if (staffIdsArray.length > 0) {
     const placeholders = staffIdsArray.map(() => "(?, ?)").join(", ");
-    const sql = `INSERT INTO staff_trip (staff_id, trip_id) VALUES ${placeholders}`;
+    const sql = `INSERT IGNORE INTO staff_trip (staff_id, trip_id) VALUES ${placeholders}`;
     const params = [];
     staffIdsArray.forEach((staffId) => {
       params.push(staffId, newTripId);
     });
     await connection.execute(sql, params);
+  }
+}
+export async function getAllStaff(tripId) {
+  try {
+    const connection = await getConnection();
+    const saff = await connection.execute(
+      `SELECT u.id, u.full_name, u.email, u.phone
+    FROM users u
+    JOIN staff_trip st ON u.id = st.staff_id
+    WHERE st.trip_id = ?;`,
+      [tripId],
+    );
+    return saff[0];
+  } catch (err) {
+    throw err;
+  }
+}
+export async function addExternalStaff(tripId, staffDetails) {
+  console.log("in add staff, details=", staffDetails.externalStaff[0]);
+  staffDetails = staffDetails.externalStaff[0];
+  console.log(staffDetails);
+
+  const connection = await getConnection();
+  try {
+    const roles = {
+      guard: 1,
+    };
+    console.log(roles[staffDetails.role], "role", staffDetails);
+    connection.beginTransaction();
+    const [result] = await connection.execute(
+      `INSERT INTO external_employees (name,external_role,phone) VALUES ( ?, ?, ?)`,
+      [
+        staffDetails.fullName,
+        roles[staffDetails.role],
+        staffDetails.phoneNumber,
+      ],
+    );
+    console.log(result.insertId, "id from add external staff");
+    const res = await connection.execute(
+      `INSERT INTO external_staff_trip (trip_id, staff_id) VALUES (?,?)`,
+      [tripId, result.insertId],
+    );
+    connection.commit();
+  } catch (err) {
+    console.log(err);
+    connection.rollback();
+    throw err;
   }
 }

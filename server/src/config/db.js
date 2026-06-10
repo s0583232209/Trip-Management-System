@@ -5,9 +5,10 @@ import dblog from "../loggers/database.logger.js";
 configDotenv();
 let connectionPromise = null;
 export async function connect() {
+  // console.log("in connect",connectionPromise==null);
   if (connectionPromise) return connectionPromise;
   connectionPromise = (async () => {
-    console.log('in create connection')
+    // console.log("in create connection");
     try {
       const connection = await mysql.createConnection({
         host: process.env.HOST,
@@ -32,7 +33,9 @@ export async function connect() {
 }
 
 export default async function getConnection(createNow = false) {
+  // console.log(connectionPromise);
   if (connectionPromise) return connectionPromise;
   if (createNow) return await connect();
+  // console.log
   return null;
 }

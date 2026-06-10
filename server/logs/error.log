@@ -69,3 +69,11 @@
 09.06.2026, 15:19:58 [ERROR]: addUser error: Data too long for column 'role_name' at row 1
 09.06.2026, 15:19:58 [ERROR]: addUser error: Data too long for column 'role_name' at row 1
 09.06.2026, 15:23:43 [ERROR]: addUser error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+10.06.2026, 16:38:08 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:38:08 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:42:20 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:42:20 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:44:22 [ERROR]: Error occurred while creating emergency: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
+10.06.2026, 16:44:22 [ERROR]: EmergenciesController - create error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
+10.06.2026, 16:48:53 [ERROR]: Error occurred while creating emergency: Incorrect integer value: 'open' for column 'status' at row 1
+10.06.2026, 16:48:53 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1

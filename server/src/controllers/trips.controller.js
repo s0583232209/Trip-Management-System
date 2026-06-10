@@ -5,7 +5,7 @@ import { createParentToken } from "../services/auth.service.js";
 export async function getAllTrips(req, res) {
   try {
     const trips = await tripsService.getAllTrips(req.user.userId);
-    console.log("trips controller after getting all trips = ", trips);
+    // console.log("trips controller after getting all trips = ", trips);
     res.status(200).json(trips);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -17,7 +17,7 @@ export async function getById(req, res) {
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
     log.info(`the trip with id ${req.params.id} returned successfully`);
-    console.log(trip, "this is ther trip");
+    // console.log(trip, "this is ther trip");
     res.status(200).json(trip);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -58,7 +58,7 @@ export async function deleteTrip(req, res) {
 export async function approveTrip(req, res) {
   try {
     const trip = await tripsService.approveTrip(req.params.id);
-    console.log(trip);
+    // console.log(trip);
     log.info(`trip with id: ${req.params.id} approved successfully`);
     res.status(201).json(trip);
   } catch (err) {

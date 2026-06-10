@@ -10,7 +10,7 @@ export default function TripSelectionPage() {
   useEffect(()=> {
     async function getTrips() {
       const trips = await api.get("/api/trips");
-      console.log(trips);
+      // console.log(trips);
       setTrips(trips.data);
     };
     getTrips();

@@ -17,7 +17,7 @@ export const getUserRoles = async (userId) => {
     `,
     [userId],
   );
-
+  if (!rows || rows.length === 0) throw new Error(`No roles found for user ${userId}`);
   return rows;
 };
 export async function getUserRolesOnTripDay(userId) {

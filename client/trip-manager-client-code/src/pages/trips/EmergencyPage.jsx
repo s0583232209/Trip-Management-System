@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api";
 import Navbar from "../../components/Navbar.jsx";
 import "./EmergencyPage.css";
+import socket from "../../socket.js";
 
 export default function EmergencyPage() {
   const { tripId } = useParams();
@@ -41,7 +42,30 @@ export default function EmergencyPage() {
     }
     fetchTrip();
   }, [tripId]);
+useEffect(() => {
+  socket.emit("join-trip", tripId);
 
+  // מגיע כשמישהו אחר בצוות פותח חירום
+  socket.on("emergency-alert", (data) => {
+    // מוסיפים את החירום החדש לרשימה בלי לעשות fetch מחדש
+    setEmergencies((prev) => [data.emergency, ...prev]);
+  });
+
+  // מגיע כשחירום נסגר
+  socket.on("emergency-closed", ({ emergencyId }) => {
+    setEmergencies((prev) =>
+      prev.map((em) =>
+        em.id === emergencyId ? { ...em, status: "closed" } : em
+      )
+    );
+  });
+
+  return () => {
+    socket.emit("leave-trip", tripId);
+    socket.off("emergency-alert");
+    socket.off("emergency-closed");
+  };
+}, [tripId]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -55,6 +79,7 @@ export default function EmergencyPage() {
         description: formData.description,
         locationLat: lat,
         locationLng: lng,
+        status: 1,
       });
       setFormData({ emergencyTypeId: "1", description: "" });
       fetchEmergencies(); // רענון הרשימה לאחר דיווח מוצלח
@@ -175,11 +200,11 @@ export default function EmergencyPage() {
                 {emergencies.map((em) => (
                   <li
                     key={em.id}
-                    className={`emergency-card ${em.status === "open" ? "card-open" : "card-closed"}`}
+                    className={`emergency-card ${em.status === 1 ? "card-open" : "card-closed"}`}
                   >
                     <div className="emergency-card-header">
                       <span className="emergency-status-badge">
-                        {em.status === "open"
+                        {em.status === 1
                           ? "🔴 אירוע פעיל"
                           : "🟢 טופל ונסגר"}
                       </span>
@@ -190,11 +215,11 @@ export default function EmergencyPage() {
                     <p className="emergency-desc">{em.description}</p>
                     {em.location_lat && (
                       <p className="emergency-location">
-                        📍 נ.צ: {em.location_lat.toFixed(4)},{" "}
-                        {em.location_lng.toFixed(4)}
+                        {/* 📍 נ.צ: {em.location_lat.toFixed(4)},{" "}
+                        {em.location_lng.toFixed(4)} */}
                       </p>
                     )}
-                    {em.status === "open" && !isPrincipalOrIsCoordinator && (
+                    {em.status === 1 && isPrincipalOrIsCoordinator && (
                       <button
                         className="trip-form-btn trip-form-btn--primary btn-close-emergency"
                         onClick={() => handleCloseEmergency(em.id)}

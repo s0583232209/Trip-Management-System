@@ -10,23 +10,11 @@ export const userHasRole = async (userId, allowedRoles) => {
   const roles = await getUserRoles(userId);
   const roleNames = roles.map((role) => role.role_name);
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
-
-  // בדוק קודם תפקידים קבועים (מנהל, רכז, מורה) — גם אם המשתמש הוא גם אחראי טיול
-  const permanentRoles = roleNames.filter((r) => r !== "trip leader");
-  if (allowedRoles.some((role) => permanentRoles.includes(role))) return true;
-
-  // רק אחראי טיול טהור — בדוק לפי תאריך הטיול
-  if (roleNames.includes("trip leader") && allowedRoles.includes("trip leader"))
-    return await tripLeaderAccess(userId);
-
-  return false;
+  return allowedRoles.some((role) => roleNames.includes(role));
 };
-async function tripLeaderAccess(userId) {
-  const tripDate = await getUserRolesOnTripDay(userId);
-  if (!tripDate) return false;
-  const today = new Date().toISOString().split("T")[0];
-  const tripDay = new Date(tripDate).toISOString().split("T")[0];
-  return today === tripDay;
+function tripLeaderAccess(userId) {
+  const tripDate = getUserRolesOnTripDay(userId);
+  return tripDate == new Date();
 }
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -62,13 +50,13 @@ export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
 
 export async function login(user) {
   const row = await getUserById(user.nationalId, user.institutionNumber);
-  console.log(row);
+  // console.log(row);
   if (!row) throw new Error("User not found");
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
   if (!isMatch) throw new Error("Incorrect password");
-  console.log(user, row);
+  // console.log(user, row);
   const roles= await getUserRoles(row.userId);
-  console.log(roles[0].role_name);
+  // console.log(roles[0].role_name);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,
@@ -95,7 +83,7 @@ export async function register(body) {
   );
   const user = await addUser({ ...body, password: hashedPassword },true);
   delete user.password;
-  console.log(user);
+  // console.log(user);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,

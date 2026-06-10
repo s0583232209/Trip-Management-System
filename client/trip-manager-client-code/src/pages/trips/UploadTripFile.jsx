@@ -53,7 +53,7 @@ export default function UploadTripFile({
 
     try {
       const response = await api.post(url, formData);
-      console.log(response);
+      // console.log(response);
       setSuccessMessage("הקובץ הועלה בהצלחה!");
       setFile(null);
       setDescription("");

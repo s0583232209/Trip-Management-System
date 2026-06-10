@@ -11,9 +11,9 @@ export async function getAllTrips(userId) {
 export async function getById(tripId, userId) {
   try {
     const trip = await tripsRepo.getById(tripId,userId);
-    console.log(trip, "this is the trip from the service");
+    // console.log(trip, "this is the trip from the service");
     log.info(`get trip by id: ${tripId} and userId: ${userId}`);
-    console.log(trip, "thi is thrip in service");
+    // console.log(trip, "thi is thrip in service");
     return trip;
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -66,7 +66,7 @@ export async function approveTrip(tripId) {
     log.info(`approved trip with id: ${tripId}`);
     return { parentToken, ...approvedTrip };
   } catch (err) {
-    console.log(err, "this is err in approve trip service");
+    // console.log(err, "this is err in approve trip service");
     log.warn(`error: ${err.message}, from approveTrip in trips.service`);
     throw err;
   }

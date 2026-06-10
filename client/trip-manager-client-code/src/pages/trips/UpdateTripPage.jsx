@@ -38,7 +38,7 @@ export default function UpdateTripPage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
-  console.log(user.role === "principal", "user.role==pricipal");
+  // console.log(user.role === "principal", "user.role==pricipal");
   // טעינת הנתונים הישנים של הטיול והשמתם כברירת מחדל בטופס
   useEffect(() => {
     async function fetchTrip() {
@@ -46,7 +46,7 @@ export default function UpdateTripPage() {
         setFetching(true);
         const res = await api.get(`/api/trips/${tripId}`);
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
-        console.log(trip);
+        // console.log(trip);
         if (trip) {
           setFormData({
             title: trip.title || "",

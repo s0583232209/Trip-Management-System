@@ -75,7 +75,7 @@ export default function CreateTripPage() {
         routeGeoJson,
         schoolId: 1,
       };
-      console.log(payload);
+      // console.log(payload);
       const response = await api.post("/api/trips", payload);
       navigate(`/trips/${response.data.insertId || response.data.id || ""}`);
     } catch (err) {

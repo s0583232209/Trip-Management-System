@@ -99,10 +99,11 @@ CREATE TABLE trips (
     FOREIGN KEY (trip_status) REFERENCES statuses(status_id) ON DELETE SET NULL
 ) ;
 CREATE TABLE trip_kit(
-id INT PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 trip_id INT,
   FOREIGN KEY (trip_id)REFERENCES trips(id) ON DELETE CASCADE
 );
+-- DROP TABLE trip_kit;
 
 CREATE TABLE file_types(
 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -226,4 +227,6 @@ select * from staff_trip limit 10;
 select * from file_codes;
 select * from trip_files;
 DELETe  FROM trip_files WHERE trip_id=1;
+select * from trip_kit ;
+-- INSERT INTO trip_kit(id,trip_id)VALUES(1,1);
 

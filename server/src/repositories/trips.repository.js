@@ -5,7 +5,7 @@ import getConnection from "../config/db.js";
 import { getByNationalId } from "./users.repository.js";
 export async function getAll(userId) {
   const connection = await getConnection();
-  console.log(userId);
+  // console.log(userId);
   const res = await connection.execute(
     `SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status
     FROM trips
@@ -18,7 +18,7 @@ export async function getAll(userId) {
   //   JOIN staff_trip ON trips.id = staff_trip.trip_id
   //   JOIN users ON staff_trip.staff_id = users.id
   //  WHERE users.id = ?
-  console.log(res[0], "this is res[0] from repo trips");
+  // console.log(res[0], "this is res[0] from repo trips");
   // dblog.info(`getAll trips by userId: ${userId}`); //fix this log
   log.info(`getAll trips by userId: ${userId}`);
   return res[0];
@@ -61,9 +61,6 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       ],
     );
     const newTripId = rows.insertId;
-    await connection.execute(`INSERT INTO trip_kit (trip_id) VALUES (?)`, [
-      newTripId,
-    ]);
     await connection.execute(
       `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
       [tripLeaderDbId],
@@ -78,9 +75,9 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       ON ur.user_id=users.id WHERE users.school_id= ? AND( ur.role_name="principal" or ur.role_name="coordinator"); `,
       [tripDetails.schoolId],
     );
-    console.log(coordinatorAndPrincipal[0]);
+    // console.log(coordinatorAndPrincipal[0]);
     coordinatorAndPrincipal = coordinatorAndPrincipal[0].map((item) => item.id);
-    console.log(coordinatorAndPrincipal);
+    // console.log(coordinatorAndPrincipal);
     const allStaffToInsert = new Set([
       tripLeaderDbId,
       ...staffIdsArray,
@@ -91,7 +88,7 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
     // 4. הכנסה מרוכזת (Bulk Insert) לטבלת staff_trip
     await addStaff(newTripId, finalStaffIds);
 
-    console.log(rows, "end of add trip in service");
+    // console.log(rows, "end of add trip in service");
     await connection.commit();
     return rows;
   } catch (err) {
@@ -105,8 +102,8 @@ export async function updateTrip(updateDetails) {
     await connection.beginTransaction();
 
     const { id } = await getByNationalId(updateDetails.tripLeaderNationalId);
-    console.log("this is id from from update trip of the trip leadre, id=", id);
-    console.log(updateDetails, "updateDetails in repo");
+    // console.log("this is id from from update trip of the trip leadre, id=", id);
+    // console.log(updateDetails, "updateDetails in repo");
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [
@@ -122,7 +119,7 @@ export async function updateTrip(updateDetails) {
       [updateDetails.tripLeaderId],
     );
     await connection.commit();
-    console.log(rows, "rows from update trip repo");
+    // console.log(rows, "rows from update trip repo");
     return rows;
   } catch (err) {
     await connection.rollback();
@@ -154,8 +151,8 @@ export async function approveTrip(tripId, parentToken) {
 export async function addStaff(tripsId, staffIdsArray = []) {
   const connection = await getConnection();
   const newTripId = tripsId;
-  console.log(newTripId);
-  console.log(staffIdsArray);
+  // console.log(newTripId);
+  // console.log(staffIdsArray);
 
   if (staffIdsArray.length > 0) {
     const placeholders = staffIdsArray.map(() => "(?, ?)").join(", ");

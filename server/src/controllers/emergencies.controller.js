@@ -24,12 +24,14 @@ export async function create(req, res) {
     // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול ביום הטיול
     if (parseInt(emergencyData.emergencyTypeId) === 2) {
       if (req.user?.role !== "trip leader") {
-        return res.status(403).json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
+        return res
+          .status(403)
+          .json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
       }
     }
 
-    const newEmergency = await emergenciesService.createEmergency(emergencyData);
-    const newEmergency = await emergenciesService.createEmergency(emergencyData);
+    const newEmergency =
+      await emergenciesService.createEmergency(emergencyData);
     const tripId = emergencyData.tripId;
     io.to(`trip-${tripId}`).emit("emergency-alert", {
       emergency: newEmergency,
@@ -48,7 +50,10 @@ export async function create(req, res) {
 export async function update(req, res) {
   try {
     const tripId = req.params.id || req.params.tripId;
-    const newEmergency = await emergenciesService.updateEmergency(emergencyId, emergencyData);
+    const newEmergency = await emergenciesService.updateEmergency(
+      emergencyId,
+      emergencyData,
+    );
     io.to(`trip-${tripId}`).emit("emergency-alert", {
       emergency: newEmergency,
       timestamp: new Date().toISOString(),

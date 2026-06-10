@@ -14,7 +14,29 @@ export default function EmergencyPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tripDate, setTripDate] = useState(null);
   const navigate = useNavigate();
+  function startAlarm() {
+    if (!audioRef.current) {
+      audioRef.current = new Audio(
+        "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3",
+      );
+      audioRef.current.loop = true;
+    }
+    audioRef.current.play().catch(() => {});
+    setIsRinging(true);
+    clearTimeout(ringTimerRef.current);
+    ringTimerRef.current = setTimeout(() => stopAlarm(), 30000);
+  }
 
+  function stopAlarm() {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    clearTimeout(ringTimerRef.current);
+    setIsRinging(false);
+  }
+
+  useEffect(() => () => stopAlarm(), []);
   const [formData, setFormData] = useState({
     emergencyTypeId: "1",
     description: "",

@@ -172,3 +172,32 @@
   border-radius: 8px;
   border: 1px dashed #ddd;
 }
+
+.alarm-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d32f2f;
+  color: #fff;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  animation: flash 0.6s infinite alternate;
+}
+
+.alarm-stop-btn {
+  background: #fff;
+  color: #d32f2f;
+  font-weight: bold;
+  border: none;
+  padding: 0.4rem 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes flash {
+  from { background: #d32f2f; }
+  to   { background: #b71c1c; }
+}

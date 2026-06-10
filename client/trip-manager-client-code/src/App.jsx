@@ -20,6 +20,7 @@ import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
+import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
 
 
 function App() {
@@ -75,15 +76,7 @@ function App() {
           }
         />
         <Route path="/trips/:tripId/emergencies" element={<EmergencyPage />} />
-        <Route
-          path="/trips/:tripId/contacts"
-          element={
-            <TripSectionPage
-              title="יום טיול / פרטי קשר צוות"
-              description="צפה בפרטי הקשר של צוות המלווה במהלך הטיול."
-            />
-          }
-        />
+        <Route path="/trips/:tripId/contacts" element={<TripContactsPage />} />
         <Route
           path="/trips/:tripId/status"
           element={

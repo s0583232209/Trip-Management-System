@@ -6,7 +6,7 @@ import api from "../../api.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
-export default function AddTripExternalStaff() {
+export default function AddTripExternalStaff({ onSuccess } = {}) {
   const { tripId } = useParams();
   const navigate = useNavigate();
 
@@ -48,8 +48,9 @@ export default function AddTripExternalStaff() {
     try {
       // Targets external logistics API route setup
       await api.post(`/api/trips/${tripId}/external-staff`, { externalStaff: filledStaff });
-      setSuccess("צוות האבטחה והרפואה עודכן בטיול בהצלחה!");
+      setSuccess("צוות חיצוני נוסף בהצלחה!");
       setExternalStaff([{ fullName: "", phoneNumber: "", role: "guard" }]);
+      if (onSuccess) onSuccess();
     } catch (err) {
       setError(err.response?.data?.message || "הוספת נותני השירות נכשלה, נסה שנית");
     } finally {

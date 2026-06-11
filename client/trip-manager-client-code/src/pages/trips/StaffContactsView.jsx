@@ -57,7 +57,7 @@ function ContactCard({ name, roles, phone, email, onDelete }) {
   );
 }
 
-export default function StaffContactsView({ onRefresh }) {
+export default function StaffContactsView({ onRefresh, readOnly = false }) {
   const { tripId } = useParams();
   const [staff, setStaff] = useState({ employees: [], externalEmployees: [] });
   const [loading, setLoading] = useState(true);
@@ -121,7 +121,7 @@ export default function StaffContactsView({ onRefresh }) {
                   roles={emp.displayRoles}
                   phone={emp.phone}
                   email={emp.email}
-                  onDelete={canManageTrip() ? () => handleDeleteStaff(emp.id) : undefined}
+                  onDelete={!readOnly && canManageTrip() ? () => handleDeleteStaff(emp.id) : undefined}
                 />
               ))}
             </div>

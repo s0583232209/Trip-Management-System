@@ -21,12 +21,14 @@ import Unauthorized from "./pages/Unauthorized.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
+import CriticalEmergency from "./pages/CriticalEmergemcy.jsx";
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/trips/emergencies/critical" element={<CriticalEmergency />}></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Navigate to="/register/1" />} />
         <Route path="/register/:step" element={<Register />} />

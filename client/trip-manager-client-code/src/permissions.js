@@ -1,4 +1,5 @@
 // permissions.js — בדיקות הרשאות צד לקוח
+import { getTodayInIsrael, toDateOnlyString } from "./dateUtils.js";
 
 export function getUser() {
   return JSON.parse(sessionStorage.getItem("current-user")) || {};
@@ -24,12 +25,7 @@ export function canUpdateRoute(tripDate) {
   const user = getUser();
   if (isRole("principal", "coordinator")) return true;
   if (user.role === "trip leader") {
-    const today = new Date().toISOString().split("T")[0];
-    const date =
-      tripDate instanceof Date
-        ? tripDate.toISOString().split("T")[0]
-        : String(tripDate).split("T")[0];
-    return date === today;
+    return toDateOnlyString(tripDate) === getTodayInIsrael();
   }
   return false;
 }
@@ -41,12 +37,7 @@ export const canHandleMinorEmergency = () =>
 // פתיחת/סגירת חירום קריטי — אחראי ביום הטיול
 export function canHandleCriticalEmergency(tripDate) {
   if (!isRole("trip leader")) return false;
-  const today = new Date().toISOString().split("T")[0];
-  const date =
-    tripDate instanceof Date
-      ? tripDate.toISOString().split("T")[0]
-      : String(tripDate).split("T")[0];
-  return date === today;
+  return toDateOnlyString(tripDate) === getTodayInIsrael();
 }
 
 // העלאת קבצי תיעוד (מדיה) — מנהל, רכז, אחראי, מורה

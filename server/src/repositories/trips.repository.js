@@ -2,7 +2,6 @@
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
-import { getByNationalId } from "./users.repository.js";
 export async function getTripDate(tripId) {
   const connection = await getConnection();
   const [rows] = await connection.execute(
@@ -112,13 +111,11 @@ export async function updateTrip(updateDetails) {
   try {
     await connection.beginTransaction();
 
-    const { id } = await getByNationalId(updateDetails.tripLeaderNationalId);
-    // console.log("this is id from from update trip of the trip leadre, id=", id);
-    // console.log(updateDetails, "updateDetails in repo");
+    // updateDetails.tripLeaderId כבר נפתר (resolved) ל-DB id ע"י trips.service.js
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [
-        id,
+        updateDetails.tripLeaderId,
         updateDetails.title,
         updateDetails.tripDate || null,
         updateDetails.routeGeoJson || null,

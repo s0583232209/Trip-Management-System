@@ -14,6 +14,10 @@ export async function connect() {
         host: process.env.HOST,
         user: process.env.USER,
         password: process.env.PASSWORD,
+        // עמודות מסוג DATE (כמו trips.trip_date) יוחזרו כמחרוזת "YYYY-MM-DD" גולמית,
+        // בלי שהדרייבר יהפוך אותן לאובייקט Date (שמייצג חצות לפי שעון השרת
+        // וגורם להזזת התאריך ביום אחד עם המרה ל-UTC/toISOString)
+        dateStrings: ["DATE"],
       });
       log.info(`Connected to MySQL at ${process.env.HOST}`);
       try {

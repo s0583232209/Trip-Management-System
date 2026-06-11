@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import TripForm, { emptyStop } from "./TripForm.jsx";
 import { canUpdateRoute, canViewTripDetails } from "../../permissions.js";
+import { toDateOnlyString } from "../../dateUtils.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
@@ -41,28 +42,15 @@ export default function UpdateTripPage() {
         if (!canViewTripDetails()) { navigate("/unauthorized", { replace: true }); return; }
         setFormData({
           title: trip.title || "",
-          tripDate: trip.trip_date ? new Date(trip.trip_date).toLocaleDateString("en-CA") : "",
-          tripLeaderNationalId: trip.trip_leader_id || "",
+          // trip.trip_date מגיע מהשרת כמחרוזת "YYYY-MM-DD" — מתאים ישירות ל-<input type="date">
+          tripDate: toDateOnlyString(trip.trip_date),
+          // תמיכה בשמות שונים של מפתחות שיכולים להגיע מה-DB (camelCase או snake_case)
+          tripLeaderNationalId: trip.tripLeaderNationalId || "",
+          tripLeaderName: trip.tripLeaderFullName || "",
         });
-        setStops(parseStops(trip.route_geojson));
-        // console.log(trip);
-        if (trip) {
-          setFormData({
-            title: trip.title || "",
-            tripDate: trip.trip_date
-              ? new Date(trip.trip_date).toISOString().split("T")[0]
-              : "",
-            // תמיכה בשמות שונים של מפתחות שיכולים להגיע מה-DB (camelCase או snake_case)
-            tripLeaderNationalId: trip.tripLeaderNationalId || "",
-            tripLeaderName: trip.tripLeaderFullName || "",
-          });
 
-          // חילוץ העצירות הקיימות מהמידע הגיאוגרפי/מסלול הישן
-          setStops(parseStops(trip.route_geojson || trip.routeGeoJson));
-        } else {
-          setSubmitError("לא נמצאו נתונים עבור טיול זה");
-          //navigate("/not-found", { replace: true });
-        }
+        // חילוץ העצירות הקיימות מהמידע הגיאוגרפי/מסלול הישן
+        setStops(parseStops(trip.route_geojson || trip.routeGeoJson));
       } catch (err) {
         if (err.response?.status === 404) navigate("/not-found", { replace: true });
         else setSubmitError("לא ניתן לטעון את פרטי הטיול");

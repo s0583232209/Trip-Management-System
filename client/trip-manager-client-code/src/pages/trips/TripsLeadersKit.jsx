@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import UploadTripFile from "./UploadTripFile.jsx";
-import { getTripFiles, openFile, deleteTripFile } from "../../services/files.service.js";
+import {
+  getTripFiles,
+  openFile,
+  deleteTripFile,
+} from "../../services/files.service.js";
 import { canManageTrip } from "../../permissions.js";
 import "./TripsPage.css";
 import "./TripForms.css";
@@ -10,15 +14,15 @@ import "./TripsLeadersKit.css";
 
 // רשימת המסמכים הקבועים שחובה להעלות לכל טיול, לפי קוד מסמך (file_code)
 const REQUIRED_DOCS = [
-  { fileCode: 1,  title: "מינוי אחראי טיול" },
-  { fileCode: 2,  title: "אישור יציאה לטיול ממנהל מוסד" },
-  { fileCode: 3,  title: "אישורי הורים" },
-  { fileCode: 4,  title: "רשימת תלמידים" },
-  { fileCode: 5,  title: "רשימת תלמידים עם מגבלות רפואיות" },
-  { fileCode: 6,  title: "טופס הפניה לטיפול רפואי לתלמיד שנפגע במהלך טיול" },
-  { fileCode: 7,  title: "רשימת תלמידים שנפגעו במהלך טיול" },
-  { fileCode: 8,  title: "טופס ביטוח למתנדב" },
-  { fileCode: 9,  title: "רשימת מלווים וטלפונים חיוניים בטיול" },
+  { fileCode: 1, title: "מינוי אחראי טיול" },
+  { fileCode: 2, title: "אישור יציאה לטיול ממנהל מוסד" },
+  { fileCode: 3, title: "אישורי הורים" },
+  { fileCode: 4, title: "רשימת תלמידים" },
+  { fileCode: 5, title: "רשימת תלמידים עם מגבלות רפואיות" },
+  { fileCode: 6, title: "טופס הפניה לטיפול רפואי לתלמיד שנפגע במהלך טיול" },
+  { fileCode: 7, title: "רשימת תלמידים שנפגעו במהלך טיול" },
+  { fileCode: 8, title: "טופס ביטוח למתנדב" },
+  { fileCode: 9, title: "רשימת מלווים וטלפונים חיוניים בטיול" },
   { fileCode: 10, title: "הנחיות למורה אחראי כיתה" },
   { fileCode: 11, title: "טופס תיאום טיולים מאושר" },
 ];
@@ -28,8 +32,8 @@ export default function TripsLeadersKit() {
   const navigate = useNavigate();
 
   const [uploadedFiles, setUploadedFiles] = useState([]); // כל קבצי תיק הטיול שהתקבלו מהשרת
-  const [fetching, setFetching]           = useState(true); // האם הרשימה עדיין נטענת
-  const [fetchError, setFetchError]       = useState(""); // הודעת שגיאה אם הטעינה נכשלה
+  const [fetching, setFetching] = useState(true); // האם הרשימה עדיין נטענת
+  const [fetchError, setFetchError] = useState(""); // הודעת שגיאה אם הטעינה נכשלה
 
   // extra non-required upload slots added by the user
   const [additionalSlots, setAdditionalSlots] = useState([]);
@@ -67,7 +71,8 @@ export default function TripsLeadersKit() {
 
   // מוחק קובץ ללא העלאת תחליף, לאחר אישור המשתמש
   async function handleDeleteFile(fileId) {
-    if (!window.confirm("האם למחוק את הקובץ? לא ניתן לשחזר לאחר המחיקה.")) return;
+    if (!window.confirm("האם למחוק את הקובץ? לא ניתן לשחזר לאחר המחיקה."))
+      return;
     try {
       await deleteTripFile(tripId, fileId);
       refreshFiles();
@@ -93,7 +98,6 @@ export default function TripsLeadersKit() {
     <>
       <Navbar />
       <main className="page-main">
-
         {/* ─── כותרת עמוד ─── */}
         <div className="kit-page-header">
           <div>
@@ -115,7 +119,10 @@ export default function TripsLeadersKit() {
         </div>
 
         {fetchError && (
-          <p className="error form-submit-error" style={{ marginBottom: "1.5rem" }}>
+          <p
+            className="error form-submit-error"
+            style={{ marginBottom: "1.5rem" }}
+          >
             {fetchError}
           </p>
         )}
@@ -133,10 +140,12 @@ export default function TripsLeadersKit() {
         <section className="form-section" style={{ marginTop: "1.5rem" }}>
           <h2 className="form-section-title">מסמכי חובה — תיק הטיול</h2>
           <p className="form-section-hint">
-            יש להעלות את כל המסמכים הנדרשים לפי אוגדן הטיולים 2025.
-            מסמך שהועלה מסומן בירוק.
+            יש להעלות את כל המסמכים הנדרשים לפי אוגדן הטיולים 2025. מסמך שהועלה
+            מסומן בירוק.
           </p>
-
+          <a href="https://www.gov.il/BlobFolder/policy/youth-trips/he/manpower-training_youth_trips-2025.pdf">
+            לאוגדן טיולים מלא לחץ כאן
+          </a>
           <div className="kit-required-grid">
             {/* עבור כל מסמך חובה — בודקים אם כבר הועלה קובץ עם אותו file_code */}
             {REQUIRED_DOCS.map((doc) => {
@@ -147,7 +156,9 @@ export default function TripsLeadersKit() {
                   className={`kit-doc-card ${uploaded ? "kit-doc-card--done" : ""}`}
                 >
                   <div className="kit-doc-header">
-                    <span className={`kit-doc-badge ${uploaded ? "kit-doc-badge--done" : ""}`}>
+                    <span
+                      className={`kit-doc-badge ${uploaded ? "kit-doc-badge--done" : ""}`}
+                    >
                       {uploaded ? "✓" : doc.fileCode}
                     </span>
                     <h3 className="kit-doc-title">{doc.title}</h3>
@@ -155,7 +166,9 @@ export default function TripsLeadersKit() {
 
                   {uploaded && (
                     <div className="kit-doc-uploaded-row">
-                      <span className="kit-doc-filename">{uploaded.original_name}</span>
+                      <span className="kit-doc-filename">
+                        {uploaded.original_name}
+                      </span>
                       <span className="kit-doc-ok-label">הועלה</span>
                     </div>
                   )}
@@ -182,9 +195,15 @@ export default function TripsLeadersKit() {
 
           {/* כל סלוט פתוח מציג טופס העלאה נפרד עם documentType ייחודי (extra_1, extra_2, ...) */}
           {additionalSlots.map((key, i) => (
-            <div key={key} className="kit-doc-card" style={{ marginBottom: "1rem" }}>
+            <div
+              key={key}
+              className="kit-doc-card"
+              style={{ marginBottom: "1rem" }}
+            >
               <div className="kit-doc-header">
-                <span className="kit-doc-badge">{REQUIRED_DOCS.length + i + 1}</span>
+                <span className="kit-doc-badge">
+                  {REQUIRED_DOCS.length + i + 1}
+                </span>
                 <h3 className="kit-doc-title">מסמך נוסף {i + 1}</h3>
                 <button
                   type="button"
@@ -204,11 +223,7 @@ export default function TripsLeadersKit() {
             </div>
           ))}
 
-          <button
-            type="button"
-            className="add-stop-btn"
-            onClick={addExtraSlot}
-          >
+          <button type="button" className="add-stop-btn" onClick={addExtraSlot}>
             + הוסף מסמך נוסף לתיק הטיול
           </button>
         </section>
@@ -253,7 +268,6 @@ export default function TripsLeadersKit() {
             </ul>
           </section>
         )}
-
       </main>
     </>
   );

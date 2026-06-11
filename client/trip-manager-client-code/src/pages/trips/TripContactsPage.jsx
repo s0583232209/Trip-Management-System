@@ -16,7 +16,7 @@ export default function TripContactsPage() {
         <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
           אנשי קשר — טיול {tripTitle || tripId}
         </h1>
-        <StaffContactsView />
+        <StaffContactsView readOnly />
         <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
           <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/day`)}>
             חזרה ליום הטיול

@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import "./Navbar.css";
 import api from "../api.js";
 import socket from "../socket.js";
+import { getTodayInIsrael, toDateOnlyString } from "../dateUtils.js";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -30,11 +31,9 @@ export default function Navbar() {
         const res = await api.get("/api/trips");
         const trips = res.data;
         if (!trips || !trips.length) return;
+        const today = getTodayInIsrael();
         for (let i = 0; i < trips.length; i++) {
-          if (
-            new Date(trips[i].trip_date).toDateString() ===
-            new Date().toDateString()
-          ) {
+          if (toDateOnlyString(trips[i].trip_date) === today) {
             setTripDayOfTrip(trips[i].id);
             break;
           }

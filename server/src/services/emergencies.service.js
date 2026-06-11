@@ -2,6 +2,7 @@
 import * as emergenciesRepository from "../repositories/emergencies.repository.js";
 import * as tripsRepository from "../repositories/trips.repository.js";
 import loggerService from "./logger.service.js";
+import { getTodayInIsrael } from "../utils/date.util.js";
 
 export async function getEmergenciesByTripId(tripId) {
   return await emergenciesRepository.getEmergenciesByTripId(tripId);
@@ -14,8 +15,9 @@ export async function createEmergency(emergencyData) {
     err.status = 402;
     throw err;
   }
-  const tripDate = new Date(trip.trip_date).toDateString();
-  const today = new Date().toDateString();
+  // trip_date מגיע כבר כמחרוזת "YYYY-MM-DD" (ראו dateStrings ב-db.js), ללא צורך בהמרת אזור זמן
+  const tripDate = trip.trip_date;
+  const today = getTodayInIsrael();
   if (tripDate !== today) {
     const err = new Error("Cannot open emergency — today is not the trip date");
     err.status = 402;

@@ -2,6 +2,7 @@
 // מאמת שהמשתמש הוא trip leader והיום הוא יום הטיול
 import getConnection from "../config/db.js";
 import log from "../loggers/file.logger.js";
+import { getTodayInIsrael } from "../utils/date.util.js";
 
 export default async function requireTripDay(req, res, next) {
   try {
@@ -31,8 +32,9 @@ export default async function requireTripDay(req, res, next) {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    const tripDate = new Date(trips[0].trip_date).toISOString().split("T")[0];
-    const today = new Date().toISOString().split("T")[0];
+    // trip_date מגיע כבר כמחרוזת "YYYY-MM-DD" (ראו dateStrings ב-db.js), ללא צורך בהמרת אזור זמן
+    const tripDate = trips[0].trip_date;
+    const today = getTodayInIsrael();
 
     if (tripDate !== today) {
       log.warn(`requireTripDay: trip date ${tripDate} is not today ${today}`);

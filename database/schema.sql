@@ -1,4 +1,4 @@
- DROP DATABASE `trip_manager`;
+e DROP DATABASE `trip_manager`;
 CREATE DATABASE IF NOT EXISTS trip_manager
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;

@@ -65,3 +65,59 @@ export async function getAllUsers(userId) {
   const users = await usersRepo.getAllUsers(userId);
   return users;
 }
+
+const ASSIGNABLE_ROLES = ["coordinator", "trip leader", "teacher"];
+
+export async function deleteUser(id, requestingUserId) {
+  if (String(id) === String(requestingUserId)) {
+    const err = new Error("לא ניתן למחוק את המשתמש המחובר למערכת");
+    err.status = 400;
+    throw err;
+  }
+
+  let targetUser;
+  try {
+    targetUser = await usersRepo.getById(id);
+  } catch {
+    const err = new Error("משתמש לא נמצא");
+    err.status = 404;
+    throw err;
+  }
+
+  const roles = await usersRepo.getUserRoles(id);
+  if (roles.some((r) => r.role_name === "principal")) {
+    const err = new Error("לא ניתן למחוק משתמש בעל תפקיד מנהל");
+    err.status = 400;
+    throw err;
+  }
+
+  await usersRepo.deleteUser(id);
+  return { id: Number(id), fullName: targetUser.full_name };
+}
+
+export async function updateUserRole(id, role) {
+  if (!ASSIGNABLE_ROLES.includes(role)) {
+    const err = new Error("תפקיד לא חוקי");
+    err.status = 400;
+    throw err;
+  }
+
+  let targetUser;
+  try {
+    targetUser = await usersRepo.getById(id);
+  } catch {
+    const err = new Error("משתמש לא נמצא");
+    err.status = 404;
+    throw err;
+  }
+
+  const roles = await usersRepo.getUserRoles(id);
+  if (roles.some((r) => r.role_name === "principal")) {
+    const err = new Error("לא ניתן לשנות את תפקיד המנהל");
+    err.status = 400;
+    throw err;
+  }
+
+  await usersRepo.updateUserRole(id, role);
+  return { id: Number(id), fullName: targetUser.full_name, role };
+}

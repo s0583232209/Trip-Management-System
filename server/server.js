@@ -58,9 +58,8 @@ app.use("/api/trips/:id/emergencies", emergenciesRouter);
 app.use("/api/trips", tripsRouter);
 app.use((err, req, res, next) => {
   // log.error(`Unhandled error: ${err.message}, stack: ${err.stack}`);
-  res
-    .status(500)
-    .json({ error: `Unhandled error: ${err.message}, stack: ${err.stack}` });
+  const statusCode = err.status || err.statusCode || 500;
+  res.status(statusCode).json({ message: err.message || "Internal server error" });
 });
 
 httpServer.listen(PORT, HOST, () => {

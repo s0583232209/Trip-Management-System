@@ -40,11 +40,15 @@ export default function SchoolDetails({ onSubmit, initialData }) {
 
     const newErrors = {};
 
-    if (!nameRegex.test(formData.name)) {
+    if (!formData.name.trim()) {
+      newErrors.name = "נא למלא שם מוסד";
+    } else if (!nameRegex.test(formData.name)) {
       newErrors.name = "שם המוסד חייב להכיל לפחות 2 אותיות";
     }
 
-    if (!institutionNumberRegex.test(formData.institutionNumber)) {
+    if (!formData.institutionNumber.trim()) {
+      newErrors.institutionNumber = "נא למלא סמל מוסד";
+    } else if (!institutionNumberRegex.test(formData.institutionNumber)) {
       newErrors.institutionNumber = "סמל מוסד חייב להכיל 6 ספרות בדיוק";
     }
 
@@ -57,11 +61,11 @@ export default function SchoolDetails({ onSubmit, initialData }) {
     }
 
     if (formData.city && !cityRegex.test(formData.city)) {
-      newErrors.city = "הזן שם עיר תקין";
+      newErrors.city = "נא למלא שם עיר תקין";
     }
 
     if (formData.street && !streetRegex.test(formData.street)) {
-      newErrors.street = "הזן שם רחוב תקין";
+      newErrors.street = "נא למלא שם רחוב תקין";
     }
 
     if (formData.houseNumber && !houseNumberRegex.test(formData.houseNumber)) {
@@ -87,7 +91,6 @@ export default function SchoolDetails({ onSubmit, initialData }) {
         id="schoolName"
         name="name"
         placeholder="*"
-        required
         value={formData.name}
         onChange={updateField}
       />
@@ -100,7 +103,6 @@ export default function SchoolDetails({ onSubmit, initialData }) {
         id="schoolInstitutionNumber"
         name="institutionNumber"
         placeholder="*"
-        required
         value={formData.institutionNumber}
         onChange={updateField}
       />
@@ -110,7 +112,7 @@ export default function SchoolDetails({ onSubmit, initialData }) {
 
       <label htmlFor="schoolEmail">כתובת דואר אלקטרוני ליצירת קשר</label>
       <input
-        type="email"
+        type="text"
         id="schoolEmail"
         name="email"
         value={formData.email}

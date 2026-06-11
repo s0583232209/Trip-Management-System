@@ -16,6 +16,10 @@ export default function UserDetails({
   onBack,
   hideRoleSelect,
   initialData,
+  success,
+  error,
+  loading,
+  submitLabel,
 }) {
   const location = useLocation();
   const isAuth = location.pathname.includes("auth");
@@ -38,7 +42,7 @@ export default function UserDetails({
     }));
   }
 
-  const nameRegex = /^[\p{L}\s]{2,}$/u;
+  const nameRegex = /^[\p{L}\d\s]{2,}$/u;
   const nationalIdRegex = /^\d{9}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[\p{L}])[\p{L}\d\S]{6,}$/u;
   const phoneRegex = /^\+?[\d\s-]{7,15}$/;
@@ -54,15 +58,21 @@ export default function UserDetails({
 
     const newErrors = {};
 
-    if (!nameRegex.test(formData.fullName)) {
-      newErrors.fullName = "שם מלא חייב להכיל לפחות 2 אותיות בלבד";
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "נא למלא שם פרטי ומשפחה";
+    } else if (!nameRegex.test(formData.fullName)) {
+      newErrors.fullName = "שם חייב להכיל לפחות 2 אותיות";
     }
 
-    if (!nationalIdRegex.test(formData.nationalId)) {
+    if (!formData.nationalId.trim()) {
+      newErrors.nationalId = "נא למלא מספר תעודת זהות";
+    } else if (!nationalIdRegex.test(formData.nationalId)) {
       newErrors.nationalId = "מספר תעודת זהות חייב להכיל 9 ספרות בדיוק";
     }
 
-    if (isAuth && !passwordRegex.test(formData.password)) {
+    if (isAuth && !formData.password.trim()) {
+      newErrors.password = "נא למלא סיסמה";
+    } else if (isAuth && !passwordRegex.test(formData.password)) {
       newErrors.password =
         "הסיסמה חייבת להכיל לפחות 6 תווים, אות אחת ומספר אחד";
     }
@@ -71,7 +81,7 @@ export default function UserDetails({
       formData.userEmail &&
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)
     ) {
-      newErrors.userEmail = "כתובת אימייל לא תקינה";
+      newErrors.userEmail = "כתובת דואר אלקטרוני לא תקינה";
     }
 
     if (
@@ -79,6 +89,10 @@ export default function UserDetails({
       !phoneRegex.test(formData.userPhoneNumber)
     ) {
       newErrors.userPhoneNumber = "מספר טלפון לא תקין";
+    }
+
+    if (!isAuth && !hideRoleSelect && !formData.role) {
+      newErrors.role = "נא לבחור תפקיד";
     }
 
     setErrors(newErrors);
@@ -90,14 +104,13 @@ export default function UserDetails({
 
   return (
     <form onSubmit={submitForm}>
-      <label htmlFor="fullName">שם מלא</label>
+      <label htmlFor="fullName">שם פרטי ומשפחה</label>
       <input
         type="text"
         id="fullName"
         name="fullName"
         autoComplete="name"
         placeholder="*"
-        required
         value={formData.fullName}
         onChange={updateField}
       />
@@ -110,7 +123,6 @@ export default function UserDetails({
         name="nationalId"
         autoComplete="username"
         placeholder="*"
-        required
         value={formData.nationalId}
         onChange={updateField}
       />
@@ -125,7 +137,6 @@ export default function UserDetails({
             name="password"
             autoComplete="current-password"
             placeholder="*"
-            required
             value={formData.password}
             onChange={updateField}
           />
@@ -135,7 +146,7 @@ export default function UserDetails({
 
       <label htmlFor="userEmail">כתובת דואר אלקטרוני</label>
       <input
-        type="email"
+        type="text"
         id="userEmail"
         name="userEmail"
         autoComplete="email"
@@ -170,10 +181,13 @@ export default function UserDetails({
             <option value="coordinator">רכז טיולים</option>
             <option value="teacher">מורה</option>
           </select>
+          {errors.role && <p className="error">{errors.role}</p>}
         </>
       )}
 
       <div className="form-actions">
+        {!isAuth && success && <p className="add-employee-success">{success}</p>}
+        {!isAuth && error && <p className="add-employee-error">{error}</p>}
         {onBack && (
           <button
             type="button"
@@ -183,7 +197,9 @@ export default function UserDetails({
             חזרה
           </button>
         )}
-        <button type="submit">צור חשבון</button>
+        <button type="submit" disabled={loading}>
+          {submitLabel}
+        </button>
       </div>
     </form>
   );

@@ -15,7 +15,18 @@ export async function register(req, res) {
     authService.sendAuthResponse(res, user, 200, accessToken, refreshToken);
   } catch (err) {
     log.warn(`register error: ${err.message}`);
-    res.status(400).json({ message: err.message || "Could not create user" });
+    let message;
+    if (err.message?.includes("institution_number")) {
+      message = "סמל מוסד זה כבר רשום במערכת";
+    } else if (
+      err.message?.includes("national_id") ||
+      err.message?.includes("Duplicate entry")
+    ) {
+      message = "משתמש עם פרטים אלו כבר קיים במערכת";
+    } else {
+      message = "הרישום נכשל, נסה שנית מאוחר יותר";
+    }
+    res.status(400).json({ message });
   }
 }
 

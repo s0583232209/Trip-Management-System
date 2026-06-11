@@ -272,3 +272,13 @@
   color: var(--text);
   border-color: var(--border-2);
 }
+
+.ip-success {
+  font-size: 0.82rem;
+  color: var(--green, #16a34a);
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.9rem;
+  margin: 0 0 0.75rem;
+}

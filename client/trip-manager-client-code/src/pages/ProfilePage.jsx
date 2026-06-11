@@ -56,6 +56,7 @@ export default function ProfilePage() {
   const [draft, setDraft] = useState({});
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(noUser ? "לא נמצא משתמש פעיל." : null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const [credOpen, setCredOpen] = useState(false);
   const [cred, setCred] = useState({
@@ -100,6 +101,8 @@ export default function ProfilePage() {
 
       setView(normalize(res.data));
       setEditing(false);
+      setSuccessMessage("הפרטים נשמרו בהצלחה ✓");
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
       setError(err.response?.data?.message || "לא ניתן לשמור שינויים.");
     } finally {
@@ -234,6 +237,10 @@ export default function ProfilePage() {
                     view={view}
                     onDraftChange={handleDraftChange}
                   />
+
+                  {successMessage && (
+                    <p className="ip-success">{successMessage}</p>
+                  )}
 
                   {editing && (
                     <div className="ip-action-row">

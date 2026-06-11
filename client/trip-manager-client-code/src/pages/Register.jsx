@@ -10,6 +10,7 @@ export default function Register() {
   const [schoolData, setSchoolData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -36,6 +37,7 @@ export default function Register() {
 
   async function handleUserSubmit(submittedUserData) {
     setUserData(submittedUserData);
+    setLoading(true);
     try {
       const response = await api.post("/api/auth/register", {
         ...schoolData,
@@ -54,6 +56,8 @@ export default function Register() {
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "הרישום נכשל, נסה שנית");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -75,6 +79,8 @@ export default function Register() {
             onBack={handleBack}
             initialData={userData}
             hideRoleSelect={true}
+            loading={loading}
+            submitLabel={loading ? "יוצר חשבון..." : "צור חשבון"}
           />
         )}
         {error && <p className="errorLog">{error}</p>}

@@ -202,6 +202,19 @@
   color: var(--text);
 }
 
+.trip-form-btn--danger {
+  background: #fff;
+  color: #dc2626;
+  border-color: #dc2626;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.trip-form-btn--danger:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
 .trip-form-btn--approve {
   background: #16a34a;
   color: #fff;

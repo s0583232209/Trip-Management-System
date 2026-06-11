@@ -5,12 +5,14 @@ import AddTripTeachers from "./AddTripTeachers.jsx";
 import AddTripExternalStaff from "./AddExternalStaff.jsx";
 import StaffContactsView from "./StaffContactsView.jsx";
 import { canManageTrip } from "../../permissions.js";
+import useTripTitle from "../../hooks/useTripTitle.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
 export default function ManageTripStaffPage() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const tripTitle = useTripTitle(tripId);
   const refreshRef = useRef(null);
   const [showAddTeacher, setShowAddTeacher] = useState(false);
   const [showAddExternal, setShowAddExternal] = useState(false);
@@ -28,7 +30,7 @@ export default function ManageTripStaffPage() {
       <Navbar />
       <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
         <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
-          ניהול צוות טיול {tripId}
+          ניהול צוות טיול {tripTitle || tripId}
         </h1>
 
         <StaffContactsView onRefresh={refreshRef} />

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import "./TripsPage.css";
@@ -7,6 +7,7 @@ import "./TripsPage.css";
 export default function TripDashboardPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
+  const [tripTitle, setTripTitle] = useState("");
 
   useEffect(() => {
     api
@@ -15,6 +16,8 @@ export default function TripDashboardPage() {
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (!trip) {
           navigate("/not-found", { replace: true });
+        } else {
+          setTripTitle(trip.title);
         }
       })
       .catch((err) => {
@@ -28,7 +31,7 @@ export default function TripDashboardPage() {
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">טיול {tripId}</h1>
+        <h1 className="page-title">טיול {tripTitle || tripId}</h1>
         <p>בחר אם אתה רוצה להמשיך אל תכנון טיול או אל יום טיול.</p>
         <div className="trips-cards">
           <button

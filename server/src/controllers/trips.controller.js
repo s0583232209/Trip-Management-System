@@ -91,7 +91,8 @@ export async function getAllStaff(req, res) {
 }
 export async function deleteStaff(req, res) {
   try {
-    await tripsService.deleteStaff(req.params.id, req.body.nationalIds);
+    await tripsService.deleteStaff(req.params.id, req.params.userId);
+    log.info(`staff ${req.params.userId} removed from trip: ${req.params.id}`);
     res.status(201).json({ message: "Staff deleted successfully" });
   } catch (err) {
     log.warn(`deleting staff failed: ${err.message}`);

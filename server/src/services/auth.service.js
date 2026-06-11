@@ -1,6 +1,3 @@
-//this is BL layer
-// services/auth.service.js
-
 import {
   getUserRoles,
   getUserRolesOnTripDay,
@@ -46,13 +43,10 @@ export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
 
 export async function login(user) {
   const row = await getUserById(user.nationalId, user.institutionNumber);
-  // console.log(row);
   if (!row) throw new Error("User not found");
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
   if (!isMatch) throw new Error("Incorrect password");
-  // console.log(user, row);
   const roles = await getUserRoles(row.userId);
-  // console.log(roles[0].role_name);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,

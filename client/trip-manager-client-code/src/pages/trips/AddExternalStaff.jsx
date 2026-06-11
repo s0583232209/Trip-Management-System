@@ -1,18 +1,19 @@
-
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
+import useTripTitle from "../../hooks/useTripTitle.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
 export default function AddTripExternalStaff({ onSuccess } = {}) {
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const tripTitle = useTripTitle(tripId);
 
   // Array of objects capturing name, phone, and role for third-party operators
   const [externalStaff, setExternalStaff] = useState([
-    { fullName: "", phoneNumber: "", role: "guard" }
+    { fullName: "", phoneNumber: "", role: "guard" },
   ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -20,12 +21,17 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
 
   function updateField(index, fieldName, value) {
     setExternalStaff((prev) =>
-      prev.map((staff, i) => (i === index ? { ...staff, [fieldName]: value } : staff))
+      prev.map((staff, i) =>
+        i === index ? { ...staff, [fieldName]: value } : staff,
+      ),
     );
   }
 
   function addField() {
-    setExternalStaff((prev) => [...prev, { fullName: "", phoneNumber: "", role: "guard" }]);
+    setExternalStaff((prev) => [
+      ...prev,
+      { fullName: "", phoneNumber: "", role: "guard" },
+    ]);
   }
 
   function removeField(index) {
@@ -38,7 +44,9 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
     setSuccess("");
 
     // Validation: make sure rows have valid name inputs before posting
-    const filledStaff = externalStaff.filter((staff) => staff.fullName.trim() !== "");
+    const filledStaff = externalStaff.filter(
+      (staff) => staff.fullName.trim() !== "",
+    );
     if (filledStaff.length === 0) {
       setError("יש להזין לפחות איש צוות חיצוני אחד עם שם מלא");
       return;
@@ -47,12 +55,16 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
     setLoading(true);
     try {
       // Targets external logistics API route setup
-      await api.post(`/api/trips/${tripId}/external-staff`, { externalStaff: filledStaff });
+      await api.post(`/api/trips/${tripId}/external-staff`, {
+        externalStaff: filledStaff,
+      });
       setSuccess("צוות חיצוני נוסף בהצלחה!");
       setExternalStaff([{ fullName: "", phoneNumber: "", role: "guard" }]);
       if (onSuccess) onSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || "הוספת נותני השירות נכשלה, נסה שנית");
+      setError(
+        err.response?.data?.message || "הוספת נותני השירות נכשלה, נסה שנית",
+      );
     } finally {
       setLoading(false);
     }
@@ -60,37 +72,63 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
 
   return (
     <>
-    
       <main className="page-main">
-        <h1 className="page-title">רישום נותני שירות וצוות חיצוני לטיול {tripId}</h1>
+        <h1 className="page-title">
+          רישום נותני שירות וצוות חיצוני לטיול {tripTitle || tripId}
+        </h1>
         <form className="trip-form" onSubmit={handleSubmit} noValidate>
           <section className="form-section">
-            <h2 className="form-section-title">צוות אבטחה, רפואה ולוגיסטיקה חיצונית</h2>
-            <p className="form-section-hint">הזן את פרטי אנשי המקצוע החיצוניים המלווים את הטיול לצורכי בטיחות וביטחון.</p>
+            <h2 className="form-section-title">
+              צוות אבטחה, רפואה ולוגיסטיקה חיצונית
+            </h2>
+            <p className="form-section-hint">
+              הזן את פרטי אנשי המקצוע החיצוניים המלווים את הטיול לצורכי בטיחות
+              וביטחון.
+            </p>
 
             {externalStaff.map((staff, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="stop-card" // Using stop-card layout styles to encase individual employee entries cleanly
-                style={{ padding: "1.25rem", marginBottom: "1.5rem", borderRadius: "8px" }}
+                style={{
+                  padding: "1.25rem",
+                  marginBottom: "1.5rem",
+                  borderRadius: "8px",
+                }}
               >
-                <div className="stop-card-header" style={{ marginBottom: "1rem" }}>
+                <div
+                  className="stop-card-header"
+                  style={{ marginBottom: "1rem" }}
+                >
                   <span className="stop-index">איש צוות {i + 1}</span>
                   {externalStaff.length > 1 && (
-                    <button type="button" className="stop-remove-btn" onClick={() => removeField(i)}>
+                    <button
+                      type="button"
+                      className="stop-remove-btn"
+                      onClick={() => removeField(i)}
+                    >
                       הסר
                     </button>
                   )}
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "0.5rem" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "1rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
                   <div>
                     <label>שם מלא *</label>
                     <input
                       type="text"
                       placeholder="שם נותן השירות"
                       value={staff.fullName}
-                      onChange={(e) => updateField(i, "fullName", e.target.value)}
+                      onChange={(e) =>
+                        updateField(i, "fullName", e.target.value)
+                      }
                       disabled={loading}
                       required
                     />
@@ -101,7 +139,9 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
                       type="text"
                       placeholder="לדוגמה: 0501234567"
                       value={staff.phoneNumber}
-                      onChange={(e) => updateField(i, "phoneNumber", e.target.value)}
+                      onChange={(e) =>
+                        updateField(i, "phoneNumber", e.target.value)
+                      }
                       disabled={loading}
                     />
                   </div>
@@ -113,26 +153,45 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
                     value={staff.role}
                     onChange={(e) => updateField(i, "role", e.target.value)}
                     disabled={loading}
-                    style={{ width: "100%", padding: "0.75rem", borderRadius: "8px" }}
+                    style={{
+                      width: "100%",
+                      padding: "0.75rem",
+                      borderRadius: "8px",
+                    }}
                   >
                     <option value="1">מאבטח חמוש</option>
-                    <option value="medic">חובש מלווה</option>
-                    <option value="paramedic">פראמדיק / רופא</option>
-                    <option value="guard-medic">מאבטח שהוא גם חובש</option>
-                    <option value="driver">נהג אוטובוס</option>
-                    <option value="other">אחר / מדריך מקומי</option>
+                    <option value="2">חובש מלווה</option>
+                    <option value="3">פראמדיק / רופא</option>
+                    <option value="4">מע"ר</option>
+                    <option value="5">אחר / מדריך טיולים</option>
                   </select>
                 </div>
               </div>
             ))}
 
-            <button type="button" className="add-stop-btn" onClick={addField} disabled={loading}>
+            <button
+              type="button"
+              className="add-stop-btn"
+              onClick={addField}
+              disabled={loading}
+            >
               + הוסף נותן שירות חיצוני
             </button>
           </section>
 
           {error && <p className="error form-submit-error">{error}</p>}
-          {success && <p style={{ color: "green", fontWeight: "bold", textAlign: "right", marginTop: "1rem" }}>{success}</p>}
+          {success && (
+            <p
+              style={{
+                color: "green",
+                fontWeight: "bold",
+                textAlign: "right",
+                marginTop: "1rem",
+              }}
+            >
+              {success}
+            </p>
+          )}
 
           <div className="form-actions-row">
             <button

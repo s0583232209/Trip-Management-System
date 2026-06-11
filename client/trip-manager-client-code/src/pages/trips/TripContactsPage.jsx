@@ -1,18 +1,20 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import StaffContactsView from "./StaffContactsView.jsx";
+import useTripTitle from "../../hooks/useTripTitle.js";
 import "./TripsPage.css";
 
 export default function TripContactsPage() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const tripTitle = useTripTitle(tripId);
 
   return (
     <>
       <Navbar />
       <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
         <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
-          אנשי קשר — טיול {tripId}
+          אנשי קשר — טיול {tripTitle || tripId}
         </h1>
         <StaffContactsView />
         <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>

@@ -10,6 +10,7 @@ export default function TripPlanningPage() {
   const { tripId } = useParams();
   const [error, setError] = useState("");
   const [tripDate, setTripDate] = useState(null);
+  const [tripTitle, setTripTitle] = useState("");
 
   useEffect(() => {
     api
@@ -20,6 +21,7 @@ export default function TripPlanningPage() {
           navigate("/not-found", { replace: true });
         } else {
           setTripDate(trip.trip_date);
+          setTripTitle(trip.title);
         }
       })
       .catch((err) => {
@@ -43,7 +45,7 @@ export default function TripPlanningPage() {
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">תכנון טיול — טיול {tripId}</h1>
+        <h1 className="page-title">תכנון טיול — טיול {tripTitle || tripId}</h1>
         <p>בחר קטגוריה מתוך תכנון הטיול.</p>
         <div className="trips-cards">
           <button

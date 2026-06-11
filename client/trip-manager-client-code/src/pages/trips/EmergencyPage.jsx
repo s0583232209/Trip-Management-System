@@ -13,6 +13,7 @@ export default function EmergencyPage() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tripDate, setTripDate] = useState(null);
+  const [tripTitle, setTripTitle] = useState("");
   const [isRinging, setIsRinging] = useState(false);
   const navigate = useNavigate();
 
@@ -106,7 +107,10 @@ export default function EmergencyPage() {
       try {
         const res = await api.get(`/api/trips/${tripId}`);
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
-        if (trip) setTripDate(trip.trip_date);
+        if (trip) {
+          setTripDate(trip.trip_date);
+          setTripTitle(trip.title);
+        }
       } catch (err) {
         console.error("Error fetching trip:", err);
       }
@@ -115,8 +119,6 @@ export default function EmergencyPage() {
   }, [tripId]);
 
   useEffect(() => {
-    socket.emit("join-trip", tripId);
-
     socket.on("emergency-alert", (data) => {
       setEmergencies((prev) => [data.emergency, ...prev]);
       startAlarm();
@@ -129,7 +131,6 @@ export default function EmergencyPage() {
     });
 
     return () => {
-      socket.emit("leave-trip", tripId);
       socket.off("emergency-alert");
       socket.off("emergency-closed");
       stopAlarm();
@@ -213,7 +214,7 @@ export default function EmergencyPage() {
       <main className="page-main">
         <div className="emergency-header">
           <h1 className="page-title emergency-title">
-            <span className="alert-icon">🚨</span> מצב חירום — טיול {tripId}
+            <span className="alert-icon">🚨</span> מצב חירום — טיול {tripTitle || tripId}
           </h1>
           <button
             className="trip-form-btn trip-form-btn--ghost"

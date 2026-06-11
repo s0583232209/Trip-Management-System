@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import socket from "../../socket.js";
+import useTripTitle from "../../hooks/useTripTitle.js";
 import "./TripsPage.css";
 import "./TripDayPage.css";
 
@@ -9,6 +10,7 @@ export default function TripDayPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
   const [alert, setAlert] = useState(null);
+  const tripTitle = useTripTitle(tripId);
 
   useEffect(() => {
     socket.emit("join-trip", tripId);
@@ -71,7 +73,7 @@ export default function TripDayPage() {
       )}
 
       <main className="page-main">
-        <h1 className="page-title">יום טיול — טיול {tripId}</h1>
+        <h1 className="page-title">יום טיול — טיול {tripTitle || tripId}</h1>
         <p>בחר קטגוריה מתוך יום הטיול.</p>
 
         <div className="trips-cards">

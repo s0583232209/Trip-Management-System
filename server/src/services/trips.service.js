@@ -113,19 +113,16 @@ export async function getAllStaff(tripId) {
     throw err;
   }
 }
-export async function deleteStaff(req, res) {
-  res.status(900);
+export async function deleteStaff(tripId, staffId) {
+  try {
+    const res = await tripsRepo.deleteStaff(tripId, staffId);
+    log.info(`staff ${staffId} removed from trip: ${tripId}`);
+    return res;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from deleteStaff in trips.service`);
+    throw err;
+  }
 }
-// export async function deleteStaff(tripId, nationalId) {//this function is wrong!!!!!!!
-//   try {
-//     const users = await getByNationalId(nationalId);
-//     const await =tripsRepo.deleteStaff(tripId, staffId);
-//     log.info(`staff deleted from trip: ${tripId}`);
-//   } catch (err) {
-//     log.warn(`error: ${err.message}, from deleteStaff in trips.service`);
-//     throw err;
-//   }
-// }
 export async function addExternalStaff(tripId, staffDetails) {
   try {
     console.log("in add staff service, details=", staffDetails);

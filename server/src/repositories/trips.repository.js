@@ -158,6 +158,14 @@ export async function addStaff(tripsId, staffIdsArray = []) {
     await connection.execute(sql, params);
   }
 }
+export async function deleteStaff(tripId, staffId) {
+  const connection = await getConnection();
+  const response = await connection.execute(
+    `DELETE FROM staff_trip WHERE trip_id = ? AND staff_id = ?`,
+    [tripId, staffId],
+  );
+  return response;
+}
 export async function getAllStaff(tripId) {
   try {
     const connection = await getConnection();
@@ -171,7 +179,7 @@ export async function getAllStaff(tripId) {
       [tripId],
     );
     const [externalEmployees] = await connection.execute(
-      `SELECT e.id, e.phone, er.role_name AS role
+      `SELECT e.id, e.name AS full_name, e.phone, er.role_name AS role
       FROM external_employees e
       JOIN external_role er ON e.external_role = er.id
       JOIN external_staff_trip t ON e.id = t.staff_id
@@ -190,18 +198,20 @@ export async function addExternalStaff(tripId, staffDetails) {
 
   const connection = await getConnection();
   try {
-    const roles = {
-      guard: 1,
-    };
-    console.log(roles[staffDetails.role], "role", staffDetails);
+    // const roles = {
+    //   guard: 1,
+    //   medic: 2,
+    //   paramedic: 3,
+    //   firstAidProvider:4,
+    //   guide:5
+    // };
+
+    console.log(staffDetails.role, "role from frontend");
+    // console.log(roles[staffDetails.role], "role", staffDetails);
     connection.beginTransaction();
     const [result] = await connection.execute(
       `INSERT INTO external_employees (name,external_role,phone) VALUES ( ?, ?, ?)`,
-      [
-        staffDetails.fullName,
-        roles[staffDetails.role],
-        staffDetails.phoneNumber,
-      ],
+      [staffDetails.fullName, staffDetails.role, staffDetails.phoneNumber],
     );
     console.log(result.insertId, "id from add external staff");
     const res = await connection.execute(

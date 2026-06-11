@@ -83,4 +83,9 @@ router.post(
   requireRole("principal", "coordinator"),
   tripsController.addExternalStaff,
 );
+router.delete(
+  "/:id/external-staff/:staffId",
+  requireRole("principal", "coordinator"),
+  tripsController.deleteExternalStaff,
+);
 export default router;

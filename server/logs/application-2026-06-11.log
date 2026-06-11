@@ -3853,3 +3853,1870 @@
 11.06.2026, 21:11:38 [INFO]: get trip by id: 1 and userId: 1
 11.06.2026, 21:11:38 [INFO]: the trip with id 1 returned successfully
 11.06.2026, 21:11:38 [INFO]: all staff returned successfully
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1/staff
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1/staff
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1/staff
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1/staff
+11.06.2026, 21:38:48 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 21:38:48 [WARN]: verifyToken - no token provided for path: /trips/1/staff
+11.06.2026, 21:39:05 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 21:39:05 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 21:39:05 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 21:39:05 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 21:39:05 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 21:39:05 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:05 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:05 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:05 [INFO]: in require role middleware
+11.06.2026, 21:39:05 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:05 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:05 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:08 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:08 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:08 [INFO]: in require role middleware
+11.06.2026, 21:39:08 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:08 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:08 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:08 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:08 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:08 [INFO]: in require role middleware
+11.06.2026, 21:39:08 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:08 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:08 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:09 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:09 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:09 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:09 [INFO]: in require role middleware
+11.06.2026, 21:39:09 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:09 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:09 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:09 [INFO]: in require role middleware
+11.06.2026, 21:39:09 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:09 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:09 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:09 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:09 [INFO]: getTripById : 2
+11.06.2026, 21:39:09 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:09 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:10 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:10 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:10 [INFO]: in require role middleware
+11.06.2026, 21:39:10 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:10 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:10 [INFO]: in require role middleware
+11.06.2026, 21:39:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:10 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:10 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:10 [INFO]: getTripById : 2
+11.06.2026, 21:39:10 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:10 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:11 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:11 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:11 [INFO]: in require role middleware
+11.06.2026, 21:39:11 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:11 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:11 [INFO]: in require role middleware
+11.06.2026, 21:39:11 [INFO]: verifyToken - path: /trips/2/files/kit
+11.06.2026, 21:39:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:11 [INFO]: user id:undefined, method:GET, url:/trips/2/files/kit
+11.06.2026, 21:39:11 [INFO]: in require role middleware
+11.06.2026, 21:39:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:11 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:11 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:11 [INFO]: getTripById : 2
+11.06.2026, 21:39:11 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:11 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:20 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:20 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:20 [INFO]: in require role middleware
+11.06.2026, 21:39:20 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:20 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:20 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:20 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:20 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:20 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:20 [INFO]: in require role middleware
+11.06.2026, 21:39:20 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:20 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:20 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:22 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:22 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:22 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:22 [INFO]: in require role middleware
+11.06.2026, 21:39:22 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:22 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:22 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:22 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:22 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:22 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:22 [INFO]: in require role middleware
+11.06.2026, 21:39:22 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:22 [INFO]: getTripById : 2
+11.06.2026, 21:39:22 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:22 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:22 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:22 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:22 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:22 [INFO]: in require role middleware
+11.06.2026, 21:39:22 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:22 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:22 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:22 [INFO]: in require role middleware
+11.06.2026, 21:39:22 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:22 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:22 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:22 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:22 [INFO]: getTripById : 2
+11.06.2026, 21:39:22 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:22 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:23 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:23 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:23 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:23 [INFO]: in require role middleware
+11.06.2026, 21:39:23 [INFO]: verifyToken - path: /trips/2/staff
+11.06.2026, 21:39:23 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:23 [INFO]: user id:undefined, method:GET, url:/trips/2/staff
+11.06.2026, 21:39:23 [INFO]: in require role middleware
+11.06.2026, 21:39:23 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:23 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:23 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:23 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:23 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:23 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:23 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:23 [INFO]: in require role middleware
+11.06.2026, 21:39:23 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:23 [INFO]: all staff returned successfully
+11.06.2026, 21:39:23 [INFO]: getTripById : 2
+11.06.2026, 21:39:23 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:23 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:28 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:28 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:28 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:28 [INFO]: in require role middleware
+11.06.2026, 21:39:28 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:28 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:28 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:28 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:28 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:28 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:28 [INFO]: in require role middleware
+11.06.2026, 21:39:28 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:28 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:28 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:29 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:29 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:29 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:29 [INFO]: in require role middleware
+11.06.2026, 21:39:29 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:29 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:29 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:29 [INFO]: in require role middleware
+11.06.2026, 21:39:29 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:29 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:29 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:29 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:29 [INFO]: getTripById : 2
+11.06.2026, 21:39:29 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:29 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:30 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:30 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:30 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:30 [INFO]: in require role middleware
+11.06.2026, 21:39:30 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:30 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:30 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:30 [INFO]: in require role middleware
+11.06.2026, 21:39:30 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:30 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:30 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:30 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:30 [INFO]: getTripById : 2
+11.06.2026, 21:39:30 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:30 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:33 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:33 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:33 [INFO]: in require role middleware
+11.06.2026, 21:39:33 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:39:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:33 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:39:33 [INFO]: in require role middleware
+11.06.2026, 21:39:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:33 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:33 [INFO]: get all trips by userId: 1
+11.06.2026, 21:39:33 [INFO]: getTripById : 2
+11.06.2026, 21:39:33 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:39:33 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:39:33 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:39:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:33 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:39:33 [INFO]: in require role middleware
+11.06.2026, 21:39:33 [INFO]: verifyToken - path: /users
+11.06.2026, 21:39:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:39:33 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:39:33 [INFO]: in require role middleware
+11.06.2026, 21:39:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:39:33 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:39:33 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:46 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:46 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:46 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:46 [INFO]: in require role middleware
+11.06.2026, 21:40:46 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:46 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:46 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:46 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:46 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:46 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:46 [INFO]: in require role middleware
+11.06.2026, 21:40:46 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:46 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:46 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:46 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:46 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:46 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:46 [INFO]: in require role middleware
+11.06.2026, 21:40:46 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:46 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:46 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:47 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:47 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:47 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:47 [INFO]: in require role middleware
+11.06.2026, 21:40:47 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:47 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:47 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:47 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:47 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:47 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:47 [INFO]: in require role middleware
+11.06.2026, 21:40:47 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:47 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:47 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:48 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:48 [INFO]: in require role middleware
+11.06.2026, 21:40:48 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:40:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:48 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:40:48 [INFO]: in require role middleware
+11.06.2026, 21:40:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:48 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:48 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:48 [INFO]: getTripById : 2
+11.06.2026, 21:40:48 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:40:48 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:40:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:48 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:48 [INFO]: in require role middleware
+11.06.2026, 21:40:48 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:40:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:48 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:40:48 [INFO]: in require role middleware
+11.06.2026, 21:40:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:48 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:48 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:48 [INFO]: getTripById : 2
+11.06.2026, 21:40:48 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:40:48 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:40:51 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:51 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:51 [INFO]: in require role middleware
+11.06.2026, 21:40:51 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:40:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:51 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:40:51 [INFO]: in require role middleware
+11.06.2026, 21:40:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:51 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:51 [INFO]: get all trips by userId: 1
+11.06.2026, 21:40:51 [INFO]: getTripById : 2
+11.06.2026, 21:40:51 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:40:51 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:40:51 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:40:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:51 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:40:51 [INFO]: in require role middleware
+11.06.2026, 21:40:51 [INFO]: verifyToken - path: /users
+11.06.2026, 21:40:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:40:51 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:40:51 [INFO]: in require role middleware
+11.06.2026, 21:40:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:40:51 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:40:51 [INFO]: get all trips by userId: 1
+11.06.2026, 21:41:25 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:41:25 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:41:25 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:41:25 [INFO]: in require role middleware
+11.06.2026, 21:41:25 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:41:25 [INFO]: getTripById : 2
+11.06.2026, 21:41:25 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:41:25 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:41:39 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:41:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:41:39 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:41:39 [INFO]: in require role middleware
+11.06.2026, 21:41:39 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:41:39 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:41:39 [INFO]: get all trips by userId: 1
+11.06.2026, 21:41:44 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:41:44 [WARN]: verifyToken - no token provided for path: /trips
+11.06.2026, 21:41:44 [INFO]: verifyToken - path: /trips/2/emergencies
+11.06.2026, 21:41:44 [WARN]: verifyToken - no token provided for path: /trips/2/emergencies
+11.06.2026, 21:42:07 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 21:42:07 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 21:42:07 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 21:42:07 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 21:42:07 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:07 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:07 [INFO]: in require role middleware
+11.06.2026, 21:42:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:07 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:07 [INFO]: get all trips by userId: 1
+11.06.2026, 21:42:14 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:14 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:14 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:14 [INFO]: in require role middleware
+11.06.2026, 21:42:14 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:14 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:14 [INFO]: get all trips by userId: 1
+11.06.2026, 21:42:14 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:14 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:14 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:14 [INFO]: in require role middleware
+11.06.2026, 21:42:14 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:14 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:14 [INFO]: get all trips by userId: 1
+11.06.2026, 21:42:15 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:42:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:15 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:42:15 [INFO]: in require role middleware
+11.06.2026, 21:42:15 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:15 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:15 [INFO]: in require role middleware
+11.06.2026, 21:42:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:15 [INFO]: getTripById : 2
+11.06.2026, 21:42:15 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:42:15 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:42:15 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:15 [INFO]: get all trips by userId: 1
+11.06.2026, 21:42:16 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:16 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:16 [INFO]: in require role middleware
+11.06.2026, 21:42:16 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:42:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:16 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:42:16 [INFO]: in require role middleware
+11.06.2026, 21:42:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:16 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:16 [INFO]: get all trips by userId: 1
+11.06.2026, 21:42:16 [INFO]: getTripById : 2
+11.06.2026, 21:42:16 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:42:16 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:42:17 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:17 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:17 [INFO]: in require role middleware
+11.06.2026, 21:42:17 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:42:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:17 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:42:17 [INFO]: in require role middleware
+11.06.2026, 21:42:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:17 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:17 [INFO]: get all trips by userId: 1
+11.06.2026, 21:42:17 [INFO]: getTripById : 2
+11.06.2026, 21:42:17 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:42:17 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:42:17 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:42:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:17 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:42:17 [INFO]: in require role middleware
+11.06.2026, 21:42:17 [INFO]: verifyToken - path: /users
+11.06.2026, 21:42:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:42:17 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:42:17 [INFO]: in require role middleware
+11.06.2026, 21:42:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:42:17 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:42:17 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:08 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 21:43:08 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 21:43:08 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 21:43:08 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 21:43:08 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 21:43:08 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:08 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:08 [INFO]: in require role middleware
+11.06.2026, 21:43:08 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:08 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:08 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:10 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:10 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:10 [INFO]: in require role middleware
+11.06.2026, 21:43:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:10 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:10 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:10 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:10 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:10 [INFO]: in require role middleware
+11.06.2026, 21:43:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:10 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:10 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:11 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:11 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:11 [INFO]: in require role middleware
+11.06.2026, 21:43:11 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:11 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:11 [INFO]: in require role middleware
+11.06.2026, 21:43:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:11 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:11 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:11 [INFO]: getTripById : 2
+11.06.2026, 21:43:11 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:11 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:12 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:12 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:12 [INFO]: in require role middleware
+11.06.2026, 21:43:12 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:12 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:12 [INFO]: in require role middleware
+11.06.2026, 21:43:12 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:12 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:12 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:12 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:12 [INFO]: getTripById : 2
+11.06.2026, 21:43:12 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:12 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:17 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:17 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:17 [INFO]: in require role middleware
+11.06.2026, 21:43:17 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:17 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:17 [INFO]: in require role middleware
+11.06.2026, 21:43:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:17 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:17 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:17 [INFO]: getTripById : 2
+11.06.2026, 21:43:17 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:17 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:18 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:18 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:18 [INFO]: in require role middleware
+11.06.2026, 21:43:18 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:18 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:18 [INFO]: in require role middleware
+11.06.2026, 21:43:18 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:18 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:18 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:18 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:18 [INFO]: getTripById : 2
+11.06.2026, 21:43:18 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:18 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:19 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:19 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:19 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:19 [INFO]: in require role middleware
+11.06.2026, 21:43:19 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:19 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:19 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:19 [INFO]: in require role middleware
+11.06.2026, 21:43:19 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:19 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:19 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:19 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:19 [INFO]: getTripById : 2
+11.06.2026, 21:43:19 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:19 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:19 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:19 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:19 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:19 [INFO]: in require role middleware
+11.06.2026, 21:43:19 [INFO]: verifyToken - path: /users
+11.06.2026, 21:43:19 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:19 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:43:19 [INFO]: in require role middleware
+11.06.2026, 21:43:19 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:19 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:19 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:19 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:24 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:24 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:24 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:24 [INFO]: in require role middleware
+11.06.2026, 21:43:24 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:24 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:24 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:24 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:24 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:24 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:24 [INFO]: in require role middleware
+11.06.2026, 21:43:24 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:24 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:24 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:26 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:26 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:26 [INFO]: in require role middleware
+11.06.2026, 21:43:26 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:26 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:26 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:26 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:26 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:26 [INFO]: in require role middleware
+11.06.2026, 21:43:26 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:26 [INFO]: getTripById : 2
+11.06.2026, 21:43:26 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:26 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:27 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:27 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:27 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:27 [INFO]: in require role middleware
+11.06.2026, 21:43:27 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:27 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:27 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:27 [INFO]: in require role middleware
+11.06.2026, 21:43:27 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:27 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:27 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:27 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:27 [INFO]: getTripById : 2
+11.06.2026, 21:43:27 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:27 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:27 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:27 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:27 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:27 [INFO]: in require role middleware
+11.06.2026, 21:43:27 [INFO]: verifyToken - path: /trips/2/staff
+11.06.2026, 21:43:27 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:27 [INFO]: user id:undefined, method:GET, url:/trips/2/staff
+11.06.2026, 21:43:27 [INFO]: in require role middleware
+11.06.2026, 21:43:27 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:27 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:27 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:27 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:27 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:27 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:27 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:27 [INFO]: in require role middleware
+11.06.2026, 21:43:27 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:27 [INFO]: all staff returned successfully
+11.06.2026, 21:43:27 [INFO]: getTripById : 2
+11.06.2026, 21:43:27 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:27 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:34 [INFO]: verifyToken - path: /trips/2/staff/2
+11.06.2026, 21:43:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:34 [INFO]: user id:undefined, method:DELETE, url:/trips/2/staff/2
+11.06.2026, 21:43:34 [INFO]: in require role middleware
+11.06.2026, 21:43:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:34 [INFO]: staff 2 removed from trip: 2
+11.06.2026, 21:43:34 [INFO]: staff 2 removed from trip: 2
+11.06.2026, 21:43:34 [INFO]: verifyToken - path: /trips/2/staff
+11.06.2026, 21:43:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:34 [INFO]: user id:undefined, method:GET, url:/trips/2/staff
+11.06.2026, 21:43:34 [INFO]: in require role middleware
+11.06.2026, 21:43:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:34 [INFO]: all staff returned successfully
+11.06.2026, 21:43:36 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:36 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:36 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:36 [INFO]: in require role middleware
+11.06.2026, 21:43:36 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:36 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:36 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:36 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:36 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:36 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:36 [INFO]: in require role middleware
+11.06.2026, 21:43:36 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:36 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:36 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:37 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:37 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:37 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:37 [INFO]: in require role middleware
+11.06.2026, 21:43:37 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:37 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:37 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:37 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:37 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:37 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:37 [INFO]: in require role middleware
+11.06.2026, 21:43:37 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:37 [INFO]: getTripById : 2
+11.06.2026, 21:43:37 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:37 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:38 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:38 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:38 [INFO]: in require role middleware
+11.06.2026, 21:43:38 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:38 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:38 [INFO]: in require role middleware
+11.06.2026, 21:43:38 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:38 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:38 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:38 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:38 [INFO]: getTripById : 2
+11.06.2026, 21:43:38 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:38 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:39 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:39 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:39 [INFO]: in require role middleware
+11.06.2026, 21:43:39 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:43:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:39 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:43:39 [INFO]: in require role middleware
+11.06.2026, 21:43:39 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:39 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:39 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:39 [INFO]: get all trips by userId: 1
+11.06.2026, 21:43:39 [INFO]: getTripById : 2
+11.06.2026, 21:43:39 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:43:39 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:43:39 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:43:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:39 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:43:39 [INFO]: in require role middleware
+11.06.2026, 21:43:39 [INFO]: verifyToken - path: /users
+11.06.2026, 21:43:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:43:39 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:43:39 [INFO]: in require role middleware
+11.06.2026, 21:43:39 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:39 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:43:39 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:43:39 [INFO]: get all trips by userId: 1
+11.06.2026, 21:44:59 [INFO]: verifyToken - path: /users
+11.06.2026, 21:44:59 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:44:59 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:44:59 [INFO]: in require role middleware
+11.06.2026, 21:44:59 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:44:59 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:44:59 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:44:59 [INFO]: in require role middleware
+11.06.2026, 21:44:59 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:44:59 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:44:59 [INFO]: getTripById : 2
+11.06.2026, 21:44:59 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:44:59 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:45:01 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:45:01 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:01 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:45:01 [INFO]: in require role middleware
+11.06.2026, 21:45:01 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:45:01 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:01 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:45:01 [INFO]: in require role middleware
+11.06.2026, 21:45:01 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:01 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:01 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:45:01 [INFO]: get all trips by userId: 1
+11.06.2026, 21:45:01 [INFO]: getTripById : 2
+11.06.2026, 21:45:01 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:45:01 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:45:01 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:45:01 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:01 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:45:01 [INFO]: in require role middleware
+11.06.2026, 21:45:01 [INFO]: verifyToken - path: /users
+11.06.2026, 21:45:01 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:01 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:45:01 [INFO]: in require role middleware
+11.06.2026, 21:45:01 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:01 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:01 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:45:01 [INFO]: get all trips by userId: 1
+11.06.2026, 21:45:07 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:45:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:07 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:45:07 [INFO]: in require role middleware
+11.06.2026, 21:45:07 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:45:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:07 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:45:07 [INFO]: in require role middleware
+11.06.2026, 21:45:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:07 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:45:07 [INFO]: get all trips by userId: 1
+11.06.2026, 21:45:07 [INFO]: getTripById : 2
+11.06.2026, 21:45:07 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:45:07 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:45:07 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:45:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:07 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:45:07 [INFO]: in require role middleware
+11.06.2026, 21:45:07 [INFO]: verifyToken - path: /users
+11.06.2026, 21:45:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:07 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:45:07 [INFO]: in require role middleware
+11.06.2026, 21:45:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:07 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:45:07 [INFO]: get all trips by userId: 1
+11.06.2026, 21:45:45 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:45:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:45 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:45:45 [INFO]: in require role middleware
+11.06.2026, 21:45:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:45 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:45:45 [INFO]: get all trips by userId: 1
+11.06.2026, 21:45:45 [INFO]: verifyToken - path: /trips/2
+11.06.2026, 21:45:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:45 [INFO]: user id:undefined, method:GET, url:/trips/2
+11.06.2026, 21:45:45 [INFO]: in require role middleware
+11.06.2026, 21:45:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:45 [INFO]: getTripById : 2
+11.06.2026, 21:45:45 [INFO]: get trip by id: 2 and userId: 1
+11.06.2026, 21:45:45 [INFO]: the trip with id 2 returned successfully
+11.06.2026, 21:45:45 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:45:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:45 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:45:45 [INFO]: in require role middleware
+11.06.2026, 21:45:45 [INFO]: verifyToken - path: /users
+11.06.2026, 21:45:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:45:45 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 21:45:45 [INFO]: in require role middleware
+11.06.2026, 21:45:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:45:45 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:45:45 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:12 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 21:52:12 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 21:52:12 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 21:52:12 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 21:52:13 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 21:52:13 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:13 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:13 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:13 [INFO]: in require role middleware
+11.06.2026, 21:52:13 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:13 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:13 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:15 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:15 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:15 [INFO]: in require role middleware
+11.06.2026, 21:52:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:15 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:15 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:15 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:15 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:15 [INFO]: in require role middleware
+11.06.2026, 21:52:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:15 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:15 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:16 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:16 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:16 [INFO]: in require role middleware
+11.06.2026, 21:52:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:16 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:16 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:16 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 21:52:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:16 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 21:52:16 [INFO]: in require role middleware
+11.06.2026, 21:52:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:16 [INFO]: getTripById : 1
+11.06.2026, 21:52:16 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 21:52:16 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 21:52:17 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:17 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:17 [INFO]: in require role middleware
+11.06.2026, 21:52:17 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 21:52:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:17 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 21:52:17 [INFO]: in require role middleware
+11.06.2026, 21:52:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:17 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:17 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:17 [INFO]: getTripById : 1
+11.06.2026, 21:52:17 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 21:52:17 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 21:52:18 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:18 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:18 [INFO]: in require role middleware
+11.06.2026, 21:52:18 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 21:52:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:18 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 21:52:18 [INFO]: in require role middleware
+11.06.2026, 21:52:18 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:18 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:18 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:18 [INFO]: get all trips by userId: 1
+11.06.2026, 21:52:18 [INFO]: getTripById : 1
+11.06.2026, 21:52:18 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 21:52:18 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 21:52:18 [INFO]: verifyToken - path: /trips
+11.06.2026, 21:52:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 21:52:18 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 21:52:18 [INFO]: in require role middleware
+11.06.2026, 21:52:18 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 21:52:18 [INFO]: getAll trips by userId: 1
+11.06.2026, 21:52:18 [INFO]: get all trips by userId: 1
+11.06.2026, 22:11:49 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:11:49 [WARN]: verifyToken - no token provided for path: /trips
+11.06.2026, 22:11:49 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:11:49 [WARN]: verifyToken - no token provided for path: /trips/1
+11.06.2026, 22:11:49 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:11:49 [WARN]: verifyToken - no token provided for path: /trips
+11.06.2026, 22:11:49 [INFO]: verifyToken - path: /users
+11.06.2026, 22:11:49 [WARN]: verifyToken - no token provided for path: /users
+11.06.2026, 22:22:11 [INFO]: verifyToken - path: /auth/register
+11.06.2026, 22:22:11 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 22:22:11 [INFO]: user id:undefined, method:POST, url:/auth/register
+11.06.2026, 22:22:11 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 22:22:11 [INFO]: in cotroller - sign up
+11.06.2026, 22:22:11 [INFO]: addUserPrincipal called for user: ישראל ישראלי
+11.06.2026, 22:22:11 [INFO]: addUser successful, user id: 1
+11.06.2026, 22:22:11 [INFO]: register successful for national id: 123456789
+11.06.2026, 22:22:42 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 22:22:42 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 22:22:42 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 22:22:42 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 22:22:42 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:22:42 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:22:42 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:22:42 [INFO]: in require role middleware
+11.06.2026, 22:22:42 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:22:42 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:22:42 [INFO]: get all trips by userId: 1
+11.06.2026, 22:22:44 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:22:44 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:22:44 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:22:44 [INFO]: in require role middleware
+11.06.2026, 22:22:44 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:22:44 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:22:44 [INFO]: get all trips by userId: 1
+11.06.2026, 22:22:44 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:22:44 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:22:44 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:22:44 [INFO]: in require role middleware
+11.06.2026, 22:22:44 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:22:44 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:22:44 [INFO]: get all trips by userId: 1
+11.06.2026, 22:22:45 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:22:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:22:45 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:22:45 [INFO]: in require role middleware
+11.06.2026, 22:22:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:22:45 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:22:45 [INFO]: get all trips by userId: 1
+11.06.2026, 22:22:45 [INFO]: verifyToken - path: /users
+11.06.2026, 22:22:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:22:45 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 22:22:45 [INFO]: in require role middleware
+11.06.2026, 22:22:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:23:25 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:23:25 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:23:25 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:23:25 [INFO]: in require role middleware
+11.06.2026, 22:23:25 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:23:25 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:23:25 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:02 [INFO]: verifyToken - path: /users/1
+11.06.2026, 22:24:02 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:02 [INFO]: user id:undefined, method:GET, url:/users/1
+11.06.2026, 22:24:02 [INFO]: in require role middleware
+11.06.2026, 22:24:02 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:02 [INFO]: getById users called with id: 1
+11.06.2026, 22:24:02 [INFO]: getById users successful for id: 1
+11.06.2026, 22:24:02 [INFO]: verifyToken - path: /users
+11.06.2026, 22:24:02 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:02 [INFO]: user id:undefined, method:POST, url:/users
+11.06.2026, 22:24:02 [INFO]: in require role middleware
+11.06.2026, 22:24:02 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:02 [INFO]: getById users called with id: 1
+11.06.2026, 22:24:02 [INFO]: getById users successful for id: 1
+11.06.2026, 22:24:02 [INFO]: addUser successful, user id: 2
+11.06.2026, 22:24:06 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:06 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:06 [INFO]: in require role middleware
+11.06.2026, 22:24:06 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:06 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:06 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:06 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:06 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:06 [INFO]: in require role middleware
+11.06.2026, 22:24:06 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:06 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:06 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:07 [INFO]: verifyToken - path: /users
+11.06.2026, 22:24:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:07 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 22:24:07 [INFO]: in require role middleware
+11.06.2026, 22:24:07 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:07 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:07 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:07 [INFO]: in require role middleware
+11.06.2026, 22:24:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:07 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:07 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:07 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:11 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:11 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:11 [INFO]: in require role middleware
+11.06.2026, 22:24:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:11 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:11 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:45 [INFO]: verifyToken - path: /users/1
+11.06.2026, 22:24:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:45 [INFO]: user id:undefined, method:GET, url:/users/1
+11.06.2026, 22:24:45 [INFO]: in require role middleware
+11.06.2026, 22:24:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:45 [INFO]: getById users called with id: 1
+11.06.2026, 22:24:45 [INFO]: getById users successful for id: 1
+11.06.2026, 22:24:45 [INFO]: verifyToken - path: /users
+11.06.2026, 22:24:45 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:45 [INFO]: user id:undefined, method:POST, url:/users
+11.06.2026, 22:24:45 [INFO]: in require role middleware
+11.06.2026, 22:24:45 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:45 [INFO]: getById users called with id: 1
+11.06.2026, 22:24:45 [INFO]: getById users successful for id: 1
+11.06.2026, 22:24:45 [INFO]: addUser successful, user id: 3
+11.06.2026, 22:24:47 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:47 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:47 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:47 [INFO]: in require role middleware
+11.06.2026, 22:24:47 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:47 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:47 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:47 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:47 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:47 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:47 [INFO]: in require role middleware
+11.06.2026, 22:24:47 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:47 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:47 [INFO]: get all trips by userId: 1
+11.06.2026, 22:24:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:24:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:48 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:24:48 [INFO]: in require role middleware
+11.06.2026, 22:24:48 [INFO]: verifyToken - path: /users
+11.06.2026, 22:24:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:24:48 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 22:24:48 [INFO]: in require role middleware
+11.06.2026, 22:24:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:24:48 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:24:48 [INFO]: get all trips by userId: 1
+11.06.2026, 22:26:34 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:26:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:34 [INFO]: user id:undefined, method:POST, url:/trips
+11.06.2026, 22:26:34 [INFO]: in require role middleware
+11.06.2026, 22:26:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:34 [INFO]: getById users called with id: 2
+11.06.2026, 22:26:34 [INFO]: getById users successful for id: 2
+11.06.2026, 22:26:34 [INFO]: the school id from add trip is: 1
+11.06.2026, 22:26:34 [INFO]: trip added successfully
+11.06.2026, 22:26:34 [INFO]: new trip added successfully
+11.06.2026, 22:26:34 [INFO]: verifyToken - path: /classes
+11.06.2026, 22:26:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:34 [INFO]: user id:undefined, method:POST, url:/classes
+11.06.2026, 22:26:34 [INFO]: in require role middleware
+11.06.2026, 22:26:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:34 [INFO]: getById users called with id: 1
+11.06.2026, 22:26:34 [INFO]: getById users successful for id: 1
+11.06.2026, 22:26:34 [INFO]: addClass successful, class id: 1
+11.06.2026, 22:26:34 [INFO]: class added successfully for school: 1
+11.06.2026, 22:26:34 [INFO]: new class added successfully
+11.06.2026, 22:26:34 [INFO]: verifyToken - path: /classes
+11.06.2026, 22:26:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:34 [INFO]: user id:undefined, method:POST, url:/classes
+11.06.2026, 22:26:34 [INFO]: in require role middleware
+11.06.2026, 22:26:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:34 [INFO]: getById users called with id: 1
+11.06.2026, 22:26:34 [INFO]: getById users successful for id: 1
+11.06.2026, 22:26:34 [INFO]: addClass successful, class id: 2
+11.06.2026, 22:26:34 [INFO]: class added successfully for school: 1
+11.06.2026, 22:26:34 [INFO]: new class added successfully
+11.06.2026, 22:26:34 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:26:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:34 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:26:34 [INFO]: in require role middleware
+11.06.2026, 22:26:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:34 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:26:34 [INFO]: get all trips by userId: 1
+11.06.2026, 22:26:34 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:26:34 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:34 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:26:34 [INFO]: in require role middleware
+11.06.2026, 22:26:34 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:34 [INFO]: getTripById : 1
+11.06.2026, 22:26:34 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:26:34 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:26:38 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:26:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:38 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:26:38 [INFO]: in require role middleware
+11.06.2026, 22:26:38 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:26:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:38 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:26:38 [INFO]: in require role middleware
+11.06.2026, 22:26:38 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:38 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:38 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:26:38 [INFO]: get all trips by userId: 1
+11.06.2026, 22:26:38 [INFO]: getTripById : 1
+11.06.2026, 22:26:38 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:26:38 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:26:40 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:26:40 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:40 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:26:40 [INFO]: in require role middleware
+11.06.2026, 22:26:40 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:26:40 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:40 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:26:40 [INFO]: in require role middleware
+11.06.2026, 22:26:40 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:26:40 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:40 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:26:40 [INFO]: in require role middleware
+11.06.2026, 22:26:40 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:40 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:40 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:40 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:26:40 [INFO]: get all trips by userId: 1
+11.06.2026, 22:26:40 [INFO]: getTripById : 1
+11.06.2026, 22:26:40 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:26:40 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:26:40 [INFO]: all staff returned successfully
+11.06.2026, 22:26:43 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:26:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:43 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:26:43 [INFO]: in require role middleware
+11.06.2026, 22:26:43 [INFO]: verifyToken - path: /users
+11.06.2026, 22:26:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:43 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 22:26:43 [INFO]: in require role middleware
+11.06.2026, 22:26:43 [INFO]: verifyToken - path: /classes
+11.06.2026, 22:26:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:43 [INFO]: user id:undefined, method:GET, url:/classes
+11.06.2026, 22:26:43 [INFO]: in require role middleware
+11.06.2026, 22:26:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:43 [INFO]: getById users called with id: 1
+11.06.2026, 22:26:43 [INFO]: getById users successful for id: 1
+11.06.2026, 22:26:43 [INFO]: all staff returned successfully
+11.06.2026, 22:26:43 [INFO]: getAllClasses returned 2 classes for school 1
+11.06.2026, 22:26:43 [INFO]: get all classes for school: 1
+11.06.2026, 22:26:55 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:26:55 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:55 [INFO]: user id:undefined, method:POST, url:/trips/1/staff
+11.06.2026, 22:26:55 [INFO]: in require role middleware
+11.06.2026, 22:26:55 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:55 [INFO]: staff added to trip: 1
+11.06.2026, 22:26:55 [INFO]: staff added to trip: 1
+11.06.2026, 22:26:55 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:26:55 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:55 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:26:55 [INFO]: in require role middleware
+11.06.2026, 22:26:55 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:55 [INFO]: all staff returned successfully
+11.06.2026, 22:26:55 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:26:55 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:26:55 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:26:55 [INFO]: in require role middleware
+11.06.2026, 22:26:55 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:26:55 [INFO]: all staff returned successfully
+11.06.2026, 22:36:33 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:36:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:36:33 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:36:33 [INFO]: in require role middleware
+11.06.2026, 22:36:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:36:33 [INFO]: all staff returned successfully
+11.06.2026, 22:36:38 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:36:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:36:38 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:36:38 [INFO]: in require role middleware
+11.06.2026, 22:36:38 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:36:38 [INFO]: all staff returned successfully
+11.06.2026, 22:39:14 [INFO]: verifyToken - path: /auth/register
+11.06.2026, 22:39:14 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 22:39:14 [INFO]: user id:undefined, method:POST, url:/auth/register
+11.06.2026, 22:39:14 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 22:39:14 [INFO]: in cotroller - sign up
+11.06.2026, 22:39:14 [INFO]: addUserPrincipal called for user: ישראל ישראלי
+11.06.2026, 22:39:14 [INFO]: addUser successful, user id: 1
+11.06.2026, 22:39:14 [INFO]: register successful for national id: 123456789
+11.06.2026, 22:39:39 [INFO]: verifyToken - path: /users
+11.06.2026, 22:39:39 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:39:39 [INFO]: user id:undefined, method:POST, url:/users
+11.06.2026, 22:39:39 [INFO]: in require role middleware
+11.06.2026, 22:39:39 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:39:39 [INFO]: getById users called with id: 1
+11.06.2026, 22:39:39 [INFO]: getById users successful for id: 1
+11.06.2026, 22:39:40 [INFO]: addUser successful, user id: 2
+11.06.2026, 22:42:10 [INFO]: verifyToken - path: /users
+11.06.2026, 22:42:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:42:10 [INFO]: user id:undefined, method:POST, url:/users
+11.06.2026, 22:42:10 [INFO]: in require role middleware
+11.06.2026, 22:42:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:42:10 [INFO]: getById users called with id: 1
+11.06.2026, 22:42:10 [INFO]: getById users successful for id: 1
+11.06.2026, 22:42:11 [INFO]: addUser successful, user id: 3
+11.06.2026, 22:42:44 [INFO]: verifyToken - path: /users
+11.06.2026, 22:42:44 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:42:44 [INFO]: user id:undefined, method:POST, url:/users
+11.06.2026, 22:42:44 [INFO]: in require role middleware
+11.06.2026, 22:42:44 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:42:44 [INFO]: getById users called with id: 1
+11.06.2026, 22:42:44 [INFO]: getById users successful for id: 1
+11.06.2026, 22:42:44 [INFO]: addUser successful, user id: 4
+11.06.2026, 22:43:08 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 22:43:08 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 22:43:08 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 22:43:09 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 22:43:09 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:43:09 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:43:09 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:43:09 [INFO]: in require role middleware
+11.06.2026, 22:43:09 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:43:09 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:43:09 [INFO]: get all trips by userId: 1
+11.06.2026, 22:43:11 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:43:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:43:11 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:43:11 [INFO]: in require role middleware
+11.06.2026, 22:43:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:43:11 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:43:11 [INFO]: get all trips by userId: 1
+11.06.2026, 22:43:11 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:43:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:43:11 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:43:11 [INFO]: in require role middleware
+11.06.2026, 22:43:11 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:43:11 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:43:11 [INFO]: get all trips by userId: 1
+11.06.2026, 22:43:12 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:43:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:43:12 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:43:12 [INFO]: in require role middleware
+11.06.2026, 22:43:12 [INFO]: verifyToken - path: /users
+11.06.2026, 22:43:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:43:12 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 22:43:12 [INFO]: in require role middleware
+11.06.2026, 22:43:12 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:43:12 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:43:12 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:43:12 [INFO]: get all trips by userId: 1
+11.06.2026, 22:44:48 [INFO]: verifyToken - path: /classes
+11.06.2026, 22:44:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:48 [INFO]: user id:undefined, method:POST, url:/classes
+11.06.2026, 22:44:48 [INFO]: in require role middleware
+11.06.2026, 22:44:48 [INFO]: verifyToken - path: /classes
+11.06.2026, 22:44:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:48 [INFO]: user id:undefined, method:POST, url:/classes
+11.06.2026, 22:44:48 [INFO]: in require role middleware
+11.06.2026, 22:44:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:48 [INFO]: getById users called with id: 1
+11.06.2026, 22:44:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:48 [INFO]: getById users called with id: 1
+11.06.2026, 22:44:48 [INFO]: getById users successful for id: 1
+11.06.2026, 22:44:48 [INFO]: getById users successful for id: 1
+11.06.2026, 22:44:48 [INFO]: addClass successful, class id: 1
+11.06.2026, 22:44:48 [INFO]: class added successfully for school: 1
+11.06.2026, 22:44:48 [INFO]: new class added successfully
+11.06.2026, 22:44:48 [INFO]: addClass successful, class id: 2
+11.06.2026, 22:44:48 [INFO]: class added successfully for school: 1
+11.06.2026, 22:44:48 [INFO]: new class added successfully
+11.06.2026, 22:44:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:44:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:48 [INFO]: user id:undefined, method:POST, url:/trips
+11.06.2026, 22:44:48 [INFO]: in require role middleware
+11.06.2026, 22:44:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:48 [INFO]: getById users called with id: 4
+11.06.2026, 22:44:48 [INFO]: getById users successful for id: 4
+11.06.2026, 22:44:48 [INFO]: the school id from add trip is: 1
+11.06.2026, 22:44:48 [INFO]: trip added successfully
+11.06.2026, 22:44:48 [INFO]: new trip added successfully
+11.06.2026, 22:44:48 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:44:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:48 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:44:48 [INFO]: in require role middleware
+11.06.2026, 22:44:48 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:44:48 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:48 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:44:48 [INFO]: in require role middleware
+11.06.2026, 22:44:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:48 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:48 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:44:48 [INFO]: get all trips by userId: 1
+11.06.2026, 22:44:48 [INFO]: getTripById : 1
+11.06.2026, 22:44:48 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:44:48 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:44:49 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:44:49 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:49 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:44:49 [INFO]: in require role middleware
+11.06.2026, 22:44:49 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:44:49 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:49 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:44:49 [INFO]: in require role middleware
+11.06.2026, 22:44:49 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:49 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:49 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:44:49 [INFO]: get all trips by userId: 1
+11.06.2026, 22:44:49 [INFO]: getTripById : 1
+11.06.2026, 22:44:49 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:44:49 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:44:51 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:44:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:51 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:44:51 [INFO]: in require role middleware
+11.06.2026, 22:44:51 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:44:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:51 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:44:51 [INFO]: in require role middleware
+11.06.2026, 22:44:51 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:44:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:51 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:44:51 [INFO]: in require role middleware
+11.06.2026, 22:44:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:51 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:44:51 [INFO]: get all trips by userId: 1
+11.06.2026, 22:44:51 [INFO]: getTripById : 1
+11.06.2026, 22:44:51 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:44:51 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:44:51 [INFO]: all staff returned successfully
+11.06.2026, 22:44:53 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:44:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:53 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:44:53 [INFO]: in require role middleware
+11.06.2026, 22:44:53 [INFO]: verifyToken - path: /users
+11.06.2026, 22:44:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:53 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 22:44:53 [INFO]: in require role middleware
+11.06.2026, 22:44:53 [INFO]: verifyToken - path: /classes
+11.06.2026, 22:44:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:44:53 [INFO]: user id:undefined, method:GET, url:/classes
+11.06.2026, 22:44:53 [INFO]: in require role middleware
+11.06.2026, 22:44:53 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:53 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:53 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:44:53 [INFO]: getById users called with id: 1
+11.06.2026, 22:44:53 [INFO]: getById users successful for id: 1
+11.06.2026, 22:44:53 [INFO]: all staff returned successfully
+11.06.2026, 22:44:53 [INFO]: getAllClasses returned 2 classes for school 1
+11.06.2026, 22:44:53 [INFO]: get all classes for school: 1
+11.06.2026, 22:45:03 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:45:03 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:03 [INFO]: user id:undefined, method:POST, url:/trips/1/staff
+11.06.2026, 22:45:03 [INFO]: in require role middleware
+11.06.2026, 22:45:03 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:03 [INFO]: staff added to trip: 1
+11.06.2026, 22:45:03 [INFO]: staff added to trip: 1
+11.06.2026, 22:45:03 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:45:03 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:03 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:45:03 [INFO]: in require role middleware
+11.06.2026, 22:45:03 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:03 [INFO]: all staff returned successfully
+11.06.2026, 22:45:03 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:45:03 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:03 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:45:03 [INFO]: in require role middleware
+11.06.2026, 22:45:03 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:03 [INFO]: all staff returned successfully
+11.06.2026, 22:45:12 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:45:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:12 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:45:12 [INFO]: in require role middleware
+11.06.2026, 22:45:12 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:12 [INFO]: getTripById : 1
+11.06.2026, 22:45:12 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:45:12 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:45:32 [INFO]: verifyToken - path: /trips/1/external-staff
+11.06.2026, 22:45:32 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:32 [INFO]: user id:undefined, method:POST, url:/trips/1/external-staff
+11.06.2026, 22:45:32 [INFO]: in require role middleware
+11.06.2026, 22:45:32 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:32 [INFO]: external staff added to trip: 1
+11.06.2026, 22:45:32 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:45:32 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:32 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:45:32 [INFO]: in require role middleware
+11.06.2026, 22:45:32 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:32 [INFO]: all staff returned successfully
+11.06.2026, 22:45:38 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:45:38 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:38 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:45:38 [INFO]: in require role middleware
+11.06.2026, 22:45:38 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:38 [INFO]: getTripById : 1
+11.06.2026, 22:45:38 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:45:38 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:45:50 [INFO]: verifyToken - path: /trips/1/external-staff
+11.06.2026, 22:45:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:50 [INFO]: user id:undefined, method:POST, url:/trips/1/external-staff
+11.06.2026, 22:45:50 [INFO]: in require role middleware
+11.06.2026, 22:45:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:50 [INFO]: external staff added to trip: 1
+11.06.2026, 22:45:50 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:45:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:45:50 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:45:50 [INFO]: in require role middleware
+11.06.2026, 22:45:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:45:50 [INFO]: all staff returned successfully
+11.06.2026, 22:57:06 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:57:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:57:06 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:57:06 [INFO]: in require role middleware
+11.06.2026, 22:57:06 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:57:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:57:06 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:57:06 [INFO]: in require role middleware
+11.06.2026, 22:57:06 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:57:06 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:57:06 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:57:06 [INFO]: in require role middleware
+11.06.2026, 22:57:06 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 22:57:11 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:57:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:57:11 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:57:11 [INFO]: in require role middleware
+11.06.2026, 22:57:11 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 22:57:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:57:11 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 22:57:11 [INFO]: in require role middleware
+11.06.2026, 22:57:11 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:57:11 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:57:11 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:57:11 [INFO]: in require role middleware
+11.06.2026, 22:57:54 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 22:57:54 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 22:57:54 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 22:57:55 [WARN]: login error: Incorrect password
+11.06.2026, 22:58:02 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 22:58:02 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 22:58:02 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 22:58:02 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 22:58:02 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:58:02 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:58:02 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:58:02 [INFO]: in require role middleware
+11.06.2026, 22:58:02 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:58:02 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:58:02 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:43 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:43 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:43 [INFO]: in require role middleware
+11.06.2026, 22:59:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:43 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:43 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:49 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:49 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:49 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:49 [INFO]: in require role middleware
+11.06.2026, 22:59:49 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:49 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:49 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:49 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:49 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:49 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:49 [INFO]: in require role middleware
+11.06.2026, 22:59:49 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:49 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:49 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:50 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:50 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:50 [INFO]: in require role middleware
+11.06.2026, 22:59:50 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:59:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:50 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:59:50 [INFO]: in require role middleware
+11.06.2026, 22:59:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:50 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:50 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:50 [INFO]: getTripById : 1
+11.06.2026, 22:59:50 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:59:50 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:59:51 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:51 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:51 [INFO]: in require role middleware
+11.06.2026, 22:59:51 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:59:51 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:51 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:59:51 [INFO]: in require role middleware
+11.06.2026, 22:59:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:51 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:51 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:51 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:51 [INFO]: getTripById : 1
+11.06.2026, 22:59:51 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:59:51 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:59:53 [INFO]: verifyToken - path: /trips/1/files/kit
+11.06.2026, 22:59:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:53 [INFO]: user id:undefined, method:GET, url:/trips/1/files/kit
+11.06.2026, 22:59:53 [INFO]: in require role middleware
+11.06.2026, 22:59:53 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:53 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:53 [INFO]: in require role middleware
+11.06.2026, 22:59:53 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:59:53 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:53 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:59:53 [INFO]: in require role middleware
+11.06.2026, 22:59:53 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:53 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:53 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:53 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:53 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:53 [INFO]: getTripById : 1
+11.06.2026, 22:59:53 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:59:53 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 22:59:59 [INFO]: verifyToken - path: /trips
+11.06.2026, 22:59:59 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:59 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 22:59:59 [INFO]: in require role middleware
+11.06.2026, 22:59:59 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 22:59:59 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 22:59:59 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 22:59:59 [INFO]: in require role middleware
+11.06.2026, 22:59:59 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:59 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 22:59:59 [INFO]: getAll trips by userId: 1
+11.06.2026, 22:59:59 [INFO]: get all trips by userId: 1
+11.06.2026, 22:59:59 [INFO]: getTripById : 1
+11.06.2026, 22:59:59 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 22:59:59 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:01 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:01 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:01 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:01 [INFO]: in require role middleware
+11.06.2026, 23:00:01 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:01 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:01 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:01 [INFO]: in require role middleware
+11.06.2026, 23:00:01 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:01 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:01 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:01 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:01 [INFO]: getTripById : 1
+11.06.2026, 23:00:01 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:01 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:02 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:02 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:02 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:02 [INFO]: in require role middleware
+11.06.2026, 23:00:02 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 23:00:02 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:02 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 23:00:02 [INFO]: in require role middleware
+11.06.2026, 23:00:02 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:02 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:02 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:02 [INFO]: in require role middleware
+11.06.2026, 23:00:02 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:02 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:02 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:02 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:02 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:02 [INFO]: getTripById : 1
+11.06.2026, 23:00:02 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:02 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:02 [INFO]: all staff returned successfully
+11.06.2026, 23:00:08 [INFO]: verifyToken - path: /trips/1/external-staff/2
+11.06.2026, 23:00:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:08 [INFO]: user id:undefined, method:DELETE, url:/trips/1/external-staff/2
+11.06.2026, 23:00:08 [INFO]: in require role middleware
+11.06.2026, 23:00:08 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:08 [INFO]: external staff 2 removed from trip: 1
+11.06.2026, 23:00:08 [INFO]: external staff 2 removed from trip: 1
+11.06.2026, 23:00:08 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 23:00:08 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:08 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 23:00:08 [INFO]: in require role middleware
+11.06.2026, 23:00:08 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:08 [INFO]: all staff returned successfully
+11.06.2026, 23:00:10 [INFO]: verifyToken - path: /trips/1/external-staff/1
+11.06.2026, 23:00:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:10 [INFO]: user id:undefined, method:DELETE, url:/trips/1/external-staff/1
+11.06.2026, 23:00:10 [INFO]: in require role middleware
+11.06.2026, 23:00:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:10 [INFO]: external staff 1 removed from trip: 1
+11.06.2026, 23:00:10 [INFO]: external staff 1 removed from trip: 1
+11.06.2026, 23:00:10 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 23:00:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:10 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 23:00:10 [INFO]: in require role middleware
+11.06.2026, 23:00:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:10 [INFO]: all staff returned successfully
+11.06.2026, 23:00:12 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:12 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:12 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:12 [INFO]: in require role middleware
+11.06.2026, 23:00:12 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:12 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:12 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:13 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:13 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:13 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:13 [INFO]: in require role middleware
+11.06.2026, 23:00:13 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:13 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:13 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:13 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:13 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:13 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:13 [INFO]: in require role middleware
+11.06.2026, 23:00:13 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:13 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:13 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:14 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:14 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:14 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:14 [INFO]: in require role middleware
+11.06.2026, 23:00:14 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:14 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:14 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:14 [INFO]: in require role middleware
+11.06.2026, 23:00:14 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:14 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:14 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:14 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:14 [INFO]: getTripById : 1
+11.06.2026, 23:00:14 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:14 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:15 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:15 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:15 [INFO]: in require role middleware
+11.06.2026, 23:00:15 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:15 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:15 [INFO]: in require role middleware
+11.06.2026, 23:00:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:15 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:15 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:15 [INFO]: getTripById : 1
+11.06.2026, 23:00:15 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:15 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:15 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:15 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:15 [INFO]: in require role middleware
+11.06.2026, 23:00:15 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 23:00:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:15 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 23:00:15 [INFO]: in require role middleware
+11.06.2026, 23:00:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:15 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:15 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:15 [INFO]: all staff returned successfully
+11.06.2026, 23:00:15 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:15 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:15 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:15 [INFO]: in require role middleware
+11.06.2026, 23:00:15 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:15 [INFO]: getTripById : 1
+11.06.2026, 23:00:15 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:15 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:18 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:18 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:18 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:18 [INFO]: in require role middleware
+11.06.2026, 23:00:18 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:18 [INFO]: getTripById : 1
+11.06.2026, 23:00:18 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:18 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:00:43 [INFO]: verifyToken - path: /trips/1/external-staff
+11.06.2026, 23:00:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:43 [INFO]: user id:undefined, method:POST, url:/trips/1/external-staff
+11.06.2026, 23:00:43 [INFO]: in require role middleware
+11.06.2026, 23:00:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:43 [INFO]: external staff added to trip: 1
+11.06.2026, 23:00:43 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 23:00:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:43 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 23:00:43 [INFO]: in require role middleware
+11.06.2026, 23:00:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:43 [INFO]: all staff returned successfully
+11.06.2026, 23:00:50 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:00:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:50 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:00:50 [INFO]: in require role middleware
+11.06.2026, 23:00:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:50 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:00:50 [INFO]: get all trips by userId: 1
+11.06.2026, 23:00:50 [INFO]: verifyToken - path: /trips/1/staff
+11.06.2026, 23:00:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:50 [INFO]: user id:undefined, method:GET, url:/trips/1/staff
+11.06.2026, 23:00:50 [INFO]: in require role middleware
+11.06.2026, 23:00:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:50 [INFO]: all staff returned successfully
+11.06.2026, 23:00:50 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:00:50 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:00:50 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:00:50 [INFO]: in require role middleware
+11.06.2026, 23:00:50 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:00:50 [INFO]: getTripById : 1
+11.06.2026, 23:00:50 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:00:50 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:07:09 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 23:07:09 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 23:07:09 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 23:07:09 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 23:07:10 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 23:07:10 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:10 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:10 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:10 [INFO]: in require role middleware
+11.06.2026, 23:07:10 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:10 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:10 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:14 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:14 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:14 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:14 [INFO]: in require role middleware
+11.06.2026, 23:07:14 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:14 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:14 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:14 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:14 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:14 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:14 [INFO]: in require role middleware
+11.06.2026, 23:07:14 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:14 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:14 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:16 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:16 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:16 [INFO]: in require role middleware
+11.06.2026, 23:07:16 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:07:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:16 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:07:16 [INFO]: in require role middleware
+11.06.2026, 23:07:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:16 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:16 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:16 [INFO]: getTripById : 1
+11.06.2026, 23:07:16 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:07:16 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:07:16 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:16 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:16 [INFO]: in require role middleware
+11.06.2026, 23:07:16 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:07:16 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:16 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:07:16 [INFO]: in require role middleware
+11.06.2026, 23:07:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:16 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:16 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:16 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:16 [INFO]: getTripById : 1
+11.06.2026, 23:07:16 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:07:16 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:07:17 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:17 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:17 [INFO]: in require role middleware
+11.06.2026, 23:07:17 [INFO]: verifyToken - path: /trips/1/files/kit
+11.06.2026, 23:07:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:17 [INFO]: user id:undefined, method:GET, url:/trips/1/files/kit
+11.06.2026, 23:07:17 [INFO]: in require role middleware
+11.06.2026, 23:07:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:17 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:17 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:17 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:07:17 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:17 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:07:17 [INFO]: in require role middleware
+11.06.2026, 23:07:17 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:17 [INFO]: getTripById : 1
+11.06.2026, 23:07:17 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:07:17 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:07:33 [INFO]: verifyToken - path: /trips/1/files/kit
+11.06.2026, 23:07:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:33 [INFO]: user id:undefined, method:POST, url:/trips/1/files/kit
+11.06.2026, 23:07:33 [INFO]: in require role middleware
+11.06.2026, 23:07:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:33 [INFO]: verifyToken - path: /trips/1/files/kit
+11.06.2026, 23:07:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:33 [INFO]: user id:undefined, method:GET, url:/trips/1/files/kit
+11.06.2026, 23:07:33 [INFO]: in require role middleware
+11.06.2026, 23:07:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:55 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:07:55 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:55 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:07:55 [INFO]: in require role middleware
+11.06.2026, 23:07:55 [INFO]: verifyToken - path: /users/1
+11.06.2026, 23:07:55 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:07:55 [INFO]: user id:undefined, method:GET, url:/users/1
+11.06.2026, 23:07:55 [INFO]: in require role middleware
+11.06.2026, 23:07:55 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:55 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:07:55 [INFO]: getById users called with id: 1
+11.06.2026, 23:07:55 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:07:55 [INFO]: get all trips by userId: 1
+11.06.2026, 23:07:55 [INFO]: getById users successful for id: 1
+11.06.2026, 23:53:22 [INFO]: verifyToken - path: /auth/login
+11.06.2026, 23:53:23 [INFO]: verifyToken - skipping auth routes
+11.06.2026, 23:53:23 [INFO]: user id:undefined, method:POST, url:/auth/login
+11.06.2026, 23:53:23 [INFO]: Connected to MySQL at 127.0.0.1
+11.06.2026, 23:53:25 [INFO]: login successful for national id: 123456789 form institution: 410011
+11.06.2026, 23:53:25 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:53:25 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:25 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:53:25 [INFO]: in require role middleware
+11.06.2026, 23:53:25 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:25 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:53:25 [INFO]: get all trips by userId: 1
+11.06.2026, 23:53:26 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:53:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:26 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:53:26 [INFO]: in require role middleware
+11.06.2026, 23:53:26 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:26 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:53:26 [INFO]: get all trips by userId: 1
+11.06.2026, 23:53:26 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:53:26 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:26 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:53:26 [INFO]: in require role middleware
+11.06.2026, 23:53:26 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:26 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:53:26 [INFO]: get all trips by userId: 1
+11.06.2026, 23:53:29 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:53:29 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:29 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:53:29 [INFO]: in require role middleware
+11.06.2026, 23:53:29 [INFO]: verifyToken - path: /trips/1
+11.06.2026, 23:53:29 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:29 [INFO]: user id:undefined, method:GET, url:/trips/1
+11.06.2026, 23:53:29 [INFO]: in require role middleware
+11.06.2026, 23:53:29 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:29 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:29 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:53:29 [INFO]: get all trips by userId: 1
+11.06.2026, 23:53:29 [INFO]: getTripById : 1
+11.06.2026, 23:53:29 [INFO]: get trip by id: 1 and userId: 1
+11.06.2026, 23:53:29 [INFO]: the trip with id 1 returned successfully
+11.06.2026, 23:53:33 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:53:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:33 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:53:33 [INFO]: in require role middleware
+11.06.2026, 23:53:33 [INFO]: verifyToken - path: /users
+11.06.2026, 23:53:33 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:53:33 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 23:53:33 [INFO]: in require role middleware
+11.06.2026, 23:53:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:33 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:53:33 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:53:33 [INFO]: get all trips by userId: 1
+11.06.2026, 23:54:32 [INFO]: verifyToken - path: /users/2/role
+11.06.2026, 23:54:32 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:54:32 [INFO]: user id:undefined, method:PUT, url:/users/2/role
+11.06.2026, 23:54:32 [INFO]: in require role middleware
+11.06.2026, 23:54:32 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:54:32 [INFO]: getById users called with id: 2
+11.06.2026, 23:54:33 [INFO]: getById users successful for id: 2
+11.06.2026, 23:54:33 [INFO]: updateUserRole successful for id: 2, role: teacher
+11.06.2026, 23:54:33 [INFO]: role for user 2 updated to teacher
+11.06.2026, 23:54:36 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:54:36 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:54:36 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:54:36 [INFO]: in require role middleware
+11.06.2026, 23:54:36 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:54:36 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:54:36 [INFO]: get all trips by userId: 1
+11.06.2026, 23:54:36 [INFO]: verifyToken - path: /users
+11.06.2026, 23:54:36 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:54:36 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 23:54:36 [INFO]: in require role middleware
+11.06.2026, 23:54:36 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:54:43 [INFO]: verifyToken - path: /users/2/role
+11.06.2026, 23:54:43 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:54:43 [INFO]: user id:undefined, method:PUT, url:/users/2/role
+11.06.2026, 23:54:43 [INFO]: in require role middleware
+11.06.2026, 23:54:43 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:54:43 [INFO]: getById users called with id: 2
+11.06.2026, 23:54:43 [INFO]: getById users successful for id: 2
+11.06.2026, 23:54:43 [INFO]: updateUserRole successful for id: 2, role: coordinator
+11.06.2026, 23:54:43 [INFO]: role for user 2 updated to coordinator
+11.06.2026, 23:54:46 [INFO]: verifyToken - path: /trips
+11.06.2026, 23:54:46 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:54:46 [INFO]: user id:undefined, method:GET, url:/trips
+11.06.2026, 23:54:46 [INFO]: in require role middleware
+11.06.2026, 23:54:46 [INFO]: roles for user id:1,  roles: principal
+11.06.2026, 23:54:46 [INFO]: getAll trips by userId: 1
+11.06.2026, 23:54:46 [INFO]: get all trips by userId: 1
+11.06.2026, 23:54:46 [INFO]: verifyToken - path: /users
+11.06.2026, 23:54:46 [INFO]: verifyToken - successful for user: principal (id number: 1)
+11.06.2026, 23:54:46 [INFO]: user id:undefined, method:GET, url:/users
+11.06.2026, 23:54:46 [INFO]: in require role middleware
+11.06.2026, 23:54:46 [INFO]: roles for user id:1,  roles: principal

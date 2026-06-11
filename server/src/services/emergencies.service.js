@@ -33,7 +33,7 @@ export async function createEmergency(emergencyData) {
     newValues: JSON.stringify(emergencyData),
   });
 
-  return { id: result.insertId, ...emergencyData };
+  return { id: result.insertId, ...emergencyData, opened_at: new Date() };
 }
 
 export async function updateEmergency(emergencyId, emergencyData) {

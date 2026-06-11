@@ -9,6 +9,8 @@ import {
   changePassword,
   addUser,
   getAllUsersBySchool,
+  deleteUser,
+  updateUserRole,
 } from "../controllers/users.controller.js";
 const router = express.Router();
 
@@ -28,6 +30,8 @@ router.put(
 router.delete("/:id", requireRole("principal"), (req, res) => {
   res.send("users: delete user");
 });
+router.delete("/:id", requireRole("principal"), deleteUser);
+router.put("/:id/role", requireRole("principal"), updateUserRole);
 router.post("/", requireRole("principal"), addUser);
 router.post(
   "/:id/change-password",

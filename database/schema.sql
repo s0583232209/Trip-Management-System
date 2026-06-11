@@ -1,4 +1,4 @@
- DROP DATABASE `trip_manager`;
+e DROP DATABASE `trip_manager`;
 CREATE DATABASE IF NOT EXISTS trip_manager
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
@@ -63,6 +63,7 @@ CREATE TABLE classes (
     school_id INT NOT NULL,
   -- to add here a reference to the list of the students
     class_name VARCHAR(50) NOT NULL,        -- שם כיתה (למשל: 'ט-2')
+    grade INT NOT NULL,
     FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE
 ) ;
 
@@ -115,7 +116,7 @@ CREATE TABLE trip_files (
     uploaded_by INT,
     original_name VARCHAR(255) NOT NULL,
     stored_name VARCHAR(255) NOT NULL,
-    relative_path VARCHAR(500) NOT NULL,
+    relative_path NVARCHAR(500) NOT NULL,
     mime_type VARCHAR(100) NOT NULL,
     file_extension VARCHAR(20),
     file_size BIGINT NOT NULL,
@@ -182,24 +183,35 @@ CREATE TABLE audit_log (
 CREATE TABLE staff_trip(
 staff_id INT,
 trip_id INT,
+class_id INT,
 FOREIGN KEY (staff_id)	REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (trip_id)	REFERENCES trips(id) ON DELETE CASCADE
+FOREIGN KEY (trip_id)	REFERENCES trips(id) ON DELETE CASCADE,
+FOREIGN KEY (class_id)	REFERENCES classes(id) ON DELETE CASCADE
 )
 ;
+-- טבלת קשר בין טיול לכיתות המשתתפות בו (משמשת לבדיקת כיסוי כיתות לפני אישור טיול)
+CREATE TABLE trip_classes (
+    trip_id INT NOT NULL,
+    class_id INT NOT NULL,
+    PRIMARY KEY (trip_id, class_id),
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+    FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+);
 CREATE TABLE external_role(
 id INT AUTO_INCREMENT PRIMARY KEY,
 role_name NVARCHAR(20) NOT NULL UNIQUE
 );
 CREATE TABLE external_employees(
 id INT AUTO_INCREMENT PRIMARY KEY,
+name NVARCHAR(100),
 external_role INT NOT NULL,
 phone VARCHAR(10) NOT NULL ,
 FOREIGN KEY (external_role) REFERENCES external_role(id) ON DELETE CASCADE
 );
- INSERT INTO roles (role_name)Values('principal');
- INSERT INTO roles (role_name)VALUES('coordinator');
- INSERT INTO roles (role_name)VALUES('trip leader');
- INSERT INTO roles (role_name)VALUES('teacher');
+INSERT INTO roles (role_name)Values('principal');
+INSERT INTO roles (role_name)VALUES('coordinator');
+INSERT INTO roles (role_name)VALUES('trip leader');
+INSERT INTO roles (role_name)VALUES('teacher');
 INSERT INTO statuses(status_name)VALUES("schedualed");
 INSERT INTO statuses(status_name)VALUES("approved");
 INSERT INTO emergency_types (type_name, severity_level) VALUES ('minor', 1);
@@ -223,10 +235,25 @@ select * from roles limit 10;
 select * from trips limit 10;
 select * from schools limit 10;
 
-select * from staff_trip limit 10;
+select * from staff_trip ;
 select * from file_codes;
 select * from trip_files;
 DELETe  FROM trip_files WHERE trip_id=1;
 select * from trip_kit ;
 -- INSERT INTO trip_kit(id,trip_id)VALUES(1,1);
+INSERT INTO emergency_status (status_code,status_name) VALUES (1,"open");
+select * from external_employees;
 
+INSERT INTO external_role(role_name)VALUES("guard");
+INSERT INTO external_role(role_name)VALUES("medic");
+INSERT INTO external_role(role_name)VALUES("paramedic");
+INSERT INTO external_role(role_name)VALUES("guide");
+INSERT INTO external_role(role_name)VALUES("first-aid-provider");
+select * from external_role;
+CREATE TABLE external_staff_trip(
+trip_id INT,
+staff_id INT,
+FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
+FOREIGN KEY (staff_id) REFERENCES external_employees(id) ON DELETE CASCADE
+);
+DELETE FROM trip_files WHERE trip_id=2;

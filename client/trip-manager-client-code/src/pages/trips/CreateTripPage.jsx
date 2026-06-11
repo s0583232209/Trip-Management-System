@@ -3,6 +3,30 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api.js";
 import TripForm, { emptyStop } from "./TripForm.jsx";
 
+const GRADE_LABELS = [
+  "א'",
+  "ב'",
+  "ג'",
+  "ד'",
+  "ה'",
+  "ו'",
+  "ז'",
+  "ח'",
+  "ט'",
+  "י'",
+  "י\"א",
+  "י\"ב",
+];
+
+const emptyGrades = () =>
+  GRADE_LABELS.map((label, i) => ({
+    grade: i + 1,
+    label,
+    selected: false,
+    classCount: 1,
+    classNames: [`${label}-1`],
+  }));
+
 export default function CreateTripPage() {
   const navigate = useNavigate();
   const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
@@ -15,6 +39,8 @@ export default function CreateTripPage() {
   });
 
   const [stops, setStops] = useState([emptyStop()]);
+  const [grades, setGrades] = useState(emptyGrades());
+  const [tripLeaderClassKey, setTripLeaderClassKey] = useState("");
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,6 +62,49 @@ export default function CreateTripPage() {
     setStops((prev) => [...prev, emptyStop()]);
   }
 
+  function toggleGrade(index) {
+    setGrades((prev) =>
+      prev.map((g, i) => (i === index ? { ...g, selected: !g.selected } : g)),
+    );
+  }
+
+  function updateClassCount(index, value) {
+    const count = Math.max(1, Number(value) || 1);
+    setGrades((prev) =>
+      prev.map((g, i) => {
+        if (i !== index) return g;
+        const classNames = Array.from(
+          { length: count },
+          (_, j) => g.classNames[j] || `${g.label}-${j + 1}`,
+        );
+        return { ...g, classCount: count, classNames };
+      }),
+    );
+  }
+
+  function updateClassName(gradeIndex, classIndex, value) {
+    setGrades((prev) =>
+      prev.map((g, i) => {
+        if (i !== gradeIndex) return g;
+        const classNames = g.classNames.map((n, j) =>
+          j === classIndex ? value : n,
+        );
+        return { ...g, classNames };
+      }),
+    );
+  }
+
+  // רשימת הכיתות החדשות שהוגדרו לטיול (לבחירת כיתת אחראי הטיול)
+  const availableClassOptions = grades
+    .filter((g) => g.selected)
+    .flatMap((g) =>
+      g.classNames.map((className, j) => ({
+        key: `${g.grade}-${j}`,
+        grade: g.grade,
+        className,
+      })),
+    );
+
   function validate() {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = "שם הטיול הוא שדה חובה";
@@ -53,6 +122,16 @@ export default function CreateTripPage() {
         newErrors[`stop_${i}_approval`] = `אישור רשמי עצירה ${i + 1} חסר`;
     });
 
+    grades
+      .filter((g) => g.selected)
+      .forEach((g) => {
+        g.classNames.forEach((name, j) => {
+          if (!name.trim())
+            newErrors[`grade_${g.grade}_class_${j}`] =
+              `יש להזין שם לכיתה ${j + 1} בשכבה ${g.label}`;
+        });
+      });
+
     return newErrors;
   }
 
@@ -67,6 +146,22 @@ export default function CreateTripPage() {
     try {
       const routeGeoJson = JSON.stringify({ stops });
 
+      // יצירת הכיתות שהוגדרו עבור השכבות שנבחרו (לפני יצירת הטיול,
+      // כדי שיהיה אפשר לשייך את אחראי הטיול לכיתה ולקשר את הכיתות לטיול)
+      const createdClasses = await Promise.all(
+        availableClassOptions.map(async (opt) => {
+          const res = await api.post("/api/classes", {
+            className: opt.className,
+            grade: opt.grade,
+          });
+          return { ...opt, id: res.data.id };
+        }),
+      );
+
+      const leaderClass = createdClasses.find(
+        (c) => c.key === tripLeaderClassKey,
+      );
+
       const payload = {
         title: formData.title,
         tripDate: formData.tripDate,
@@ -74,9 +169,11 @@ export default function CreateTripPage() {
         status: 1,
         routeGeoJson,
         schoolId: 1,
+        tripLeaderClassId: leaderClass ? leaderClass.id : null,
+        classIds: createdClasses.map((c) => c.id),
       };
-      // console.log(payload);
       const response = await api.post("/api/trips", payload);
+
       navigate(`/trips/${response.data.insertId || response.data.id || ""}`);
     } catch (err) {
       setSubmitError(
@@ -88,6 +185,77 @@ export default function CreateTripPage() {
       setLoading(false);
     }
   }
+
+  const leaderClassSection = (
+    <>
+      <label>כיתת אחראי הטיול (אופציונלי)</label>
+      <select
+        value={tripLeaderClassKey}
+        onChange={(e) => setTripLeaderClassKey(e.target.value)}
+      >
+        <option value="">ללא שיוך לכיתה</option>
+        {availableClassOptions.map((opt) => (
+          <option key={opt.key} value={opt.key}>
+            {opt.className}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+
+  const gradesSection = (
+    <section className="form-section">
+      <h2 className="form-section-title">שכבות וכיתות המשתתפות בטיול</h2>
+      <p className="form-section-hint">
+        בחר את השכבות המשתתפות בטיול, וקבע עבור כל שכבה את מספר הכיתות ואת שם
+        כל כיתה.
+      </p>
+
+      {grades.map((g, i) => (
+        <div key={g.grade} className="stop-card">
+          <label
+            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+          >
+            <input
+              type="checkbox"
+              checked={g.selected}
+              onChange={() => toggleGrade(i)}
+            />
+            שכבה {g.label}
+          </label>
+
+          {g.selected && (
+            <>
+              <label>מספר כיתות בשכבה</label>
+              <input
+                type="number"
+                min="1"
+                value={g.classCount}
+                onChange={(e) => updateClassCount(i, e.target.value)}
+              />
+
+              {g.classNames.map((name, j) => (
+                <div key={j}>
+                  <label>שם כיתה {j + 1}</label>
+                  <input
+                    type="text"
+                    value={name}
+                    placeholder={`${g.label}-${j + 1}`}
+                    onChange={(e) => updateClassName(i, j, e.target.value)}
+                  />
+                  {errors[`grade_${g.grade}_class_${j}`] && (
+                    <p className="error">
+                      {errors[`grade_${g.grade}_class_${j}`]}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      ))}
+    </section>
+  );
 
   return (
     <TripForm
@@ -108,6 +276,8 @@ export default function CreateTripPage() {
       submitLabel="צור טיול"
       loadingLabel="שומר..."
       writeAccess={user.role == "principal" || user.role == "coordinator"}
+      extraSection={gradesSection}
+      leaderClassSection={leaderClassSection}
     />
   );
 }

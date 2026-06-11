@@ -72,3 +72,31 @@ export async function getAllUsersBySchool(req, res) {
     res.status(500).json({ message: "טעינת המשתמשים נכשלה, נסה שנית" });
   }
 }
+
+export async function deleteUser(req, res, next) {
+  try {
+    const result = await usersService.deleteUser(
+      req.params.id,
+      req.user.userId,
+    );
+    log.info(`user ${req.params.id} deleted by ${req.user.userId}`);
+    res.status(200).json({ message: "המשתמש נמחק בהצלחה", ...result });
+  } catch (error) {
+    log.warn(`deleteUser error: ${error.message}`);
+    next(error);
+  }
+}
+
+export async function updateUserRole(req, res, next) {
+  try {
+    const result = await usersService.updateUserRole(
+      req.params.id,
+      req.body.role,
+    );
+    log.info(`role for user ${req.params.id} updated to ${req.body.role}`);
+    res.status(200).json({ message: "התפקיד עודכן בהצלחה", ...result });
+  } catch (error) {
+    log.warn(`updateUserRole error: ${error.message}`);
+    next(error);
+  }
+}

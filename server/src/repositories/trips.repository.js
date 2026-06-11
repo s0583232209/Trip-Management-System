@@ -2,7 +2,6 @@
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
-import { getByNationalId } from "./users.repository.js";
 export async function getTripDate(tripId) {
   const connection = await getConnection();
   const [rows] = await connection.execute(
@@ -112,13 +111,10 @@ export async function updateTrip(updateDetails) {
   try {
     await connection.beginTransaction();
 
-    const { id } = await getByNationalId(updateDetails.tripLeaderNationalId);
-    // console.log("this is id from from update trip of the trip leadre, id=", id);
-    // console.log(updateDetails, "updateDetails in repo");
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [
-        id,
+        updateDetails.tripLeaderId,
         updateDetails.title,
         updateDetails.tripDate || null,
         updateDetails.routeGeoJson || null,
@@ -129,6 +125,20 @@ export async function updateTrip(updateDetails) {
       `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
       [updateDetails.tripLeaderId],
     );
+
+    // משבץ את אחראי הטיול החדש גם בטבלת staff_trip,
+    // אחרת הוא לא יראה את הטיול ברשימת הטיולים שלו ו-getById שלו ייכשל (INNER JOIN על staff_trip)
+    const [existingStaff] = await connection.execute(
+      `SELECT 1 FROM staff_trip WHERE trip_id = ? AND staff_id = ? LIMIT 1`,
+      [updateDetails.tripId, updateDetails.tripLeaderId],
+    );
+    if (existingStaff.length === 0) {
+      await connection.execute(
+        `INSERT INTO staff_trip (staff_id, trip_id) VALUES (?, ?)`,
+        [updateDetails.tripLeaderId, updateDetails.tripId],
+      );
+    }
+
     await connection.commit();
     // console.log(rows, "rows from update trip repo");
     return rows;

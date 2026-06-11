@@ -9,6 +9,13 @@ export function isRole(...roles) {
   return roles.includes(user.role);
 }
 
+// ממיר תאריך (Date / מחרוזת ISO מהשרת / "YYYY-MM-DD") למחרוזת תאריך לפי שעון מקומי (ישראל),
+// בניגוד ל-toISOString שממיר ל-UTC ועלול להחזיר את היום הקודם
+function toLocalDateString(date) {
+  const d = date instanceof Date ? date : new Date(date);
+  return d.toLocaleDateString("en-CA");
+}
+
 // מנהל ורכז
 export const canManageTrip = () => isRole("principal", "coordinator");
 
@@ -24,12 +31,8 @@ export function canUpdateRoute(tripDate) {
   const user = getUser();
   if (isRole("principal", "coordinator")) return true;
   if (user.role === "trip leader") {
-    const today = new Date().toISOString().split("T")[0];
-    const date =
-      tripDate instanceof Date
-        ? tripDate.toISOString().split("T")[0]
-        : String(tripDate).split("T")[0];
-    return date === today;
+    const today = toLocalDateString(new Date());
+    return toLocalDateString(tripDate) === today;
   }
   return false;
 }
@@ -41,12 +44,8 @@ export const canHandleMinorEmergency = () =>
 // פתיחת/סגירת חירום קריטי — אחראי ביום הטיול
 export function canHandleCriticalEmergency(tripDate) {
   if (!isRole("trip leader")) return false;
-  const today = new Date().toISOString().split("T")[0];
-  const date =
-    tripDate instanceof Date
-      ? tripDate.toISOString().split("T")[0]
-      : String(tripDate).split("T")[0];
-  return date === today;
+  const today = toLocalDateString(new Date());
+  return toLocalDateString(tripDate) === today;
 }
 
 // העלאת קבצי תיעוד (מדיה) — מנהל, רכז, אחראי, מורה

@@ -122,6 +122,7 @@ export default function TripForm({
   stops,
   errors,
   submitError,
+  successMessage,
   loading,
   onFieldChange,
   onStopChange,
@@ -229,14 +230,12 @@ export default function TripForm({
               </>
             ) : (
               <>
-                <label>מספר ת.ז. של אחראי הטיול</label>
+                <label>אחראי הטיול</label>
                 <input
                   type="text"
                   name={leaderIdField}
-                  placeholder="9 ספרות *"
-                  required
                   readOnly
-                  value={formData[leaderIdField]}
+                  value={formData.tripLeaderName || ""}
                   onChange={onFieldChange}
                 />
               </>
@@ -280,6 +279,10 @@ export default function TripForm({
 
           {submitError && (
             <p className="error form-submit-error">{submitError}</p>
+          )}
+
+          {successMessage && (
+            <p className="form-submit-success">{successMessage}</p>
           )}
 
           {writeAccess && (

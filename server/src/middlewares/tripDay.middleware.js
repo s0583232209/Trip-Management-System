@@ -31,8 +31,10 @@ export default async function requireTripDay(req, res, next) {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    const tripDate = new Date(trips[0].trip_date).toISOString().split("T")[0];
-    const today = new Date().toISOString().split("T")[0];
+    // toDateString משתמש בשעון המקומי (ישראל), בניגוד ל-toISOString שממיר ל-UTC
+    // ועלול להחזיר את היום הקודם עבור תאריך שמיוצג כחצות מקומית
+    const tripDate = new Date(trips[0].trip_date).toDateString();
+    const today = new Date().toDateString();
 
     if (tripDate !== today) {
       log.warn(`requireTripDay: trip date ${tripDate} is not today ${today}`);

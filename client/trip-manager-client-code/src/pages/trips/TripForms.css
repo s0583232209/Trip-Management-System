@@ -78,6 +78,17 @@
   border-radius: var(--radius-sm);
 }
 
+.form-submit-success {
+  font-size: 15px;
+  padding: 10px 14px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: var(--radius-sm);
+  color: #166534;
+  font-weight: 600;
+  text-align: center;
+}
+
 /* ── Stops ── */
 .stop-card {
   background: var(--surface-2);

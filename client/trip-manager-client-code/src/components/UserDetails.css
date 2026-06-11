@@ -151,3 +151,33 @@ form:has(#fullName) .form-actions .auth-back-button:hover {
     flex-direction: column; /* במסכים קטנים הכפתורים יעמדו אחד מעל השני */
   }
 }
+
+.add-employee-success {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  border-radius: var(--radius-sm, 6px);
+  width: 100%;
+}
+
+.add-employee-error {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: var(--radius-sm, 6px);
+  width: 100%;
+}
+
+form:has(#fullName) .form-actions button[type="submit"]:disabled {
+  background-color: #93c5fd;
+  border-color: #93c5fd;
+  cursor: not-allowed;
+}

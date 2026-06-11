@@ -5,7 +5,7 @@ import * as usersRepo from "../repositories/users.repository.js";
 export async function getUserById(id) {
   console.log("in get by id from service");
   const user = await usersRepo.getById(id);
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error("משתמש לא נמצא");
   return user;
 }
 
@@ -23,7 +23,7 @@ export async function changePassword(
   const { hashedPassword } = await usersRepo.getPasswordByUserId(id);
   const isMatch = await bcrypt.compare(currentPassword, hashedPassword);
   if (!isMatch) {
-    const err = new Error("Incorrect current password");
+    const err = new Error("סיסמא נוכחית שגויה");
     err.status = 400;
     throw err;
   }
@@ -38,9 +38,7 @@ export async function changePassword(
       ),
     );
     if (comparisons.some((m) => m)) {
-      const err = new Error(
-        "New password cannot be a previously used password",
-      );
+      const err = new Error("לא ניתן להשתמש בסיסמא שהשתמשת בה בעבר");
       err.status = 400;
       throw err;
     }

@@ -5,3 +5,19 @@ form:has(#schoolName) button {
 form:has(#schoolName) button:hover {
   background-color: var(--earth-dark);
 }
+
+form:has(#schoolName) .error {
+  color: #d92d20;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0.35rem 0 0 0;
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+
+form:has(#schoolName) .error::before {
+  content: "⚠️";
+  margin-left: 4px;
+  font-size: 0.9rem;
+}

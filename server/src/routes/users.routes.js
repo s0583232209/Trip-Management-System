@@ -20,6 +20,11 @@ router.get(
 ); //   changePassword,
 // );
 
+router.put(
+  "/:id",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  updateProfile,
+);
 router.delete("/:id", requireRole("principal"), (req, res) => {
   res.send("users: delete user");
 });

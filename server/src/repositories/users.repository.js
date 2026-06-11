@@ -17,7 +17,7 @@ export const getUserRoles = async (userId) => {
     `,
     [userId],
   );
-  if (!rows || rows.length === 0) throw new Error(`No roles found for user ${userId}`);
+  if (!rows || rows.length === 0) throw new Error(`לא נמצאו הרשאות למשתמש ${userId}`);
   return rows;
 };
 export async function getUserRolesOnTripDay(userId) {
@@ -43,7 +43,7 @@ export async function getByNationalId(nationalId) {
       "SELECT * FROM users WHERE national_id = ?;",
       [nationalId],
     );
-    if (!rows[0]) throw new Error("User not found");
+    if (!rows[0]) throw new Error("משתמש לא נמצא");
     log.info(`getById users successful for national id: ${nationalId}`);
     return rows[0];
   } catch (err) {
@@ -60,7 +60,7 @@ export async function getById(id) {
       "SELECT * FROM users WHERE id = ?;",
       [id],
     );
-    if (!rows[0]) throw new Error("User not found");
+    if (!rows[0]) throw new Error("משתמש לא נמצא");
     log.info(`getById users successful for id: ${id}`);
     return rows[0];
   } catch (err) {
@@ -188,32 +188,37 @@ export async function addUser(details, principal) {
   }
 }
 
-// export async function updateProfile(id, details) {
-//   try {
-//     log.info(
-//       `updateProfile called for userId: ${details.userId}, details: ${JSON.stringify(details)}`,
-//     );
-//     const connection = await getConnection();
-//     const [result] = await connection.execute(
-//       `UPDATE users SET name=?, username=?, phone=?, street=?, city=?, zipcode=?, house_number=? WHERE id=?`,
-//       [
-//         details.name,
-//         details.username,
-//         details.phoneNumber,
-//         details.street,
-//         details.city,
-//         details.zipcode,
-//         details.house_number ?? null,
-//         id,
-//       ],
-//     );
-//     log.info(`updateProfile successful for id: ${id}`);
-//     return result.affectedRows > 0;
-//   } catch (err) {
-//     log.error(`updateProfile error: ${err.message}`);
-//     throw err;
-//   }
-// }
+export async function updateProfile(id, body) {
+  const fields = [];
+  const values = [];
+  const fullName = body.fullName;
+  const email = body.userEmail;
+  const phone = body.userPhoneNumber;
+  if (fullName !== undefined) { fields.push("full_name=?"); values.push(fullName); }
+  if (email !== undefined) { fields.push("email=?"); values.push(email); }
+  if (phone !== undefined) { fields.push("phone=?"); values.push(phone); }
+  if (fields.length === 0) return true;
+  try {
+    log.info(`updateProfile called for userId: ${id}`);
+    const connection = await getConnection();
+    const [result] = await connection.execute(
+      `UPDATE users SET ${fields.join(", ")} WHERE id=?`,
+      [...values, id],
+    );
+    await dblog({
+      userId: id,
+      actionType: "update_profile",
+      tableName: "users",
+      message: `profile updated for user ${id}`,
+      newValues: JSON.stringify(body),
+    });
+    log.info(`updateProfile successful for id: ${id}`);
+    return result.affectedRows > 0;
+  } catch (err) {
+    log.error(`updateProfile error: ${err.message}`);
+    throw err;
+  }
+}
 
 export async function getPasswordByUserId(userId) {
   try {
@@ -222,7 +227,7 @@ export async function getPasswordByUserId(userId) {
       `SELECT password_hash AS hashedPassword FROM user_passwords WHERE user_id=? AND is_active=TRUE`,
       [userId],
     );
-    if (!rows[0]) throw new Error("Password not found");
+    if (!rows[0]) throw new Error("סיסמה לא נמצאה");
     return rows[0];
   } catch (err) {
     log.error(`getPasswordByUserId error: ${err.message}`);

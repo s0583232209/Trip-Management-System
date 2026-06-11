@@ -9,23 +9,20 @@ export async function getUserById(req, res) {
     res.status(200).json(user);
   } catch (err) {
     log.warn(`getById error: ${err.message}`);
-    res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: "משתמש לא נמצא" });
   }
 }
 
 export async function updateProfile(req, res) {
   try {
-    log.info(
-      `updateProfile controller - userId: ${req.params.id}, body: ${JSON.stringify(req.body)}`,
-    );
-    // console.log("updateProfile...............................");
+    if (req.user.userId != req.params.id && req.user.role !== "principal")
+      return res.status(403).json({ message: "אין הרשאה לעדכן פרופיל זה" });
+    log.info(`updateProfile controller - userId: ${req.params.id}`);
     const user = await usersService.updateProfile(req.params.id, req.body);
     res.status(200).json(user);
   } catch (err) {
     log.warn(`updateProfile error: ${err.message}`);
-    res
-      .status(500)
-      .json({ message: "Failed to update profile", error: err.message });
+    res.status(500).json({ message: "עדכון הפרופיל נכשל, נסה שנית" });
   }
 }
 
@@ -35,7 +32,7 @@ export async function changePassword(req, res) {
     // console.log("userId=", req.user.userId, "params id=", req.params.id);
     
     if (req.user.userId != req.params.id)
-      return res.status(401).send("access denied");
+      return res.status(401).json({ message: "אין הרשאה לשנות סיסמא של משתמש אחר" });
     log.info(`change passwrod controller - userId: ${req.params.id}}`);
     const user = await usersService.changePassword(req.params.id, req.body);
     res.status(200).json(user);
@@ -47,9 +44,7 @@ export async function changePassword(req, res) {
 export async function addUser(req, res) {
   try {
     if (req.body.role === "principal")
-      return res
-        .status(401)
-        .json({ message: "Bad Request: you can not add another principal" });
+      return res.status(401).json({ message: "לא ניתן להוסיף מנהל נוסף" });
     const user = await usersService.addUser(
       {
         ...req.body,
@@ -60,7 +55,11 @@ export async function addUser(req, res) {
     res.status(200).json(user);
   } catch (err) {
     log.warn(`addUser error: ${err.message}`);
-    res.status(500).json({ message: "Failed to add user" });
+    const isDuplicate = err.message?.includes("Duplicate entry");
+    const message = isDuplicate
+      ? "משתמש עם פרטים אלו כבר קיים במערכת"
+      : "הוספת המשתמש נכשלה, נסה שנית מאוחר יותר";
+    res.status(500).json({ message });
   }
 }
 export async function getAllUsersBySchool(req, res) {
@@ -70,6 +69,6 @@ export async function getAllUsersBySchool(req, res) {
     res.status(200).json(users);
   } catch (err) {
     log.warn(`getAllUsers error: ${err.message}`);
-    res.status(500).json({ message: "Failed to get all users" });
+    res.status(500).json({ message: "טעינת המשתמשים נכשלה, נסה שנית" });
   }
 }

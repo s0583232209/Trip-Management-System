@@ -220,6 +220,28 @@ export default function TripsLeadersKit() {
           </p>
 
           {/* כל סלוט פתוח מציג טופס העלאה נפרד עם documentType ייחודי (extra_1, extra_2, ...) */}
+          {additionalSlots.map((key, i) => (
+            <div
+              key={key}
+              className="kit-doc-card"
+              style={{ marginBottom: "1rem" }}
+            >
+              <div className="kit-doc-header">
+                <span className="kit-doc-badge">
+                  {REQUIRED_DOCS.length + i + 1}
+                </span>
+                <h3 className="kit-doc-title">מסמך נוסף {i + 1}</h3>
+                <button
+                  type="button"
+                  className="stop-remove-btn"
+                  style={{ marginRight: "auto" }}
+                  onClick={() => removeExtraSlot(key)}
+                >
+                  הסר
+                </button>
+              </div>
+              <UploadTripFile
+                compact
           <div className="kit-required-grid">
             {additionalSlots.map((key, i) => (
               <DocCard

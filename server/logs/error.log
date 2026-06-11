@@ -81,3 +81,5 @@
 10.06.2026, 17:02:14 [ERROR]: EmergenciesController - create error: Incorrect integer value: 'open' for column 'status' at row 1
 11.06.2026, 12:38:30 [ERROR]: EmergenciesController - create error: Cannot open emergency — today is not the trip date
 11.06.2026, 13:26:01 [ERROR]: EmergenciesController - create error: Cannot open emergency — today is not the trip date
+11.06.2026, 20:10:05 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+11.06.2026, 20:10:17 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null

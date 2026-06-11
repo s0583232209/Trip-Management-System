@@ -111,6 +111,7 @@ export async function updateTrip(updateDetails) {
   try {
     await connection.beginTransaction();
 
+    // updateDetails.tripLeaderId כבר נפתר (resolved) ל-DB id ע"י trips.service.js
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [

@@ -1,4 +1,5 @@
 // permissions.js — בדיקות הרשאות צד לקוח
+import { getTodayInIsrael, toDateOnlyString } from "./dateUtils.js";
 
 export function getUser() {
   return JSON.parse(sessionStorage.getItem("current-user")) || {};

@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import TripForm, { emptyStop } from "./TripForm.jsx";
 import { canUpdateRoute, canViewTripDetails } from "../../permissions.js";
+import { toDateOnlyString } from "../../dateUtils.js";
 import "./TripsPage.css";
 import "./TripForms.css";
 
@@ -56,15 +57,10 @@ export default function UpdateTripPage() {
         }
         setFormData({
           title: trip.title || "",
-          // toLocaleDateString("en-CA") מפרק לפי שעון מקומי (ישראל) ל-YYYY-MM-DD,
-          // בניגוד ל-toISOString שממיר ל-UTC ועלול להחזיר את היום הקודם
-          tripDate: trip.trip_date
-            ? new Date(trip.trip_date).toLocaleDateString("en-CA")
-            : "",
-          // ה-select של אחראי הטיול ב-TripForm מציג ובוחר לפי trip_leader_id (DB id),
-          // לכן שולפים את הערך הקיים מ-trip.trip_leader_id כדי שהאחראי הנוכחי יופיע כברירת מחדל
-          tripLeaderNationalId:
-            trip.trip_leader_id != null ? String(trip.trip_leader_id) : "",
+          // trip.trip_date מגיע מהשרת כמחרוזת "YYYY-MM-DD" — מתאים ישירות ל-<input type="date">
+          tripDate: toDateOnlyString(trip.trip_date),
+          // תמיכה בשמות שונים של מפתחות שיכולים להגיע מה-DB (camelCase או snake_case)
+          tripLeaderNationalId: trip.tripLeaderNationalId || "",
           tripLeaderName: trip.tripLeaderFullName || "",
         });
 

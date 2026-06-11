@@ -82,6 +82,17 @@ async function addUserPrincipal(details, connection) {
       details.postalCode || null,
     ],
   );
+  await dblog({
+    actionType: "create_school",
+    tableName: "schools",
+    message: `school created/ensured: ${details.name}`,
+    newValues: JSON.stringify({
+      name: details.name,
+      institutionNumber: details.institutionNumber,
+      city: details.city,
+      email: details.email,
+    }),
+  });
   const [result] = await connection.execute(
     "INSERT INTO users (school_id,full_name, national_id, email, phone) VALUES (?,?,?,?,?);",
     [
@@ -92,6 +103,20 @@ async function addUserPrincipal(details, connection) {
       details.userPhoneNumber || null,
     ],
   );
+  await dblog({
+    userId: result.insertId,
+    actionType: "create_user",
+    tableName: "users",
+    message: `user created with id ${result.insertId}`,
+    newValues: JSON.stringify({
+      id: result.insertId,
+      schoolId: schoolResult[0].insertId,
+      fullName: details.fullName,
+      nationalId: details.nationalId,
+      email: details.userEmail || null,
+      phone: details.userPhoneNumber || null,
+    }),
+  });
   return result.insertId;
 }
 export async function addUser(details, principal) {
@@ -116,16 +141,43 @@ export async function addUser(details, principal) {
       console.log(result, "result from else add user");
       id = result.insertId;
       console.log(id, "this is the new id");
+      await dblog({
+        userId: id,
+        actionType: "create_user",
+        tableName: "users",
+        message: `user created with id ${id}`,
+        newValues: JSON.stringify({
+          id,
+          schoolId: details.schoolId,
+          fullName: details.fullName,
+          nationalId: details.nationalId,
+          email: details.userEmail || null,
+          phone: details.userPhoneNumber || null,
+        }),
+      });
     }
     console.log(details.role, "this is the role");
     await connection.execute(
         "INSERT IGNORE INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
       [id, details.password],
     );
+    await dblog({
+      userId: id,
+      actionType: "create_password",
+      tableName: "user_passwords",
+      message: `password created for user ${id}`,
+    });
     await connection.execute(
       `INSERT IGNORE INTO user_roles (user_id,role_name)VALUES(?,?)`,
       [id, details.role],
     );
+    await dblog({
+      userId: id,
+      actionType: "assign_role",
+      tableName: "user_roles",
+      message: `role '${details.role}' assigned to user ${id}`,
+      newValues: JSON.stringify({ userId: id, role: details.role }),
+    });
     await connection.commit();
     log.info(`addUser successful, user id: ${id}`);
     return { userId: id, ...details };
@@ -218,6 +270,12 @@ export async function updatePassword(userId, hashedPassword) {
       `INSERT IGNORE INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE)`,
       [userId, hashedPassword],
     );
+    await dblog({
+      userId,
+      actionType: "update_password",
+      tableName: "user_passwords",
+      message: `password updated for user ${userId}`,
+    });
     await connection.commit();
     return result.affectedRows > 0;
   } catch (err) {

@@ -55,10 +55,27 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       ],
     );
     const newTripId = rows.insertId;
+    await dblog({
+      userId: tripLeaderDbId,
+      actionType: "create_trip",
+      tableName: "trips",
+      message: `trip created with id ${newTripId}`,
+      newValues: JSON.stringify({ id: newTripId, ...tripDetails }),
+    });
     await connection.execute(
       `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
       [tripLeaderDbId],
     );
+    await dblog({
+      userId: tripLeaderDbId,
+      actionType: "assign_role",
+      tableName: "user_roles",
+      message: `role 'trip leader' assigned to user ${tripLeaderDbId}`,
+      newValues: JSON.stringify({
+        userId: tripLeaderDbId,
+        role: "trip leader",
+      }),
+    });
 
     // 3. בניית מערך של כל אנשי הצוות שצריכים להשתבץ לטיול (אחראי הטיול + מנהל + רכז)
     // נשתמש ב-Set כדי למנוע כפילויות במקרה שאחראי הטיול הוא גם הרכז
@@ -156,6 +173,12 @@ export async function addStaff(tripsId, staffIdsArray = []) {
       params.push(staffId, newTripId);
     });
     await connection.execute(sql, params);
+    await dblog({
+      actionType: "add_staff_to_trip",
+      tableName: "staff_trip",
+      message: `staff [${staffIdsArray.join(", ")}] added to trip ${newTripId}`,
+      newValues: JSON.stringify({ tripId: newTripId, staffIds: staffIdsArray }),
+    });
   }
 }
 export async function deleteStaff(tripId, staffId) {
@@ -205,7 +228,6 @@ export async function addExternalStaff(tripId, staffDetails) {
     //   firstAidProvider:4,
     //   guide:5
     // };
-
     console.log(staffDetails.role, "role from frontend");
     // console.log(roles[staffDetails.role], "role", staffDetails);
     connection.beginTransaction();
@@ -214,10 +236,22 @@ export async function addExternalStaff(tripId, staffDetails) {
       [staffDetails.fullName, staffDetails.role, staffDetails.phoneNumber],
     );
     console.log(result.insertId, "id from add external staff");
+    await dblog({
+      actionType: "create_external_employee",
+      tableName: "external_employees",
+      message: `external employee created with id ${result.insertId}`,
+      newValues: JSON.stringify({ id: result.insertId, ...staffDetails }),
+    });
     const res = await connection.execute(
       `INSERT INTO external_staff_trip (trip_id, staff_id) VALUES (?,?)`,
       [tripId, result.insertId],
     );
+    await dblog({
+      actionType: "add_external_staff_to_trip",
+      tableName: "external_staff_trip",
+      message: `external staff ${result.insertId} added to trip ${tripId}`,
+      newValues: JSON.stringify({ tripId, staffId: result.insertId }),
+    });
     connection.commit();
   } catch (err) {
     console.log(err);

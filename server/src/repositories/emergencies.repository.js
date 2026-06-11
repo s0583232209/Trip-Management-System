@@ -38,6 +38,13 @@ export async function createEmergency(emergencyData) {
         emergencyData.locationLng || null,
       ],
     );
+    await dblog({
+      userId: emergencyData.openedBy ?? null,
+      actionType: "create_emergency",
+      tableName: "emergencies",
+      message: `emergency created with id ${result.insertId} for trip ${emergencyData.tripId}`,
+      newValues: JSON.stringify({ id: result.insertId, ...emergencyData }),
+    });
     return result;
   } catch (error) {
     log.error(`Error occurred while creating emergency: ${error.message}`);

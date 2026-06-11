@@ -1,5 +1,6 @@
 //this is BL layer
 import * as emergenciesRepository from "../repositories/emergencies.repository.js";
+import * as tripsRepository from "../repositories/trips.repository.js";
 import loggerService from "./logger.service.js";
 
 export async function getEmergenciesByTripId(tripId) {
@@ -7,6 +8,19 @@ export async function getEmergenciesByTripId(tripId) {
 }
 
 export async function createEmergency(emergencyData) {
+  const trip = await tripsRepository.getTripDate(emergencyData.tripId);
+  if (!trip) {
+    const err = new Error("Trip not found");
+    err.status = 402;
+    throw err;
+  }
+  const tripDate = new Date(trip.trip_date).toDateString();
+  const today = new Date().toDateString();
+  if (tripDate !== today) {
+    const err = new Error("Cannot open emergency — today is not the trip date");
+    err.status = 402;
+    throw err;
+  }
   const result = await emergenciesRepository.createEmergency(emergencyData);
 
   await loggerService({

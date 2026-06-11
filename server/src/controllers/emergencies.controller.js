@@ -43,7 +43,7 @@ export async function create(req, res) {
     });
   } catch (error) {
     log.error(`EmergenciesController - create error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(error.status || 500).json({ message: error.message });
   }
 }
 

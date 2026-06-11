@@ -136,4 +136,16 @@ export async function addExternalStaff(tripId, staffDetails) {
     log.warn(`error: ${err.message}, from addExternalStaff in trips.service`);
     throw err;
   }
+  
 }
+export async function closeTrip(tripId){
+  try{
+    const closedTrip = await tripsRepo.closeTrip(tripId);
+    log.info(`trip with id: ${tripId} closed successfully`);
+    return closedTrip;
+  }catch(err){
+    log.warn(`error: ${err.message}, from closeTrip in trips.service`);
+    throw err;
+  }
+}
+

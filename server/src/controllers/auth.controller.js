@@ -19,31 +19,34 @@ export async function register(req, res) {
   }
 }
 
-// export function refreshToken(req, res) {
-//   const token = req.cookies.refreshToken;
-//   if (!token)
-//     return res.status(401).json({ message: "No refresh token provided" });
-//   try {
-//   const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-//     const accessToken = authService.createAccessToken({
-//       email: decoded.email,
-//       userId: decoded.userId,
-//     });
-//     res.cookie("accessToken", accessToken, {
-//       httpOnly: true,
-//       secure: false,
-//       sameSite: "lax",
-//       maxAge: 60 * 1000 * 15,
-//     });
-//     res.status(200).json({ message: "Token refreshed" });
-//   } catch (err) {
-//     log.warn(`refreshToken error: ${err.message}`);
-//     const status = err.name === "TokenExpiredError" ? 401 : 403;
-//     res
-//       .status(status)
-//       .json({ message: "Session expired, please log in again" });
-//   }
-// }
+export function refreshToken(req, res) {
+  const token = req.cookies.refreshToken;
+  if (!token)
+    return res.status(401).json({ message: "No refresh token provided" });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    const accessToken = authService.createAccessToken({
+      nationalId: decoded.nationalId,
+      institutionNumber: decoded.institutionNumber,
+      userId: decoded.userId,
+      currentTime: new Date(),
+      role: decoded.role,
+    });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 60 * 1000 * 15,
+    });
+    res.status(200).json({ message: "Token refreshed" });
+  } catch (err) {
+    log.warn(`refreshToken error: ${err.message}`);
+    const status = err.name === "TokenExpiredError" ? 401 : 403;
+    res
+      .status(status)
+      .json({ message: "Session expired, please log in again" });
+  }
+}
 
 export function logout(req, res) {
   res.clearCookie("accessToken");

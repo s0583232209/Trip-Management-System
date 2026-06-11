@@ -107,3 +107,11 @@ export async function addExternalStaff(req, res) {
     res.status(500).json({ message: err.message });
   }
 }
+export async function closeTrip(req,res){
+  try{
+    const res= await tripsService.closeTrip(req.params.id);
+    res.status(401).json({message: "trip closed successfully"})
+  }catch(err){
+    res.status(500).json({message: err.message});
+  }
+}

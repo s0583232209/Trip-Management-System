@@ -3,6 +3,14 @@ import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
 import { getByNationalId } from "./users.repository.js";
+export async function getTripDate(tripId) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT trip_date FROM trips WHERE id = ?`,
+    [tripId],
+  );
+  return rows[0] || null;
+}
 export async function getAll(userId) {
   const connection = await getConnection();
   const res = await connection.execute(
@@ -206,4 +214,12 @@ export async function addExternalStaff(tripId, staffDetails) {
     connection.rollback();
     throw err;
   }
+}
+export async function closeTrip(tripId) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_status=3 WHERE id=?`,
+    [tripId],
+  );
+  return rows;
 }

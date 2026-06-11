@@ -11,27 +11,22 @@ export default async function verifyToken(req, res, next) {
   const token = req.cookies.accessToken;
   if (!token) {
     log.warn(`verifyToken - no token provided for path: ${req.path}`);
-    return res.status(401).send("No token provided");
+    return res.status(401).json({ message: "No token provided", code: "NO_TOKEN" });
   }
-  try {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        log.error(`verifyToken - verification error: ${err.message}`);
-        return res.status(403).send("Failed to authenticate");
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      if (err.name === "TokenExpiredError") {
+        log.warn(`verifyToken - session timeout`);
+        return res.status(401).json({ message: "Session timeout", code: "TOKEN_EXPIRED" });
       }
-      req.user = decoded;
-      // console.log("decoded:", decoded);
-      log.info(
-        `verifyToken - successful for user: ${decoded.role} (id number: ${decoded.id})`,
-      );
-      next();
-    });
-  } catch (err) {
-    if (err.name === "TokenExpiredError") {
-      log.warn(`verifyToken - session timeout`);
-      return res.status(401).send("Session timeout");
+      log.error(`verifyToken - verification error: ${err.message}`);
+      return res.status(403).json({ message: "Failed to authenticate", code: "INVALID_TOKEN" });
     }
-    log.error(`verifyToken - error: ${err.message}`);
-    return res.status(403).send("Failed to authenticate");
-  }
+    req.user = decoded;
+    // console.log("decoded:", decoded);
+    log.info(
+      `verifyToken - successful for user: ${decoded.role} (id number: ${decoded.userId})`,
+    );
+    next();
+  });
 }

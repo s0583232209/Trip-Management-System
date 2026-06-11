@@ -51,7 +51,7 @@ export async function login(user) {
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
   if (!isMatch) throw new Error("Incorrect password");
   // console.log(user, row);
-  const roles= await getUserRoles(row.userId);
+  const roles = await getUserRoles(row.userId);
   // console.log(roles[0].role_name);
   const payload = {
     nationalId: user.nationalId,
@@ -77,7 +77,7 @@ export async function register(body) {
     body.password || body.nationalId,
     12,
   );
-  const user = await addUser({ ...body, password: hashedPassword },true);
+  const user = await addUser({ ...body, password: hashedPassword }, true);
   delete user.password;
   // console.log(user);
   const payload = {

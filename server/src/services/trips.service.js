@@ -78,6 +78,17 @@ export async function deleteTrip(tripId) {
 }
 export async function approveTrip(tripId) {
   try {
+    // אישור הטיול חסום אם קיימת כיתה המשובצת לטיול שאין לה אף איש צוות
+    const uncoveredClasses = await tripsRepo.getUncoveredClasses(tripId);
+    if (uncoveredClasses.length > 0) {
+      const names = uncoveredClasses.map((c) => c.class_name).join(", ");
+      const err = new Error(
+        `לא ניתן לאשר את הטיול: לכיתות הבאות אין מורה משובץ: ${names}`,
+      );
+      err.status = 400;
+      throw err;
+    }
+
     const parentToken = authService.createParentToken(tripId);
     const approvedTrip = await tripsRepo.approveTrip(tripId, parentToken);
     log.info(`approved trip with id: ${tripId}`);
@@ -88,9 +99,9 @@ export async function approveTrip(tripId) {
     throw err;
   }
 }
-export async function addStaff(tripId, staffIds) {
+export async function addStaff(tripId, staffAssignments) {
   try {
-    await tripsRepo.addStaff(tripId, staffIds);
+    await tripsRepo.addStaff(tripId, staffAssignments);
     log.info(`staff added to trip: ${tripId}`);
   } catch (err) {
     log.warn(`error: ${err.message}, from addStaff in trips.service`);
@@ -133,7 +144,17 @@ export async function addExternalStaff(tripId, staffDetails) {
     log.warn(`error: ${err.message}, from addExternalStaff in trips.service`);
     throw err;
   }
-  
+
+}
+export async function deleteExternalStaff(tripId, staffId) {
+  try {
+    const res = await tripsRepo.deleteExternalStaff(tripId, staffId);
+    log.info(`external staff ${staffId} removed from trip: ${tripId}`);
+    return res;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from deleteExternalStaff in trips.service`);
+    throw err;
+  }
 }
 export async function closeTrip(tripId){
   try{

@@ -20,7 +20,7 @@ const EXTERNAL_ROLE_LABELS = {
   guide:"מדריך טיולים",
 };
 
-function ContactCard({ name, roles, phone, email, onDelete }) {
+function ContactCard({ name, roles, className, phone, email, onDelete }) {
   return (
     <div style={{
       background: "#fff",
@@ -34,6 +34,11 @@ function ContactCard({ name, roles, phone, email, onDelete }) {
     }}>
       <span style={{ fontWeight: 700, fontSize: "1rem", color: "#1e293b" }}>{name}</span>
       <span style={{ color: "#6366f1", fontSize: "0.82rem", fontWeight: 600 }}>{roles}</span>
+      {className && (
+        <span style={{ color: "#374151", fontSize: "0.85rem" }}>
+          כיתה: <strong>{className}</strong>
+        </span>
+      )}
       {phone && (
         <a href={`tel:${phone}`} style={{ color: "#374151", fontSize: "0.9rem", textDecoration: "none" }}>
           📞 {phone}
@@ -86,6 +91,16 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
     }
   }
 
+  async function handleDeleteExternalStaff(staffId) {
+    if (!window.confirm("האם להסיר את איש הצוות החיצוני מהטיול?")) return;
+    try {
+      await api.delete(`/api/trips/${tripId}/external-staff/${staffId}`);
+      fetchStaff();
+    } catch (err) {
+      alert(err.response?.data?.message || "הסרת איש הצוות החיצוני נכשלה, נסה שנית");
+    }
+  }
+
   // Group by role — coordinator is excluded (not present on trip day)
   const grouped = {};
   ROLE_ORDER.forEach((r) => (grouped[r] = []));
@@ -119,6 +134,7 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
                   key={emp.id}
                   name={emp.full_name}
                   roles={emp.displayRoles}
+                  className={emp.class_name}
                   phone={emp.phone}
                   email={emp.email}
                   onDelete={!readOnly && canManageTrip() ? () => handleDeleteStaff(emp.id) : undefined}
@@ -136,7 +152,13 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "1rem" }}>
             {staff.externalEmployees.map((emp) => (
-              <ContactCard key={emp.id} name={emp.full_name ?? "—"} roles={EXTERNAL_ROLE_LABELS[emp.role] ?? emp.role} phone={emp.phone} />
+              <ContactCard
+                key={emp.id}
+                name={emp.full_name ?? "—"}
+                roles={EXTERNAL_ROLE_LABELS[emp.role] ?? emp.role}
+                phone={emp.phone}
+                onDelete={!readOnly && canManageTrip() ? () => handleDeleteExternalStaff(emp.id) : undefined}
+              />
             ))}
           </div>
         </section>

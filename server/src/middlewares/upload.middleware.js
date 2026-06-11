@@ -27,8 +27,8 @@ const storage = multer.diskStorage({
 
   // קובע את שם הקובץ בדיסק: timestamp + שם הקובץ המקורי, כדי למנוע התנגשויות שמות
   filename: (req, file, cb) => {
+    file.originalname = Buffer.from(file.originalname, "latin1").toString("utf8");
     const fileName = Date.now() + "-" + file.originalname;
-
     cb(null, fileName);
   },
 });

@@ -66,13 +66,15 @@ export async function approveTrip(req, res) {
     log.info(`trip with id: ${req.params.id} approved successfully`);
     res.status(201).json(trip);
   } catch (err) {
-    log.warn(`approving trip failed`);
-    res.status(500).json("Approving failed");
+    log.warn(`approving trip failed: ${err.message}`);
+    res
+      .status(err.status || 500)
+      .json({ message: err.message || "Approving failed" });
   }
 }
 export async function addStaff(req, res) {
   try {
-    await tripsService.addStaff(req.params.id, req.body.staffIds);
+    await tripsService.addStaff(req.params.id, req.body.staffAssignments);
     log.info(`staff added to trip: ${req.params.id}`);
     res.status(201).json({ message: "Staff added successfully" });
   } catch (err) {
@@ -105,6 +107,16 @@ export async function addExternalStaff(req, res) {
     res.status(201).json({ message: "External staff added successfully" });
   } catch (err) {
     log.warn(`adding external staff failed: ${err.message}`);
+    res.status(500).json({ message: err.message });
+  }
+}
+export async function deleteExternalStaff(req, res) {
+  try {
+    await tripsService.deleteExternalStaff(req.params.id, req.params.staffId);
+    log.info(`external staff ${req.params.staffId} removed from trip: ${req.params.id}`);
+    res.status(201).json({ message: "External staff deleted successfully" });
+  } catch (err) {
+    log.warn(`deleting external staff failed: ${err.message}`);
     res.status(500).json({ message: err.message });
   }
 }

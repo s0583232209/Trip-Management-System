@@ -162,8 +162,8 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
                     <option value="1">מאבטח חמוש</option>
                     <option value="2">חובש מלווה</option>
                     <option value="3">פראמדיק / רופא</option>
-                    <option value="4">מע"ר</option>
-                    <option value="5">אחר / מדריך טיולים</option>
+                    <option value="4">אחר / מדריך טיולים</option>
+                    <option value="5">מע"ר</option>
                   </select>
                 </div>
               </div>

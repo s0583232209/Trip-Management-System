@@ -133,6 +133,8 @@ export default function TripForm({
   submitLabel,
   loadingLabel,
   writeAccess,
+  extraSection,
+  leaderClassSection,
 }) {
   const [users, setUsers] = useState([]);
 
@@ -243,6 +245,8 @@ export default function TripForm({
             {errors[leaderIdField] && (
               <p className="error">{errors[leaderIdField]}</p>
             )}
+
+            {writeAccess && leaderClassSection}
           </section>
 
           {/* ── Stops / Route ── */}
@@ -276,6 +280,8 @@ export default function TripForm({
               </button>
             )}
           </section>
+
+          {extraSection}
 
           {submitError && (
             <p className="error form-submit-error">{submitError}</p>

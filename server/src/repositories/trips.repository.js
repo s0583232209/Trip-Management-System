@@ -96,7 +96,32 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
     const finalStaffIds = Array.from(allStaffToInsert);
 
     // 4. הכנסה מרוכזת (Bulk Insert) לטבלת staff_trip
-    await addStaff(newTripId, finalStaffIds);
+    // אחראי הטיול משובץ גם לכיתה שנבחרה עבורו (אם נבחרה)
+    await addStaff(
+      newTripId,
+      finalStaffIds.map((staffId) => ({
+        staffId,
+        classId:
+          staffId === tripLeaderDbId
+            ? tripDetails.tripLeaderClassId || null
+            : null,
+      })),
+    );
+
+    // 5. קישור הכיתות שנוצרו עבור הטיול לטבלת trip_classes,
+    // לצורך בדיקת כיסוי כיתות (כל כיתה משובצת = יש לה לפחות מורה אחד) לפני אישור הטיול
+    const classIds = tripDetails.classIds || [];
+    if (classIds.length > 0) {
+      const placeholders = classIds.map(() => "(?, ?)").join(", ");
+      const params = [];
+      classIds.forEach((classId) => {
+        params.push(newTripId, classId);
+      });
+      await connection.execute(
+        `INSERT IGNORE INTO trip_classes (trip_id, class_id) VALUES ${placeholders}`,
+        params,
+      );
+    }
 
     // console.log(rows, "end of add trip in service");
     await connection.commit();
@@ -155,6 +180,22 @@ export async function deleteTrip(tripId) {
   ]);
   return response;
 }
+// מאתר כיתות שמשובצות לטיול (trip_classes) אך אין להן אף איש צוות ב-staff_trip
+export async function getUncoveredClasses(tripId) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT c.id, c.class_name, c.grade
+     FROM trip_classes tc
+     JOIN classes c ON c.id = tc.class_id
+     WHERE tc.trip_id = ?
+       AND NOT EXISTS (
+         SELECT 1 FROM staff_trip st
+         WHERE st.trip_id = tc.trip_id AND st.class_id = tc.class_id
+       )`,
+    [tripId],
+  );
+  return rows;
+}
 export async function approveTrip(tripId, parentToken) {
   const connection = await getConnection();
   try {
@@ -170,25 +211,25 @@ export async function approveTrip(tripId, parentToken) {
     throw err;
   }
 }
-export async function addStaff(tripsId, staffIdsArray = []) {
+export async function addStaff(tripsId, staffAssignments = []) {
   const connection = await getConnection();
   const newTripId = tripsId;
   // console.log(newTripId);
-  // console.log(staffIdsArray);
+  // console.log(staffAssignments);
 
-  if (staffIdsArray.length > 0) {
-    const placeholders = staffIdsArray.map(() => "(?, ?)").join(", ");
-    const sql = `INSERT IGNORE INTO staff_trip (staff_id, trip_id) VALUES ${placeholders}`;
+  if (staffAssignments.length > 0) {
+    const placeholders = staffAssignments.map(() => "(?, ?, ?)").join(", ");
+    const sql = `INSERT IGNORE INTO staff_trip (staff_id, trip_id, class_id) VALUES ${placeholders}`;
     const params = [];
-    staffIdsArray.forEach((staffId) => {
-      params.push(staffId, newTripId);
+    staffAssignments.forEach(({ staffId, classId }) => {
+      params.push(staffId, newTripId, classId ?? null);
     });
     await connection.execute(sql, params);
     await dblog({
       actionType: "add_staff_to_trip",
       tableName: "staff_trip",
-      message: `staff [${staffIdsArray.join(", ")}] added to trip ${newTripId}`,
-      newValues: JSON.stringify({ tripId: newTripId, staffIds: staffIdsArray }),
+      message: `staff [${staffAssignments.map((s) => s.staffId).join(", ")}] added to trip ${newTripId}`,
+      newValues: JSON.stringify({ tripId: newTripId, staffAssignments }),
     });
   }
 }
@@ -204,12 +245,15 @@ export async function getAllStaff(tripId) {
   try {
     const connection = await getConnection();
     const [employees] = await connection.execute(
-      `SELECT u.id, u.full_name, u.email, u.phone, GROUP_CONCAT(ur.role_name SEPARATOR ', ') AS roles
+      `SELECT u.id, u.full_name, u.email, u.phone,
+        GROUP_CONCAT(DISTINCT ur.role_name SEPARATOR ', ') AS roles,
+        st.class_id, c.class_name
       FROM users u
       JOIN staff_trip st ON u.id = st.staff_id
       JOIN user_roles ur ON ur.user_id = u.id
+      LEFT JOIN classes c ON c.id = st.class_id
       WHERE st.trip_id = ?
-      GROUP BY u.id, u.full_name, u.email, u.phone`,
+      GROUP BY u.id, u.full_name, u.email, u.phone, st.class_id, c.class_name`,
       [tripId],
     );
     const [externalEmployees] = await connection.execute(
@@ -269,6 +313,14 @@ export async function addExternalStaff(tripId, staffDetails) {
     connection.rollback();
     throw err;
   }
+}
+export async function deleteExternalStaff(tripId, staffId) {
+  const connection = await getConnection();
+  const response = await connection.execute(
+    `DELETE FROM external_staff_trip WHERE trip_id = ? AND staff_id = ?`,
+    [tripId, staffId],
+  );
+  return response;
 }
 export async function closeTrip(tripId) {
   const connection = await getConnection();

@@ -59,10 +59,8 @@ export default function AddTripTeachers({ onSuccess } = {}) {
     }
     setLoading(true);
     try {
-      const nationalIds = filled.map(
-        (id) => schoolTeachers.find((t) => String(t.user_id ?? t.id) === id)?.national_id
-      ).filter(Boolean);
-      await api.post(`/api/trips/${tripId}/staff`, { nationalIds });
+      const staffIds = filled.map((id) => Number(id));
+      await api.post(`/api/trips/${tripId}/staff`, { staffIds });
       setSuccess("המורים שויכו לטיול בהצלחה!");
       setSelectedIds([""]);
       const staffRes = await api.get(`/api/trips/${tripId}/staff`);

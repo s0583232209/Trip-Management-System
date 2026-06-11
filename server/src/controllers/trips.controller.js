@@ -72,7 +72,7 @@ export async function approveTrip(req, res) {
 }
 export async function addStaff(req, res) {
   try {
-    await tripsService.addStaff(req.params.id, req.body.nationalIds);
+    await tripsService.addStaff(req.params.id, req.body.staffIds);
     log.info(`staff added to trip: ${req.params.id}`);
     res.status(201).json({ message: "Staff added successfully" });
   } catch (err) {

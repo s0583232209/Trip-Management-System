@@ -88,12 +88,8 @@ export async function approveTrip(tripId) {
     throw err;
   }
 }
-export async function addStaff(tripId, nationalIds) {
+export async function addStaff(tripId, staffIds) {
   try {
-    const users = await Promise.all(
-      nationalIds.map((id) => usersRepo.getByNationalId(id)),
-    );
-    const staffIds = users.map((u) => u.id);
     await tripsRepo.addStaff(tripId, staffIds);
     log.info(`staff added to trip: ${tripId}`);
   } catch (err) {

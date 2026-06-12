@@ -8,13 +8,10 @@ import TripPlanningPage from "./pages/trips/TripPlanningPage.jsx";
 import TripDayPage from "./pages/trips/TripDayPage.jsx";
 import TripSectionPage from "./pages/trips/TripSectionPage.jsx";
 import EmergencyPage from "./pages/trips/EmergencyPage.jsx";
-import MediaPage from "./pages/media/MediaPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import AddEmployeePage from "./pages/AddEmployeePage.jsx";
-import "./App.css";
 import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
 import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
-import UploadTripFile from "./pages/trips/UploadTripFile.jsx";
 import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
 import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
@@ -23,90 +20,56 @@ import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
 import TripStatusPage from "./pages/trips/TripStatusPage.jsx";
 import CriticalEmergency from "./pages/CriticalEmergemcy.jsx";
-
+import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/trips/emergencies/critical" element={<CriticalEmergency />}></Route>
+        {/* אימות */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Navigate to="/register/1" />} />
         <Route path="/register/:step" element={<Register />} />
+
+        {/* דשבורד */}
         <Route path="/" element={<DashboardPage />} />
-        <Route path="/trips" element={<TripSelectionPage />} />
 
-        {/* יצירת טיול — מנהל ורכז בלבד */}
-        <Route path="/trips/new" element={<CreateTripPage />} />
-
-        <Route path="/trips/:tripId" element={<TripDashboardPage />} />
-        <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
-        <Route path="/trips/:tripId/day" element={<TripDayPage />} />
-        <Route path="/trips/:tripId/folder" element={<TripsLeaderKit />} />
-        <Route path="/trips/:tripId/trip-leaders-kit" element={<TripsLeaderKit />} />
-        <Route path="/trips/:tripId/staff" element={<ManageTripStaffPage />} />
-
-        {/* <Route path="/trips/:tripId/trip-day" element={<TripDayPage />} /> */}
-
-        <Route
-          path="/trips/:tripId/folder"
-          element={
-            <>
-              <TripsLeaderKit></TripsLeaderKit>
-            </>
-          }
-        />
-        <Route
-          path="/trips/:tripId/staff"
-          element={<ManageTripStaffPage></ManageTripStaffPage>}
-        />
-        <Route
-          path="/trips/:tripId/equipment"
-          element={
-            <TripSectionPage
-              title="תכנון טיול / ציוד"
-              description="כאן תוכל לתכנן ולעקוב אחרי ציוד לטיול."
-            />
-          }
-        />
-        <Route
-          path="/trips/:tripId/attendance"
-          element={
-            <TripSectionPage
-              title="יום טיול / קריאת שמות"
-              description="כאן תוכל לבצע קריאת שמות ולעדכן נוכחות תלמידים."
-            />
-          }
-        />
-        <Route path="/trips/:tripId/emergencies" element={<EmergencyPage />} />
-        <Route path="/trips/:tripId/contacts" element={<TripContactsPage />} />
-        <Route path="/trips/:tripId/status" element={<TripStatusPage />} />
-
-        <Route path="/trips/:tripId/files" element={<UploadTripFile />} />
-        <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />
-        <Route
-          path="/trips/:tripId/close"
-          element={<TripSectionPage title="סגירת טיול" description="כאן תוכל לסגור טיול שהסתיים בהצלחה." />}
-        />
-
-        <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
-
-        <Route
-          path="/trips/:tripId/emergencies/full"
-          element={
-            <TripSectionPage
-              title="חרום מלא"
-              description="דיווח על אירוע חירום מלא ופעולות מטה"
-            />
-          }
-        />
-
-        <Route path="/media" element={<MediaPage />} />
+        {/* פרופיל */}
         <Route path="/profile" element={<ProfilePage />} />
 
+        {/* ניהול משתמשים — מנהל בלבד */}
         <Route path="/add-employee" element={<AddEmployeePage />} />
-        <Route path="/admin" element={<AddEmployeePage />} />
 
+        {/* רשימת טיולים */}
+        <Route path="/trips" element={<TripSelectionPage />} />
+        <Route path="/trips/new" element={<CreateTripPage />} />
+
+        {/* דשבורד טיול */}
+        <Route path="/trips/:tripId" element={<TripDashboardPage />} />
+
+        {/* תכנון טיול */}
+        <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
+        <Route path="/trips/:tripId/folder" element={<TripsLeaderKit />} />
+        <Route path="/trips/:tripId/staff" element={<ManageTripStaffPage />} />
+        <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
+        <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />
+        <Route path="/trips/:tripId/status" element={<TripStatusPage />} />
+        <Route
+          path="/trips/:tripId/equipment"
+          element={<TripSectionPage title="ציוד" description="תכנון וניהול ציוד לטיול." />}
+        />
+
+        {/* יום טיול */}
+        <Route path="/trips/:tripId/day" element={<TripDayPage />} />
+        <Route path="/trips/:tripId/emergencies" element={<EmergencyPage />} />
+        <Route path="/trips/emergencies/critical" element={<CriticalEmergency />} />
+        <Route path="/trips/:tripId/contacts" element={<TripContactsPage />} />
+        <Route
+          path="/trips/:tripId/attendance"
+          element={<TripSectionPage title="קריאת שמות" description="קריאת שמות ועדכון נוכחות תלמידים." />}
+        />
+
+        {/* שגיאות */}
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />

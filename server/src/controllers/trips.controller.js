@@ -124,12 +124,18 @@ export async function deleteExternalStaff(req, res) {
 }
 export async function closeTrip(req, res) {
   try {
-    console.log("close trip controller", req.params.id);
     const resp = await tripsService.closeTrip(req.params.id);
-    console.log(resp, "this si from controller");
     res.status(200).json({ message: "trip closed successfully" });
   } catch (err) {
-    console.log(err,"= err from controller")
     res.status(500).json({ message: err.message });
+  }
+}
+
+export async function setPostEdit(req, res) {
+  try {
+    await tripsService.setPostEdit(req.params.id, req.body.note);
+    res.status(200).json({ message: "הטיול נפתח לעריכה בדיעבד" });
+  } catch (err) {
+    res.status(err.status || 500).json({ message: err.message });
   }
 }

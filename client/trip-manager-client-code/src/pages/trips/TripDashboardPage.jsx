@@ -2,13 +2,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
-import { canManageTrip } from "../../permissions.js";
+import { canManageTrip, TRIP_STATUS_LABEL } from "../../permissions.js";
 import "./TripsPage.css";
 
 export default function TripDashboardPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
   const [tripTitle, setTripTitle] = useState("");
+  const [tripStatus, setTripStatus] = useState(null);
 
   useEffect(() => {
     api
@@ -19,6 +20,7 @@ export default function TripDashboardPage() {
           navigate("/not-found", { replace: true });
         } else {
           setTripTitle(trip.title);
+          setTripStatus(trip.trip_status ?? null);
         }
       })
       .catch((err) => {
@@ -27,21 +29,15 @@ export default function TripDashboardPage() {
         }
       });
   }, [tripId, navigate]);
-  async function closeTrip() {
-    try {
-      console.log("Closing trip " + tripId);
-      const res = await api.put(`/api/trips/${tripId}/close`);
-      console.log(res);
-    } catch (err) {
-      console.error("Error closing trip:", err);
-    }
-  }
+
   return (
     <>
       <Navbar />
       <main className="page-main">
         <h1 className="page-title">טיול {tripTitle || tripId}</h1>
-        <p>בחר אם אתה רוצה להמשיך אל תכנון טיול או אל יום טיול.</p>
+        {tripStatus != null && (
+          <p className="form-section-hint">סטטוס: <strong>{TRIP_STATUS_LABEL[tripStatus] || tripStatus}</strong></p>
+        )}
         <div className="trips-cards">
           <button
             className="trip-card"
@@ -56,8 +52,11 @@ export default function TripDashboardPage() {
             יום טיול
           </button>
           {canManageTrip() && (
-            <button className="trip-card" onClick={closeTrip}>
-              סגירת הטיול
+            <button
+              className="trip-card"
+              onClick={() => navigate(`/trips/${tripId}/status`)}
+            >
+              ניהול סטטוס
             </button>
           )}
         </div>

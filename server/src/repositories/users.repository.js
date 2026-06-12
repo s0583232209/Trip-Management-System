@@ -356,9 +356,7 @@ export async function updateUserRole(id, roleName) {
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
-    await connection.execute(`DELETE FROM user_roles WHERE user_id = ?`, [
-      id,
-    ]);
+    await connection.execute(`DELETE FROM user_roles WHERE user_id = ?`, [id]);
     await connection.execute(
       `INSERT INTO user_roles (user_id, role_name) VALUES (?, ?)`,
       [id, roleName],
@@ -376,6 +374,50 @@ export async function updateUserRole(id, roleName) {
   } catch (err) {
     await connection.rollback();
     log.error(`updateUserRole error: ${err.message}`);
+    throw err;
+  }
+}
+
+export async function addUserRole(id, roleName) {
+  const connection = await getConnection();
+  try {
+    await connection.execute(
+      `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, ?)`,
+      [id, roleName],
+    );
+    await dblog({
+      userId: id,
+      actionType: "add_role",
+      tableName: "user_roles",
+      message: `role '${roleName}' added to user ${id}`,
+      newValues: JSON.stringify({ userId: id, role: roleName }),
+    });
+    log.info(`addUserRole successful for id: ${id}, role: ${roleName}`);
+    return { userId: id, role: roleName };
+  } catch (err) {
+    log.error(`addUserRole error: ${err.message}`);
+    throw err;
+  }
+}
+
+export async function removeUserRole(id, roleName) {
+  const connection = await getConnection();
+  try {
+    await connection.execute(
+      `DELETE FROM user_roles WHERE user_id = ? AND role_name = ?`,
+      [id, roleName],
+    );
+    await dblog({
+      userId: id,
+      actionType: "remove_role",
+      tableName: "user_roles",
+      message: `role '${roleName}' removed from user ${id}`,
+      newValues: JSON.stringify({ userId: id, role: roleName }),
+    });
+    log.info(`removeUserRole successful for id: ${id}, role: ${roleName}`);
+    return { userId: id, role: roleName };
+  } catch (err) {
+    log.error(`removeUserRole error: ${err.message}`);
     throw err;
   }
 }

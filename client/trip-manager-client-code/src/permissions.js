@@ -1,12 +1,24 @@
 // permissions.js — בדיקות הרשאות צד לקוח
-import { getTodayInIsrael, toDateOnlyString } from "./dateUtils.js";
+import { toDateOnlyString, getTodayInIsrael } from "./dateUtils.js";
+
+export const TRIP_STATUS = {
+  PLANNED:   1,
+  APPROVED:  2,
+  DONE:      3,
+  POST_EDIT: 4,
+};
+
+export const TRIP_STATUS_LABEL = {
+  1: "מתוכנן",
+  2: "מאושר",
+  3: "עבר",
+  4: "תיקון בדיעבד",
+};
 
 export function getUser() {
   return JSON.parse(sessionStorage.getItem("current-user")) || {};
 }
 
-// משתמשים יכולים להיות בעלי כמה תפקידים (למשל "teacher" וגם "trip leader"),
-// לכן יש לבדוק הימצאות ברשימת כל התפקידים ולא רק מול התפקיד היחיד שנשמר לתאימות לאחור
 export function isRole(...roles) {
   const user = getUser();
   const userRoles = user.roles || (user.role ? [user.role] : []);
@@ -23,19 +35,23 @@ export const canAddUser = () => isRole("principal");
 export const canViewTrip = () =>
   isRole("principal", "coordinator", "trip leader", "teacher");
 
-// עדכון מסלול: אם תאריך הטיול כבר עבר — הטופס לקריאה בלבד לכל התפקידים.
-// אחרת: מנהל ורכז תמיד; אחראי טיול — רק ביום הטיול עצמו
-export function canUpdateRoute(tripDate) {
-  const today = getTodayInIsrael();
-  const date = toDateOnlyString(tripDate);
-  if (date && date < today) return false;
-
+// עדכון מסלול לפי סטטוס:
+// planned   — עריכה מלאה לכולם עם הרשאה
+// approved  — נעול לכולם (פתיחה רק דרך post-edit)
+// post-edit — עריכה למנהל/רכז בלבד
+// done      — נעול לחלוטין
+export function canUpdateRoute(tripStatus, tripDate) {
+  if (tripStatus === TRIP_STATUS.DONE) return false;
+  if (tripStatus === TRIP_STATUS.APPROVED) return false;
+  if (tripStatus === TRIP_STATUS.POST_EDIT) return isRole("principal");
+  // planned (או null לתאימות לאחור)
   if (isRole("principal", "coordinator")) return true;
-  if (isRole("trip leader")) {
-    return date === today;
-  }
+  if (isRole("trip leader")) return toDateOnlyString(tripDate) === getTodayInIsrael();
   return false;
 }
+
+// פתיחת עריכה בדיעבד — מנהל בלבד
+export const canSetPostEdit = () => isRole("principal");
 
 // פתיחת/סגירת חירום מינורי — אחראי ומורה
 export const canHandleMinorEmergency = () =>

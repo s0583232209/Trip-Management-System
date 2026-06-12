@@ -42,6 +42,7 @@ export function refreshToken(req, res) {
       userId: decoded.userId,
       currentTime: new Date(),
       role: decoded.role,
+      roles: decoded.roles,
     });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,

@@ -157,6 +157,7 @@ export default function TripForm({
         <Navbar />
         <main className="page-main">
           <h1 className="page-title">{pageTitle}</h1>
+          {extraSection}
           <section className="form-section">
             <h2 className="form-section-title">פרטי הטיול</h2>
             <p><strong>שם הטיול:</strong> {formData.title}</p>
@@ -276,7 +277,7 @@ export default function TripForm({
                 <p key={k} className="error">
                   {errors[k]}
                 </p>
-              ))}//check what this do
+              ))}
 
             {writeAccess && (
               <button type="button" className="add-stop-btn" onClick={onAddStop}>

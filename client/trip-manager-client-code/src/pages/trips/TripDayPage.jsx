@@ -97,13 +97,6 @@ export default function TripDayPage() {
           >
             פרטי קשר צוות
           </button>
-
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/status`)}
-          >
-            סטטוס הטיול
-          </button>
         </div>
       </main>
     </>

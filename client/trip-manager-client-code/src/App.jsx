@@ -21,6 +21,7 @@ import Unauthorized from "./pages/Unauthorized.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
+import TripStatusPage from "./pages/trips/TripStatusPage.jsx";
 import CriticalEmergency from "./pages/CriticalEmergemcy.jsx";
 
 
@@ -79,15 +80,7 @@ function App() {
         />
         <Route path="/trips/:tripId/emergencies" element={<EmergencyPage />} />
         <Route path="/trips/:tripId/contacts" element={<TripContactsPage />} />
-        <Route
-          path="/trips/:tripId/status"
-          element={
-            <TripSectionPage
-              title="יום טיול / סטטוס הטיול"
-              description="עדכון וצפייה בסטטוס הטיול בזמן אמת."
-            />
-          }
-        />
+        <Route path="/trips/:tripId/status" element={<TripStatusPage />} />
 
         <Route path="/trips/:tripId/files" element={<UploadTripFile />} />
         <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />

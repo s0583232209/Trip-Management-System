@@ -68,12 +68,6 @@ export default function TripPlanningPage() {
           >
             ציוד
           </button>
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/documents`)}
-          >
-            מסמכים
-          </button>
           {canViewTripDetails() && (
             <button
               className="trip-card"

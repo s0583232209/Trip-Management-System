@@ -120,6 +120,9 @@ function StaffManagementSection({ currentUserId }) {
                   </div>
                   <div style={{ fontSize: "0.85rem", color: "#6366f1", fontWeight: 600 }}>
                     {userRoles.map(r => ROLE_LABELS[r] || r).join(" + ") || "ללא תפקיד"}
+                    {u.led_trips && (
+                      <span style={{ color: "#64748b", fontWeight: 400 }}> · אחראי טיול: {u.led_trips}</span>
+                    )}
                   </div>
                   {u.email && (
                     <div style={{ fontSize: "0.85rem", color: "#374151" }}>

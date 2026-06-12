@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
-import { canManageTrip, TRIP_STATUS_LABEL } from "../../permissions.js";
+import { canManageTrip, isRole, TRIP_STATUS_LABEL } from "../../permissions.js";
 import "./TripsPage.css";
 
 export default function TripDashboardPage() {
@@ -10,6 +10,9 @@ export default function TripDashboardPage() {
   const { tripId } = useParams();
   const [tripTitle, setTripTitle] = useState("");
   const [tripStatus, setTripStatus] = useState(null);
+  const [isTripLeader, setIsTripLeader] = useState(false);
+
+  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
 
   useEffect(() => {
     api
@@ -21,14 +24,16 @@ export default function TripDashboardPage() {
         } else {
           setTripTitle(trip.title);
           setTripStatus(trip.trip_status ?? null);
+          setIsTripLeader(trip.trip_leader_id === user.userId);
         }
       })
       .catch((err) => {
-        if (err.response?.status === 404) {
-          navigate("/not-found", { replace: true });
-        }
+        if (err.response?.status === 404) navigate("/not-found", { replace: true });
       });
   }, [tripId, navigate]);
+
+  // מורה/אחראי שאינו אחראי הטיול הספציפי — רק צפייה
+  const isStaffOnly = isRole("trip leader", "teacher") && !canManageTrip() && !isTripLeader;
 
   return (
     <>
@@ -39,23 +44,14 @@ export default function TripDashboardPage() {
           <p className="form-section-hint">סטטוס: <strong>{TRIP_STATUS_LABEL[tripStatus] || tripStatus}</strong></p>
         )}
         <div className="trips-cards">
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/planning`)}
-          >
+          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/planning`)}>
             תכנון טיול
           </button>
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/day`)}
-          >
+          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/day`)}>
             יום טיול
           </button>
           {canManageTrip() && (
-            <button
-              className="trip-card"
-              onClick={() => navigate(`/trips/${tripId}/status`)}
-            >
+            <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/status`)}>
               ניהול סטטוס
             </button>
           )}

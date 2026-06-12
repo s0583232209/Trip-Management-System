@@ -311,15 +311,16 @@ export async function getAllUsers(userId) {
   const connection = await getConnection();
   try {
     const [rows] = await connection.execute(
-      ` SELECT users.id as user_id, users.full_name, users.email, users.phone,
-        GROUP_CONCAT(DISTINCT user_roles.role_name SEPARATOR ', ') AS roles
-FROM users
-LEFT JOIN user_roles ON user_roles.user_id = users.id
-WHERE users.school_id = (SELECT school_id FROM users WHERE users.id = ?)
-GROUP BY users.id, users.full_name, users.email, users.phone;`,
+      `SELECT users.id as user_id, users.full_name, users.email, users.phone,
+        GROUP_CONCAT(DISTINCT user_roles.role_name SEPARATOR ', ') AS roles,
+        GROUP_CONCAT(DISTINCT trips.title ORDER BY trips.id SEPARATOR ', ') AS led_trips
+ FROM users
+ LEFT JOIN user_roles ON user_roles.user_id = users.id
+ LEFT JOIN trips ON trips.trip_leader_id = users.id
+ WHERE users.school_id = (SELECT school_id FROM users WHERE users.id = ?)
+ GROUP BY users.id, users.full_name, users.email, users.phone;`,
       [userId],
     );
-    console.log(rows, "rows from get all users repo");
     return rows;
   } catch (err) {
     throw err;

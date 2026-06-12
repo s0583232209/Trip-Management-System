@@ -1,6 +1,7 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middlware.js";
 import requireTripDay from "../middlewares/tripDay.middleware.js";
+import requireTripStaff from "../middlewares/requireTripStaff.middleware.js";
 import * as tripsController from "../controllers/trips.controller.js";
 const router = express.Router({ mergeParams: true });
 
@@ -36,9 +37,10 @@ router.delete(
 router.put(
   "/:id",
   requireRole("principal", "coordinator", "trip leader"),
+  requireTripStaff,
   (req, res, next) => {
-    const role = req.user?.role;
-    if (role === "principal" || role === "coordinator") return next();
+    const userRoles = req.user?.roles || (req.user?.role ? [req.user.role] : []);
+    if (userRoles.includes("principal") || userRoles.includes("coordinator")) return next();
     return requireTripDay(req, res, next);
   },
   tripsController.updateTrip,
@@ -56,6 +58,13 @@ router.put(
   "/:id/close",
   requireRole("principal", "coordinator"),
  tripsController.closeTrip,
+);
+
+// פתיחת עריכה בדיעבד — מנהל בלבד
+router.put(
+  "/:id/post-edit",
+  requireRole("principal"),
+  tripsController.setPostEdit,
 );
 
 // צפייה בצוות טיול — מנהל, רכז, אחראי טיול, מורה

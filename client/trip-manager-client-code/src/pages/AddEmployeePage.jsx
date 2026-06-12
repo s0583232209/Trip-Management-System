@@ -14,12 +14,12 @@ const ROLE_LABELS = {
   teacher: "מורה",
 };
 
-const ASSIGNABLE_ROLES = ["coordinator", "trip leader", "teacher"];
+// אחראי טיול אינו תפקיד קבוע בניהול המשתמשים — הוא מוגדר פר טיול בעת יצירת הטיול
+const TOGGLEABLE_ROLES = ["teacher", "coordinator"];
 
 function StaffManagementSection({ currentUserId }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [pendingRoles, setPendingRoles] = useState({});
   const [actionError, setActionError] = useState("");
   const [actionSuccess, setActionSuccess] = useState("");
 
@@ -58,30 +58,25 @@ function StaffManagementSection({ currentUserId }) {
     }
   }
 
-  function handleRoleSelect(userId, role) {
-    setPendingRoles((prev) => ({ ...prev, [userId]: role }));
-  }
-
-  async function handleUpdateRole(userId, fullName) {
+  async function handleToggleCoordinator(userId, fullName, hasRole, role) {
     setActionError("");
     setActionSuccess("");
-    const role = pendingRoles[userId];
-    if (!role) return;
     try {
-      await api.put(`/api/users/${userId}/role`, { role });
-      setUsers((prev) =>
-        prev.map((u) => (u.user_id === userId ? { ...u, roles: role } : u)),
-      );
-      setPendingRoles((prev) => {
-        const next = { ...prev };
-        delete next[userId];
-        return next;
-      });
-      setActionSuccess(`התפקיד עבור "${fullName}" עודכן בהצלחה`);
+      if (hasRole) {
+        await api.delete(`/api/users/${userId}/roles/${role}`);
+        setUsers((prev) => prev.map((u) => u.user_id === userId
+          ? { ...u, roles: u.roles.split(", ").filter(r => r !== role).join(", ") }
+          : u));
+        setActionSuccess(`הרשאת ${ROLE_LABELS[role]} הוסרה מ-"${fullName}"`);
+      } else {
+        await api.post(`/api/users/${userId}/roles`, { role });
+        setUsers((prev) => prev.map((u) => u.user_id === userId
+          ? { ...u, roles: [u.roles, role].filter(Boolean).join(", ") }
+          : u));
+        setActionSuccess(`"${fullName}" נוסף כ${ROLE_LABELS[role]}`);
+      }
     } catch (err) {
-      setActionError(
-        err.response?.data?.message || "עדכון התפקיד נכשל, נסה שנית",
-      );
+      setActionError(err.response?.data?.message || "עדכון התפקיד נכשל");
     }
   }
 
@@ -102,9 +97,7 @@ function StaffManagementSection({ currentUserId }) {
         <div style={{ display: "grid", gap: "0.75rem" }}>
           {users.map((u) => {
             const userRoles = (u.roles ?? "").split(", ").filter(Boolean);
-            const currentRole = userRoles[0] ?? "";
             const isPrincipal = userRoles.includes("principal");
-            const selectedRole = pendingRoles[u.user_id] ?? currentRole;
 
             return (
               <div
@@ -125,14 +118,11 @@ function StaffManagementSection({ currentUserId }) {
                   <div style={{ fontWeight: 700, color: "#1e293b" }}>
                     {u.full_name}
                   </div>
-                  <div
-                    style={{
-                      fontSize: "0.85rem",
-                      color: "#6366f1",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {ROLE_LABELS[currentRole] || currentRole || "ללא תפקיד"}
+                  <div style={{ fontSize: "0.85rem", color: "#6366f1", fontWeight: 600 }}>
+                    {userRoles.map(r => ROLE_LABELS[r] || r).join(" + ") || "ללא תפקיד"}
+                    {u.led_trips && (
+                      <span style={{ color: "#64748b", fontWeight: 400 }}> · אחראי טיול: {u.led_trips}</span>
+                    )}
                   </div>
                   {u.email && (
                     <div style={{ fontSize: "0.85rem", color: "#374151" }}>
@@ -142,38 +132,17 @@ function StaffManagementSection({ currentUserId }) {
                 </div>
 
                 {!isPrincipal && (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <select
-                      value={selectedRole}
-                      onChange={(e) =>
-                        handleRoleSelect(u.user_id, e.target.value)
-                      }
-                      style={{ padding: "0.5rem", borderRadius: "8px" }}
-                    >
-                      {ASSIGNABLE_ROLES.map((r) => (
-                        <option key={r} value={r}>
-                          {ROLE_LABELS[r]}
-                        </option>
-                      ))}
-                    </select>
-                    <button
-                      type="button"
-                      className="trip-form-btn trip-form-btn--primary"
-                      disabled={
-                        !pendingRoles[u.user_id] ||
-                        pendingRoles[u.user_id] === currentRole
-                      }
-                      onClick={() => handleUpdateRole(u.user_id, u.full_name)}
-                    >
-                      שינוי תפקיד
-                    </button>
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+                    {TOGGLEABLE_ROLES.map((role) => (
+                      <label key={role} style={{ display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.9rem", cursor: "pointer" }}>
+                        <input
+                          type="checkbox"
+                          checked={userRoles.includes(role)}
+                          onChange={() => handleToggleCoordinator(u.user_id, u.full_name, userRoles.includes(role), role)}
+                        />
+                        {ROLE_LABELS[role]}
+                      </label>
+                    ))}
                     <button
                       type="button"
                       className="trip-form-btn trip-form-btn--danger"
@@ -196,11 +165,12 @@ export default function AddEmployeePage() {
   const navigate = useNavigate();
   const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
 
+  const userRoles = user.roles || (user.role ? [user.role] : []);
+  const isPrincipal = userRoles.includes("principal");
+
   useEffect(() => {
-    if (user.role !== "principal") {
-      navigate("/");
-    }
-  }, [user.role, navigate]);
+    if (!isPrincipal) navigate("/");
+  }, [isPrincipal, navigate]);
 
   const emptyForm = { fullName: "", nationalId: "", password: "", userEmail: "", userPhoneNumber: "", role: "" };
   const [error, setError] = useState("");
@@ -226,9 +196,7 @@ export default function AddEmployeePage() {
     }
   }
 
-  if (user.role !== "principal") {
-    return <Navigate to="/unauthorized" replace />;
-  }
+  if (!isPrincipal) return <Navigate to="/unauthorized" replace />;
 
   const submitLabel = loading ? "מוסיף משתמש..." : "הוסף משתמש";
 

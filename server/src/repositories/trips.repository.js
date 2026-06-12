@@ -61,20 +61,6 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       message: `trip created with id ${newTripId}`,
       newValues: JSON.stringify({ id: newTripId, ...tripDetails }),
     });
-    await connection.execute(
-      `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
-      [tripLeaderDbId],
-    );
-    await dblog({
-      userId: tripLeaderDbId,
-      actionType: "assign_role",
-      tableName: "user_roles",
-      message: `role 'trip leader' assigned to user ${tripLeaderDbId}`,
-      newValues: JSON.stringify({
-        userId: tripLeaderDbId,
-        role: "trip leader",
-      }),
-    });
 
     // 3. בניית מערך של כל אנשי הצוות שצריכים להשתבץ לטיול (אחראי הטיול + מנהל + רכז)
     // נשתמש ב-Set כדי למנוע כפילויות במקרה שאחראי הטיול הוא גם הרכז
@@ -146,10 +132,6 @@ export async function updateTrip(updateDetails) {
         updateDetails.routeGeoJson || null,
         updateDetails.tripId,
       ],
-    );
-    await connection.execute(
-      `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, 'trip leader')`,
-      [updateDetails.tripLeaderId],
     );
 
     // משבץ את אחראי הטיול החדש גם בטבלת staff_trip,
@@ -323,12 +305,19 @@ export async function deleteExternalStaff(tripId, staffId) {
   return response;
 }
 export async function closeTrip(tripId) {
-  console.log("in close trip repo", tripId);
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `UPDATE trips SET trip_status=3 WHERE id=?`,
     [tripId],
   );
-  console.log(rows);
+  return rows;
+}
+
+export async function setPostEdit(tripId, note) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_status=4, post_edit_note=? WHERE id=?`,
+    [note, tripId],
+  );
   return rows;
 }

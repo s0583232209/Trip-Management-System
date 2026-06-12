@@ -93,6 +93,32 @@ export async function deleteUser(id, requestingUserId) {
   return { id: Number(id), fullName: targetUser.full_name };
 }
 
+export async function addUserRole(id, role) {
+  if (!ASSIGNABLE_ROLES.includes(role)) {
+    const err = new Error("תפקיד לא חוקי");
+    err.status = 400;
+    throw err;
+  }
+  const roles = await usersRepo.getUserRoles(id);
+  if (roles.some((r) => r.role_name === "principal")) {
+    const err = new Error("לא ניתן לשנות את תפקיד המנהל");
+    err.status = 400;
+    throw err;
+  }
+  await usersRepo.addUserRole(id, role);
+  return { id: Number(id), role };
+}
+
+export async function removeUserRole(id, role) {
+  if (!ASSIGNABLE_ROLES.includes(role)) {
+    const err = new Error("תפקיד לא חוקי");
+    err.status = 400;
+    throw err;
+  }
+  await usersRepo.removeUserRole(id, role);
+  return { id: Number(id), role };
+}
+
 export async function updateUserRole(id, role) {
   if (!ASSIGNABLE_ROLES.includes(role)) {
     const err = new Error("תפקיד לא חוקי");

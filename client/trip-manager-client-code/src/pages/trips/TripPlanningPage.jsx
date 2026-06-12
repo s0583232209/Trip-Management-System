@@ -11,6 +11,7 @@ export default function TripPlanningPage() {
   const [error, setError] = useState("");
   const [tripDate, setTripDate] = useState(null);
   const [tripTitle, setTripTitle] = useState("");
+  const [tripStatus, setTripStatus] = useState(null);
 
   useEffect(() => {
     api
@@ -22,6 +23,7 @@ export default function TripPlanningPage() {
         } else {
           setTripDate(trip.trip_date);
           setTripTitle(trip.title);
+          setTripStatus(trip.trip_status ?? null);
         }
       })
       .catch((err) => {
@@ -68,18 +70,12 @@ export default function TripPlanningPage() {
           >
             ציוד
           </button>
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/documents`)}
-          >
-            מסמכים
-          </button>
           {canViewTripDetails() && (
             <button
               className="trip-card"
               onClick={() => navigate(`/trips/${tripId}/route`)}
             >
-              {canUpdateRoute(tripDate) ? "עדכון מסלול וצפיה בפרטי מסלול" : "צפייה בפרטי מסלול"}
+              {canUpdateRoute(tripStatus, tripDate) ? "עדכון מסלול וצפיה בפרטי מסלול" : "צפייה בפרטי מסלול"}
             </button>
           )}
           {canManageTrip() && (

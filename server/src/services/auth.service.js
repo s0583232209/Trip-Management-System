@@ -54,6 +54,7 @@ export async function login(user) {
     userId: row.userId,
     currentTime: new Date(),
     role: roleNames[0],
+    roles: roleNames,
   };
   return {
     user: {

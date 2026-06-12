@@ -323,10 +323,12 @@ export async function deleteExternalStaff(tripId, staffId) {
   return response;
 }
 export async function closeTrip(tripId) {
+  console.log("in close trip repo", tripId);
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `UPDATE trips SET trip_status=3 WHERE id=?`,
     [tripId],
   );
+  console.log(rows);
   return rows;
 }

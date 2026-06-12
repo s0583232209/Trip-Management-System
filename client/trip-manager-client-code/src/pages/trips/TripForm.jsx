@@ -52,10 +52,11 @@ function StopForm({ stop, index, onChange, onRemove, writeAccess }) {
         placeholder="*"
         value={stop.name || ""}
         onChange={handleField}
+        readOnly={!writeAccess}
       />
 
       <label>סוג העצירה</label>
-      <select name="type" value={stop.type || ""} onChange={handleField} required>
+      <select name="type" value={stop.type || ""} onChange={handleField} required disabled={!writeAccess}>
         <option value="">בחר סוג</option>
         {STOP_TYPES.map((t) => (
           <option key={t.value} value={t.value}>
@@ -72,6 +73,7 @@ function StopForm({ stop, index, onChange, onRemove, writeAccess }) {
             value={stop.trailCondition || ""}
             onChange={handleField}
             required
+            disabled={!writeAccess}
           >
             <option value="">בחר מצב</option>
             {TRAIL_CONDITIONS.map((c) => (
@@ -95,6 +97,7 @@ function StopForm({ stop, index, onChange, onRemove, writeAccess }) {
             required
             value={stop.officialApproval || ""}
             onChange={handleField}
+            readOnly={!writeAccess}
           />
           <p className="field-hint">
             אטרקציה חייבת לכלול אישור רשמי מגורם מוסמך
@@ -109,6 +112,7 @@ function StopForm({ stop, index, onChange, onRemove, writeAccess }) {
         placeholder="הערות נוספות"
         value={stop.notes || ""}
         onChange={handleField}
+        readOnly={!writeAccess}
       />
     </div>
   );

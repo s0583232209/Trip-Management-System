@@ -1,6 +1,7 @@
 import * as emergenciesService from "../services/emergencies.service.js";
 import log from "../loggers/file.logger.js";
 import { io } from "../../server.js"; // ← שורה חדשה
+import { userHasRole } from "../services/auth.service.js";
 
 export async function getByTripId(req, res) {
   try {
@@ -21,9 +22,12 @@ export async function create(req, res) {
       openedBy: req.user?.userId || null,
     };
 
-    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול ביום הטיול
+    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול
+    // בדיקה מול מסד הנתונים (ולא מול ה-role היחיד שנשמר בטוקן),
+    // כדי שמשתמש בעל כמה תפקידים (למשל "trip leader" וגם "teacher") יזוהה כאחראי טיול כראוי
     if (parseInt(emergencyData.emergencyTypeId) === 2) {
-      if (req.user?.role !== "trip leader") {
+      const isTripLeader = await userHasRole(req.user?.userId, ["trip leader"]);
+      if (!isTripLeader) {
         return res
           .status(403)
           .json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
@@ -49,15 +53,15 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   try {
+    console.log(req);
     const tripId = req.params.id || req.params.tripId;
     const newEmergency = await emergenciesService.updateEmergency(
-      emergencyId,
-      emergencyData,
+      req.params.emergencyId,
+      req.body
     );
-    io.to(`trip-${tripId}`).emit("emergency-alert", {
-      emergency: newEmergency,
-      timestamp: new Date().toISOString(),
-    });
+    if (req.body.status === 2) {
+      io.to(`trip-${tripId}`).emit("emergency-closed", { emergencyId: parseInt(req.params.emergencyId) });
+    }
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {
     log.error(`EmergenciesController - update error: ${error.message}`);

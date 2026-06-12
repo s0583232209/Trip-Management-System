@@ -113,18 +113,23 @@ export async function addExternalStaff(req, res) {
 export async function deleteExternalStaff(req, res) {
   try {
     await tripsService.deleteExternalStaff(req.params.id, req.params.staffId);
-    log.info(`external staff ${req.params.staffId} removed from trip: ${req.params.id}`);
+    log.info(
+      `external staff ${req.params.staffId} removed from trip: ${req.params.id}`,
+    );
     res.status(201).json({ message: "External staff deleted successfully" });
   } catch (err) {
     log.warn(`deleting external staff failed: ${err.message}`);
     res.status(500).json({ message: err.message });
   }
 }
-export async function closeTrip(req,res){
-  try{
-    const res= await tripsService.closeTrip(req.params.id);
-    res.status(401).json({message: "trip closed successfully"})
-  }catch(err){
-    res.status(500).json({message: err.message});
+export async function closeTrip(req, res) {
+  try {
+    console.log("close trip controller", req.params.id);
+    const resp = await tripsService.closeTrip(req.params.id);
+    console.log(resp, "this si from controller");
+    res.status(200).json({ message: "trip closed successfully" });
+  } catch (err) {
+    console.log(err,"= err from controller")
+    res.status(500).json({ message: err.message });
   }
 }

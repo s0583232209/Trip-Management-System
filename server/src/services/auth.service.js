@@ -47,16 +47,18 @@ export async function login(user) {
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
   if (!isMatch) throw new Error("Incorrect password");
   const roles = await getUserRoles(row.userId);
+  const roleNames = roles.map((role) => role.role_name);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,
     userId: row.userId,
     currentTime: new Date(),
-    role: roles[0].role_name,
+    role: roleNames[0],
   };
   return {
     user: {
-      role: roles[0].role_name,
+      role: roleNames[0],
+      roles: roleNames,
       nationalId: user.nationalId,
       userId: row.userId,
       msg: "success",

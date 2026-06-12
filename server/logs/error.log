@@ -83,3 +83,10 @@
 11.06.2026, 13:26:01 [ERROR]: EmergenciesController - create error: Cannot open emergency — today is not the trip date
 11.06.2026, 20:10:05 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 11.06.2026, 20:10:17 [ERROR]: getById users error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+12.06.2026, 09:45:43 [ERROR]: EmergenciesController - update error: emergencyId is not defined
+12.06.2026, 09:48:14 [ERROR]: Error occurred while updating emergency with id undefined: Cannot read properties of undefined (reading 'description')
+12.06.2026, 09:48:14 [ERROR]: EmergenciesController - update error: Cannot read properties of undefined (reading 'description')
+12.06.2026, 09:49:39 [ERROR]: Error occurred while updating emergency with id 1: Incorrect integer value: 'closed' for column 'status' at row 1
+12.06.2026, 09:49:39 [ERROR]: EmergenciesController - update error: Incorrect integer value: 'closed' for column 'status' at row 1
+12.06.2026, 09:55:17 [ERROR]: Error occurred while updating emergency with id 1: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
+12.06.2026, 09:55:17 [ERROR]: EmergenciesController - update error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)

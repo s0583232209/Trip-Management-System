@@ -50,6 +50,7 @@ export default function Register() {
         JSON.stringify({
           userId: user.userId,
           role: user.role,
+          roles: user.roles || [user.role],
           nationalId: user.nationalId,
         }),
       );

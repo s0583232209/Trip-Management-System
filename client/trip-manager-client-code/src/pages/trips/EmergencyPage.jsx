@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api";
 import Navbar from "../../components/Navbar.jsx";
-import { canHandleMinorEmergency, canHandleCriticalEmergency } from "../../permissions.js";
+import { canHandleMinorEmergency, canHandleCriticalEmergency, getUser } from "../../permissions.js";
 import "./EmergencyPage.css";
 import socket from "../../socket.js";
 
@@ -119,6 +119,9 @@ export default function EmergencyPage() {
   }, [tripId]);
 
   useEffect(() => {
+    socket.off("emergency-alert");
+    socket.off("emergency-closed");
+
     socket.on("emergency-alert", (data) => {
       setEmergencies((prev) => [data.emergency, ...prev]);
       startAlarm();
@@ -198,7 +201,7 @@ export default function EmergencyPage() {
 
     try {
       await api.put(`/api/trips/${tripId}/emergencies/${emergency.id}/close`, {
-        status: "closed",
+        status: 2,
         description: "האירוע נסגר על ידי אחראי טיול/מורה",
       });
       fetchEmergencies();
@@ -300,7 +303,7 @@ export default function EmergencyPage() {
                     </div>
                     <p className="emergency-desc">{em.description}</p>
                     {em.location_lat && <p className="emergency-location"></p>}
-                    {em.status === 1 && (canMinor || canCritical) && (
+                    {em.status === 1 && (em.emergency_type_id === 1 ? (canMinor || canCritical) : canCritical && em.opened_by === getUser().userId) && (
                       <button
                         className="trip-form-btn trip-form-btn--primary btn-close-emergency"
                         onClick={() => handleCloseEmergency(em)}

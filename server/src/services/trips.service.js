@@ -62,7 +62,9 @@ export async function updateTrip(tripDetails) {
     });
     return updatedTrip;
   } catch (err) {
-    log.warn(`error: ${err.message}, from function updateTrip in trips.service`);
+    log.warn(
+      `error: ${err.message}, from function updateTrip in trips.service`,
+    );
     throw err;
   }
 }
@@ -144,7 +146,6 @@ export async function addExternalStaff(tripId, staffDetails) {
     log.warn(`error: ${err.message}, from addExternalStaff in trips.service`);
     throw err;
   }
-
 }
 export async function deleteExternalStaff(tripId, staffId) {
   try {
@@ -152,18 +153,20 @@ export async function deleteExternalStaff(tripId, staffId) {
     log.info(`external staff ${staffId} removed from trip: ${tripId}`);
     return res;
   } catch (err) {
-    log.warn(`error: ${err.message}, from deleteExternalStaff in trips.service`);
+    log.warn(
+      `error: ${err.message}, from deleteExternalStaff in trips.service`,
+    );
     throw err;
   }
 }
-export async function closeTrip(tripId){
-  try{
+export async function closeTrip(tripId) {
+  try {
     const closedTrip = await tripsRepo.closeTrip(tripId);
     log.info(`trip with id: ${tripId} closed successfully`);
+    console.log(closedTrip, "from service");
     return closedTrip;
-  }catch(err){
+  } catch (err) {
     log.warn(`error: ${err.message}, from closeTrip in trips.service`);
     throw err;
   }
 }
-

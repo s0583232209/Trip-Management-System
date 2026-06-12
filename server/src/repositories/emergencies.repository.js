@@ -82,7 +82,7 @@ export async function updateEmergency(emergencyId, emergencyData) {
         emergencyData.status || 1,
         emergencyData.locationLat || null,
         emergencyData.locationLng || null,
-        emergencyData.status === "closed" ? new Date() : null,
+        emergencyData.status === 2 ? new Date() : null,
         emergencyId,
       ],
     );

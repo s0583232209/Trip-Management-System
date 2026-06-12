@@ -55,9 +55,7 @@ router.put(
 router.put(
   "/:id/close",
   requireRole("principal", "coordinator"),
-  (req, res) => {
-    res.send("trips: put, close trip " + req.params.id);
-  },
+ tripsController.closeTrip,
 );
 
 // צפייה בצוות טיול — מנהל, רכז, אחראי טיול, מורה

@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
+import { canManageTrip } from "../../permissions.js";
 import "./TripsPage.css";
 
 export default function TripDashboardPage() {
@@ -26,7 +27,15 @@ export default function TripDashboardPage() {
         }
       });
   }, [tripId, navigate]);
-
+  async function closeTrip() {
+    try {
+      console.log("Closing trip " + tripId);
+      const res = await api.put(`/api/trips/${tripId}/close`);
+      console.log(res);
+    } catch (err) {
+      console.error("Error closing trip:", err);
+    }
+  }
   return (
     <>
       <Navbar />
@@ -46,6 +55,11 @@ export default function TripDashboardPage() {
           >
             יום טיול
           </button>
+          {canManageTrip() && (
+            <button className="trip-card" onClick={closeTrip}>
+              סגירת הטיול
+            </button>
+          )}
         </div>
       </main>
     </>

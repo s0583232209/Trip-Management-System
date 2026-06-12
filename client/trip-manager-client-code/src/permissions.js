@@ -5,9 +5,12 @@ export function getUser() {
   return JSON.parse(sessionStorage.getItem("current-user")) || {};
 }
 
+// משתמשים יכולים להיות בעלי כמה תפקידים (למשל "teacher" וגם "trip leader"),
+// לכן יש לבדוק הימצאות ברשימת כל התפקידים ולא רק מול התפקיד היחיד שנשמר לתאימות לאחור
 export function isRole(...roles) {
   const user = getUser();
-  return roles.includes(user.role);
+  const userRoles = user.roles || (user.role ? [user.role] : []);
+  return roles.some((role) => userRoles.includes(role));
 }
 
 // מנהל ורכז
@@ -27,9 +30,8 @@ export function canUpdateRoute(tripDate) {
   const date = toDateOnlyString(tripDate);
   if (date && date < today) return false;
 
-  const user = getUser();
   if (isRole("principal", "coordinator")) return true;
-  if (user.role === "trip leader") {
+  if (isRole("trip leader")) {
     return date === today;
   }
   return false;

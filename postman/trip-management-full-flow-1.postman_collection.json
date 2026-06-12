@@ -1,0 +1,2113 @@
+{
+  "info": {
+    "_postman_id": "27c1295b-7c93-446e-963b-eb6cb798f89c",
+    "name": "מערכת ניהול טיולים - תרחיש מלא 1 - בית ספר אורט ירושלים",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.collectionVariables.set(\"today\", new Date().toISOString().slice(0, 10));",
+          "const d = new Date();",
+          "d.setDate(d.getDate() + 14); pm.collectionVariables.set(\"futureDate1\", d.toISOString().slice(0, 10));",
+          "d.setDate(d.getDate() + 7); pm.collectionVariables.set(\"futureDate2\", d.toISOString().slice(0, 10));",
+          "d.setDate(d.getDate() + 7); pm.collectionVariables.set(\"futureDate3\", d.toISOString().slice(0, 10));",
+          "d.setDate(d.getDate() + 7); pm.collectionVariables.set(\"futureDate4\", d.toISOString().slice(0, 10));"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "principalId",
+      "value": ""
+    },
+    {
+      "key": "coordinatorId",
+      "value": ""
+    },
+    {
+      "key": "teacher1Id",
+      "value": ""
+    },
+    {
+      "key": "teacher2Id",
+      "value": ""
+    },
+    {
+      "key": "leaderId",
+      "value": ""
+    },
+    {
+      "key": "class1Id",
+      "value": ""
+    },
+    {
+      "key": "class2Id",
+      "value": ""
+    },
+    {
+      "key": "class3Id",
+      "value": ""
+    },
+    {
+      "key": "trip1Id",
+      "value": ""
+    },
+    {
+      "key": "trip2Id",
+      "value": ""
+    },
+    {
+      "key": "trip3Id",
+      "value": ""
+    },
+    {
+      "key": "trip4Id",
+      "value": ""
+    },
+    {
+      "key": "trip5Id",
+      "value": ""
+    },
+    {
+      "key": "externalStaffId",
+      "value": ""
+    },
+    {
+      "key": "fileId",
+      "value": ""
+    },
+    {
+      "key": "emergencyId",
+      "value": ""
+    },
+    {
+      "key": "parentToken",
+      "value": ""
+    },
+    {
+      "key": "today",
+      "value": ""
+    },
+    {
+      "key": "futureDate1",
+      "value": ""
+    },
+    {
+      "key": "futureDate2",
+      "value": ""
+    },
+    {
+      "key": "futureDate3",
+      "value": ""
+    },
+    {
+      "key": "futureDate4",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 יצירת חשבון בית ספרי ומנהל מוסד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"principalId\", json.userId || json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"ישראל ישראלי\",\n  \"nationalId\": \"123456789\",\n  \"userEmail\": \"israel.principal@example.com\",\n  \"userPhoneNumber\": \"0501234567\",\n  \"password\": \"ORPass123!\",\n  \"role\": \"principal\",\n  \"name\": \"בית ספר אורט ירושלים\",\n  \"institutionNumber\": 410011,\n  \"city\": \"ירושלים\",\n  \"street\": \"הרצל\",\n  \"houseNumber\": 5,\n  \"postalCode\": 9100000,\n  \"email\": \"ort.jerusalem@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 התחברות מנהל מוסד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"principalId\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nationalId\": \"123456789\",\n  \"institutionNumber\": 410011,\n  \"password\": \"ORPass123!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03.1 הוספת משתמש - דנה כהן",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"coordinatorId\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"דנה כהן\",\n  \"nationalId\": \"123456790\",\n  \"userEmail\": \"dana.cohen@example.com\",\n  \"userPhoneNumber\": \"0501112233\",\n  \"role\": \"coordinator\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03.2 הוספת משתמש - יוסי לוי",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"teacher1Id\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"יוסי לוי\",\n  \"nationalId\": \"123456791\",\n  \"userEmail\": \"yossi.levi@example.com\",\n  \"userPhoneNumber\": \"0502223344\",\n  \"role\": \"teacher\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03.3 הוספת משתמש - מיכל אברהם",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"teacher2Id\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"מיכל אברהם\",\n  \"nationalId\": \"123456792\",\n  \"userEmail\": \"michal.avraham@example.com\",\n  \"userPhoneNumber\": \"0503334455\",\n  \"role\": \"teacher\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03.4 הוספת משתמש - רועי בן דוד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"leaderId\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"רועי בן דוד\",\n  \"nationalId\": \"123456793\",\n  \"userEmail\": \"roy.bd@example.com\",\n  \"userPhoneNumber\": \"0504445566\",\n  \"role\": \"trip leader\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 קבלת כל משתמשי בית הספר",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05.1 הוספת כיתה ז-1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"class1Id\", json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/classes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "classes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"className\": \"ז-1\",\n  \"grade\": 7\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05.2 הוספת כיתה ח-2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"class2Id\", json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/classes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "classes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"className\": \"ח-2\",\n  \"grade\": 8\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05.3 הוספת כיתה ט-3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"class3Id\", json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/classes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "classes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"className\": \"ט-3\",\n  \"grade\": 9\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "06 קבלת כל הכיתות",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/classes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "classes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07.1 יצירת טיול - טיול עיר דוד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"trip1Id\", json.insertId || json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"טיול עיר דוד\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול עיר דוד\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2147,\n              31.7683\n            ],\n            [\n              35.226,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07.2 יצירת טיול - סיור מוזיאון ישראל",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"trip2Id\", json.insertId || json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"סיור מוזיאון ישראל\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול סיור מוזיאון ישראל\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.215700000000005,\n              31.7683\n            ],\n            [\n              35.227000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07.3 יצירת טיול - מסע הרי ירושלים",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"trip3Id\", json.insertId || json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"מסע הרי ירושלים\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול מסע הרי ירושלים\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2167,\n              31.7683\n            ],\n            [\n              35.228,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07.4 יצירת טיול - יום שדה בעין כרם",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"trip4Id\", json.insertId || json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"יום שדה בעין כרם\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול יום שדה בעין כרם\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2177,\n              31.7683\n            ],\n            [\n              35.229,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07.5 יצירת טיול - טיול גיבוש בנחל שורק",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"trip5Id\", json.insertId || json.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"טיול גיבוש בנחל שורק\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול גיבוש בנחל שורק\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.218700000000005,\n              31.7683\n            ],\n            [\n              35.230000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "08 קבלת כל הטיולים",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09 קבלת פרטי טיול ראשון",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 עדכון פרטי טיול שני",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip2Id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip2Id}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"סיור מוזיאון ישראל - מסלול מעודכן\",\n  \"tripDate\": \"{{futureDate1}}\",\n  \"tripLeaderNationalId\": \"{{teacher1Id}}\",\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": []\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 שיבוץ צוות פנימי לטיול ראשון",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/staff",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "staff"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"staffAssignments\": [\n    {\n      \"staffId\": \"{{teacher1Id}}\",\n      \"classId\": \"{{class1Id}}\"\n    },\n    {\n      \"staffId\": \"{{teacher2Id}}\",\n      \"classId\": \"{{class2Id}}\"\n    },\n    {\n      \"staffId\": \"{{coordinatorId}}\",\n      \"classId\": \"{{class3Id}}\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 הוספת מאבטח חיצוני לטיול ראשון",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/external-staff",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "external-staff"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"externalStaff\": [\n    {\n      \"fullName\": \"מאבטח דוד מזרחי\",\n      \"role\": 1,\n      \"phoneNumber\": \"0521111111\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 הוספת חובש חיצוני לטיול ראשון",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/external-staff",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "external-staff"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"externalStaff\": [\n    {\n      \"fullName\": \"חובשת נעמה פרץ\",\n      \"role\": 2,\n      \"phoneNumber\": \"0522222222\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14 קבלת צוות הטיול הראשון",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "if (json.externalEmployees && json.externalEmployees[0]) pm.collectionVariables.set(\"externalStaffId\", json.externalEmployees[0].id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/staff",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "staff"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "15 אישור הטיול הראשון",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "if (json.parentToken) pm.collectionVariables.set(\"parentToken\", json.parentToken);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/approve",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "approve"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "16 סגירת הטיול השני",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip2Id}}/close",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip2Id}}",
+            "close"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "17 העלאת קובץ כללי לטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"בקשת העלאת קובץ מוכנה לייבוא; יש לבחור קובץ מקומי לפני הרצה\", function () { pm.expect(pm.response.code).to.be.oneOf([201, 400, 500]); });",
+              "try { const json = pm.response.json(); if (json && json.id) pm.collectionVariables.set(\"fileId\", json.id); } catch (e) {}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "description",
+              "value": "רשימת ציוד כללית לטיול",
+              "type": "text"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/files",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "files"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "18 העלאת מסמך לתיק הטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"בקשת העלאת קובץ מוכנה לייבוא; יש לבחור קובץ מקומי לפני הרצה\", function () { pm.expect(pm.response.code).to.be.oneOf([201, 400, 500]); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "description",
+              "value": "אישור מנהל מוסד ליציאה לטיול",
+              "type": "text"
+            },
+            {
+              "key": "fileCode",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/files/kit",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "files",
+            "kit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "19 קבלת כל קבצי הטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json(); if (Array.isArray(json) && json[0]) pm.collectionVariables.set(\"fileId\", json[0].id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/files",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "files"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "20 קבלת תיק הטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/files/kit",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "files",
+            "kit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "21 הורדת קובץ לפי מזהה",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"נקודת קובץ הופעלה\", function () { pm.expect(pm.response.code).to.be.oneOf([200, 404, 500]); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/files/{{fileId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "files",
+            "{{fileId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "22 מחיקת קובץ לפי מזהה",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"מחיקת קובץ הופעלה\", function () { pm.expect(pm.response.code).to.be.oneOf([204, 404, 500]); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/files/{{fileId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "files",
+            "{{fileId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "23 קבלת כל המדיה",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/media",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "media"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "24 העלאת תיעוד מדיה - נקודת בדיקה",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"נקודת הקצה הופעלה\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/media",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "media"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tripId\": \"{{trip1Id}}\",\n  \"mediaType\": \"image\",\n  \"description\": \"תיעוד תמונה מפעילות שטח\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "25 מחיקת מדיה - נקודת בדיקה",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"נקודת הקצה הופעלה\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/media/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "media",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "26 התחברות אחראי טיול לפתיחת אירועי חירום",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"leaderId\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nationalId\": \"123456793\",\n  \"institutionNumber\": 410011,\n  \"password\": \"123456793abc\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "27 פתיחת אירוע חירום קל בטיול של היום",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json(); if (json.emergency && json.emergency.id) pm.collectionVariables.set(\"emergencyId\", json.emergency.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/emergencies/minor",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "emergencies",
+            "minor"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"תלמידה נפצעה קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "28 קבלת אירועי חירום בטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/emergencies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "emergencies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "29 עדכון אירוע חירום",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/emergencies/{{emergencyId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "emergencies",
+            "{{emergencyId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"התלמידה קיבלה טיפול ראשוני וממתינה לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "30 סגירת אירוע חירום קל",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/emergencies/{{emergencyId}}/close/minor",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "emergencies",
+            "{{emergencyId}}",
+            "close",
+            "minor"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"אירוע החירום נסגר לאחר טיפול ודיווח להורים\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "31 התחברות מנהל מוסד לניהול וסגירה",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set(\"principalId\", json.userId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nationalId\": \"123456789\",\n  \"institutionNumber\": 410011,\n  \"password\": \"ORPass123!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "32 מחיקת אירוע חירום כמנהל מוסד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/emergencies/{{emergencyId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "emergencies",
+            "{{emergencyId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "33 שינוי תפקיד מורה לאחראי טיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{teacher2Id}}/role",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{teacher2Id}}",
+            "role"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"trip leader\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "34 עדכון פרופיל מנהל מוסד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{principalId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{principalId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"ישראל ישראלי מעודכן\",\n  \"userEmail\": \"israel.updated@example.com\",\n  \"userPhoneNumber\": \"0507654321\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "35 שינוי סיסמת מנהל מוסד",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{principalId}}/change-password",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{principalId}}",
+            "change-password"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"currentPassword\": \"ORPass123!\",\n  \"newPassword\": \"ORNext123!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "36 הסרת שיבוץ איש צוות מטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/staff/{{teacher1Id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "staff",
+            "{{teacher1Id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "37 הסרת איש צוות חיצוני מטיול",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip1Id}}/external-staff/{{externalStaffId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip1Id}}",
+            "external-staff",
+            "{{externalStaffId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "38 מחיקת טיול חמישי לניקוי נתונים",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/trips/{{trip5Id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "trips",
+            "{{trip5Id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "39 רענון טוקן",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/refresh",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "refresh"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "40 התנתקות",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"תגובה תקינה 2xx\", function () { pm.expect(pm.response.code).to.be.within(200, 299); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/logout",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "logout"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    }
+  ]
+}

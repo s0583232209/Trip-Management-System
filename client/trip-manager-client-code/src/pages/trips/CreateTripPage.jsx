@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import api from "../../api.js";
 import TripForm, { emptyStop } from "./TripForm.jsx";
 
@@ -29,7 +30,7 @@ const emptyGrades = () =>
 
 export default function CreateTripPage() {
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
+  const user = useSelector((state) => state.auth.user) || {};
 
   const [formData, setFormData] = useState({
     title: "",

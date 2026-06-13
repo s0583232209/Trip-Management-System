@@ -3,6 +3,7 @@ import log from "../loggers/file.logger.js";
 import * as mediaService from "../services/media.service.js";
 
 export async function getAllMedia(req, res) {
+  console.log("getAllMedia - src/controllers/media.controller.js");
   try {
     const media = await mediaService.getAllMedia(req.params.id);
     res.status(200).json(media);

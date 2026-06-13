@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import TripForm, { emptyStop } from "./TripForm.jsx";
@@ -42,8 +43,7 @@ export default function UpdateTripPage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
 
-  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
-  // console.log(user.role === "principal", "user.role==pricipal");
+  const user = useSelector((state) => state.auth.user) || {};
   // טעינת הנתונים הישנים של הטיול והשמתם כברירת מחדל בטופס
   useEffect(() => {
     if (!tripId) return;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar.jsx";
 import UserDetails from "../components/UserDetails.jsx";
 import api from "../api.js";
@@ -163,7 +164,7 @@ function StaffManagementSection({ currentUserId }) {
 
 export default function AddEmployeePage() {
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
+  const user = useSelector((state) => state.auth.user) || {};
 
   const userRoles = user.roles || (user.role ? [user.role] : []);
   const isPrincipal = userRoles.includes("principal");

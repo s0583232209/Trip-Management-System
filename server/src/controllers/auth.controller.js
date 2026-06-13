@@ -4,6 +4,7 @@ import * as authService from "../services/auth.service.js";
 import log from "../loggers/file.logger.js";
 
 export async function register(req, res) {
+  console.log("register - src/controllers/auth.controller.js");
   log.info("in cotroller - sign up");
   console.log("in sign up");
   try {
@@ -31,6 +32,7 @@ export async function register(req, res) {
 }
 
 export function refreshToken(req, res) {
+  console.log("refreshToken - src/controllers/auth.controller.js");
   const token = req.cookies.refreshToken;
   if (!token)
     return res.status(401).json({ message: "No refresh token provided" });
@@ -61,12 +63,14 @@ export function refreshToken(req, res) {
 }
 
 export function logout(req, res) {
+  console.log("logout - src/controllers/auth.controller.js");
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
   log.info(`user ${req.body.userId} logged out`);
   res.status(200).json({ message: "Logged out" });
 }
 export async function login(req, res) {
+  console.log("login - src/controllers/auth.controller.js");
   try {
     const { user, accessToken, refreshToken } = await authService.login(
       req.body,

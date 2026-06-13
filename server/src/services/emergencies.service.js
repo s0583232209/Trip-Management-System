@@ -5,10 +5,12 @@ import loggerService from "./logger.service.js";
 import { getTodayInIsrael } from "../utils/date.util.js";
 
 export async function getEmergenciesByTripId(tripId) {
+  console.log("getEmergenciesByTripId - src/services/emergencies.service.js");
   return await emergenciesRepository.getEmergenciesByTripId(tripId);
 }
 
 export async function createEmergency(emergencyData) {
+  console.log("createEmergency - src/services/emergencies.service.js");
   const trip = await tripsRepository.getTripDate(emergencyData.tripId);
   if (!trip) {
     const err = new Error("Trip not found");
@@ -61,6 +63,8 @@ export async function updateEmergency(emergencyId, emergencyData, tripId, userId
     throw err;
   }
 
+export async function updateEmergency(emergencyId, emergencyData) {
+  console.log("updateEmergency - src/services/emergencies.service.js");
   return await emergenciesRepository.updateEmergency(
     emergencyId,
     emergencyData,
@@ -68,5 +72,7 @@ export async function updateEmergency(emergencyId, emergencyData, tripId, userId
 }
 
 export async function deleteEmergency(emergencyId) {
+  console.log("deleteEmergency - src/services/emergencies.service.js");
   return await emergenciesRepository.deleteEmergency(emergencyId);
+}
 }

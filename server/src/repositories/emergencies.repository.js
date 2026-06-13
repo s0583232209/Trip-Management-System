@@ -4,6 +4,7 @@ import log from "../loggers/file.logger.js";
 import dblog from "../loggers/database.logger.js";
 
 export async function getEmergenciesByTripId(tripId) {
+  console.log("getEmergenciesByTripId - src/repositories/emergencies.repository.js");
   try {
     log.info(`getEmergenciesByTripId called with tripId: ${tripId}`);
     const connection = await getConnection();
@@ -38,6 +39,7 @@ export async function getEmergencyById(emergencyId) {
 }
 
 export async function createEmergency(emergencyData) {
+  console.log("createEmergency - src/repositories/emergencies.repository.js");
   try {
     log.info(
       `createEmergency called with data: ${JSON.stringify(emergencyData)}`,
@@ -70,6 +72,7 @@ export async function createEmergency(emergencyData) {
 }
 
 export async function deleteEmergency(emergencyId) {
+  console.log("deleteEmergency - src/repositories/emergencies.repository.js");
   try {
     log.info(`deleteEmergency called with emergencyId: ${emergencyId}`);
     const connection = await getConnection();
@@ -87,6 +90,7 @@ export async function deleteEmergency(emergencyId) {
 }
 
 export async function updateEmergency(emergencyId, emergencyData) {
+  console.log("updateEmergency - src/repositories/emergencies.repository.js");
   try {
     log.info(
       `updateEmergency called with emergencyId: ${emergencyId} and data: ${JSON.stringify(emergencyData)}`,

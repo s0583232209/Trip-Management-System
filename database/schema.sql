@@ -1,4 +1,4 @@
-e DROP DATABASE `trip_manager`;
+ DROP DATABASE `trip_manager`;
 CREATE DATABASE IF NOT EXISTS trip_manager
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
@@ -149,6 +149,7 @@ CREATE TABLE emergency_status(
 	status_code INT PRIMARY KEY,
 	status_name VARCHAR(20)
 );
+select * from emergency_status;
 -- 11. טבלת אירועי חירום בטיול
 CREATE TABLE emergencies (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -197,6 +198,7 @@ CREATE TABLE trip_classes (
     FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
     FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
 );
+
 CREATE TABLE external_role(
 id INT AUTO_INCREMENT PRIMARY KEY,
 role_name NVARCHAR(20) NOT NULL UNIQUE
@@ -208,12 +210,22 @@ external_role INT NOT NULL,
 phone VARCHAR(10) NOT NULL ,
 FOREIGN KEY (external_role) REFERENCES external_role(id) ON DELETE CASCADE
 );
+CREATE TABLE tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token_hash VARCHAR(255) NOT NULL,
+  expires_at DATETIME NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  revoked BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
 INSERT INTO roles (role_name)Values('principal');
 INSERT INTO roles (role_name)VALUES('coordinator');
 INSERT INTO roles (role_name)VALUES('trip leader');
 INSERT INTO roles (role_name)VALUES('teacher');
 INSERT INTO statuses(status_name)VALUES("schedualed");
 INSERT INTO statuses(status_name)VALUES("approved");
+INSERT INTO statuses(status_name)VALUES ("closed");
 INSERT INTO emergency_types (type_name, severity_level) VALUES ('minor', 1);
 INSERT INTO emergency_types (type_name, severity_level) VALUES ('critical', 2);
 INSERT INTO file_codes (file_name) VALUES ("מינוי אחראי טיול");
@@ -242,6 +254,7 @@ DELETe  FROM trip_files WHERE trip_id=1;
 select * from trip_kit ;
 -- INSERT INTO trip_kit(id,trip_id)VALUES(1,1);
 INSERT INTO emergency_status (status_code,status_name) VALUES (1,"open");
+INSERT INTO emergency_status (status_code,status_name) VALUES (2,"closed");
 select * from external_employees;
 
 INSERT INTO external_role(role_name)VALUES("guard");
@@ -257,3 +270,6 @@ FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
 FOREIGN KEY (staff_id) REFERENCES external_employees(id) ON DELETE CASCADE
 );
 DELETE FROM trip_files WHERE trip_id=2;
+select * from trips;
+UPDATE trips SET trip_status=1 WHERE id=1;
+select * from emergencies;

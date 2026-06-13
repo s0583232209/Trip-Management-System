@@ -1,5 +1,6 @@
 // permissions.js — בדיקות הרשאות צד לקוח
 import { toDateOnlyString, getTodayInIsrael } from "./dateUtils.js";
+import { store } from "./store/store.js";
 
 export const TRIP_STATUS = {
   PLANNED:   1,
@@ -16,7 +17,7 @@ export const TRIP_STATUS_LABEL = {
 };
 
 export function getUser() {
-  return JSON.parse(sessionStorage.getItem("current-user")) || {};
+  return store.getState().auth.user || {};
 }
 
 export function isRole(...roles) {

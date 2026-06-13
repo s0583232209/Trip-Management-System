@@ -120,24 +120,27 @@ export default function EmergencyPage() {
 
   useEffect(() => {
     socket.emit("join-trip", tripId);
-    socket.off("emergency-alert");
-    socket.off("emergency-closed");
 
-    socket.on("emergency-alert", (data) => {
+    // שומרים רפרנס לפונקציות ה-handler כדי שה-cleanup יסיר רק את המאזינים
+    // שנרשמו כאן, ולא ימחק מאזינים שרשמו קומפוננטות אחרות (socket הוא singleton משותף)
+    function handleEmergencyAlert(data) {
       setEmergencies((prev) => [data.emergency, ...prev]);
       startAlarm();
-    });
+    }
 
-    socket.on("emergency-closed", ({ emergencyId }) => {
+    function handleEmergencyClosed({ emergencyId }) {
       setEmergencies((prev) =>
         prev.map((em) => (em.id === emergencyId ? { ...em, status: 2 } : em))
       );
-    });
+    }
+
+    socket.on("emergency-alert", handleEmergencyAlert);
+    socket.on("emergency-closed", handleEmergencyClosed);
 
     return () => {
       socket.emit("leave-trip", tripId);
-      socket.off("emergency-alert");
-      socket.off("emergency-closed");
+      socket.off("emergency-alert", handleEmergencyAlert);
+      socket.off("emergency-closed", handleEmergencyClosed);
       stopAlarm();
     };
   }, [tripId]);

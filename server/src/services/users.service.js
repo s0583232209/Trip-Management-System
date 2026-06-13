@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import * as usersRepo from "../repositories/users.repository.js";
 
 export async function getUserById(id) {
+  console.log("getUserById - src/services/users.service.js");
   console.log("in get by id from service");
   const user = await usersRepo.getById(id);
   if (!user) throw new Error("משתמש לא נמצא");
@@ -10,6 +11,7 @@ export async function getUserById(id) {
 }
 
 export async function updateProfile(id, details) {
+  console.log("updateProfile - src/services/users.service.js");
   await usersRepo.updateProfile(id, details);
   const user = await usersRepo.getById(id);
   delete user.password;
@@ -20,6 +22,7 @@ export async function changePassword(
   id,
   { currentPassword, newUsername, newPassword },
 ) {
+  console.log("changePassword - src/services/users.service.js");
   const { hashedPassword } = await usersRepo.getPasswordByUserId(id);
   const isMatch = await bcrypt.compare(currentPassword, hashedPassword);
   if (!isMatch) {
@@ -51,6 +54,7 @@ export async function changePassword(
   return user;
 }
 export async function addUser(body) {
+  console.log("addUser - src/services/users.service.js");
   const principal = await usersRepo.getById(body.principalId);
   const hashedPassword = await bcrypt.hash(`${body.nationalId}abc`, 12);
   body.password = hashedPassword;
@@ -60,6 +64,7 @@ export async function addUser(body) {
   return user;
 }
 export async function getAllUsers(userId) {
+  console.log("getAllUsers - src/services/users.service.js");
   const users = await usersRepo.getAllUsers(userId);
   return users;
 }
@@ -67,6 +72,7 @@ export async function getAllUsers(userId) {
 const ASSIGNABLE_ROLES = ["coordinator", "trip leader", "teacher"];
 
 export async function deleteUser(id, requestingUserId) {
+  console.log("deleteUser - src/services/users.service.js");
   if (String(id) === String(requestingUserId)) {
     const err = new Error("לא ניתן למחוק את המשתמש המחובר למערכת");
     err.status = 400;
@@ -94,6 +100,7 @@ export async function deleteUser(id, requestingUserId) {
 }
 
 export async function addUserRole(id, role) {
+  console.log("addUserRole - src/services/users.service.js");
   if (!ASSIGNABLE_ROLES.includes(role)) {
     const err = new Error("תפקיד לא חוקי");
     err.status = 400;
@@ -110,6 +117,7 @@ export async function addUserRole(id, role) {
 }
 
 export async function removeUserRole(id, role) {
+  console.log("removeUserRole - src/services/users.service.js");
   if (!ASSIGNABLE_ROLES.includes(role)) {
     const err = new Error("תפקיד לא חוקי");
     err.status = 400;
@@ -120,6 +128,7 @@ export async function removeUserRole(id, role) {
 }
 
 export async function updateUserRole(id, role) {
+  console.log("updateUserRole - src/services/users.service.js");
   if (!ASSIGNABLE_ROLES.includes(role)) {
     const err = new Error("תפקיד לא חוקי");
     err.status = 400;

@@ -5,6 +5,7 @@ import log from "../loggers/file.logger.js";
 import { getTodayInIsrael } from "../utils/date.util.js";
 
 export default async function requireTripDay(req, res, next) {
+  console.log("requireTripDay - src/middlewares/tripDay.middleware.js");
   try {
     const userId = req.user.userId;
     const tripId = req.params.id || req.params.tripId;

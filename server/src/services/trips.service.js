@@ -4,11 +4,13 @@ import * as tripsRepo from "../repositories/trips.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
 import * as authService from "./auth.service.js";
 export async function getAllTrips(userId) {
+  console.log("getAllTrips - src/services/trips.service.js");
   const trips = await tripsRepo.getAll(userId);
   log.info(`get all trips by userId: ${userId}`);
   return trips;
 }
 export async function getById(tripId, userId) {
+  console.log("getById - src/services/trips.service.js");
   try {
     const trip = await tripsRepo.getById(tripId, userId);
     // console.log(trip, "this is the trip from the service");
@@ -21,6 +23,7 @@ export async function getById(tripId, userId) {
   }
 }
 export async function addTrip(tripDetails) {
+  console.log("addTrip - src/services/trips.service.js");
   try {
     const { school_id } = await usersRepo.getById(tripDetails.tripLeaderId);
     log.info(`the school id from add trip is: ${school_id}`);
@@ -36,6 +39,7 @@ export async function addTrip(tripDetails) {
   }
 }
 export async function updateTrip(tripDetails) {
+  console.log("updateTrip - src/services/trips.service.js");
   try {
     let tripLeaderId;
     const val = String(tripDetails.tripLeaderNationalId || "").trim();
@@ -69,6 +73,7 @@ export async function updateTrip(tripDetails) {
   }
 }
 export async function deleteTrip(tripId) {
+  console.log("deleteTrip - src/services/trips.service.js");
   try {
     const res = await tripsRepo.deleteTrip(tripId);
     log.info(`deleted trip with id: ${tripId}`);
@@ -79,6 +84,7 @@ export async function deleteTrip(tripId) {
   }
 }
 export async function approveTrip(tripId) {
+  console.log("approveTrip - src/services/trips.service.js");
   try {
     // אישור הטיול חסום אם קיימת כיתה המשובצת לטיול שאין לה אף איש צוות
     const uncoveredClasses = await tripsRepo.getUncoveredClasses(tripId);
@@ -104,6 +110,7 @@ export async function approveTrip(tripId) {
   }
 }
 export async function addStaff(tripId, staffAssignments) {
+  console.log("addStaff - src/services/trips.service.js");
   try {
     await tripsRepo.addStaff(tripId, staffAssignments);
     log.info(`staff added to trip: ${tripId}`);
@@ -119,6 +126,7 @@ export async function addStaff(tripId, staffAssignments) {
   return token;
 }
 export async function getAllStaff(tripId) {
+  console.log("getAllStaff - src/services/trips.service.js");
   try {
     const staff = await tripsRepo.getAllStaff(tripId);
     log.info(`all staff returned successfully`);
@@ -129,6 +137,7 @@ export async function getAllStaff(tripId) {
   }
 }
 export async function deleteStaff(tripId, staffId) {
+  console.log("deleteStaff - src/services/trips.service.js");
   try {
     const res = await tripsRepo.deleteStaff(tripId, staffId);
     log.info(`staff ${staffId} removed from trip: ${tripId}`);
@@ -139,6 +148,7 @@ export async function deleteStaff(tripId, staffId) {
   }
 }
 export async function addExternalStaff(tripId, staffDetails) {
+  console.log("addExternalStaff - src/services/trips.service.js");
   try {
     console.log("in add staff service, details=", staffDetails);
     const newStaff = await tripsRepo.addExternalStaff(tripId, staffDetails);
@@ -150,6 +160,7 @@ export async function addExternalStaff(tripId, staffDetails) {
   }
 }
 export async function deleteExternalStaff(tripId, staffId) {
+  console.log("deleteExternalStaff - src/services/trips.service.js");
   try {
     const res = await tripsRepo.deleteExternalStaff(tripId, staffId);
     log.info(`external staff ${staffId} removed from trip: ${tripId}`);
@@ -162,6 +173,7 @@ export async function deleteExternalStaff(tripId, staffId) {
   }
 }
 export async function closeTrip(tripId) {
+  console.log("closeTrip - src/services/trips.service.js");
   try {
     const closedTrip = await tripsRepo.closeTrip(tripId);
     log.info(`trip with id: ${tripId} closed successfully`);
@@ -173,6 +185,7 @@ export async function closeTrip(tripId) {
 }
 
 export async function setPostEdit(tripId, note) {
+  console.log("setPostEdit - src/services/trips.service.js");
   if (!note?.trim()) {
     const err = new Error("יש לספק הערת הסבר לתיקון בדיעבד");
     err.status = 400;

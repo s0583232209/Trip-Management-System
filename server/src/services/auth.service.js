@@ -3,27 +3,33 @@ import {
   getUserRolesOnTripDay,
 } from "../repositories/users.repository.js";
 import log from "../loggers/file.logger.js";
+import { addToken } from "../repositories/auth.repository.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { addUser, getUserById } from "../repositories/users.repository.js";
 export const userHasRole = async (userId, allowedRoles) => {
+  console.log("userHasRole - src/services/auth.service.js");
   const roles = await getUserRoles(userId);
   const roleNames = roles.map((role) => role.role_name);
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
   return allowedRoles.some((role) => roleNames.includes(role));
 };
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import { addUser, getUserById } from "../repositories/users.repository.js";
 
 export function createAccessToken(payload) {
+  console.log("createAccessToken - src/services/auth.service.js");
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
 }
 export function createParentToken(payload) {
+  console.log("createParentToken - src/services/auth.service.js");
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
 }
 export function createRefreshToken(payload) {
+  console.log("createRefreshToken - src/services/auth.service.js");
   return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
 }
 
 export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
+  console.log("sendAuthResponse - src/services/auth.service.js");
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: false,
@@ -42,6 +48,7 @@ export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
 }
 
 export async function login(user) {
+  console.log("login - src/services/auth.service.js");
   const row = await getUserById(user.nationalId, user.institutionNumber);
   if (!row) throw new Error("User not found");
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
@@ -56,6 +63,9 @@ export async function login(user) {
     role: roleNames[0],
     roles: roleNames,
   };
+  const refreshToken = createRefreshToken(payload);
+  if (!(await addToken(await bcrypt.hash(refreshToken, 12), row.userId)))
+    throw new Error("can not add token to the database");
   return {
     user: {
       role: roleNames[0],
@@ -65,18 +75,18 @@ export async function login(user) {
       msg: "success",
     },
     accessToken: createAccessToken(payload),
-    refreshToken: createRefreshToken(payload),
+    refreshToken: refreshToken,
   };
 }
 
 export async function register(body) {
+  console.log("register - src/services/auth.service.js");
   const hashedPassword = await bcrypt.hash(
     body.password || body.nationalId,
     12,
   );
   const user = await addUser({ ...body, password: hashedPassword }, true);
   delete user.password;
-  // console.log(user);
   const payload = {
     nationalId: user.nationalId,
     institutionNumber: user.institutionNumber,
@@ -84,9 +94,12 @@ export async function register(body) {
     currentTime: new Date(),
     role: user.role,
   };
+  const refreshToken = createRefreshToken(payload);
+  if (!(await addToken(await bcrypt.hash(refreshToken, 12), user.userId)))
+    throw new Error("can not add token to the database");
   return {
     user,
     accessToken: createAccessToken(payload),
-    refreshToken: createRefreshToken(payload),
+    refreshToken: refreshToken,
   };
 }

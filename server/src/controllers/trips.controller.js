@@ -3,6 +3,7 @@ import log from "../loggers/file.logger.js";
 import * as tripsService from "../services/trips.service.js";
 import { createParentToken } from "../services/auth.service.js";
 export async function getAllTrips(req, res) {
+  console.log("getAllTrips - src/controllers/trips.controller.js");
   try {
     const trips = await tripsService.getAllTrips(req.user.userId);
     // console.log("trips controller after getting all trips = ", trips);
@@ -14,6 +15,7 @@ export async function getAllTrips(req, res) {
 }
 
 export async function getById(req, res) {
+  console.log("getById - src/controllers/trips.controller.js");
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
     log.info(`the trip with id ${req.params.id} returned successfully`);
@@ -26,6 +28,7 @@ export async function getById(req, res) {
 }
 
 export async function createTrip(req, res) {
+  console.log("createTrip - src/controllers/trips.controller.js");
   try {
     const newTrip = await tripsService.addTrip(req.body);
     log.info(`new trip added successfully`);
@@ -36,6 +39,7 @@ export async function createTrip(req, res) {
   }
 }
 export async function updateTrip(req, res) {
+  console.log("updateTrip - src/controllers/trips.controller.js");
   try {
     log.info(`updateTrip body: ${JSON.stringify(req.body)}`);
     const updatedTrip = await tripsService.updateTrip({
@@ -50,6 +54,7 @@ export async function updateTrip(req, res) {
   }
 }
 export async function deleteTrip(req, res) {
+  console.log("deleteTrip - src/controllers/trips.controller.js");
   try {
     const response = await tripsService.deleteTrip(req.params.id);
     log.info(`trip with id: ${req.params.id} deleted successfully`);
@@ -60,6 +65,7 @@ export async function deleteTrip(req, res) {
   }
 }
 export async function approveTrip(req, res) {
+  console.log("approveTrip - src/controllers/trips.controller.js");
   try {
     const trip = await tripsService.approveTrip(req.params.id);
     // console.log(trip);
@@ -73,6 +79,7 @@ export async function approveTrip(req, res) {
   }
 }
 export async function addStaff(req, res) {
+  console.log("addStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.addStaff(req.params.id, req.body.staffAssignments);
     log.info(`staff added to trip: ${req.params.id}`);
@@ -83,6 +90,7 @@ export async function addStaff(req, res) {
   }
 }
 export async function getAllStaff(req, res) {
+  console.log("getAllStaff - src/controllers/trips.controller.js");
   try {
     const staff = await tripsService.getAllStaff(req.params.id);
     res.status(201).json(staff);
@@ -92,6 +100,7 @@ export async function getAllStaff(req, res) {
   }
 }
 export async function deleteStaff(req, res) {
+  console.log("deleteStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.deleteStaff(req.params.id, req.params.userId);
     log.info(`staff ${req.params.userId} removed from trip: ${req.params.id}`);
@@ -102,6 +111,7 @@ export async function deleteStaff(req, res) {
   }
 }
 export async function addExternalStaff(req, res) {
+  console.log("addExternalStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.addExternalStaff(req.params.id, req.body);
     res.status(201).json({ message: "External staff added successfully" });
@@ -111,6 +121,7 @@ export async function addExternalStaff(req, res) {
   }
 }
 export async function deleteExternalStaff(req, res) {
+  console.log("deleteExternalStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.deleteExternalStaff(req.params.id, req.params.staffId);
     log.info(
@@ -123,6 +134,7 @@ export async function deleteExternalStaff(req, res) {
   }
 }
 export async function closeTrip(req, res) {
+  console.log("closeTrip - src/controllers/trips.controller.js");
   try {
     await tripsService.closeTrip(req.params.id);
     res.status(200).json({ message: "trip closed successfully" });
@@ -132,6 +144,7 @@ export async function closeTrip(req, res) {
 }
 
 export async function setPostEdit(req, res) {
+  console.log("setPostEdit - src/controllers/trips.controller.js");
   try {
     await tripsService.setPostEdit(req.params.id, req.body.note);
     res.status(200).json({ message: "הטיול נפתח לעריכה בדיעבד" });

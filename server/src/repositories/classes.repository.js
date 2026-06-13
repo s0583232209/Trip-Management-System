@@ -4,6 +4,7 @@ import dblog from "../loggers/database.logger.js";
 import getConnection from "../config/db.js";
 
 export async function getAllClasses(schoolId) {
+  console.log("getAllClasses - src/repositories/classes.repository.js");
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute(
@@ -22,6 +23,7 @@ export async function getAllClasses(schoolId) {
 }
 
 export async function addClass(details) {
+  console.log("addClass - src/repositories/classes.repository.js");
   try {
     const connection = await getConnection();
     const [result] = await connection.execute(

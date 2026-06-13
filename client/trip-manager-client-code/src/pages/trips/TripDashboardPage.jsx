@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import { canManageTrip, isRole, TRIP_STATUS_LABEL } from "../../permissions.js";
@@ -12,7 +13,7 @@ export default function TripDashboardPage() {
   const [tripStatus, setTripStatus] = useState(null);
   const [isTripLeader, setIsTripLeader] = useState(false);
 
-  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
+  const user = useSelector((state) => state.auth.user) || {};
 
   useEffect(() => {
     api

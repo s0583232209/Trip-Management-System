@@ -20,6 +20,7 @@ const ALLOWED_MIME_TO_EXTENSIONS = {
 const storage = multer.diskStorage({
   // קובע לאיזו תיקייה לשמור את הקובץ: uploads/trips/<tripId>/documents
   destination: (req, file, cb) => {
+  console.log("destination - src/middlewares/upload.middleware.js");
     const tripId = req.params.id;
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
     const uploadPath = path.join(
@@ -39,6 +40,7 @@ const storage = multer.diskStorage({
 
   // קובע את שם הקובץ בדיסק: timestamp + שם הקובץ המקורי, כדי למנוע התנגשויות שמות
   filename: (req, file, cb) => {
+  console.log("filename - src/middlewares/upload.middleware.js");
     const decodedName = Buffer.from(file.originalname, "latin1").toString("utf8");
 
     // מנקים את שם הקובץ המקורי לפני שהוא משולב בשם הקובץ שנשמר בדיסק:
@@ -56,6 +58,7 @@ const storage = multer.diskStorage({
 
 // מסנן קבצים: מאפשר רק PDF, PNG ו-JPG/JPEG, ובודק התאמה בין ה-MIME type לסיומת הקובץ
 function fileFilter(req, file, cb) {
+  console.log("fileFilter - src/middlewares/upload.middleware.js");
   const ext = path.extname(file.originalname).toLowerCase();
   const allowedExtensions = ALLOWED_MIME_TO_EXTENSIONS[file.mimetype];
 
@@ -73,6 +76,7 @@ const upload = multer({ storage, fileFilter, limits: { fileSize: MAX_FILE_SIZE }
 // עוטף את upload.single כדי לתרגם שגיאות Multer (חריגה ממגבלת הגודל / סוג קובץ לא מורשה)
 // להודעות שגיאה בעברית עם status מתאים, לפני שהן מגיעות ל-errorHandler הגלובלי
 export function uploadSingle(fieldName) {
+  console.log("uploadSingle - src/middlewares/upload.middleware.js");
   const handler = upload.single(fieldName);
   return (req, res, next) => {
     handler(req, res, (err) => {

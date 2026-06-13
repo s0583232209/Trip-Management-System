@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar.jsx";
 import "./DashboardPage.css";
 
@@ -12,12 +13,12 @@ const ROLE_LABELS = {
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem("current-user"));
+  const user = useSelector((state) => state.auth.user);
   const userRoles = user?.roles || (user?.role ? [user.role] : []);
 
   useEffect(() => {
     if (!user) navigate("/login");
-  }, []);
+  }, [user, navigate]);
 
   const isPrincipal = userRoles.includes("principal");
   const isCoordinator = userRoles.includes("coordinator");

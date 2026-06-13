@@ -119,6 +119,7 @@ export default function EmergencyPage() {
   }, [tripId]);
 
   useEffect(() => {
+    socket.emit("join-trip", tripId);
     socket.off("emergency-alert");
     socket.off("emergency-closed");
 
@@ -134,6 +135,7 @@ export default function EmergencyPage() {
     });
 
     return () => {
+      socket.emit("leave-trip", tripId);
       socket.off("emergency-alert");
       socket.off("emergency-closed");
       stopAlarm();

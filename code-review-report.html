@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סקירת קוד - מערכת ניהול טיולים</title>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --card-bg: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --critical: #dc2626;
+    --high: #ea580c;
+    --medium: #d97706;
+    --low: #6b7280;
+    --critical-bg: #fef2f2;
+    --high-bg: #fff7ed;
+    --medium-bg: #fffbeb;
+    --low-bg: #f9fafb;
+    --code-bg: #1e293b;
+    --code-text: #e2e8f0;
+    --accent: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+  }
+  header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 14px;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  .summary {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary h2 { margin-top: 0; }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .badge.critical { background: var(--critical-bg); color: var(--critical); border: 1px solid #fecaca; }
+  .badge.high { background: var(--high-bg); color: var(--high); border: 1px solid #fed7aa; }
+  .badge.medium { background: var(--medium-bg); color: var(--medium); border: 1px solid #fde68a; }
+  .badge.low { background: var(--low-bg); color: var(--low); border: 1px solid #e5e7eb; }
+
+  nav.toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 28px;
+  }
+  nav.toc h2 { margin-top: 0; font-size: 18px; }
+  nav.toc ul { columns: 2; padding-inline-start: 20px; }
+  nav.toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  section.area {
+    margin-bottom: 36px;
+  }
+  section.area > h2 {
+    font-size: 22px;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .severity-group {
+    margin-bottom: 24px;
+  }
+  .severity-group > h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-right: 6px solid var(--low);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .card.critical { border-right-color: var(--critical); }
+  .card.high { border-right-color: var(--high); }
+  .card.medium { border-right-color: var(--medium); }
+  .card.low { border-right-color: var(--low); }
+
+  .card .file {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: #eff6ff;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 8px;
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: embed;
+  }
+  .card h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .card p { margin: 6px 0; font-size: 14.5px; }
+  .card .label {
+    font-weight: 700;
+    color: var(--muted);
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 12px 14px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    direction: ltr;
+    text-align: left;
+    margin: 8px 0;
+  }
+  code {
+    font-family: Consolas, "Courier New", monospace;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    color: white;
+  }
+  .tag.critical { background: var(--critical); }
+  .tag.high { background: var(--high); }
+  .tag.medium { background: var(--medium); }
+  .tag.low { background: var(--low); }
+
+  .done-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    float: left;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    user-select: none;
+  }
+  .done-toggle input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #16a34a;
+  }
+  .card:has(.done-checkbox:checked) {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    border-right-color: #16a34a;
+    opacity: 0.6;
+  }
+  .card:has(.done-checkbox:checked) h4 {
+    text-decoration: line-through;
+  }
+
+  .progress-wrap {
+    margin: 14px 0;
+  }
+  .progress-bar {
+    background: #e5e7eb;
+    border-radius: 999px;
+    height: 10px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .progress-bar-fill {
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    height: 100%;
+    width: 0%;
+    transition: width 0.25s ease;
+  }
+  .progress-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .reset-btn {
+    margin-top: 8px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .reset-btn:hover {
+    background: #f3f4f6;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 24px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 סקירת קוד – מערכת ניהול טיולים</h1>
+  <p>Trip Management System – ממצאי בדיקה בצד שרת (Server) ובצד לקוח (Client)</p>
+</header>
+
+<div class="container">
+
+  <div class="summary">
+    <h2>סיכום כללי</h2>
+    <p>
+      נסקרו קוד השרת (Node.js / Express) וקוד הלקוח (React + Vite). נמצאו <b>45 ממצאים</b>,
+      חלקם בעיות אבטחה והרשאות קריטיות, חלקם באגים פונקציונליים שמשביתים פיצ'רים שלמים,
+      וחלקם בעיות איכות קוד וקוד מת.
+    </p>
+    <div class="badges">
+      <span class="badge critical">🔴 קריטי – 11</span>
+      <span class="badge high">🟠 גבוה – 12</span>
+      <span class="badge medium">🟡 בינוני – 12</span>
+      <span class="badge low">⚪ נמוך – 10</span>
+    </div>
+    <p><b>נקודות עיקריות לטיפול מיידי:</b></p>
+    <ul>
+      <li>סגירת חירום קריטי – אין בדיקת הרשאה בצד השרת, רק בצד הלקוח (ניתן לעקיפה).</li>
+      <li>אישור טיול (Approve Trip) קורס תמיד עם שגיאת 500 עקב שימוש שגוי ב-<code>jwt.sign</code>.</li>
+      <li>מחיקת משתמש לא עובדת בגלל route כפול שמסתיר את ה-handler האמיתי.</li>
+      <li>סיסמאות בטקסט גלוי נשמרות בלוג ה-Audit עבור בקשות התחברות/הרשמה.</li>
+      <li>נתיב ניווט שגוי (<code>/emergency</code> מול <code>/emergencies</code>) שובר את מסך החירום מההתראות.</li>
+      <li>הסרת מאזיני Socket גלובלית (<code>socket.off("event")</code> בלי handler) מוחקת מאזינים של קומפוננטות אחרות.</li>
+    </ul>
+    <div class="progress-wrap">
+      <span class="progress-text" id="progress-text">הושלמו 0 מתוך 45 ממצאים</span>
+      <div class="progress-bar"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
+      <button class="reset-btn" id="reset-progress">איפוס סימונים</button>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <h2>תוכן עניינים</h2>
+    <ul>
+      <li><a href="#server-critical">שרת – קריטי</a></li>
+      <li><a href="#server-high">שרת – גבוה</a></li>
+      <li><a href="#server-medium">שרת – בינוני</a></li>
+      <li><a href="#server-low">שרת – נמוך</a></li>
+      <li><a href="#client-critical">לקוח – קריטי</a></li>
+      <li><a href="#client-high">לקוח – גבוה</a></li>
+      <li><a href="#client-medium">לקוח – בינוני</a></li>
+      <li><a href="#client-low">לקוח – נמוך</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== SERVER ===================== -->
+  <section class="area">
+    <h2>🖥️ צד שרת (Server)</h2>
+
+    <!-- SERVER CRITICAL -->
+    <div class="severity-group" id="server-critical">
+      <h3>🔴 קריטי</h3>
+
+      <div class="card critical" data-finding="f1">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f1"><span>סומן כטופל</span></label>
+        <span class="tag critical">אבטחה / הרשאות</span>
+        <div class="file">server/src/controllers/emergencies.controller.js – update()</div>
+        <h4>1. אין בדיקה בצד השרת ל"רק הפותח יכול לסגור חירום קריטי"</h4>
+        <p><span class="label">הבעיה:</span> בהיסטוריית ה-commits נרשם שתוקן "restrict closing critical emergencies to opener", אך בפועל פונקציית <code>update()</code> אינה בודקת מי פתח את האירוע (<code>opened_by</code>), את סוג האירוע (<code>emergency_type_id</code>), או שהאירוע שייך לטיול הנכון. כל משתמש שעובר את <code>requireRole("trip leader","teacher")</code> יכול לסגור/לעדכן <b>כל</b> אירוע חירום, כולל אירוע קריטי שנפתח על ידי מישהו אחר.</p>
+        <p><span class="label">השפעה:</span> עוקף הרשאה קריטי בפיצ'ר בטיחותי – מורה יכול לסגור חירום קריטי שנפתח ע"י רכז הטיול, או לסגור אירוע של טיול אחר אם מנחשים <code>emergencyId</code>.</p>
+        <p><span class="label">תיקון מומלץ:</span> ב-<code>update()</code> לשלוף את האירוע מה-DB; אם <code>emergency_type_id === 2</code> (קריטי) ו-<code>status === 2</code> (סגירה) – לבדוק <code>emergency.opened_by === req.user.userId</code> (אחרת 403), ולבדוק שהאירוע אכן שייך ל-<code>tripId</code> מה-route.</p>
+      </div>
+
+      <div class="card critical" data-finding="f2">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f2"><span>סומן כטופל</span></label>
+        <span class="tag critical">באג קורס / פיצ'ר שבור</span>
+        <div class="file">server/src/services/auth.service.js (createParentToken) + trips.service.js (approveTrip)</div>
+        <h4>2. אישור טיול (Approve Trip) קורס תמיד עם 500</h4>
+        <p><span class="label">הבעיה:</span></p>
+        <pre><code>// auth.service.js
+export function createParentToken(payload) {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+}
+
+// trips.service.js
+const parentToken = authService.createParentToken(tripId); // tripId הוא מחרוזת "5"</code></pre>
+        <p><span class="label">השפעה:</span> <code>jwt.sign()</code> זורק שגיאה סינכרונית "invalid expiresIn option for string payload" כאשר ה-payload הוא מחרוזת/מספר וגם מוגדר <code>expiresIn</code>. כתוצאה מכך, <code>PUT /api/trips/:id/approve</code> מחזיר תמיד 500 כאשר אין מקצועות לא מכוסים – כל פיצ'ר "אישור טיול" שבור.</p>
+        <p><span class="label">תיקון מומלץ:</span> <code>createParentToken({ tripId })</code> – לעטוף באובייקט, כמו בשימוש ב-<code>addStaff</code> (<code>createParentToken({ tripId, tripDate: new Date() })</code>).</p>
+      </div>
+
+      <div class="card critical" data-finding="f3">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f3"><span>סומן כטופל</span></label>
+        <span class="tag critical">קוד מת / Route כפול</span>
+        <div class="file">server/src/routes/users.routes.js (שורות 30-33)</div>
+        <h4>3. Route כפול ל-DELETE /:id מבטל את פעולת מחיקת המשתמש</h4>
+        <pre><code>router.delete("/:id", requireRole("principal"), (req, res) => {
+  res.send("users: delete user");
+});
+router.delete("/:id", requireRole("principal"), deleteUser);</code></pre>
+        <p><span class="label">השפעה:</span> Express מנתב ל-handler הראשון שמתאים ועוצר. ה-stub בשורה הראשונה "מנצח" תמיד, וה-controller האמיתי <code>deleteUser</code> לא מתבצע לעולם. הלקוח מקבל 200 עם הטקסט "users: delete user" אך אף משתמש לא נמחק.</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את ה-route ה-stub (השורות הראשונות) ולהשאיר רק את זה שמפנה ל-<code>deleteUser</code>.</p>
+      </div>
+
+      <div class="card critical" data-finding="f4">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f4"><span>סומן כטופל</span></label>
+        <span class="tag critical">DB / לוגים</span>
+        <div class="file">server/src/repositories/logger.repository.js (שורה 4)</div>
+        <h4>4. שם בסיס נתונים מקובע בקוד ("trip_manager") במקום משתנה סביבה</h4>
+        <pre><code>const connection = await getConnection(true);
+await connection.query("USE trip_manager")</code></pre>
+        <p><span class="label">הבעיה:</span> שם ה-DB מוגדר ב-<code>process.env.DATABASE</code> ב-<code>db.js</code>, אך כאן הוא מקובע ("trip_manager"). כל כתיבת לוג Audit (כל פעולת create/update/delete באפליקציה) מריצה <code>USE trip_manager</code> ללא תלות בקונפיגורציה.</p>
+        <p><span class="label">השפעה:</span> בכל סביבה בה <code>DATABASE</code> שונה מ-"trip_manager" (סטייג'ינג/בדיקות), כל קריאת audit log תכשל ("Unknown database") או – חמור מכך – תחליף את ה-DB של החיבור המשותף, ותשפיע על שאר השאילתות במערכת.</p>
+        <p><span class="label">תיקון מומלץ:</span> שימוש ב-<code>`USE ${process.env.DATABASE}`</code>, או הסרה מוחלטת מכיוון שה-DB נבחר כבר בעת יצירת החיבור.</p>
+      </div>
+
+      <div class="card critical" data-finding="f5">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f5"><span>סומן כטופל</span></label>
+        <span class="tag critical">אבטחה / חשיפת מידע</span>
+        <div class="file">server/src/middlewares/logger.middleware.js (שורות 5-11)</div>
+        <h4>5. סיסמאות בטקסט גלוי נשמרות בטבלת audit_log</h4>
+        <pre><code>if (req.path.includes("auth")) {
+  await dblog({
+    userId: req.userId,
+    actionType: "auth",
+    message: `path: ${req.path}. body: ${JSON.stringify(req.body)}`,
+  });
+}</code></pre>
+        <p><span class="label">הבעיה:</span> עבור <code>/api/auth/login</code> ו-<code>/api/auth/register</code>, <code>req.body</code> מכיל את <b>הסיסמה בטקסט גלוי</b>, ונשמר לצמיתות בטבלת <code>audit_log</code>.</p>
+        <p><span class="label">השפעה:</span> חשיפת אישורי כניסה בטקסט גלוי במסד הנתונים (וב-backups/exports) – פגיעה חמורה בפרטיות ואבטחה.</p>
+        <p><span class="label">תיקון מומלץ:</span> לא לרשום <code>req.body</code> עבור נתיבי auth בכלל, או למסך (redact) שדות <code>password</code>/<code>newPassword</code>/<code>currentPassword</code> לפני הלוגינג.</p>
+      </div>
+
+      <div class="card critical" data-finding="f6">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f6"><span>סומן כטופל</span></label>
+        <span class="tag critical">Async / Transaction</span>
+        <div class="file">server/src/repositories/trips.repository.js – addExternalStaff (שורות 272-316)</div>
+        <h4>6. קריאות לטרנזקציה ללא await – מצב תחרות (race condition)</h4>
+        <pre><code>connection.beginTransaction();
+...
+connection.commit();
+} catch (err) {
+  console.log(err);
+  connection.rollback();
+  throw err;
+}</code></pre>
+        <p><span class="label">הבעיה:</span> <code>beginTransaction()</code>, <code>commit()</code> ו-<code>rollback()</code> מחזירים Promise שאינו ממומש (await). הפונקציה עלולה לחזור/לזרוק שגיאה לפני שהטרנזקציה בפועל התחילה/הסתיימה/בוצע לה rollback – מצב שיכול ליצור חוסר עקביות בנתונים (שורת <code>external_employees</code> נכנסה אך הקישור ל-<code>external_staff_trip</code> לא בוצע).</p>
+        <p><span class="label">תיקון מומלץ:</span> <code>await connection.beginTransaction()</code>, <code>await connection.commit()</code>, <code>await connection.rollback()</code>.</p>
+      </div>
+
+      <div class="card critical" data-finding="f7">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f7"><span>סומן כטופל</span></label>
+        <span class="tag critical">Error Handling</span>
+        <div class="file">server/src/controllers/files.controller.js – getKit (שורות 23-30)</div>
+        <h4>7. נתיב שגיאה שלא שולח תגובה כלל – הבקשה "נתקעת"</h4>
+        <pre><code>export async function getKit(req, res) {
+  try {
+    const kit = await fileService.getKit(req.params.id);
+    res.status(200).json(kit);
+  } catch (err) {
+    res.status(500);   // אין .json()/.send()/.end()
+  }
+}</code></pre>
+        <p><span class="label">השפעה:</span> במקרה של שגיאה, התגובה לעולם לא "נסגרת" – הלקוח ייתקע עד timeout במקום לקבל שגיאת 500 מסודרת.</p>
+        <p><span class="label">תיקון מומלץ:</span> <code>res.status(500).json({ message: "Failed to get kit" })</code>.</p>
+      </div>
+
+      <div class="card critical" data-finding="f8">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f8"><span>סומן כטופל</span></label>
+        <span class="tag critical">אבטחה / Upload</span>
+        <div class="file">server/src/middlewares/upload.middleware.js (שורות 29-33)</div>
+        <h4>8. אין סניטציה לשם הקובץ ואין הגבלת סוגי קבצים</h4>
+        <pre><code>filename: (req, file, cb) => {
+  file.originalname = Buffer.from(file.originalname, "latin1").toString("utf8");
+  const fileName = Date.now() + "-" + file.originalname;
+  cb(null, fileName);
+},</code></pre>
+        <p><span class="label">הבעיה:</span> אין סינון של <code>file.originalname</code> (יכול להכיל <code>../</code>, תווי בקרה, מפרידי נתיב) לפני שהוא משולב בשם הקובץ הנשמר, ואין רשימת סוגי קבצים מורשים (<code>limits</code> מגביל רק גודל).</p>
+        <p><span class="label">השפעה:</span> פוטנציאל ל-Path Traversal (כתיבה מחוץ ל-<code>uploads/trips/&lt;id&gt;/documents</code>) והעלאת סוגי קבצים מסוכנים (קבצי הרצה, HTML/SVG שיכולים לגרום ל-Stored XSS כאשר מוגשים בחזרה ע"י <code>res.sendFile</code>).</p>
+        <p><span class="label">תיקון מומלץ:</span> לנקות תווי בקרה/מפרידי נתיב מ-<code>originalname</code> (למשל <code>path.basename()</code> + regex), ולהוסיף <code>fileFilter</code> ב-multer עם רשימת MIME/סיומות מורשות.</p>
+      </div>
+    </div>
+
+    <!-- SERVER HIGH -->
+    <div class="severity-group" id="server-high">
+      <h3>🟠 גבוה</h3>
+
+      <div class="card high" data-finding="f9">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f9"><span>סומן כטופל</span></label>
+        <span class="tag high">Error Handling</span>
+        <div class="file">server/src/services/files.service.js – uploadFile (שורות 29-75)</div>
+        <h4>9. שגיאות בהעלאת קובץ "נבלעות" ומוחזר null כתשובת הצלחה</h4>
+        <pre><code>export async function uploadFile(data) {
+  try {
+    ...
+    return { id, fileName: fileToSave.originalName };
+  } catch (err) {
+    return null;
+  }
+}</code></pre>
+        <p><span class="label">השפעה:</span> בשילוב עם ה-controller, העלאה שנכשלה (למשל שגיאת DB) מחזירה <code>res.status(201).json(null)</code> – "הצלחה" עם body ריק, בזמן שהקובץ עצמו אולי נכתב לדיסק אך לא נרשם ב-DB (קובץ "יתום").</p>
+        <p><span class="label">תיקון מומלץ:</span> לזרוק את השגיאה מחדש (או להחזיר אובייקט שגיאה) כדי שה-controller יחזיר סטטוס שגיאה מתאים.</p>
+      </div>
+
+      <div class="card high" data-finding="f10">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f10"><span>סומן כטופל</span></label>
+        <span class="tag high">Error Handling</span>
+        <div class="file">server/src/repositories/files.repository.js – upload() (שורות 28-68)</div>
+        <h4>10. שגיאת DB נבלעת ואז גישה ל-result.insertId זורקת TypeError</h4>
+        <pre><code>let result;
+try {
+  [result] = await connection.execute(sql, params);
+  await logFileAudit("upload_file", result.insertId, file);
+} catch (err) {
+  // console.log(err);
+}
+return result.insertId;</code></pre>
+        <p><span class="label">הבעיה:</span> אם <code>connection.execute</code> זורק שגיאה (למשל הפרת constraint), <code>result</code> נשאר <code>undefined</code>, ו-<code>return result.insertId</code> זורק <code>TypeError</code> שמסווה את השגיאה האמיתית מה-DB.</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את ה-try/catch הפנימי (או לזרוק מחדש) כך שהשגיאה האמיתית תגיע לקורא/ללוגר.</p>
+      </div>
+
+      <div class="card high" data-finding="f11">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f11"><span>סומן כטופל</span></label>
+        <span class="tag high">קוד placeholder</span>
+        <div class="file">server/src/repositories/media.repository.js (שורות 5-11)</div>
+        <h4>11. getAll מחזיר את המחרוזת "nothing" במקום נתונים</h4>
+        <pre><code>export async function getAll(tripId) {
+  const connection = await getConnection();
+  const [rows] = ["nothing"];
+  //if we actually have media - so to pull it form here
+  log.info(`getAll media by tripId: ${tripId}`);
+  return rows;
+}</code></pre>
+        <p><span class="label">הבעיה:</span> <code>[rows] = ["nothing"]</code> הופך את <code>rows</code> למחרוזת "nothing". <code>GET /api/media/:id</code> מחזיר 200 עם המחרוזת "nothing" כ-body, וה-connection נוצר אך לא נעשה בו שימוש.</p>
+        <p><span class="label">תיקון מומלץ:</span> לממש שאילתה אמיתית, או לכל הפחות להחזיר <code>[]</code> ולהסיר את החיבור שלא בשימוש.</p>
+      </div>
+
+      <div class="card high" data-finding="f12">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f12"><span>סומן כטופל</span></label>
+        <span class="tag high">קודי תגובה שגויים</span>
+        <div class="file">server/src/services/emergencies.service.js (שורות 11-25)</div>
+        <h4>12. שימוש בקוד סטטוס 402 (Payment Required) עבור שגיאות לוגיות</h4>
+        <pre><code>if (!trip) {
+  const err = new Error("Trip not found");
+  err.status = 402;
+  throw err;
+}
+...
+if (tripDate !== today) {
+  const err = new Error("Cannot open emergency — today is not the trip date");
+  err.status = 402;
+  throw err;
+}</code></pre>
+        <p><span class="label">הבעיה:</span> 402 הוא קוד שמיועד לתשלום ולא נכון סמנטית, ומבלבל את הלקוח.</p>
+        <p><span class="label">תיקון מומלץ:</span> 404 עבור "טיול לא נמצא", ו-400/403 עבור "התאריך אינו תאריך הטיול".</p>
+      </div>
+
+      <div class="card high" data-finding="f13">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f13"><span>סומן כטופל</span></label>
+        <span class="tag high">Error Handling</span>
+        <div class="file">server/src/repositories/users.repository.js – getUserRoles (שורות 8-22)</div>
+        <h4>13. getUserRoles זורק שגיאה כשלמשתמש אין תפקידים – הופך 403 ל-500</h4>
+        <pre><code>export const getUserRoles = async (userId) => {
+  ...
+  if (!rows || rows.length === 0) throw new Error(`לא נמצאו הרשאות למשתמש ${userId}`);
+  return rows;
+};</code></pre>
+        <p><span class="label">הבעיה:</span> <code>userHasRole()</code> קורא לפונקציה זו ומריץ <code>roles.map(...)</code>. אם למשתמש אין תפקידים בלגיטימיות, נזרקת שגיאה במקום החזרת <code>[]</code>/<code>false</code>. ב-<code>roleGuard.middlware.js</code> ה-catch מחזיר 500 "Server error" במקום 403 "Forbidden".</p>
+        <p><span class="label">תיקון מומלץ:</span> להחזיר <code>[]</code> במקום לזרוק שגיאה, כך ש-<code>userHasRole</code> יחזיר <code>false</code> באופן טבעי.</p>
+      </div>
+
+      <div class="card high" data-finding="f14">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f14"><span>סומן כטופל</span></label>
+        <span class="tag high">לוגים / חשיפת מידע</span>
+        <div class="file">server/src/controllers/emergencies.controller.js (שורה 56)</div>
+        <h4>14. console.log(req) – הדפסת כל אובייקט הבקשה ללוג</h4>
+        <pre><code>export async function update(req, res) {
+  try {
+    console.log(req);</code></pre>
+        <p><span class="label">השפעה:</span> מדפיס ל-stdout את כל אובייקט הבקשה (כולל headers, cookies/JWT) בכל עדכון חירום – הצפת לוגים וחשיפה אפשרית של טוקנים.</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את שורת ה-debug.</p>
+      </div>
+
+      <div class="card high" data-finding="f15">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f15"><span>סומן כטופל</span></label>
+        <span class="tag high">אבטחה / קונפיגורציה</span>
+        <div class="file">auth.middleware.js / auth.helpers.js / auth.controller.js / auth.service.js / server.js</div>
+        <h4>15. עוגיות (cookies) עם secure:false וקבוע, CORS מקובע ל-localhost</h4>
+        <pre><code>res.cookie("accessToken", token, {
+  httpOnly: true,
+  secure: false,
+  sameSite: "lax",
+  maxAge: ...
+});</code></pre>
+        <p><span class="label">הבעיה:</span> העוגיות לא מסומנות כ-<code>secure</code> אף פעם, כך שיישלחו גם ב-HTTP רגיל בסביבת production. בנוסף, CORS origin מקובע ל-<code>http://localhost:5173</code>.</p>
+        <p><span class="label">תיקון מומלץ:</span> <code>secure: process.env.NODE_ENV === "production"</code>, והעברת origin ה-CORS למשתנה סביבה (<code>process.env.CLIENT_ORIGIN</code>).</p>
+      </div>
+
+      <div class="card high" data-finding="f16">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f16"><span>סומן כטופל</span></label>
+        <span class="tag high">אבטחה / סיסמאות</span>
+        <div class="file">server/src/services/users.service.js (שורה 55) + auth.service.js (שורה 73)</div>
+        <h4>16. סיסמאות ברירת מחדל ניתנות לחיזוי</h4>
+        <pre><code>// users.service.js
+const hashedPassword = await bcrypt.hash(`${body.nationalId}abc`, 12);
+// auth.service.js (register)
+const hashedPassword = await bcrypt.hash(body.password || body.nationalId, 12);</code></pre>
+        <p><span class="label">הבעיה:</span> משתמשי צוות חדשים מקבלים סיסמת ברירת מחדל קבועה בתבנית <code>&lt;תז&gt;abc</code> (מבוססת על מזהה כמעט-ציבורי). הרשמת מנהל בית ספר בלי סיסמה מקבלת את תעודת הזהות בלבד כסיסמה.</p>
+        <p><span class="label">השפעה:</span> חשבונות חדשים מוגנים בסיסמה שניתנת לחיזוי בקלות, בלי חיוב להחליף סיסמה.</p>
+        <p><span class="label">תיקון מומלץ:</span> יצירת סיסמה זמנית אקראית, ו/או חיוב החלפת סיסמה בכניסה הראשונה.</p>
+      </div>
+    </div>
+
+    <!-- SERVER MEDIUM -->
+    <div class="severity-group" id="server-medium">
+      <h3>🟡 בינוני</h3>
+
+      <div class="card medium" data-finding="f17">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f17"><span>סומן כטופל</span></label>
+        <span class="tag medium">ארכיטקטורה / DB</span>
+        <div class="file">server/src/config/db.js</div>
+        <h4>17. חיבור MySQL יחיד משותף במקום Pool, אין טיפול בהתחברות מחדש</h4>
+        <p><span class="label">הבעיה:</span> <code>connect()</code> יוצר חיבור יחיד (<code>mysql.createConnection</code>) ושומר אותו לתמיד (<code>connectionPromise</code>). אין <code>pool</code>, אין <code>on('error')</code> להתחברות מחדש, אין keep-alive.</p>
+        <p><span class="label">השפעה:</span> אם החיבור היחיד יינתק (timeout, רענון רשת/שרת), <b>כל</b> שאילתה באפליקציה תיכשל עד הפעלה מחדש של התהליך.</p>
+        <p><span class="label">תיקון מומלץ:</span> שימוש ב-<code>mysql.createPool(...)</code> וכל repository יקרא <code>pool.execute(...)</code>.</p>
+      </div>
+
+      <div class="card medium" data-finding="f18">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f18"><span>סומן כטופל</span></label>
+        <span class="tag medium">לוגיקה מבלבלת</span>
+        <div class="file">server/src/config/db.js (שורות 23-27)</div>
+        <h4>18. fallback מבלבל בפונקציית connect()</h4>
+        <pre><code>try {
+  await connection.query(`USE ${process.env.DATABASE}`);
+} catch {
+  connectionPromise = connection;
+}
+return connection;</code></pre>
+        <p><span class="label">הבעיה:</span> אם <code>USE &lt;database&gt;</code> נכשל, <code>connectionPromise</code> מוחלף "באמצע" מ-Promise ממתין לאובייקט החיבור עצמו – עובד רק בגלל ש-await על לא-Promise נפתר מיידית, אך השגיאה נבלעת בשתיקה בלי שום לוג, וללא DB נבחר שאילתות הבאות יכשלו ב-"No database selected".</p>
+        <p><span class="label">תיקון מומלץ:</span> לרשום ללוג את השגיאה ולנסות שוב/לזרוק, במקום להמשיך בשתיקה.</p>
+      </div>
+
+      <div class="card medium" data-finding="f19">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f19"><span>סומן כטופל</span></label>
+        <span class="tag medium">חסר אימות מצב</span>
+        <div class="file">server/src/repositories/trips.repository.js – closeTrip (שורות 325-334)</div>
+        <h4>19. closeTrip לא בודק את מצב הטיול הנוכחי</h4>
+        <pre><code>export async function closeTrip(tripId) {
+  console.log("in close trip repo", tripId);
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `UPDATE trips SET trip_status=3 WHERE id=?`,
+    [tripId],
+  );
+  console.log(rows);
+  return rows;
+}</code></pre>
+        <p><span class="label">הבעיה:</span> אין בדיקה שהטיול במצב "מאושר" (trip_status=2) או שתאריך הטיול עבר – ניתן "לסגור" טיול שעדיין לא התקיים, או לסגור טיול סגור שוב (עם <code>affectedRows: 0</code> שמתייחס כהצלחה). יש גם <code>console.log</code> שיורי.</p>
+        <p><span class="label">תיקון מומלץ:</span> אימות מעבר מצב חוקי (2 → 3) והחזרת 404/409 כש-<code>affectedRows === 0</code>.</p>
+      </div>
+
+      <div class="card medium" data-finding="f20">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f20"><span>סומן כטופל</span></label>
+        <span class="tag medium">הרשאות מיושנות</span>
+        <div class="file">server/src/routes/trips.routes.js (שורות 36-45)</div>
+        <h4>20. הרשאת עדכון טיול מסתמכת על role בודד וישן מתוך ה-JWT</h4>
+        <pre><code>router.put(
+  "/:id",
+  requireRole("principal", "coordinator", "trip leader"),
+  (req, res, next) => {
+    const role = req.user?.role;
+    if (role === "principal" || role === "coordinator") return next();
+    return requireTripDay(req, res, next);
+  },
+  tripsController.updateTrip,
+);</code></pre>
+        <p><span class="label">הבעיה:</span> <code>req.user.role</code> הוא ערך בודד שנקבע ב-JWT בעת ההתחברות (<code>roleNames[0]</code>) ועלול להיות מיושן (תפקידים יכולים להתעדכן לאחר ההתחברות). בניגוד ל-<code>requireRole</code> שבודק ב-DB, הבדיקה המוטבעת הזו לא – בדיוק אותה משפחת באג שתוקנה לאירועי חירום, אך כאן נותרה לא מתוקנת.</p>
+        <p><span class="label">תיקון מומלץ:</span> שימוש ב-<code>userHasRole(req.user.userId, ["principal","coordinator"])</code> מבוסס DB במקום <code>req.user?.role</code>.</p>
+      </div>
+    </div>
+
+    <!-- SERVER LOW -->
+    <div class="severity-group" id="server-low">
+      <h3>⚪ נמוך / קוד מת</h3>
+
+      <div class="card low" data-finding="f21">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f21"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד מת</span>
+        <div class="file">server/src/controllers/auth.helpers.js</div>
+        <h4>21. קובץ מת עם import שבור לקובץ שלא קיים</h4>
+        <pre><code>import { addToken } from "../repositories/auth.repository.js";</code></pre>
+        <p><span class="label">הבעיה:</span> <code>server/src/repositories/auth.repository.js</code> לא קיים בכלל בפרויקט. הקובץ אינו מיובא משום מקום, אך אם ייובא בעתיד – האפליקציה תקרוס בהפעלה.</p>
+        <p><span class="label">תיקון מומלץ:</span> למחוק את הקובץ, או לממש את ה-repository החסר אם נדרש.</p>
+      </div>
+
+      <div class="card low" data-finding="f22">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f22"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד מת</span>
+        <div class="file">server/src/config/socket.js</div>
+        <h4>22. קובץ placeholder ריק</h4>
+        <pre><code>//this file need to have a code that pushes data to the client even without any request</code></pre>
+        <p><span class="label">הבעיה:</span> ההגדרה האמיתית של socket.io נמצאת ב-<code>server.js</code>. קובץ זה הוא שריד ללא תוכן וללא exports.</p>
+        <p><span class="label">תיקון מומלץ:</span> למחוק, או להעביר לכאן את הגדרת socket.io להפרדת אחריות.</p>
+      </div>
+
+      <div class="card low" data-finding="f23">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f23"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד מת</span>
+        <div class="file">server/src/utils/hash.js, jwt.js, logger.js</div>
+        <h4>23. קבצי utils ריקים (0 בייט)</h4>
+        <p><span class="label">הבעיה:</span> שלושת הקבצים ריקים. לוגיקת ה-bcrypt וה-JWT ממומשת ידנית ב-<code>auth.service.js</code> במקום.</p>
+        <p><span class="label">תיקון מומלץ:</span> לאחד את הלוגיקה החזורה בקבצים אלה, או למחוק אותם.</p>
+      </div>
+
+      <div class="card low" data-finding="f24">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f24"><span>סומן כטופל</span></label>
+        <span class="tag low">שגיאת כתיב בשם קובץ</span>
+        <div class="file">server/src/middlewares/roleGuard.middlware.js</div>
+        <h4>24. שגיאת כתיב בשם הקובץ ("middlware" במקום "middleware")</h4>
+        <p><span class="label">הבעיה:</span> כל ה-imports בקוד (כ-9 מקומות) משתמשים בנתיב עם שגיאת הכתיב, כך שכרגע זה עובד, אך זהו מקור פוטנציאלי לבלבול וטעויות עתידיות (שינוי שם אוטומטי ע"י IDE עלול לשבור את כל ה-routes).</p>
+        <p><span class="label">תיקון מומלץ:</span> לשנות את שם הקובץ ל-<code>roleGuard.middleware.js</code> ולעדכן את כל מקומות הייבוא יחד.</p>
+      </div>
+
+      <div class="card low" data-finding="f25">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f25"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד מת / באג</span>
+        <div class="file">server/src/middlewares/errorHandler.middleware.js + server.js</div>
+        <h4>25. error handler מובנה לא בשימוש; טיפול שגיאות ב-server.js עם באג קדימות אופרטורים</h4>
+        <pre><code>res.status(statusCode).json({
+  message:
+    err.message || typeof err === "string"
+      ? err
+      : "התרחשה שגיאה פנימית בשרת..."
+});</code></pre>
+        <p><span class="label">הבעיה:</span> <code>err.message || typeof err === "string"</code> מתפרש כ-<code>(err.message) || (typeof err === "string")</code>. אם <code>err.message</code> הוא truthy, הביטוי כולו הוא <code>true</code>, ולכן <code>message: true ? err : "..."</code> → <code>message: err</code> (כל אובייקט השגיאה ולא רק ה-message שלו) נשלח ל-client. בנוסף, <code>errorHandler.middleware.js</code> (עם winston logging מסודר) כלל לא רשום ב-server.js.</p>
+        <p><span class="label">תיקון מומלץ:</span> <code>message: err.message || (typeof err === "string" ? err : "...")</code>, ולחבר את <code>errorHandler.middleware.js</code> בפועל (או למחוק אותו אם מיותר).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLIENT ===================== -->
+  <section class="area">
+    <h2>💻 צד לקוח (Client)</h2>
+
+    <!-- CLIENT CRITICAL -->
+    <div class="severity-group" id="client-critical">
+      <h3>🔴 קריטי</h3>
+
+      <div class="card critical" data-finding="f26">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f26"><span>סומן כטופל</span></label>
+        <span class="tag critical">באג לוגי / סוגי נתונים</span>
+        <div class="file">src/pages/trips/EmergencyPage.jsx (שורות 130-134 מול 294-306)</div>
+        <h4>1. אירוע socket "emergency-closed" שומר status כמחרוזת, אך התצוגה משווה למספר</h4>
+        <pre><code>// בעת קבלת אירוע socket:
+socket.on("emergency-closed", ({ emergencyId }) => {
+  setEmergencies((prev) =>
+    prev.map((em) => (em.id === emergencyId ? { ...em, status: "closed" } : em))
+  );
+});
+
+// אך הרינדור משווה למספר:
+className={`emergency-card ${em.status === 1 ? "card-open" : "card-closed"}`}
+{em.status === 1 ? "🔴 אירוע פעיל" : "🟢 טופל ונסגר"}</code></pre>
+        <p><span class="label">הבעיה:</span> זהו שריד מ"תיקון ה-status המספרי" שלא הושלם. כאשר מתקבל אירוע socket בזמן אמת, הפריט המקומי מקבל <code>status: "closed"</code> (מחרוזת), בעוד שה-DB משתמש ב-<code>status: 2</code> (מספר) לסגור. זה יוצר חוסר עקביות בטיפוסי הנתונים בין פריט שהתעדכן דרך socket לבין פריט שנטען מחדש מהשרת – כל לוגיקה עתידית שתשווה ל-<code>=== 2</code> תיכשל על פריטים שהתעדכנו דרך socket.</p>
+        <p><span class="label">תיקון מומלץ:</span> להשתמש בערך המספרי התואם לשרת: <code>{ ...em, status: 2 }</code>.</p>
+      </div>
+
+      <div class="card critical" data-finding="f27">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f27"><span>סומן כטופל</span></label>
+        <span class="tag critical">אבטחה / הרשאות</span>
+        <div class="file">src/pages/trips/EmergencyPage.jsx (שורה 306) ↔ server/.../emergencies.controller.js</div>
+        <h4>2. הרשאת "סגירת חירום קריטי ע"י הפותח בלבד" קיימת רק בצד הלקוח</h4>
+        <pre><code>{em.status === 1 && (em.emergency_type_id === 1
+  ? (canMinor || canCritical)
+  : canCritical && em.opened_by === getUser().userId) && ( ... )}</code></pre>
+        <p><span class="label">הבעיה:</span> זוהי בדיקה בצד הלקוח בלבד. כפי שצוין בממצא המקביל בצד השרת (#1 שם), endpoint ה-<code>update</code> לא מאמת ששולח הבקשה הוא <code>opened_by</code> ולא בודק תפקיד כלל. כל משתמש שיכול לקרוא ל-PUT /close ישירות (curl/devtools) יכול לסגור כל חירום קריטי – הפיצ'ר "הגבלת סגירה לפותח בלבד" אינו קיים בפועל.</p>
+        <p><span class="label">תיקון מומלץ:</span> לממש את הבדיקה בשרת (ראו ממצא שרת #1); הבדיקה בלקוח תישאר רק לצורכי UX (הסתרת כפתור).</p>
+      </div>
+
+      <div class="card critical" data-finding="f28">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f28"><span>סומן כטופל</span></label>
+        <span class="tag critical">ניווט שבור</span>
+        <div class="file">src/pages/trips/TripDayPage.jsx (שורה 61) + src/components/Navbar.jsx (שורה 272) ↔ App.jsx (שורה 80)</div>
+        <h4>3. ניתוב שגוי "/emergency" (יחיד) במקום "/emergencies" (רבים)</h4>
+        <pre><code>// TripDayPage.jsx:61 ו- Navbar.jsx:272
+navigate(`/trips/${tripId}/emergency`);
+
+// אך ב-App.jsx:80 רשום:
+&lt;Route path="/trips/:tripId/emergencies" element={&lt;EmergencyPage /&gt;} /&gt;</code></pre>
+        <p><span class="label">הבעיה:</span> לחיצה על "צפה בפרטים" בהתראת חירום (גם ב-Navbar הגלובלי וגם ב-TripDayPage) מנווטת לנתיב שלא קיים, ומפנה ל-<code>/not-found</code> דרך ה-route הגנרי <code>*</code>.</p>
+        <p><span class="label">השפעה:</span> משתמש שמגיב להתראת חירום אמיתית בזמן אמת לא מצליח להגיע למסך פרטי החירום – פגיעה ישירה בפיצ'ר ההתראות.</p>
+        <p><span class="label">תיקון מומלץ:</span> לשנות לשני המקומות ל-<code>/trips/${tripId}/emergencies</code> (רבים), בהתאם לשימוש הנכון ב-<code>TripDayPage.jsx:89</code> וב-<code>TripsPage.jsx:55</code>.</p>
+      </div>
+    </div>
+
+    <!-- CLIENT HIGH -->
+    <div class="severity-group" id="client-high">
+      <h3>🟠 גבוה</h3>
+
+      <div class="card high" data-finding="f29">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f29"><span>סומן כטופל</span></label>
+        <span class="tag high">Socket / Memory</span>
+        <div class="file">src/components/Navbar.jsx (שורות 48-63) + src/pages/trips/EmergencyPage.jsx (שורות 121-141)</div>
+        <h4>4. הסרת מאזיני socket גלובלית (socket.off("event") בלי handler) מוחקת מאזינים של קומפוננטות אחרות</h4>
+        <pre><code>// Navbar.jsx
+socket.on("emergency-alert", (data) => { setAlert(data.emergency); setIsMuted(false); });
+socket.on("emergency-closed", () => setAlert(null));
+return () => {
+  socket.emit("leave-trip", tripDayOfTrip);
+  socket.off("emergency-alert");
+  socket.off("emergency-closed");
+};
+
+// EmergencyPage.jsx
+useEffect(() => {
+  socket.off("emergency-alert");
+  socket.off("emergency-closed");
+  socket.on("emergency-alert", (data) => { ... });
+  socket.on("emergency-closed", ({ emergencyId }) => { ... });
+  return () => {
+    socket.off("emergency-alert");
+    socket.off("emergency-closed");
+    stopAlarm();
+  };
+}, [tripId]);</code></pre>
+        <p><span class="label">הבעיה:</span> <code>socket.off(event)</code> בלי handler מסיר <b>את כל</b> המאזינים לאותו אירוע ב-socket המשותף (singleton). מכיוון ש-<code>Navbar</code> ו-<code>EmergencyPage</code>/<code>TripDayPage</code> מורכבים יחד באותו עמוד, ניקוי (cleanup) של אחד מוחק את המאזין של האחר. לדוגמה: כניסה למסך החירום מוחקת את מאזין ה-Navbar הגלובלי; ניווט הרחק מהמסך מוחק גם את המאזין שנרשם זה עתה.</p>
+        <p><span class="label">השפעה:</span> ההתראה הגלובלית על חירום עלולה "להתקע" ולהפסיק לעבוד באופן שקט עבור שאר הסשן.</p>
+        <p><span class="label">תיקון מומלץ:</span> להשתמש ב-reference לפונקציה ספציפית: <code>socket.on("emergency-alert", onAlert)</code> ו-<code>socket.off("emergency-alert", onAlert)</code> – בכל שלושת המקומות (Navbar, EmergencyPage, TripDayPage).</p>
+      </div>
+
+      <div class="card high" data-finding="f30">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f30"><span>סומן כטופל</span></label>
+        <span class="tag high">קונפיגורציה</span>
+        <div class="file">src/api.js (שורות 3-5) + src/socket.js (שורה 3)</div>
+        <h4>5. כתובת שרת מקובעת (localhost:3000) – חוסם פריסה לסביבות אחרות</h4>
+        <pre><code>const api = axios.create({
+  baseURL: "http://localhost:3000",
+  withCredentials: true,
+});
+
+const socket = io("http://localhost:3000", { withCredentials: true });</code></pre>
+        <p><span class="label">הבעיה:</span> כתובת ה-API וה-Socket.IO מקובעות ל-localhost. לא ניתן להריץ את האפליקציה בסטייג'ינג/פרודקשן בלי שינוי קוד ובנייה חדשה.</p>
+        <p><span class="label">תיקון מומלץ:</span> שימוש ב-environment variables של Vite: <code>baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000"</code> ובדומה לסוקט, עם קבצי <code>.env</code>/<code>.env.production</code>.</p>
+      </div>
+
+      <div class="card high" data-finding="f31">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f31"><span>סומן כטופל</span></label>
+        <span class="tag high">קוד מת / Route ללא הגנה</span>
+        <div class="file">src/pages/CriticalEmergemcy.jsx (שגיאת כתיב בשם) + App.jsx (שורות 24, 31)</div>
+        <h4>6. עמוד "יתום" עם נתיב פתוח לכולם, ללא אימות וללא Navbar</h4>
+        <pre><code>import videoSrc from "../assets/critical_emegency_video.mp4";
+
+export default function CriticalEmergency() {
+  return (
+    &lt;div&gt;
+      &lt;video src={videoSrc} controls style={{ width: "720px", maxWidth: "100%", borderRadius: "8px" }} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// App.jsx, route ראשון, ללא הגנה:
+&lt;Route path="/trips/emergencies/critical" element={&lt;CriticalEmergency /&gt;}&gt;&lt;/Route&gt;</code></pre>
+        <p><span class="label">הבעיה:</span> שם הקובץ (<code>CriticalEmergemcy.jsx</code>) ושם הקובץ של הוידאו (<code>critical_emegency_video.mp4</code>) שגויים בכתיב. הנתיב <code>/trips/emergencies/critical</code> לא מקושר משום מקום ב-UI, ואינו עטוף ב-Navbar או בבדיקת הרשאה – כל משתמש (גם לא מחובר) יכול לגשת אליו ישירות.</p>
+        <p><span class="label">תיקון מומלץ:</span> לתקן את שמות הקבצים, ולהסיר את ה-route אם זה קוד placeholder שיורי, או לעטוף בהרשאות אם הוא רלוונטי.</p>
+      </div>
+
+      <div class="card high" data-finding="f32">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f32"><span>סומן כטופל</span></label>
+        <span class="tag high">ניווט שבור</span>
+        <div class="file">src/pages/trips/TripsPage.jsx + TripPlanningPage.jsx (שורה 73)</div>
+        <h4>7. ניווט לנתיבים שלא רשומים ב-App.jsx ("מסמכים", "ציוד", "נוכחות" וכו')</h4>
+        <pre><code>// TripPlanningPage.jsx:73
+&lt;button onClick={() => navigate(`/trips/${tripId}/documents`)}&gt;מסמכים&lt;/button&gt;
+
+// TripsPage.jsx – navigate ל- /trips/folder, /trips/staff, /trips/equipment,
+// /trips/attendance, /trips/emergencies, /trips/contacts, /trips/status (בלי :tripId)</code></pre>
+        <p><span class="label">הבעיה:</span> אף אחד מהנתיבים האלה לא תואם את ה-routes הרשומים ב-<code>App.jsx</code> (שמוגדרים תחת <code>/trips/:tripId/...</code>) – לחיצה על הכפתורים הללו מובילה ל-<code>/not-found</code>.</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את <code>TripsPage.jsx</code> אם הוחלף ע"י <code>TripSelectionPage</code>/<code>TripPlanningPage</code>/<code>TripDayPage</code>, או לתקן את נתיבי הניווט ולהוסיף routes חסרים (כגון <code>/trips/:tripId/documents</code>).</p>
+      </div>
+    </div>
+
+    <!-- CLIENT MEDIUM -->
+    <div class="severity-group" id="client-medium">
+      <h3>🟡 בינוני</h3>
+
+      <div class="card medium" data-finding="f33">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f33"><span>סומן כטופל</span></label>
+        <span class="tag medium">UX / Error Handling</span>
+        <div class="file">src/pages/trips/TripDashboardPage.jsx (שורות 30-38, 58-62)</div>
+        <h4>8. סגירת טיול ללא אישור משתמש, ללא משוב שגיאה/הצלחה, וללא בדיקת מצב הטיול</h4>
+        <pre><code>async function closeTrip() {
+  try {
+    console.log("Closing trip " + tripId);
+    const res = await api.put(`/api/trips/${tripId}/close`);
+    console.log(res);
+  } catch (err) {
+    console.error("Error closing trip:", err);
+  }
+}
+
+// הכפתור מוצג תמיד למשתמש עם הרשאת ניהול:
+{canManageTrip() && (
+  &lt;button className="trip-card" onClick={closeTrip}&gt;סגירת הטיול&lt;/button&gt;
+)}</code></pre>
+        <p><span class="label">הבעיה:</span> אין <code>window.confirm()</code> לפעולה בלתי הפיכה (בניגוד ל-<code>handleDelete</code> ב-TripPlanningPage שמשתמש ב-confirm). בכשלון – אין משוב למשתמש (רק console.error). בהצלחה – אין רענון/הודעה, והכפתור עדיין נשאר זמין ללחיצה חוזרת. כן מוצג גם לטיולים שעדיין לא קרו/כבר נסגרו, ויש <code>console.log</code> שיורי.</p>
+        <p><span class="label">תיקון מומלץ:</span> להוסיף דיאלוג אישור, מצבי טעינה/שגיאה/הצלחה עם הודעה למשתמש, להציג/להפעיל את הכפתור רק לפי מצב טיול מתאים, ולהסיר console.log.</p>
+      </div>
+
+      <div class="card medium" data-finding="f34">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f34"><span>סומן כטופל</span></label>
+        <span class="tag medium">React Hooks Rules</span>
+        <div class="file">src/pages/trips/ApproveTripPage.jsx (שורות 9-18) + ManageTripStaffPage.jsx (שורה 20)</div>
+        <h4>9. קריאה ל-useState אחרי return מוקדם (הפרת Rules of Hooks)</h4>
+        <pre><code>export default function ApproveTripPage() {
+  const { tripId } = useParams();
+  const navigate = useNavigate();
+
+  if (!canManageTrip()) return &lt;Navigate to="/unauthorized" replace /&gt;;
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  ...</code></pre>
+        <p><span class="label">הבעיה:</span> useState נקרא אחרי תנאי early-return, בניגוד ל-react-hooks/rules-of-hooks. כרגע לא מתבטא כתקלה מאחר שה-redirect קורה רק בעת mount, אך זה שביר אם <code>canManageTrip()</code> משתנה ללא remount.</p>
+        <p><span class="label">תיקון מומלץ:</span> להזיז את כל קריאות ה-Hooks למעלה, לפני כל בדיקה תנאית.</p>
+      </div>
+
+      <div class="card medium" data-finding="f35">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f35"><span>סומן כטופל</span></label>
+        <span class="tag medium">אבטחה / הרשאות</span>
+        <div class="file">כלל ה-pages עם בדיקת canManageTrip() / canViewTripDetails()</div>
+        <h4>10. הגנת routes מבוססת sessionStorage – ניתנת לעקיפה בקלות</h4>
+        <p><span class="label">הבעיה:</span> דפים כמו <code>ApproveTripPage</code> ו-<code>ManageTripStaffPage</code> מסתמכים רק על <code>if (!canManageTrip()) return &lt;Navigate to="/unauthorized" /&gt;</code>, ש-<code>canManageTrip()</code> קורא מ-<code>sessionStorage.getItem("current-user")</code> – נתון שניתן לשינוי חופשי ע"י המשתמש בדפדפן (devtools).</p>
+        <p><span class="label">השפעה:</span> כל משתמש יכול לבצע bypass לבדיקות אלו ולראות את ה-UI המוגן. זה תקין כ-UX, אך לא מספיק כגבול אבטחה – כפי שראינו, ה-endpoint של סגירת חירום קריטי (ממצא שרת #1) לא בודק הרשאה בשרת בכלל.</p>
+        <p><span class="label">תיקון מומלץ:</span> לבדוק שכל ה-endpoints הרגישים בשרת (כגון <code>/api/trips/:tripId/approve</code>, <code>/api/trips/:tripId/staff</code>) אוכפים הרשאה ובעלות באופן עצמאי, ללא תלות ב-sessionStorage.</p>
+      </div>
+
+      <div class="card medium" data-finding="f36">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f36"><span>סומן כטופל</span></label>
+        <span class="tag medium">קוד מת / חוסר טיפול</span>
+        <div class="file">src/api.js (שורות 30-35)</div>
+        <h4>11. טיפול ב-403 ריק/מוערה ב-interceptor</h4>
+        <pre><code>if (status === 401 && !isAuthRequest && !isAlreadyLoginPage) {
+  window.location.href = "/login";
+} else if (status === 403) {
+  // window.location.href = "/unauthorized";
+}</code></pre>
+        <p><span class="label">הבעיה:</span> כל תגובת 403 ברחבי האפליקציה "נבלעת" בשתיקה בשכבת ה-interceptor; הטיפול תלוי לחלוטין במימוש פר-עמוד (לא קיים בכל מקום, ראו ממצא 12).</p>
+        <p><span class="label">תיקון מומלץ:</span> לממש redirect גלובלי עקבי ל-<code>/unauthorized</code>, או להסיר את הקוד המוערה לחלוטין לבהירות.</p>
+      </div>
+
+      <div class="card medium" data-finding="f37">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f37"><span>סומן כטופל</span></label>
+        <span class="tag medium">UX / Error Handling</span>
+        <div class="file">src/hooks/useTripTitle.js (שורה 14)</div>
+        <h4>12. שגיאות בטעינת כותרת הטיול נבלעות בשתיקה</h4>
+        <pre><code>useEffect(() => {
+  api.get(`/api/trips/${tripId}`)
+    .then((res) => {
+      const trip = Array.isArray(res.data) ? res.data[0] : res.data;
+      if (trip?.title) setTripTitle(trip.title);
+    })
+    .catch(() => {});
+}, [tripId]);</code></pre>
+        <p><span class="label">הבעיה:</span> אם הבקשה נכשלת (רשת/404/403/500), אין כל אינדיקציה למשתמש – הכותרת מוצגת רק כ-tripId ("טיול 5"). Hook זה משמש במספר עמודים (TripDayPage, ManageTripStaffPage, TripContactsPage, AddTripExternalStaff).</p>
+        <p><span class="label">תיקון מומלץ:</span> לפחות <code>console.error</code> לצורכי דיבוג, ולשקול redirect ל-404 בתגובת 404.</p>
+      </div>
+
+      <div class="card medium" data-finding="f38">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f38"><span>סומן כטופל</span></label>
+        <span class="tag medium">קוד לא שלם</span>
+        <div class="file">src/pages/trips/EmergencyPage.jsx (שורה 305)</div>
+        <h4>13. אלמנט &lt;p&gt; ריק במקום הצגת מיקום</h4>
+        <pre><code>{em.location_lat && &lt;p className="emergency-location"&gt;&lt;/p&gt;}</code></pre>
+        <p><span class="label">הבעיה:</span> מוצג תג <code>&lt;p&gt;</code> ריק כאשר קיים <code>location_lat</code> – נראה כמו פיצ'ר לא גמור (הצגת קואורדינטות/קישור למפה), אך כרגע לא עושה כלום.</p>
+        <p><span class="label">תיקון מומלץ:</span> להציג קואורדינטות בפועל או קישור Google Maps (<code>https://maps.google.com/?q={lat},{lng}</code>), או להסיר את האלמנט.</p>
+      </div>
+
+      <div class="card medium" data-finding="f39">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f39"><span>סומן כטופל</span></label>
+        <span class="tag medium">לוגיקת תצוגה</span>
+        <div class="file">src/pages/trips/TripDashboardPage.jsx (שורות 58-62)</div>
+        <h4>14. כפתור "סגירת הטיול" מוצג ללא תלות במצב הטיול</h4>
+        <p><span class="label">הבעיה:</span> כפתור "סגירת הטיול" מוצג בכל עת למשתמשים עם <code>canManageTrip()</code>, ללא תלות אם הטיול כבר אושר/נסגר/עדיין לא התקיים. ניתן לקרוא ל-<code>PUT /api/trips/:tripId/close</code> על טיול שלא רלוונטי.</p>
+        <p><span class="label">תיקון מומלץ:</span> לבדוק את מצב הטיול לפני הצגת/הפעלת הכפתור (להציג רק כשהטיול מאושר ותאריכו עבר, להשבית אחרי סגירה).</p>
+      </div>
+
+      <div class="card medium" data-finding="f40">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f40"><span>סומן כטופל</span></label>
+        <span class="tag medium">ניהול זיכרון / Timing</span>
+        <div class="file">src/services/files.service.js (שורות 23-33)</div>
+        <h4>15. revokeObjectURL לאחר שנייה אחת בלבד – עלול לשבור פתיחת קבצים גדולים</h4>
+        <pre><code>export async function openFile(tripId, fileId) {
+  const response = await api.get(`/api/trips/${tripId}/files/${fileId}`, { responseType: "blob" });
+  const url = window.URL.createObjectURL(response.data);
+  window.open(url, "_blank");
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url);
+  }, 1000);
+}</code></pre>
+        <p><span class="label">הבעיה:</span> לקבצים גדולים (עד 20MB לפי UploadTripFile.jsx), שנייה אחת עלולה לא להספיק לטאב החדש לטעון את ה-blob (בפרט מציג PDF), והקישור יתבטל ("revoke") לפני שהדף נטען – טאב ריק/שבור.</p>
+        <p><span class="label">תיקון מומלץ:</span> לא לבצע revoke בכלל (הדפדפן ינקה בעת סגירת הטאב), או להאריך משמעותית את ה-timeout (למשל 60 שניות).</p>
+      </div>
+    </div>
+
+    <!-- CLIENT LOW -->
+    <div class="severity-group" id="client-low">
+      <h3>⚪ נמוך / קוד מת</h3>
+
+      <div class="card low" data-finding="f41">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f41"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד שיורי</span>
+        <div class="file">src/pages/trips/TripForm.jsx (שורה 279)</div>
+        <h4>16. הערה שיורית מפתח ("//check what this do") בתוך JSX</h4>
+        <pre><code>{/* per-stop errors summary */}
+{Object.keys(errors)
+  .filter((k) => k.startsWith("stop_"))
+  .map((k) => (
+    &lt;p key={k} className="error"&gt;
+      {errors[k]}
+    &lt;/p&gt;
+  ))}//check what this do</code></pre>
+        <p><span class="label">הבעיה:</span> הערת debugging שיורית מחוץ ל-<code>{/* ... */}</code>, נשארה בקוד production. הקוד עצמו (הצגת שגיאות validation לכל תחנה) תקין ונדרש.</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את ההערה.</p>
+      </div>
+
+      <div class="card low" data-finding="f42">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f42"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד שיורי</span>
+        <div class="file">src/pages/trips/UpdateTripPage.jsx (שורה 41-42)</div>
+        <h4>17. משתנה לא בשימוש והערת debug עם שגיאת כתיב</h4>
+        <pre><code>const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
+// console.log(user.role === "principal", "user.role==pricipal");</code></pre>
+        <p><span class="label">הבעיה:</span> המשתנה <code>user</code> מוצהר אך לא נעשה בו שימוש בהמשך הקומפוננטה, וקיימת שורת console.log מוערת עם שגיאת כתיב ("pricipal").</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את המשתנה הלא-נחוץ ואת ההערה.</p>
+      </div>
+
+      <div class="card low" data-finding="f43">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f43"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד כפילות / נגישות</span>
+        <div class="file">src/pages/trips/TripForm.jsx (שורות 238-247)</div>
+        <h4>18. onChange על שדה input עם readOnly</h4>
+        <pre><code>&lt;input
+  type="text"
+  name={leaderIdField}
+  readOnly
+  value={formData.tripLeaderName || ""}
+  onChange={onFieldChange}
+/&gt;</code></pre>
+        <p><span class="label">הבעיה:</span> handler <code>onChange</code> מועבר לשדה <code>readOnly</code> שלעולם לא יכול להפעיל אותו ע"י משתמש – קוד מבלבל ולא נחוץ. שדה תצוגה בלבד היה יכול להיות <code>&lt;p&gt;</code>/<code>&lt;span&gt;</code> לנגישות טובה יותר.</p>
+        <p><span class="label">תיקון מומלץ:</span> להסיר את <code>onChange</code> משדות readOnly להצגה בלבד, או להחליף לאלמנט תצוגה.</p>
+      </div>
+
+      <div class="card low" data-finding="f44">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f44"><span>סומן כטופל</span></label>
+        <span class="tag low">חוזק סיסמה</span>
+        <div class="file">src/components/UserDetails.jsx / SchoolDetails.jsx</div>
+        <h4>19. מדיניות סיסמה חלשה ב-regex האימות</h4>
+        <pre><code>passwordRegex = /^(?=.*\d)(?=.*[\p{L}])[\p{L}\d\S]{6,}$/u</code></pre>
+        <p><span class="label">הבעיה:</span> ה-regex דורש לפחות אות אחת וספרה אחת, אך מאפשר כל תו לא-רווח נוסף (<code>\S</code>) – כך שכל מחרוזת באורך 6+ שמכילה אות אחת וספרה אחת עוברת, גם אם כל שאר התווים הם סימנים. מדיניות סיסמה חלשה.</p>
+        <p><span class="label">תיקון מומלץ:</span> לשקול חיזוק (אורך מינימלי גבוה יותר, דרישת תו מיוחד, וכו') בהתאם למדיניות האבטחה הרצויה.</p>
+      </div>
+
+      <div class="card low" data-finding="f45">
+        <label class="done-toggle"><input type="checkbox" class="done-checkbox" data-id="f45"><span>סומן כטופל</span></label>
+        <span class="tag low">קוד כללי / Flash UI</span>
+        <div class="file">src/permissions.js (שורות 44-48) + EmergencyPage.jsx</div>
+        <h4>20. canCritical מחושב לפני טעינת tripDate – הבהוב UI קצר</h4>
+        <pre><code>export function canHandleCriticalEmergency(tripDate) {
+  if (!isRole("trip leader")) return false;
+  return toDateOnlyString(tripDate) === getTodayInIsrael();
+}
+
+// EmergencyPage.jsx
+const [tripDate, setTripDate] = useState(null);
+const canCritical = canHandleCriticalEmergency(tripDate);</code></pre>
+        <p><span class="label">הבעיה:</span> ברינדור הראשון, <code>tripDate</code> הוא <code>null</code> ולכן <code>canCritical</code> הוא <code>false</code> עד שנתוני הטיול נטענים. זה יוצר "הבהוב" קצר שבו אופציית "🔴 קריטי" לא מוצגת לרכז הטיול ואז מופיעה. לא בעיית אבטחה (מחושב מחדש לאחר הטעינה), אך פוגם בחוויית המשתמש.</p>
+        <p><span class="label">תיקון מומלץ:</span> להוסיף מסך טעינה (loading state) לפני הצגת טופס הדיווח, כדי למנוע הבהוב.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>סקירה זו נוצרה אוטומטית ע"י Claude Code על בסיס קריאת קוד השרת והלקוח. מומלץ לתעדף את הממצאים הקריטיים (🔴) תחילה, בייחוד אלו הקשורים להרשאות חירום ולפיצ'ר "אישור טיול".</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var STORAGE_KEY = "trip-management-code-review-progress";
+    var checkboxes = Array.prototype.slice.call(document.querySelectorAll(".done-checkbox"));
+    var total = checkboxes.length;
+    var progressText = document.getElementById("progress-text");
+    var progressFill = document.getElementById("progress-bar-fill");
+    var resetBtn = document.getElementById("reset-progress");
+
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function updateProgress() {
+      var done = checkboxes.filter(function (cb) { return cb.checked; }).length;
+      progressText.textContent = "הושלמו " + done + " מתוך " + total + " ממצאים";
+      progressFill.style.width = (total ? (done / total * 100) : 0) + "%";
+    }
+
+    var state = loadState();
+    checkboxes.forEach(function (cb) {
+      var id = cb.dataset.id;
+      cb.checked = !!state[id];
+      cb.addEventListener("change", function () {
+        var s = loadState();
+        s[id] = cb.checked;
+        saveState(s);
+        updateProgress();
+      });
+    });
+    updateProgress();
+
+    resetBtn.addEventListener("click", function () {
+      localStorage.removeItem(STORAGE_KEY);
+      checkboxes.forEach(function (cb) { cb.checked = false; });
+      updateProgress();
+    });
+  })();
+</script>
+</body>
+</html>
+

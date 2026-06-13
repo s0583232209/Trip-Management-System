@@ -151,10 +151,11 @@ export default function UploadTripFile({
         )}
 
         <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor={inputId}>בחר קובץ (עד 20MB)</label>
+          <label htmlFor={inputId}>בחר קובץ (PDF, PNG או JPG, עד 5MB)</label>
           <input
             id={inputId}
             type="file"
+            accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg"
             required
             onChange={handleFileChange}
             disabled={loading}

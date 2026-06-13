@@ -58,7 +58,7 @@ export default function TripDayPage() {
           <div className="banner-actions">
             <button
               className="banner-btn banner-btn--view"
-              onClick={() => navigate(`/trips/${tripId}/emergency`)}
+              onClick={() => navigate(`/trips/${tripId}/emergencies`)}
             >
               צפה בפרטים
             </button>

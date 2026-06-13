@@ -269,7 +269,7 @@ export default function Navbar() {
           <button
             onClick={() => {
               stopAlertSound();
-              navigate(`/trips/${tripDayOfTrip}/emergency`);
+              navigate(`/trips/${tripDayOfTrip}/emergencies`);
             }}
           >
             צפה בפרטים

@@ -15,7 +15,8 @@ export async function getUserById(req, res) {
 
 export async function updateProfile(req, res) {
   try {
-    if (req.user.userId != req.params.id && req.user.role !== "principal")
+    const userRoles = req.user.roles || (req.user.role ? [req.user.role] : []);
+    if (req.user.userId != req.params.id && !userRoles.includes("principal"))
       return res.status(403).json({ message: "אין הרשאה לעדכן פרופיל זה" });
     log.info(`updateProfile controller - userId: ${req.params.id}`);
     const user = await usersService.updateProfile(req.params.id, req.body);
@@ -83,6 +84,24 @@ export async function deleteUser(req, res, next) {
     res.status(200).json({ message: "המשתמש נמחק בהצלחה", ...result });
   } catch (error) {
     log.warn(`deleteUser error: ${error.message}`);
+    next(error);
+  }
+}
+
+export async function addUserRole(req, res, next) {
+  try {
+    const result = await usersService.addUserRole(req.params.id, req.body.role);
+    res.status(200).json({ message: "התפקיד נוסף בהצלחה", ...result });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function removeUserRole(req, res, next) {
+  try {
+    const result = await usersService.removeUserRole(req.params.id, req.params.role);
+    res.status(200).json({ message: "התפקיד הוסר בהצלחה", ...result });
+  } catch (error) {
     next(error);
   }
 }

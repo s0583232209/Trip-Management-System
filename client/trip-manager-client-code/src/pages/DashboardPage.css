@@ -47,16 +47,21 @@
 
 .dashboard-card--sky:hover   { background: var(--sky-light); }
 .dashboard-card--earth:hover { background: var(--earth-light); }
+.dashboard-card--green:hover { background: #dcfce7; }
+.dashboard-card--blue:hover  { background: #dbeafe; }
+.dashboard-card--purple:hover { background: #ede9fe; }
+
+.dashboard-card--sky   .dashboard-card-label { color: var(--sky-dark); }
+.dashboard-card--earth .dashboard-card-label { color: var(--earth-dark); }
+.dashboard-card--green .dashboard-card-label { color: #166534; }
+.dashboard-card--blue  .dashboard-card-label { color: #1e40af; }
+.dashboard-card--purple .dashboard-card-label { color: #5b21b6; }
 
 .dashboard-card-label {
   font-size: 18px;
   font-weight: 700;
 }
 
-.dashboard-card--sky   .dashboard-card-label { color: var(--sky-dark); }
-.dashboard-card--earth .dashboard-card-label { color: var(--earth-dark); }
-
-.dashboard-card-desc {
   font-size: 15px;
   color: var(--text-muted);
   line-height: 1.5;

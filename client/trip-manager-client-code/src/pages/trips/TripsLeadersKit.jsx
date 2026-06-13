@@ -157,6 +157,14 @@ export default function TripsLeadersKit() {
             style={{ width: `${(requiredDone / REQUIRED_DOCS.length) * 100}%` }}
           />
         </div>
+        {attractions.length > 0 && (
+          <div className="kit-progress-bar-wrap" style={{ marginTop: "0.5rem" }}>
+            <div
+              className="kit-progress-bar-fill"
+              style={{ width: `${(attractionsDone / attractions.length) * 100}%`, background: "#f59e0b" }}
+            />
+          </div>
+        )}
 
         {/* ─── מסמכי חובה ─── */}
         <section className="form-section" style={{ marginTop: "1.5rem" }}>
@@ -239,46 +247,6 @@ export default function TripsLeadersKit() {
           </button>
         </section>
 
-        {/* ─── רשימת כל הקבצים שהועלו ─── */}
-        {!fetching && uploadedFiles.length > 0 && (
-          <section className="form-section">
-            <h2 className="form-section-title">
-              כל הקבצים שהועלו לטיול ({uploadedFiles.length})
-            </h2>
-            <ul className="kit-files-list">
-              {/* כל קובץ שהועלה לטיול (גם מסמכי חובה וגם קבצים נוספים) — עם כפתורי פתיחה ומחיקה */}
-              {uploadedFiles.map((file) => (
-                <li key={file.id} className="kit-file-row">
-                  <span className="kit-file-icon">📄</span>
-                  <span className="kit-file-name">{file.original_name}</span>
-                  {(file.uploaded_at || file.created_at) && (
-                    <span className="kit-file-date">
-                      {new Date(
-                        file.uploaded_at || file.created_at,
-                      ).toLocaleDateString("he-IL")}
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    className="trip-form-btn trip-form-btn--ghost kit-open-btn"
-                    onClick={() => openFile(tripId, file.id)}
-                  >
-                    פתח
-                  </button>
-                  {canManageTrip() && (
-                    <button
-                      type="button"
-                      className="trip-form-btn trip-form-btn--danger kit-open-btn"
-                      onClick={() => handleDeleteFile(file.id)}
-                    >
-                      מחק
-                    </button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
       </main>
     </>
   );

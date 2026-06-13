@@ -2,6 +2,7 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middleware.js";
 import requireTripDay from "../middlewares/tripDay.middleware.js";
+import requireTripStaff from "../middlewares/requireTripStaff.middleware.js";
 import * as emergenciesController from "../controllers/emergencies.controller.js";
 
 const router = express.Router({ mergeParams: true });
@@ -13,60 +14,65 @@ router.get(
   emergenciesController.getByTripId,
 );
 
-// פתיחת חירום מינורי — אחראי טיול ומורה
+// פתיחת חירום מינורי — אחראי טיול ומורה השייכים לטיול
 router.post(
   "/minor",
   requireRole("trip leader", "teacher"),
+  requireTripStaff,
   (req, res, next) => {
-    req.body.emergencyTypeId = 1; // minor
+    req.body.emergencyTypeId = 1;
     next();
   },
   emergenciesController.create,
 );
 
-// פתיחת חירום קריטי — אחראי טיול ביום הטיול בלבד
+// פתיחת חירום קריטי — אחראי הטיול הספציפי ביום הטיול בלבד
 router.post(
   "/critical",
   requireTripDay,
   (req, res, next) => {
-    req.body.emergencyTypeId = 2; // critical
+    req.body.emergencyTypeId = 2;
     next();
   },
   emergenciesController.create,
 );
 
-// פתיחה כללית (עם emergencyTypeId בבקשה) — אחראי ומורה; קריטי יבדק בקונטרולר
+// פתיחה כללית — אחראי ומורה השייכים לטיול
 router.post(
   "/",
   requireRole("trip leader", "teacher"),
+  requireTripStaff,
   emergenciesController.create,
 );
 
-// עדכון חירום — אחראי טיול ומורה
+// עדכון חירום — אחראי טיול ומורה השייכים לטיול
 router.put(
   "/:emergencyId",
   requireRole("trip leader", "teacher"),
+  requireTripStaff,
   emergenciesController.update,
 );
 
-// סגירת חירום מינורי — אחראי טיול ומורה
+// סגירת חירום מינורי — אחראי טיול ומורה השייכים לטיול
 router.put(
   "/:emergencyId/close/minor",
   requireRole("trip leader", "teacher"),
+  requireTripStaff,
   emergenciesController.update,
 );
 
-// סגירת חירום קריטי — אחראי טיול ביום הטיול
+// סגירת חירום קריטי — אחראי הטיול הספציפי ביום הטיול
 router.put(
   "/:emergencyId/close/critical",
   requireTripDay,
   emergenciesController.update,
 );
 
-// סגירה כללית (לתאימות לאחור) — אחראי טיול ומורה
+// סגירה כללית — אחראי ומורה השייכים לטיול
 router.put(
   "/:emergencyId/close",
   requireRole("trip leader", "teacher"),
+  requireTripStaff,
   emergenciesController.update,
 );
 

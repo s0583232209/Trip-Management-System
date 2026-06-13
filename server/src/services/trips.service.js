@@ -165,10 +165,25 @@ export async function closeTrip(tripId) {
   try {
     const closedTrip = await tripsRepo.closeTrip(tripId);
     log.info(`trip with id: ${tripId} closed successfully`);
-    console.log(closedTrip, "from service");
     return closedTrip;
   } catch (err) {
     log.warn(`error: ${err.message}, from closeTrip in trips.service`);
+    throw err;
+  }
+}
+
+export async function setPostEdit(tripId, note) {
+  if (!note?.trim()) {
+    const err = new Error("יש לספק הערת הסבר לתיקון בדיעבד");
+    err.status = 400;
+    throw err;
+  }
+  try {
+    const result = await tripsRepo.setPostEdit(tripId, note.trim());
+    log.info(`trip ${tripId} set to post-edit`);
+    return result;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from setPostEdit in trips.service`);
     throw err;
   }
 }

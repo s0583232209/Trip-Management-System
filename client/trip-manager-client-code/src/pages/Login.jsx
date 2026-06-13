@@ -46,19 +46,20 @@ export default function Auth() {
       );
       navigate("/");
     } catch (err) {
-      const serverMessage = err.response?.data?.message;
-      const normalized = serverMessage?.toLowerCase() || "";
-      let message = "שם משתמש או סיסמה שגויים";
+      const status = err.response?.status;
+      const normalized = (err.response?.data?.message || "").toLowerCase();
+      let message;
 
-      if (normalized.includes("user not found")) {
-        message = "משתמש לא נמצא";
-      } else if (
-        normalized.includes("incorrect password") ||
-        normalized.includes("invalid credentials")
-      ) {
-        message = "סיסמה שגויה";
-      } else if (err.response?.status >= 500) {
+      if (!err.response) {
+        message = "אירעה תקלה בחיבור לשרת, נסה שוב מאוחר יותר";
+      } else if (status >= 500) {
         message = "אירעה תקלה בשרת, נסה שוב מאוחר יותר";
+      } else if (normalized.includes("user not found")) {
+        message = "משתמש לא נמצא";
+      } else if (normalized.includes("incorrect password") || normalized.includes("invalid credentials")) {
+        message = "סיסמה שגויה";
+      } else {
+        message = "שם משתמש או סיסמה שגויים";
       }
 
       setError(message);

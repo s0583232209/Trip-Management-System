@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import TripForm, { emptyStop } from "./TripForm.jsx";
-import { canUpdateRoute, canViewTripDetails } from "../../permissions.js";
+import { canUpdateRoute, canSetPostEdit, canManageTrip, canViewTripDetails, TRIP_STATUS, TRIP_STATUS_LABEL } from "../../permissions.js";
 import { toDateOnlyString } from "../../dateUtils.js";
 import "./TripsPage.css";
 import "./TripForms.css";
@@ -31,6 +31,10 @@ export default function UpdateTripPage() {
     tripDate: "",
     tripLeaderNationalId: "",
   });
+  const [tripStatus, setTripStatus] = useState(null);
+  const [postEditNote, setPostEditNote] = useState("");
+  const [postEditLoading, setPostEditLoading] = useState(false);
+  const [postEditError, setPostEditError] = useState("");
   const [stops, setStops] = useState([]);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
@@ -55,11 +59,10 @@ export default function UpdateTripPage() {
           navigate("/unauthorized", { replace: true });
           return;
         }
+        setTripStatus(trip.trip_status ?? null);
         setFormData({
           title: trip.title || "",
-          // trip.trip_date מגיע מהשרת כמחרוזת "YYYY-MM-DD" — מתאים ישירות ל-<input type="date">
           tripDate: toDateOnlyString(trip.trip_date),
-          // תמיכה בשמות שונים של מפתחות שיכולים להגיע מה-DB (camelCase או snake_case)
           tripLeaderNationalId: trip.tripLeaderNationalId || "",
           tripLeaderName: trip.tripLeaderFullName || "",
         });
@@ -123,7 +126,22 @@ export default function UpdateTripPage() {
     }
   }
 
-  const writeAccess = canUpdateRoute(formData.tripDate);
+  const writeAccess = canUpdateRoute(tripStatus, formData.tripDate);
+
+  async function handleSetPostEdit(e) {
+    e.preventDefault();
+    if (!postEditNote.trim()) { setPostEditError("יש להזין הערת הסבר"); return; }
+    setPostEditLoading(true); setPostEditError("");
+    try {
+      await api.put(`/api/trips/${tripId}/post-edit`, { note: postEditNote });
+      setTripStatus(TRIP_STATUS.POST_EDIT);
+      setPostEditNote("");
+    } catch (err) {
+      setPostEditError(err.response?.data?.message || "הפעולה נכשלה");
+    } finally {
+      setPostEditLoading(false);
+    }
+  }
 
   if (fetching) {
     return (
@@ -135,6 +153,33 @@ export default function UpdateTripPage() {
       </>
     );
   }
+
+  const statusLabel = TRIP_STATUS_LABEL[tripStatus] || "";
+  const isLocked = tripStatus === TRIP_STATUS.APPROVED || tripStatus === TRIP_STATUS.DONE;
+
+  const statusBanner =
+    tripStatus === TRIP_STATUS.DONE && canManageTrip() ? (
+      <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: 8, padding: "0.75rem 1.5rem", marginBottom: "1rem" }}>
+        הטיול הסתיים — הטופס נעול לעריכה.
+      </div>
+    ) : tripStatus === TRIP_STATUS.APPROVED && canSetPostEdit() ? (
+      <div style={{ background: "#fffbe6", border: "1px solid #f59e0b", borderRadius: 8, padding: "1rem 1.5rem", marginBottom: "1rem" }}>
+        <strong>הטיול מאושר — עריכה נעולה.</strong>
+        <p style={{ margin: "0.5rem 0" }}>לפתיחת עריכה בדיעבד יש להזין הערת הסבר:</p>
+        <form onSubmit={handleSetPostEdit} style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          <input
+            value={postEditNote}
+            onChange={e => setPostEditNote(e.target.value)}
+            placeholder="למשל: הטיול נדחה לבקשת המנהל ביום X"
+            style={{ flex: 1, minWidth: 200, padding: "0.4rem 0.75rem", borderRadius: 6, border: "1px solid #ccc" }}
+          />
+          <button type="submit" className="trip-form-btn trip-form-btn--primary" disabled={postEditLoading}>
+            {postEditLoading ? "שומר..." : "פתח לעריכה"}
+          </button>
+        </form>
+        {postEditError && <p className="error" style={{ marginTop: "0.5rem" }}>{postEditError}</p>}
+      </div>
+    ) : null;
 
   return (
     <TripForm
@@ -164,6 +209,7 @@ export default function UpdateTripPage() {
       submitLabel="שמור שינויים"
       loadingLabel="שומר..."
       writeAccess={writeAccess}
+      extraSection={statusBanner}
     />
   );
 }

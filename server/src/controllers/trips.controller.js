@@ -130,3 +130,12 @@ export async function closeTrip(req, res) {
     res.status(err.status || err.statusCode || 500).json({ message: err.message });
   }
 }
+
+export async function setPostEdit(req, res) {
+  try {
+    await tripsService.setPostEdit(req.params.id, req.body.note);
+    res.status(200).json({ message: "הטיול נפתח לעריכה בדיעבד" });
+  } catch (err) {
+    res.status(err.status || 500).json({ message: err.message });
+  }
+}

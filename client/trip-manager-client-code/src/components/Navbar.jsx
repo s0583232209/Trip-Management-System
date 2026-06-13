@@ -13,6 +13,7 @@ export default function Navbar() {
   const [isMuted, setIsMuted] = useState(false); // מעקב האם המשתמש השתיק ידנית
 
   const user = JSON.parse(sessionStorage.getItem("current-user"));
+  const userRoles = user?.roles || (user?.role ? [user.role] : []);
 
   // שימוש ברפרנסים לניהול מחזור חיי האודיו וטיימרים
   const audioIntervalRef = useRef(null);
@@ -160,72 +161,15 @@ export default function Navbar() {
           <span className="navbar-title">מסלול בטוח</span>
         </div>
         <div className="navbar-links">
-          <button
-            className="navbar-btn"
-            onClick={() => {
-              stopAlertSound();
-              navigate("/");
-            }}
-          >
-            בית
-          </button>
-          <button
-            className="navbar-btn"
-            onClick={() => {
-              stopAlertSound();
-              navigate("/trips");
-            }}
-          >
-            טיולים
-          </button>
-          <button
-            className="navbar-btn"
-            onClick={() => {
-              stopAlertSound();
-              navigate("/media");
-            }}
-          >
-            מדיה
-          </button>
-          <button
-            className="navbar-btn"
-            onClick={() => {
-              stopAlertSound();
-              navigate("/profile");
-            }}
-          >
-            פרופיל
-          </button>
-          {user?.role === "principal" && (
-            <button
-              className="navbar-btn"
-              onClick={() => {
-                stopAlertSound();
-                navigate("/add-employee");
-              }}
-            >
-              ניהול
-            </button>
+          <button className="navbar-btn" onClick={() => { stopAlertSound(); navigate("/"); }}>בית</button>
+          <button className="navbar-btn" onClick={() => { stopAlertSound(); navigate("/trips"); }}>טיולים</button>
+          <button className="navbar-btn" onClick={() => { stopAlertSound(); navigate("/profile"); }}>פרופיל</button>
+          {userRoles.includes("principal") && (
+            <button className="navbar-btn" onClick={() => { stopAlertSound(); navigate("/add-employee"); }}>ניהול</button>
           )}
         </div>
         <div className="navbar-actions">
-          {user?.role === "principal" && (
-            <button
-              className="navbar-btn"
-              onClick={() => {
-                stopAlertSound();
-                navigate("/add-employee");
-              }}
-            >
-              הוספת עובד
-            </button>
-          )}
-          <button
-            className="navbar-btn navbar-btn--logout"
-            onClick={handleLogout}
-          >
-            התנתקות
-          </button>
+          <button className="navbar-btn navbar-btn--logout" onClick={handleLogout}>התנתקות</button>
         </div>
       </nav>
 

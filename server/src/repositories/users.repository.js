@@ -320,15 +320,16 @@ export async function getAllUsers(userId) {
   const connection = await getConnection();
   try {
     const [rows] = await connection.execute(
-      ` SELECT users.id as user_id, users.full_name, users.email, users.phone,
-        GROUP_CONCAT(DISTINCT user_roles.role_name SEPARATOR ', ') AS roles
-FROM users
-LEFT JOIN user_roles ON user_roles.user_id = users.id
-WHERE users.school_id = (SELECT school_id FROM users WHERE users.id = ?)
-GROUP BY users.id, users.full_name, users.email, users.phone;`,
+      `SELECT users.id as user_id, users.full_name, users.email, users.phone,
+        GROUP_CONCAT(DISTINCT user_roles.role_name SEPARATOR ', ') AS roles,
+        GROUP_CONCAT(DISTINCT trips.title ORDER BY trips.id SEPARATOR ', ') AS led_trips
+ FROM users
+ LEFT JOIN user_roles ON user_roles.user_id = users.id
+ LEFT JOIN trips ON trips.trip_leader_id = users.id
+ WHERE users.school_id = (SELECT school_id FROM users WHERE users.id = ?)
+ GROUP BY users.id, users.full_name, users.email, users.phone;`,
       [userId],
     );
-    console.log(rows, "rows from get all users repo");
     return rows;
   } catch (err) {
     throw err;
@@ -383,6 +384,50 @@ export async function updateUserRole(id, roleName) {
   } catch (err) {
     await connection.rollback();
     log.error(`updateUserRole error: ${err.message}`);
+    throw err;
+  }
+}
+
+export async function addUserRole(id, roleName) {
+  const connection = await getConnection();
+  try {
+    await connection.execute(
+      `INSERT IGNORE INTO user_roles (user_id, role_name) VALUES (?, ?)`,
+      [id, roleName],
+    );
+    await dblog({
+      userId: id,
+      actionType: "add_role",
+      tableName: "user_roles",
+      message: `role '${roleName}' added to user ${id}`,
+      newValues: JSON.stringify({ userId: id, role: roleName }),
+    });
+    log.info(`addUserRole successful for id: ${id}, role: ${roleName}`);
+    return { userId: id, role: roleName };
+  } catch (err) {
+    log.error(`addUserRole error: ${err.message}`);
+    throw err;
+  }
+}
+
+export async function removeUserRole(id, roleName) {
+  const connection = await getConnection();
+  try {
+    await connection.execute(
+      `DELETE FROM user_roles WHERE user_id = ? AND role_name = ?`,
+      [id, roleName],
+    );
+    await dblog({
+      userId: id,
+      actionType: "remove_role",
+      tableName: "user_roles",
+      message: `role '${roleName}' removed from user ${id}`,
+      newValues: JSON.stringify({ userId: id, role: roleName }),
+    });
+    log.info(`removeUserRole successful for id: ${id}, role: ${roleName}`);
+    return { userId: id, role: roleName };
+  } catch (err) {
+    log.error(`removeUserRole error: ${err.message}`);
     throw err;
   }
 }

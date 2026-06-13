@@ -20,6 +20,23 @@ export async function getEmergenciesByTripId(tripId) {
   }
 }
 
+export async function getEmergencyById(emergencyId) {
+  try {
+    log.info(`getEmergencyById called with emergencyId: ${emergencyId}`);
+    const connection = await getConnection();
+    const [rows] = await connection.execute(
+      "SELECT * FROM emergencies WHERE id = ?",
+      [emergencyId],
+    );
+    return rows[0] || null;
+  } catch (error) {
+    log.error(
+      `Error occurred while fetching emergency with id ${emergencyId}: ${error.message}`,
+    );
+    throw error;
+  }
+}
+
 export async function createEmergency(emergencyData) {
   try {
     log.info(

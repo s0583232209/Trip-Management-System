@@ -54,9 +54,11 @@ export async function create(req, res) {
 export async function update(req, res) {
   try {
     const tripId = req.params.id || req.params.tripId;
-    const newEmergency = await emergenciesService.updateEmergency(
+    await emergenciesService.updateEmergency(
       req.params.emergencyId,
       req.body,
+      tripId,
+      req.user?.userId,
     );
     if (req.body.status === 2) {
       io.to(`trip-${tripId}`).emit("emergency-closed", {
@@ -66,7 +68,9 @@ export async function update(req, res) {
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {
     log.error(`EmergenciesController - update error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.status ? error.message : "Internal server error" });
   }
 }
 

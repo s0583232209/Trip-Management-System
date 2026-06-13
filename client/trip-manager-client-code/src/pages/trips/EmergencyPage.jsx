@@ -130,7 +130,7 @@ export default function EmergencyPage() {
 
     socket.on("emergency-closed", ({ emergencyId }) => {
       setEmergencies((prev) =>
-        prev.map((em) => (em.id === emergencyId ? { ...em, status: "closed" } : em))
+        prev.map((em) => (em.id === emergencyId ? { ...em, status: 2 } : em))
       );
     });
 

@@ -1,5 +1,5 @@
 import express from "express";
-import requireRole from "../middlewares/roleGuard.middlware.js";
+import requireRole from "../middlewares/roleGuard.middleware.js";
 import requireTripDay from "../middlewares/tripDay.middleware.js";
 import * as tripsController from "../controllers/trips.controller.js";
 const router = express.Router({ mergeParams: true });

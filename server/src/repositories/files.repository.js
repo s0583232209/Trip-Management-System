@@ -62,7 +62,8 @@ export async function upload(file) {
     // לאחר הוספה מוצלחת — מתעדים את הפעולה בטבלת audit_log
     await logFileAudit("upload_file", result.insertId, file);
   } catch (err) {
-    // console.log(err);
+    console.log(err);
+    throw err;
   }
   return result.insertId;
 }

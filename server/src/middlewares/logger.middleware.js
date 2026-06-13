@@ -6,7 +6,7 @@ export default async function logger(req, res, next) {
     await dblog({
       userId: req.userId,
       actionType: "auth",
-      message: `path: ${req.path}. body: ${JSON.stringify(req.body)}`,
+      message: `path: ${req.path}. body: ${JSON.stringify({...req.body,password:null})}`,
     });
   }
   console.log("end of logger middleware");

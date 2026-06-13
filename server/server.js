@@ -1,6 +1,6 @@
 import express from "express";
 import { createServer } from "http";
-import { Server } from "socket.io";
+import { initSocket } from "./src/config/socket.js";
 import { configDotenv } from "dotenv";
 import cors from "cors";
 import authRouter from "./src/routes/auth.routes.js";
@@ -10,6 +10,7 @@ import filesRouter from "./src/routes/files.routes.js";
 import mediaRouter from "./src/routes/media.routes.js";
 import emergenciesRouter from "./src/routes/emergencies.routes.js";
 import logger from "./src/middlewares/logger.middleware.js";
+import errorHandler from "./src/middlewares/errorHandler.middleware.js";
 import usersRouter from "./src/routes/users.routes.js";
 import classesRouter from "./src/routes/classes.routes.js";
 import cookieParser from "cookie-parser";
@@ -23,25 +24,10 @@ const HOST = process.env.HOST || "localhost";
 const httpServer = createServer(app);
 
 // socket.io יושב על אותו httpServer — לא שרת נפרד
-const io = new Server(httpServer, {
-  cors: { origin: "http://localhost:5173", credentials: true },
-});
-
-// כאשר לקוח מתחבר ל-WebSocket
-io.on("connection", (socket) => {
-  // הלקוח שולח את ה-tripId שבו הוא נמצא
-  socket.on("join-trip", (tripId) => {
-    socket.join(`trip-${tripId}`);
-  });
-
-  // כאשר הלקוח עוזב את העמוד
-  socket.on("leave-trip", (tripId) => {
-    socket.leave(`trip-${tripId}`);
-  });
-});
+initSocket(httpServer);
 
 // מייצאים את io כדי שה-controller יוכל להשתמש בו
-export { io };
+export { io } from "./src/config/socket.js";
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
@@ -56,11 +42,7 @@ app.use("/api/trips/:id/files", filesRouter);
 app.use("/api/media", mediaRouter);
 app.use("/api/trips/:id/emergencies", emergenciesRouter);
 app.use("/api/trips", tripsRouter);
-app.use((err, req, res, next) => {
-  // log.error(`Unhandled error: ${err.message}, stack: ${err.stack}`);
-  const statusCode = err.status || err.statusCode || 500;
-  res.status(statusCode).json({ message: err.message || "Internal server error" });
-});
+app.use(errorHandler);
 
 httpServer.listen(PORT, HOST, () => {
   console.log(`Server started on http://${HOST}:${PORT}`);

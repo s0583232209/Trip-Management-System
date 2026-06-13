@@ -1,5 +1,5 @@
 import express from "express";
-import requireRole from "../middlewares/roleGuard.middlware.js";
+import requireRole from "../middlewares/roleGuard.middleware.js";
 import * as classesController from "../controllers/classes.controller.js";
 const router = express.Router();
 

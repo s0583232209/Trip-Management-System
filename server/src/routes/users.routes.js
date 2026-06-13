@@ -1,7 +1,7 @@
 // users.routes.js
 
 import express from "express";
-import requireRole from "../middlewares/roleGuard.middlware.js";
+import requireRole from "../middlewares/roleGuard.middleware.js";
 import log from "../loggers/file.logger.js";
 import {
   getUserById,
@@ -27,9 +27,7 @@ router.put(
   requireRole("principal", "coordinator", "trip leader", "teacher"),
   updateProfile,
 );
-router.delete("/:id", requireRole("principal"), (req, res) => {
-  res.send("users: delete user");
-});
+
 router.delete("/:id", requireRole("principal"), deleteUser);
 router.put("/:id/role", requireRole("principal"), updateUserRole);
 router.post("/", requireRole("principal"), addUser);

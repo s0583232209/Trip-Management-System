@@ -1,6 +1,6 @@
 // emergency.routes.js
 import express from "express";
-import requireRole from "../middlewares/roleGuard.middlware.js";
+import requireRole from "../middlewares/roleGuard.middleware.js";
 import requireTripDay from "../middlewares/tripDay.middleware.js";
 import * as emergenciesController from "../controllers/emergencies.controller.js";
 

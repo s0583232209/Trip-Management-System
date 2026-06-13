@@ -91,7 +91,9 @@ export async function approveTrip(tripId) {
       throw err;
     }
 
-    const parentToken = authService.createParentToken(tripId);
+    const parentToken = authService.createParentToken(
+      createParentToken({ tripId, tripDate: new Date() }),
+    );
     const approvedTrip = await tripsRepo.approveTrip(tripId, parentToken);
     log.info(`approved trip with id: ${tripId}`);
     return { parentToken, ...approvedTrip };

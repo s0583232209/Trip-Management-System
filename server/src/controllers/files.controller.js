@@ -25,7 +25,7 @@ export async function getKit(req, res) {
     const kit = await fileService.getKit(req.params.id);
     res.status(200).json(kit);
   } catch (err) {
-    res.status(500);
+    res.status(500).json(`message: ${err.message}`);
   }
 }
 

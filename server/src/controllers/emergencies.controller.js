@@ -53,14 +53,15 @@ export async function create(req, res) {
 
 export async function update(req, res) {
   try {
-    console.log(req);
     const tripId = req.params.id || req.params.tripId;
     const newEmergency = await emergenciesService.updateEmergency(
       req.params.emergencyId,
-      req.body
+      req.body,
     );
     if (req.body.status === 2) {
-      io.to(`trip-${tripId}`).emit("emergency-closed", { emergencyId: parseInt(req.params.emergencyId) });
+      io.to(`trip-${tripId}`).emit("emergency-closed", {
+        emergencyId: parseInt(req.params.emergencyId),
+      });
     }
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {

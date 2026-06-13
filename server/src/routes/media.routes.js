@@ -1,6 +1,6 @@
 // media.routes.js
 import express from "express";
-import requireRole from "../middlewares/roleGuard.middlware.js";
+import requireRole from "../middlewares/roleGuard.middleware.js";
 import * as mediaController from "../controllers/media.controller.js";
 const router = express.Router({ mergeParams: true });
 

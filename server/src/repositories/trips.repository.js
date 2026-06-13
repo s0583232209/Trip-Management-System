@@ -285,10 +285,14 @@ export async function addExternalStaff(tripId, staffDetails) {
     // };
     console.log(staffDetails.role, "role from frontend");
     // console.log(roles[staffDetails.role], "role", staffDetails);
-    connection.beginTransaction();
+    await connection.beginTransaction();
     const [result] = await connection.execute(
       `INSERT INTO external_employees (name,external_role,phone) VALUES ( ?, ?, ?)`,
-      [staffDetails.fullName, staffDetails.role, staffDetails.phoneNumber],
+      [
+        staffDetails.fullName,
+        Number(staffDetails.role),
+        staffDetails.phoneNumber,
+      ],
     );
     console.log(result.insertId, "id from add external staff");
     await dblog({
@@ -307,10 +311,10 @@ export async function addExternalStaff(tripId, staffDetails) {
       message: `external staff ${result.insertId} added to trip ${tripId}`,
       newValues: JSON.stringify({ tripId, staffId: result.insertId }),
     });
-    connection.commit();
+    await connection.commit();
   } catch (err) {
     console.log(err);
-    connection.rollback();
+    await connection.rollback();
     throw err;
   }
 }
@@ -323,12 +327,29 @@ export async function deleteExternalStaff(tripId, staffId) {
   return response;
 }
 export async function closeTrip(tripId) {
-  console.log("in close trip repo", tripId);
   const connection = await getConnection();
+  const [trip_status] = await connection.execute(
+    `SELECT trip_status FROM trips WHERE id=?`,
+    [tripId],
+  );
+  if (!trip_status[0]) {
+    const err = new Error("הטיול לא נמצא");
+    err.status = 404;
+    throw err;
+  }
+  if (trip_status[0].trip_status === 3) {
+    const err = new Error("הטיול כבר נסגר");
+    err.status = 400;
+    throw err;
+  }
+  if (trip_status[0].trip_status === 1) {
+    const err = new Error("לא ניתן לסגור טיול שעדיין לא אושר");
+    err.status = 400;
+    throw err;
+  }
   const [rows] = await connection.execute(
     `UPDATE trips SET trip_status=3 WHERE id=?`,
     [tripId],
   );
-  console.log(rows);
   return rows;
 }

@@ -17,7 +17,7 @@ export const getUserRoles = async (userId) => {
     `,
     [userId],
   );
-  if (!rows || rows.length === 0) throw new Error(`לא נמצאו הרשאות למשתמש ${userId}`);
+  if (!rows || rows.length === 0) return [];
   return rows;
 };
 export async function getUserRolesOnTripDay(userId) {
@@ -158,7 +158,7 @@ export async function addUser(details, principal) {
     }
     console.log(details.role, "this is the role");
     await connection.execute(
-        "INSERT IGNORE INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
+      "INSERT IGNORE INTO user_passwords (user_id, password_hash, is_active) VALUES (?, ?, TRUE);",
       [id, details.password],
     );
     await dblog({
@@ -194,9 +194,18 @@ export async function updateProfile(id, body) {
   const fullName = body.fullName;
   const email = body.userEmail;
   const phone = body.userPhoneNumber;
-  if (fullName !== undefined) { fields.push("full_name=?"); values.push(fullName); }
-  if (email !== undefined) { fields.push("email=?"); values.push(email); }
-  if (phone !== undefined) { fields.push("phone=?"); values.push(phone); }
+  if (fullName !== undefined) {
+    fields.push("full_name=?");
+    values.push(fullName);
+  }
+  if (email !== undefined) {
+    fields.push("email=?");
+    values.push(email);
+  }
+  if (phone !== undefined) {
+    fields.push("phone=?");
+    values.push(phone);
+  }
   if (fields.length === 0) return true;
   try {
     log.info(`updateProfile called for userId: ${id}`);
@@ -356,9 +365,7 @@ export async function updateUserRole(id, roleName) {
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
-    await connection.execute(`DELETE FROM user_roles WHERE user_id = ?`, [
-      id,
-    ]);
+    await connection.execute(`DELETE FROM user_roles WHERE user_id = ?`, [id]);
     await connection.execute(
       `INSERT INTO user_roles (user_id, role_name) VALUES (?, ?)`,
       [id, roleName],

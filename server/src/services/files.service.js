@@ -18,8 +18,8 @@ export async function getKit(tripId) {
   try {
     const kit = await filesRepository.getKit(tripId);
     return kit;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    throw err;
   }
 }
 
@@ -53,7 +53,10 @@ export async function uploadFile(data) {
 
     // אם יש fileCode — בודקים אם כבר קיים מסמך עם אותו קוד באותו טיול
     const existingFile = fileToSave.fileCode
-      ? await filesRepository.getByTripAndFileCode(data.tripId, fileToSave.fileCode)
+      ? await filesRepository.getByTripAndFileCode(
+          data.tripId,
+          fileToSave.fileCode,
+        )
       : null;
 
     if (existingFile) {
@@ -70,7 +73,8 @@ export async function uploadFile(data) {
       fileName: fileToSave.originalName,
     };
   } catch (err) {
-    return null;
+    throw err
+    ;
   }
 }
 

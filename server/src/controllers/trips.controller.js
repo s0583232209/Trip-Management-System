@@ -124,12 +124,9 @@ export async function deleteExternalStaff(req, res) {
 }
 export async function closeTrip(req, res) {
   try {
-    console.log("close trip controller", req.params.id);
-    const resp = await tripsService.closeTrip(req.params.id);
-    console.log(resp, "this si from controller");
+    await tripsService.closeTrip(req.params.id);
     res.status(200).json({ message: "trip closed successfully" });
   } catch (err) {
-    console.log(err,"= err from controller")
-    res.status(500).json({ message: err.message });
+    res.status(err.status || err.statusCode || 500).json({ message: err.message });
   }
 }

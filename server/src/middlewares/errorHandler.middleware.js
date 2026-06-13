@@ -12,13 +12,13 @@ export default function errorHandler(err, req, res, next) {
   }
 
   // בדיקה אם השגיאה מכילה סטטוס קוד מותאם אישית, אחרת ברירת המחדל היא 500
-  const statusCode = err.statusCode || 500;
+  const statusCode = err.status || err.statusCode || 500;
 
   // שליחת הודעת השגיאה בצורה אחידה ל-Frontend
   res.status(statusCode).json({
     message:
-      err.message || typeof err === "string"
+      err.message || (typeof err === "string"
         ? err
-        : "התרחשה שגיאה פנימית בשרת, אנא נסה שנית מאוחר יותר",
+        : "התרחשה שגיאה פנימית בשרת, אנא נסה שנית מאוחר יותר"),
   });
 }

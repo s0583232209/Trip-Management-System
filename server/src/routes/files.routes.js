@@ -2,9 +2,9 @@
 // כל הנתיבים כאן ממוזגים תחת /api/trips/:id/files (ראו server.js),
 // כך ש-req.params.id הוא מזהה הטיול (אלא אם מוגדר :id ספציפי בנתיב עצמו, שאז הוא מזהה הקובץ).
 import * as filesController from "../controllers/files.controller.js";
-import upload from "../middlewares/upload.middleware.js";
+import { uploadSingle } from "../middlewares/upload.middleware.js";
 import express from "express";
-import requireRole from "../middlewares/roleGuard.middlware.js";
+import requireRole from "../middlewares/roleGuard.middleware.js";
 const router = express.Router({ mergeParams: true });
 
 // קבלת רשימת מסמכי תיק הטיול — מנהל, רכז, אחראי, מורה
@@ -19,7 +19,7 @@ router.get(
 router.post(
   "/kit",
   requireRole("principal", "coordinator"),
-  upload.single("file"),
+  uploadSingle("file"),
   filesController.addToKit,
 );
 
@@ -34,7 +34,7 @@ router.get(
 router.post(
   "/",
   requireRole("principal", "coordinator"),
-  upload.single("file"),
+  uploadSingle("file"),
   filesController.uploadFile,
 );
 

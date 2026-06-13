@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import api from "../api";
+import { logout, setCredentials } from "../store/authSlice.js";
 import "./Login.css";
 
 export default function Auth() {
@@ -11,11 +13,12 @@ export default function Auth() {
     password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    sessionStorage.clear();
+    dispatch(logout());
     localStorage.clear();
-  }, []);
+  }, [dispatch]);
 
   function updateField(e) {
     const { name, value } = e.target;
@@ -35,9 +38,8 @@ export default function Auth() {
     try {
       const response = await api.post("/api/auth/login", formData);
       const user = response.data;
-      sessionStorage.setItem(
-        "current-user",
-        JSON.stringify({
+      dispatch(
+        setCredentials({
           userId: user.userId,
           role: user.role,
           roles: user.roles || [user.role],

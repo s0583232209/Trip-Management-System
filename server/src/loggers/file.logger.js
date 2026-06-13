@@ -5,6 +5,7 @@ const { combine, timestamp, printf, errors } = winston.format;
 
 // 1. הגדרת פונקציה שמפיקה חותמת זמן מדויקת לפי שעון ישראל (כולל שעון קיץ וחורף באופן אוטומטי)
 const israelTimestamp = () => {
+  console.log("israelTimestamp - src/loggers/file.logger.js");
   return new Intl.DateTimeFormat('he-IL', {
     timeZone: 'Asia/Jerusalem',
     year: 'numeric',

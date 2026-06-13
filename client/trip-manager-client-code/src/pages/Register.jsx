@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import api from "../api";
 import SchoolDetails from "../components/SchoolDetails.jsx";
 import UserDetails from "../components/UserDetails.jsx";
+import { setCredentials } from "../store/authSlice.js";
 import "./Login.css";
 
 export default function Register() {
@@ -13,6 +15,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const paramStep = parseInt(params.step, 10);
@@ -45,9 +48,8 @@ export default function Register() {
         role: "principal",
       });
       const user = response.data;
-      sessionStorage.setItem(
-        "current-user",
-        JSON.stringify({
+      dispatch(
+        setCredentials({
           userId: user.userId,
           role: user.role,
           roles: user.roles || [user.role],

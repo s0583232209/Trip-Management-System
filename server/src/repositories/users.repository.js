@@ -6,6 +6,7 @@ import log from "../loggers/file.logger.js";
 import dblog from "../loggers/database.logger.js";
 
 export const getUserRoles = async (userId) => {
+  console.log("getUserRoles - src/repositories/users.repository.js");
   const connection = await getConnection(true);
   const [rows] = await connection.execute(
     `
@@ -21,6 +22,7 @@ export const getUserRoles = async (userId) => {
   return rows;
 };
 export async function getUserRolesOnTripDay(userId) {
+  console.log("getUserRolesOnTripDay - src/repositories/users.repository.js");
   log.info("in get users role on trip day");
   const connection = await getConnection(true);
   const [row] = await connection.execute(
@@ -35,6 +37,7 @@ export async function getUserRolesOnTripDay(userId) {
   return row[0].trip_date;
 }
 export async function getByNationalId(nationalId) {
+  console.log("getByNationalId - src/repositories/users.repository.js");
   try {
     console.log("get by national id repository");
     log.info(`getById users called with national id: ${nationalId}`);
@@ -52,6 +55,7 @@ export async function getByNationalId(nationalId) {
   }
 }
 export async function getById(id) {
+  console.log("getById - src/repositories/users.repository.js");
   try {
     console.log("get by id repository");
     log.info(`getById users called with id: ${id}`);
@@ -69,6 +73,7 @@ export async function getById(id) {
   }
 }
 async function addUserPrincipal(details, connection) {
+  console.log("addUserPrincipal - src/repositories/users.repository.js");
   log.info(`addUserPrincipal called for user: ${details.fullName}`);
   const schoolResult = await connection.execute(
     `INSERT IGNORE INTO schools (name, institution_number, city, contact_email, street, house_number, postal_code) VALUES (?,?,?,?,?,?,?)`,
@@ -120,6 +125,7 @@ async function addUserPrincipal(details, connection) {
   return result.insertId;
 }
 export async function addUser(details, principal) {
+  console.log("addUser - src/repositories/users.repository.js");
   let id;
   console.log(details, "this is details from add User");
   const connection = await getConnection();
@@ -189,6 +195,7 @@ export async function addUser(details, principal) {
 }
 
 export async function updateProfile(id, body) {
+  console.log("updateProfile - src/repositories/users.repository.js");
   const fields = [];
   const values = [];
   const fullName = body.fullName;
@@ -230,6 +237,7 @@ export async function updateProfile(id, body) {
 }
 
 export async function getPasswordByUserId(userId) {
+  console.log("getPasswordByUserId - src/repositories/users.repository.js");
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute(
@@ -245,6 +253,7 @@ export async function getPasswordByUserId(userId) {
 }
 
 export async function getAllPasswordsByUserId(userId) {
+  console.log("getAllPasswordsByUserId - src/repositories/users.repository.js");
   try {
     const connection = await getConnection();
     const [rows] = await connection.execute(
@@ -273,6 +282,7 @@ export async function getAllPasswordsByUserId(userId) {
 // }
 
 export async function updatePassword(userId, hashedPassword) {
+  console.log("updatePassword - src/repositories/users.repository.js");
   try {
     const connection = await getConnection();
     await connection.beginTransaction();
@@ -301,6 +311,7 @@ export async function updatePassword(userId, hashedPassword) {
 }
 
 export async function getUserById(nationalId, institutionNumber) {
+  console.log("getUserById - src/repositories/users.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `
@@ -317,6 +328,7 @@ export async function getUserById(nationalId, institutionNumber) {
   return rows[0];
 }
 export async function getAllUsers(userId) {
+  console.log("getAllUsers - src/repositories/users.repository.js");
   const connection = await getConnection();
   try {
     const [rows] = await connection.execute(
@@ -337,6 +349,7 @@ export async function getAllUsers(userId) {
 }
 
 export async function deleteUser(id) {
+  console.log("deleteUser - src/repositories/users.repository.js");
   try {
     const connection = await getConnection();
     const [result] = await connection.execute(
@@ -363,6 +376,7 @@ export async function deleteUser(id) {
 }
 
 export async function updateUserRole(id, roleName) {
+  console.log("updateUserRole - src/repositories/users.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
@@ -389,6 +403,7 @@ export async function updateUserRole(id, roleName) {
 }
 
 export async function addUserRole(id, roleName) {
+  console.log("addUserRole - src/repositories/users.repository.js");
   const connection = await getConnection();
   try {
     await connection.execute(
@@ -411,6 +426,7 @@ export async function addUserRole(id, roleName) {
 }
 
 export async function removeUserRole(id, roleName) {
+  console.log("removeUserRole - src/repositories/users.repository.js");
   const connection = await getConnection();
   try {
     await connection.execute(

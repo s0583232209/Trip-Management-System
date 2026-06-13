@@ -5,6 +5,7 @@ import * as fileService from "../services/files.service.js";
 // פונקציית עזר משותפת: מעלה קובץ (רגיל או מסמך תיק-טיול) ומחזירה תשובת 201.
 // משותפת בין uploadFile ל-addToKit כדי לא לשכפל את אותה קריאה לשירות פעמיים.
 async function handleUpload(req, res, fileCode) {
+  console.log("handleUpload - src/controllers/files.controller.js");
   try {
     const result = await fileService.uploadFile({
       file: req.file, // הקובץ עצמו — הגיע ממידלוור multer (upload.middleware.js)
@@ -21,6 +22,7 @@ async function handleUpload(req, res, fileCode) {
 
 // GET /:id/files/kit — מחזיר את כל מסמכי תיק הטיול (קבצים עם file_code)
 export async function getKit(req, res) {
+  console.log("getKit - src/controllers/files.controller.js");
   try {
     const kit = await fileService.getKit(req.params.id);
     res.status(200).json(kit);
@@ -31,11 +33,13 @@ export async function getKit(req, res) {
 
 // POST /:id/files/kit — העלאת/החלפת מסמך בתיק הטיול (יש קוד מסמך - file_code)
 export async function addToKit(req, res) {
+  console.log("addToKit - src/controllers/files.controller.js");
   await handleUpload(req, res, req.body.fileCode);
 }
 
 // GET /:id/files — מחזיר את כל הקבצים שהועלו לטיול (כולל קבצים נוספים שאינם בתיק)
 export async function getAllFiles(req, res) {
+  console.log("getAllFiles - src/controllers/files.controller.js");
   try {
     const files = await fileService.getAllFiles(req.params.id);
     res.status(200).json(files);
@@ -46,11 +50,13 @@ export async function getAllFiles(req, res) {
 
 // POST /:id/files — העלאת קובץ "רגיל" לטיול (ללא קוד מסמך)
 export async function uploadFile(req, res) {
+  console.log("uploadFile - src/controllers/files.controller.js");
   await handleUpload(req, res, undefined);
 }
 
 // GET /:id/files/:id — פותח/מוריד קובץ בודד לפי id
 export async function getFile(req, res, next) {
+  console.log("getFile - src/controllers/files.controller.js");
   try {
     const file = await fileService.getFile(req.params.id);
     res.sendFile(file.fullPath);
@@ -61,6 +67,7 @@ export async function getFile(req, res, next) {
 
 // DELETE /:id/files/:id — מוחק קובץ (גם הקובץ הפיזי מהדיסק וגם השורה ב-DB)
 export async function deleteFile(req, res) {
+  console.log("deleteFile - src/controllers/files.controller.js");
   try {
     await fileService.deleteFile(req.params.id);
     res.sendStatus(204);

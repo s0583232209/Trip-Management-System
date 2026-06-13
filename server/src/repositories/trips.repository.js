@@ -3,6 +3,7 @@ import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
 export async function getTripDate(tripId) {
+  console.log("getTripDate - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT trip_date FROM trips WHERE id = ?`,
@@ -11,6 +12,7 @@ export async function getTripDate(tripId) {
   return rows[0] || null;
 }
 export async function getAll(userId) {
+  console.log("getAll - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const res = await connection.execute(
     `SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status
@@ -23,6 +25,7 @@ export async function getAll(userId) {
   return res[0];
 }
 export async function getById(tripId, userId) {
+  console.log("getById - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const res = await connection.execute(
     `SELECT t.*, u.national_id AS tripLeaderNationalId, u.full_name AS tripLeaderFullName
@@ -37,6 +40,7 @@ export async function getById(tripId, userId) {
   return res[0][0];
 }
 export async function addTrip(tripDetails, staffIdsArray = []) {
+  console.log("addTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
@@ -118,6 +122,7 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
   }
 }
 export async function updateTrip(updateDetails) {
+  console.log("updateTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
@@ -134,8 +139,29 @@ export async function updateTrip(updateDetails) {
       ],
     );
 
-    // משבץ את אחראי הטיול החדש גם בטבלת staff_trip,
-    // אחרת הוא לא יראה את הטיול ברשימת הטיולים שלו ו-getById שלו ייכשל (INNER JOIN על staff_trip)
+    // אם אחראי הטיול השתנה - מסיר את האחראי הישן מ-staff_trip (אם אין לו כיתה משובצת)
+    // ומוסיף את האחראי החדש
+    const [currentTrip] = await connection.execute(
+      `SELECT trip_leader_id FROM trips WHERE id = ?`,
+      [updateDetails.tripId],
+    );
+    const oldLeaderId = currentTrip[0]?.trip_leader_id;
+
+    if (oldLeaderId && oldLeaderId !== updateDetails.tripLeaderId) {
+      // אם יש לו כיתה - נשאר כמורה רגיל, אחרת מוסר לגמרי מהטיול
+      const [oldLeaderRow] = await connection.execute(
+        `SELECT class_id FROM staff_trip WHERE trip_id = ? AND staff_id = ? LIMIT 1`,
+        [updateDetails.tripId, oldLeaderId],
+      );
+      if (!oldLeaderRow[0]?.class_id) {
+        await connection.execute(
+          `DELETE FROM staff_trip WHERE trip_id = ? AND staff_id = ?`,
+          [updateDetails.tripId, oldLeaderId],
+        );
+      }
+      // אם יש לו class_id - לא עושים כלום, הוא נשאר כמורה רגיל
+    }
+
     const [existingStaff] = await connection.execute(
       `SELECT 1 FROM staff_trip WHERE trip_id = ? AND staff_id = ? LIMIT 1`,
       [updateDetails.tripId, updateDetails.tripLeaderId],
@@ -156,6 +182,7 @@ export async function updateTrip(updateDetails) {
   }
 }
 export async function deleteTrip(tripId) {
+  console.log("deleteTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const response = await connection.execute(`DELETE FROM trips WHERE id=?`, [
     tripId,
@@ -164,6 +191,7 @@ export async function deleteTrip(tripId) {
 }
 // מאתר כיתות שמשובצות לטיול (trip_classes) אך אין להן אף איש צוות ב-staff_trip
 export async function getUncoveredClasses(tripId) {
+  console.log("getUncoveredClasses - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT c.id, c.class_name, c.grade
@@ -179,6 +207,7 @@ export async function getUncoveredClasses(tripId) {
   return rows;
 }
 export async function approveTrip(tripId, parentToken) {
+  console.log("approveTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
@@ -194,6 +223,7 @@ export async function approveTrip(tripId, parentToken) {
   }
 }
 export async function addStaff(tripsId, staffAssignments = []) {
+  console.log("addStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const newTripId = tripsId;
   // console.log(newTripId);
@@ -216,6 +246,7 @@ export async function addStaff(tripsId, staffAssignments = []) {
   }
 }
 export async function deleteStaff(tripId, staffId) {
+  console.log("deleteStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const response = await connection.execute(
     `DELETE FROM staff_trip WHERE trip_id = ? AND staff_id = ?`,
@@ -224,6 +255,7 @@ export async function deleteStaff(tripId, staffId) {
   return response;
 }
 export async function getAllStaff(tripId) {
+  console.log("getAllStaff - src/repositories/trips.repository.js");
   try {
     const connection = await getConnection();
     const [employees] = await connection.execute(
@@ -252,6 +284,7 @@ export async function getAllStaff(tripId) {
   }
 }
 export async function addExternalStaff(tripId, staffDetails) {
+  console.log("addExternalStaff - src/repositories/trips.repository.js");
   console.log("in add staff, details=", staffDetails.externalStaff[0]);
   staffDetails = staffDetails.externalStaff[0];
   console.log(staffDetails);
@@ -301,6 +334,7 @@ export async function addExternalStaff(tripId, staffDetails) {
   }
 }
 export async function deleteExternalStaff(tripId, staffId) {
+  console.log("deleteExternalStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const response = await connection.execute(
     `DELETE FROM external_staff_trip WHERE trip_id = ? AND staff_id = ?`,
@@ -309,6 +343,7 @@ export async function deleteExternalStaff(tripId, staffId) {
   return response;
 }
 export async function closeTrip(tripId) {
+  console.log("closeTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [trip_status] = await connection.execute(
     `SELECT trip_status FROM trips WHERE id=?`,
@@ -337,6 +372,7 @@ export async function closeTrip(tripId) {
 }
 
 export async function setPostEdit(tripId, note) {
+  console.log("setPostEdit - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `UPDATE trips SET trip_status=4, post_edit_note=? WHERE id=?`,

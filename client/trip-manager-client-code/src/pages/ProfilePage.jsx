@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar.jsx";
 import api from "../api";
 import "./trips/TripsPage.css";
@@ -46,7 +47,7 @@ function normalize(u) {
 }
 
 export default function ProfilePage() {
-  const stored = JSON.parse(sessionStorage.getItem("current-user")) || "{}";
+  const stored = useSelector((state) => state.auth.user) || {};
   const effectiveId = stored.userId;
   const noUser = !effectiveId;
 

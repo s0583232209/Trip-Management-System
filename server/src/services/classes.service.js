@@ -4,6 +4,7 @@ import * as classesRepo from "../repositories/classes.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
 
 export async function getAllClasses(userId) {
+  console.log("getAllClasses - src/services/classes.service.js");
   try {
     const { school_id } = await usersRepo.getById(userId);
     const classes = await classesRepo.getAllClasses(school_id);
@@ -16,6 +17,7 @@ export async function getAllClasses(userId) {
 }
 
 export async function addClass(userId, details) {
+  console.log("addClass - src/services/classes.service.js");
   try {
     const { school_id } = await usersRepo.getById(userId);
     const newClass = await classesRepo.addClass({

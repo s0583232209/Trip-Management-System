@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api.js";
 
 export default function useTripTitle(tripId) {
   const [tripTitle, setTripTitle] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     api
       .get(`/api/trips/${tripId}`)
@@ -11,7 +12,9 @@ export default function useTripTitle(tripId) {
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (trip?.title) setTripTitle(trip.title);
       })
-      .catch(() => {});
+      .catch(() => {
+        navigate("./not-found");
+      });
   }, [tripId]);
 
   return tripTitle;

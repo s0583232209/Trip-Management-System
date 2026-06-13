@@ -16,7 +16,12 @@ api.interceptors.response.use(
     const isAuthRequest = requestUrl.includes("/api/auth/");
     const isAlreadyLoginPage = window.location.pathname === "/login";
 
-    if (status === 401 && code === "TOKEN_EXPIRED" && !isAuthRequest && !originalRequest._retry) {
+    if (
+      status === 401 &&
+      code === "TOKEN_EXPIRED" &&
+      !isAuthRequest &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
       try {
         await api.post("/api/auth/refresh");
@@ -30,8 +35,9 @@ api.interceptors.response.use(
     if (status === 401 && !isAuthRequest && !isAlreadyLoginPage) {
       window.location.href = "/login";
     } else if (status === 403) {
-
-      // window.location.href = "/unauthorized";
+      window.location.href = "/unauthorized";
+    } else if (status === 404) {
+      window.location.href = " ./not-found";
     }
     return Promise.reject(error);
   },

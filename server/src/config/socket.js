@@ -4,6 +4,7 @@ export let io;
 
 // יוצר ומגדיר את שרת ה-Socket.IO מעל httpServer הקיים
 export function initSocket(httpServer) {
+  console.log("initSocket - src/config/socket.js");
   io = new Server(httpServer, {
     cors: { origin: "http://localhost:5173", credentials: true },
   });

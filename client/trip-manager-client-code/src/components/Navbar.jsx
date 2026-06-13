@@ -1,18 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import icon from "../assets/icon.png";
 import { useEffect, useState, useRef } from "react";
 import "./Navbar.css";
 import api from "../api.js";
 import socket from "../socket.js";
 import { getTodayInIsrael, toDateOnlyString } from "../dateUtils.js";
+import { logout } from "../store/authSlice.js";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [tripDayOfTrip, setTripDayOfTrip] = useState(null);
   const [alert, setAlert] = useState(null);
   const [isMuted, setIsMuted] = useState(false); // מעקב האם המשתמש השתיק ידנית
 
-  const user = JSON.parse(sessionStorage.getItem("current-user"));
+  const user = useSelector((state) => state.auth.user);
   const userRoles = user?.roles || (user?.role ? [user.role] : []);
 
   // שימוש ברפרנסים לניהול מחזור חיי האודיו וטיימרים
@@ -22,7 +25,7 @@ export default function Navbar() {
 
   function handleLogout() {
     stopAlertSound();
-    sessionStorage.clear();
+    dispatch(logout());
     navigate("/login");
   }
 
@@ -49,17 +52,24 @@ export default function Navbar() {
   useEffect(() => {
     if (!tripDayOfTrip) return;
     socket.emit("join-trip", tripDayOfTrip);
-    socket.on("emergency-alert", (data) => {
+
+    // שומרים רפרנס לפונקציות ה-handler כדי שה-cleanup יסיר רק את המאזינים
+    // שנרשמו כאן, ולא ימחק מאזינים שרשמו קומפוננטות אחרות (socket הוא singleton משותף)
+    function handleEmergencyAlert(data) {
       setAlert(data.emergency);
       setIsMuted(false); // איפוס השתקה עבור אירוע חדש שמגיע
-    });
-    socket.on("emergency-closed", () => {
+    }
+    function handleEmergencyClosed() {
       setAlert(null);
-    });
+    }
+
+    socket.on("emergency-alert", handleEmergencyAlert);
+    socket.on("emergency-closed", handleEmergencyClosed);
+
     return () => {
       socket.emit("leave-trip", tripDayOfTrip);
-      socket.off("emergency-alert");
-      socket.off("emergency-closed");
+      socket.off("emergency-alert", handleEmergencyAlert);
+      socket.off("emergency-closed", handleEmergencyClosed);
     };
   }, [tripDayOfTrip]);
 

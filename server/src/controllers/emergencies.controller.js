@@ -4,6 +4,7 @@ import { io } from "../../server.js"; // ← שורה חדשה
 import { userHasRole } from "../services/auth.service.js";
 
 export async function getByTripId(req, res) {
+  console.log("getByTripId - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
     const emergencies = await emergenciesService.getEmergenciesByTripId(tripId);
@@ -15,6 +16,7 @@ export async function getByTripId(req, res) {
 }
 
 export async function create(req, res) {
+  console.log("create - src/controllers/emergencies.controller.js");
   try {
     const emergencyData = {
       ...req.body,
@@ -52,6 +54,7 @@ export async function create(req, res) {
 }
 
 export async function update(req, res) {
+  console.log("update - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
     const newEmergency = await emergenciesService.updateEmergency(
@@ -71,6 +74,7 @@ export async function update(req, res) {
 }
 
 export async function remove(req, res) {
+  console.log("remove - src/controllers/emergencies.controller.js");
   try {
     const emergencyId = req.params.emergencyId;
     await emergenciesService.deleteEmergency(emergencyId);

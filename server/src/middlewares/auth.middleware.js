@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import log from "../loggers/file.logger.js";
 
 export default async function verifyToken(req, res, next) {
+  console.log("verifyToken - src/middlewares/auth.middleware.js");
   log.info(`verifyToken - path: ${req.path}`);
   if (req.path.includes("/auth/")) {
     log.info(`verifyToken - skipping auth routes`);

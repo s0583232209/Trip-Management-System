@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar.jsx";
 import socket from "../../socket.js";
 import api from "../../api.js";
@@ -19,7 +20,7 @@ export default function TripDayPage() {
   const [isTripLeader, setIsTripLeader] = useState(false);
   const tripTitle = useTripTitle(tripId);
 
-  const user = JSON.parse(sessionStorage.getItem("current-user")) || {};
+  const user = useSelector((state) => state.auth.user) || {};
 
   useEffect(() => {
     api
@@ -31,13 +32,23 @@ export default function TripDayPage() {
       .catch(() => {});
 
     socket.emit("join-trip", tripId);
-    socket.on("emergency-alert", (data) => setAlert(data.emergency));
-    socket.on("emergency-closed", () => setAlert(null));
+
+    // שומרים רפרנס לפונקציות ה-handler כדי שה-cleanup יסיר רק את המאזינים
+    // שנרשמו כאן, ולא ימחק מאזינים שרשמו קומפוננטות אחרות (socket הוא singleton משותף)
+    function handleEmergencyAlert(data) {
+      setAlert(data.emergency);
+    }
+    function handleEmergencyClosed() {
+      setAlert(null);
+    }
+
+    socket.on("emergency-alert", handleEmergencyAlert);
+    socket.on("emergency-closed", handleEmergencyClosed);
 
     return () => {
       socket.emit("leave-trip", tripId);
-      socket.off("emergency-alert");
-      socket.off("emergency-closed");
+      socket.off("emergency-alert", handleEmergencyAlert);
+      socket.off("emergency-closed", handleEmergencyClosed);
     };
   }, [tripId]);
 

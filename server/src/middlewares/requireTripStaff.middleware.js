@@ -4,6 +4,7 @@ import getConnection from "../config/db.js";
 import log from "../loggers/file.logger.js";
 
 export default async function requireTripStaff(req, res, next) {
+  console.log("requireTripStaff - src/middlewares/requireTripStaff.middleware.js");
   try {
     const userId = req.user.userId;
     const tripId = req.params.id || req.params.tripId;

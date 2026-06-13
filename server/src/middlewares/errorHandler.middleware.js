@@ -1,6 +1,7 @@
 import log from "../loggers/file.logger.js";
 
 export default function errorHandler(err, req, res, next) {
+  console.log("errorHandler - src/middlewares/errorHandler.middleware.js");
   // תיעוד השגיאה בלוגר של השרת
   log.warn(
     `[Error Middleware] Path: ${req.path} | Message: ${err.message || err}`,

@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar.jsx";
 import "./TripsPage.css";
 
 export default function TripsPage() {
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem("current-user"));
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <>

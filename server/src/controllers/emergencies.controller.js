@@ -1,7 +1,6 @@
 import * as emergenciesService from "../services/emergencies.service.js";
 import log from "../loggers/file.logger.js";
 import { io } from "../../server.js"; // ← שורה חדשה
-import { userHasRole } from "../services/auth.service.js";
 
 export async function getByTripId(req, res) {
   console.log("getByTripId - src/controllers/emergencies.controller.js");
@@ -24,18 +23,6 @@ export async function create(req, res) {
       openedBy: req.user?.userId || null,
     };
 
-    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול
-    // בדיקה מול מסד הנתונים (ולא מול ה-role היחיד שנשמר בטוקן),
-    // כדי שמשתמש בעל כמה תפקידים (למשל "trip leader" וגם "teacher") יזוהה כאחראי טיול כראוי
-    if (parseInt(emergencyData.emergencyTypeId) === 2) {
-      const isTripLeader = await userHasRole(req.user?.userId, ["trip leader"]);
-      if (!isTripLeader) {
-        return res
-          .status(403)
-          .json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
-      }
-    }
-
     const newEmergency =
       await emergenciesService.createEmergency(emergencyData);
     const tripId = emergencyData.tripId;
@@ -57,19 +44,25 @@ export async function update(req, res) {
   console.log("update - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
-    const newEmergency = await emergenciesService.updateEmergency(
-      req.params.emergencyId,
+    const { emergencyId } = req.params;
+    const updatedEmergency = await emergenciesService.updateEmergency(
+      emergencyId,
       req.body,
+      tripId,
+      req.user?.userId,
     );
-    if (req.body.status === 2) {
+    if (req.body.status === 2 || parseInt(req.body.status) === 2) {
       io.to(`trip-${tripId}`).emit("emergency-closed", {
-        emergencyId: parseInt(req.params.emergencyId),
+        emergencyId: parseInt(emergencyId),
+        closedAt: new Date().toISOString(),
       });
     }
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {
     log.error(`EmergenciesController - update error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.status ? error.message : "Internal server error" });
   }
 }
 

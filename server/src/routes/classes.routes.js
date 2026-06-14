@@ -17,4 +17,18 @@ router.post(
   classesController.addClass,
 );
 
+// עדכון כיתה — מנהל ורכז טיולים
+router.put(
+  "/:id",
+  requireRole("principal", "coordinator"),
+  classesController.updateClass,
+);
+
+// מחיקת כיתה — מנהל ורכז טיולים
+router.delete(
+  "/:id",
+  requireRole("principal", "coordinator"),
+  classesController.deleteClass,
+);
+
 export default router;

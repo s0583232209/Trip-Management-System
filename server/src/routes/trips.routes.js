@@ -1,7 +1,6 @@
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middleware.js";
 import requireTripDay from "../middlewares/tripDay.middleware.js";
-import requireTripStaff from "../middlewares/requireTripStaff.middleware.js";
 import * as tripsController from "../controllers/trips.controller.js";
 const router = express.Router({ mergeParams: true });
 
@@ -33,11 +32,9 @@ router.delete(
   tripsController.deleteTrip,
 );
 
-// עדכון מסלול — מנהל, רכז; אחראי טיול רק ביום הטיול
+// עדכון מסלול — מנהל, רכז; אחראי הטיול הספציפי (trip_leader_id) רק ביום הטיול
 router.put(
   "/:id",
-  requireRole("principal", "coordinator", "trip leader"),
-  requireTripStaff,
   (req, res, next) => {
     const userRoles = req.user?.roles || (req.user?.role ? [req.user.role] : []);
     if (userRoles.includes("principal") || userRoles.includes("coordinator")) return next();
@@ -65,6 +62,23 @@ router.put(
   "/:id/post-edit",
   requireRole("principal"),
   tripsController.setPostEdit,
+);
+
+// כיתות משתתפות בטיול
+router.get(
+  "/:id/classes",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  tripsController.getTripClasses,
+);
+router.get(
+  "/:id/school-classes",
+  requireRole("principal", "coordinator"),
+  tripsController.getSchoolClasses,
+);
+router.put(
+  "/:id/classes",
+  requireRole("principal", "coordinator"),
+  tripsController.setTripClasses,
 );
 
 // צפייה בצוות טיול — מנהל, רכז, אחראי טיול, מורה

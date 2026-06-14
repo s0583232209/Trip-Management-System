@@ -22,6 +22,65 @@ export async function getAllClasses(schoolId) {
   }
 }
 
+export async function updateClass(details) {
+  console.log("updateClass - src/repositories/classes.repository.js");
+  try {
+    const connection = await getConnection();
+    const [result] = await connection.execute(
+      `UPDATE classes SET class_name = ?, grade = ? WHERE id = ? AND school_id = ?`,
+      [details.className, details.grade, details.id, details.schoolId],
+    );
+    if (result.affectedRows === 0) {
+      return null;
+    }
+    await dblog({
+      actionType: "update_class",
+      tableName: "classes",
+      message: `class updated with id ${details.id}`,
+      newValues: JSON.stringify({
+        id: details.id,
+        schoolId: details.schoolId,
+        className: details.className,
+        grade: details.grade,
+      }),
+    });
+    log.info(`updateClass successful, class id: ${details.id}`);
+    return {
+      id: details.id,
+      school_id: details.schoolId,
+      class_name: details.className,
+      grade: details.grade,
+    };
+  } catch (err) {
+    log.error(`updateClass error: ${err.message}`);
+    throw err;
+  }
+}
+
+export async function deleteClass(id, schoolId) {
+  console.log("deleteClass - src/repositories/classes.repository.js");
+  try {
+    const connection = await getConnection();
+    const [result] = await connection.execute(
+      `DELETE FROM classes WHERE id = ? AND school_id = ?`,
+      [id, schoolId],
+    );
+    if (result.affectedRows > 0) {
+      await dblog({
+        actionType: "delete_class",
+        tableName: "classes",
+        message: `class deleted with id ${id}`,
+        newValues: JSON.stringify({ id, schoolId }),
+      });
+      log.info(`deleteClass successful, class id: ${id}`);
+    }
+    return result.affectedRows > 0;
+  } catch (err) {
+    log.error(`deleteClass error: ${err.message}`);
+    throw err;
+  }
+}
+
 export async function addClass(details) {
   console.log("addClass - src/repositories/classes.repository.js");
   try {

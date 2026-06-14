@@ -1,5 +1,5 @@
 // tripDay.middleware.js
-// מאמת שהמשתמש הוא trip leader והיום הוא יום הטיול
+// מאמת שהמשתמש הוא אחראי הטיול הספציפי (trips.trip_leader_id) והיום הוא יום הטיול
 import getConnection from "../config/db.js";
 import log from "../loggers/file.logger.js";
 import { getTodayInIsrael } from "../utils/date.util.js";
@@ -11,30 +11,26 @@ export default async function requireTripDay(req, res, next) {
     const tripId = req.params.id || req.params.tripId;
 
     const connection = await getConnection(true);
-    const [roles] = await connection.execute(
-      `SELECT r.role_name FROM user_roles ur JOIN roles r ON ur.role_name = r.role_name WHERE ur.user_id = ?`,
-      [userId]
-    );
 
-    const roleNames = roles.map((r) => r.role_name);
-
-    // אם המשתמש אינו trip leader — 403
-    if (!roleNames.includes("trip leader")) {
-      return res.status(403).json({ message: "Forbidden" });
-    }
-
-    // בדיקה שתאריך הטיול הוא היום
+    // בדיקה שהמשתמש הוא אחראי הטיול הספציפי (trip_leader_id) וזה יום הטיול
     const [trips] = await connection.execute(
-      `SELECT trip_date FROM trips WHERE id = ? AND trip_leader_id = ?`,
-      [tripId, userId]
+      `SELECT trip_date, trip_leader_id FROM trips WHERE id = ?`,
+      [tripId]
     );
 
     if (!trips.length) {
+      log.warn(`requireTripDay: trip ${tripId} not found`);
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    // trip_date מגיע כבר כמחרוזת "YYYY-MM-DD" (ראו dateStrings ב-db.js), ללא צורך בהמרת אזור זמן
-    const tripDate = trips[0].trip_date;
+    if (String(trips[0].trip_leader_id) !== String(userId)) {
+      log.warn(`requireTripDay: user ${userId} is not trip leader (leader=${trips[0].trip_leader_id})`);
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    const tripDate = typeof trips[0].trip_date === "string"
+      ? trips[0].trip_date.slice(0, 10)
+      : new Date(trips[0].trip_date).toLocaleDateString("en-CA", { timeZone: "Asia/Jerusalem" });
     const today = getTodayInIsrael();
 
     if (tripDate !== today) {

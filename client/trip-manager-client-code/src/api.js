@@ -5,6 +5,21 @@ const api = axios.create({
   withCredentials: true,
 });
 
+let loadingInterceptorsSet = false;
+
+export function setupLoadingInterceptors({ show, hide }) {
+  if (loadingInterceptorsSet) return;
+  loadingInterceptorsSet = true;
+  api.interceptors.request.use((config) => {
+    show();
+    return config;
+  });
+  api.interceptors.response.use(
+    (response) => { hide(); return response; },
+    (error) => { hide(); return Promise.reject(error); },
+  );
+}
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -34,7 +49,7 @@ api.interceptors.response.use(
 
     if (status === 401 && !isAuthRequest && !isAlreadyLoginPage) {
       window.location.href = "/login";
-    } else if (status === 403) {
+    } else if (status === 403 && originalRequest?.method?.toLowerCase() === "get") {
       window.location.href = "/unauthorized";
     } else if (status === 404) {
       window.location.href = " ./not-found";

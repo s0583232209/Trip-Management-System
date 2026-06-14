@@ -2,7 +2,6 @@
 CREATE DATABASE IF NOT EXISTS trip_manager
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
--- DROP SCHEMA tirp_manager;
 USE trip_manager;
 
 -- 1. טבלת בתי ספר
@@ -67,8 +66,6 @@ CREATE TABLE classes (
     FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE
 ) ;
 
--- 7. טבלת טיולים
-
 CREATE TABLE statuses(
 status_id INT AUTO_INCREMENT PRIMARY KEY,
 status_name VARCHAR(20));
@@ -104,7 +101,6 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 trip_id INT,
   FOREIGN KEY (trip_id)REFERENCES trips(id) ON DELETE CASCADE
 );
--- DROP TABLE trip_kit;
 
 CREATE TABLE file_types(
 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -219,57 +215,24 @@ CREATE TABLE tokens (
   revoked BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
-INSERT INTO roles (role_name)Values('principal');
-INSERT INTO roles (role_name)VALUES('coordinator');
-INSERT INTO roles (role_name)VALUES('trip leader');
-INSERT INTO roles (role_name)VALUES('teacher');
-INSERT INTO statuses(status_name)VALUES("schedualed");
-INSERT INTO statuses(status_name)VALUES("approved");
-INSERT INTO statuses(status_name)VALUES ("closed");
-INSERT INTO emergency_types (type_name, severity_level) VALUES ('minor', 1);
-INSERT INTO emergency_types (type_name, severity_level) VALUES ('critical', 2);
-INSERT INTO file_codes (file_name) VALUES ("מינוי אחראי טיול");
-INSERT INTO file_codes (file_name) VALUES ("אישור יציאה לטיול ממנהל מוסד");
-INSERT INTO file_codes (file_name) VALUES ("אישורי הורים");
-INSERT INTO file_codes (file_name) VALUES ("רשימת תלמידים");
-INSERT INTO file_codes (file_name) VALUES ("רשימת תלמידים עם מגבלות רפואיות");
-INSERT INTO file_codes (file_name) VALUES ("טופס הפניה לטיפול רפואי לתלמיד שנפגע במהלך טיול");
-INSERT INTO file_codes (file_name) VALUES ("רשימת תלמידים שנפגעו במהלך טיול");
-INSERT INTO file_codes (file_name) VALUES ("טופס ביטוח למתנדב");
-INSERT INTO file_codes (file_name) VALUES ("רשימת מלווים וטלפונים חיוניים בטיול");
-INSERT INTO file_codes (file_name) VALUES ("הנחיות למורה אחראי כיתה");
-INSERT INTO file_codes (file_name) VALUES ("טופס תיאום טיולים מאושר");
-
-select * from users limit 10;
-select * from user_roles limit 10;
-select * from user_passwords limit 19;
-select * from roles limit 10;
-select * from trips limit 10;
-select * from schools limit 10;
-
-select * from staff_trip ;
-select * from file_codes;
-select * from trip_files;
-DELETe  FROM trip_files WHERE trip_id=1;
-select * from trip_kit ;
--- INSERT INTO trip_kit(id,trip_id)VALUES(1,1);
-INSERT INTO emergency_status (status_code,status_name) VALUES (1,"open");
-INSERT INTO emergency_status (status_code,status_name) VALUES (2,"closed");
-select * from external_employees;
-
-INSERT INTO external_role(role_name)VALUES("guard");
-INSERT INTO external_role(role_name)VALUES("medic");
-INSERT INTO external_role(role_name)VALUES("paramedic");
-INSERT INTO external_role(role_name)VALUES("guide");
-INSERT INTO external_role(role_name)VALUES("first-aid-provider");
-select * from external_role;
 CREATE TABLE external_staff_trip(
 trip_id INT,
 staff_id INT,
 FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE,
 FOREIGN KEY (staff_id) REFERENCES external_employees(id) ON DELETE CASCADE
 );
-DELETE FROM trip_files WHERE trip_id=2;
-select * from trips;
-UPDATE trips SET trip_status=1 WHERE id=1;
-select * from emergencies;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

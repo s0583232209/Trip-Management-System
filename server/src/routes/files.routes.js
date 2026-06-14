@@ -10,7 +10,7 @@ const router = express.Router({ mergeParams: true });
 // קבלת רשימת מסמכי תיק הטיול — מנהל, רכז, אחראי, מורה
 router.get(
   "/kit",
-  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  requireRole("principal", "coordinator", "trip leader"),
   filesController.getKit,
 );
 
@@ -26,7 +26,7 @@ router.post(
 // קבלת רשימת כל הקבצים שהועלו לטיול (כולל קבצים נוספים שאינם בתיק) — מנהל, רכז, אחראי, מורה
 router.get(
   "/",
-  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  requireRole("principal", "coordinator", "trip leader"),
   filesController.getAllFiles,
 );
 
@@ -41,7 +41,7 @@ router.post(
 // הורדת/פתיחת קובץ — מנהל, רכז, אחראי, מורה
 router.get(
   "/:id",
-  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  requireRole("principal", "coordinator", "trip leader"),
   filesController.getFile,
 );
 

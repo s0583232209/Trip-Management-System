@@ -2,7 +2,20 @@
 import log from "../loggers/file.logger.js";
 import * as tripsRepo from "../repositories/trips.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
+import * as filesRepo from "../repositories/files.repository.js";
 import * as authService from "./auth.service.js";
+import { REQUIRED_TRIP_DOCS, getAttractionDocs } from "../utils/tripDocuments.util.js";
+
+// בודק אם בתיק הטיול חסרים מסמכי חובה (כולל אישורי אטרקציות) ומחזיר את שמותיהם
+async function getMissingRequiredDocs(tripId) {
+  const [uploaded, routeGeoJson] = await Promise.all([
+    filesRepo.getKit(tripId),
+    tripsRepo.getRouteGeoJson(tripId),
+  ]);
+  const uploadedCodes = new Set(uploaded.map((f) => f.file_code));
+  const required = [...REQUIRED_TRIP_DOCS, ...getAttractionDocs(routeGeoJson)];
+  return required.filter((d) => !uploadedCodes.has(d.fileCode)).map((d) => d.title);
+}
 export async function getAllTrips(userId) {
   console.log("getAllTrips - src/services/trips.service.js");
   const trips = await tripsRepo.getAll(userId);
@@ -98,9 +111,17 @@ export async function approveTrip(tripId) {
       throw err;
     }
 
-    const parentToken = authService.createParentToken(
-      createParentToken({ tripId, tripDate: new Date() }),
-    );
+    // אישור הטיול חסום אם חסרים מסמכי חובה בתיק הטיול
+    const missingDocs = await getMissingRequiredDocs(tripId);
+    if (missingDocs.length > 0) {
+      const err = new Error(
+        `לא ניתן לאשר את הטיול: חסרים המסמכים הבאים בתיק הטיול: ${missingDocs.join(", ")}`,
+      );
+      err.status = 400;
+      throw err;
+    }
+
+    const parentToken = authService.createParentToken({ tripId, tripDate: new Date() });
     const approvedTrip = await tripsRepo.approveTrip(tripId, parentToken);
     log.info(`approved trip with id: ${tripId}`);
     return { parentToken, ...approvedTrip };
@@ -200,4 +221,16 @@ export async function setPostEdit(tripId, note) {
     log.warn(`error: ${err.message}, from setPostEdit in trips.service`);
     throw err;
   }
+}
+
+export async function getTripClasses(tripId) {
+  return tripsRepo.getTripClasses(tripId);
+}
+
+export async function getSchoolClasses(tripId) {
+  return tripsRepo.getSchoolClasses(tripId);
+}
+
+export async function setTripClasses(tripId, classIds) {
+  return tripsRepo.setTripClasses(tripId, classIds);
 }

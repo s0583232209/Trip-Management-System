@@ -30,7 +30,7 @@ export default function ManageTripStaffPage() {
       <Navbar />
       <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
         <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
-          ניהול צוות טיול {tripTitle || tripId}
+          ניהול צוות טיול {tripTitle}
         </h1>
 
         <StaffContactsView onRefresh={refreshRef} />

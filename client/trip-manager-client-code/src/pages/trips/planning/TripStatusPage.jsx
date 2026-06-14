@@ -57,7 +57,16 @@ export default function TripStatusPage() {
     setPostEditNote("");
   }
 
-  if (!trip) return <><Navbar /><main className="page-main"><p>טוען...</p></main></>;
+  if (!trip) {
+    return (
+      <>
+        <Navbar />
+        <main className="page-main">
+          <p style={{ textAlign: "center", padding: "2rem" }}>טוען...</p>
+        </main>
+      </>
+    );
+  }
 
   const status = trip.trip_status;
   const statusLabel = TRIP_STATUS_LABEL[status] || "לא מוגדר";

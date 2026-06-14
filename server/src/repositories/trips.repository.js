@@ -405,3 +405,51 @@ export async function setPostEdit(tripId, note) {
   );
   return rows;
 }
+
+export async function getTripClasses(tripId) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT c.id, c.class_name, c.grade FROM trip_classes tc JOIN classes c ON c.id = tc.class_id WHERE tc.trip_id = ?`,
+    [tripId],
+  );
+  return rows;
+}
+
+export async function getSchoolClasses(tripId) {
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT c.id, c.class_name, c.grade FROM classes c
+     WHERE c.school_id = (SELECT school_id FROM trips WHERE id = ?)
+     ORDER BY c.grade, c.class_name`,
+    [tripId],
+  );
+  return rows;
+}
+
+export async function setTripClasses(tripId, classIds) {
+  const connection = await getConnection();
+  try {
+    await connection.beginTransaction();
+    await connection.execute(`DELETE FROM trip_classes WHERE trip_id = ?`, [tripId]);
+    if (classIds.length > 0) {
+      const placeholders = classIds.map(() => "(?, ?)").join(", ");
+      const params = [];
+      classIds.forEach((id) => params.push(tripId, id));
+      await connection.execute(`INSERT INTO trip_classes (trip_id, class_id) VALUES ${placeholders}`, params);
+    }
+    await connection.commit();
+  } catch (err) {
+    await connection.rollback();
+    throw err;
+  }
+}
+
+export async function getRouteGeoJson(tripId) {
+  console.log("getRouteGeoJson - src/repositories/trips.repository.js");
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT route_geojson FROM trips WHERE id = ?`,
+    [tripId],
+  );
+  return rows[0]?.route_geojson ?? null;
+}

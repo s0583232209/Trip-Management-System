@@ -64,6 +64,23 @@ router.put(
   tripsController.setPostEdit,
 );
 
+// כיתות משתתפות בטיול
+router.get(
+  "/:id/classes",
+  requireRole("principal", "coordinator", "trip leader", "teacher"),
+  tripsController.getTripClasses,
+);
+router.get(
+  "/:id/school-classes",
+  requireRole("principal", "coordinator"),
+  tripsController.getSchoolClasses,
+);
+router.put(
+  "/:id/classes",
+  requireRole("principal", "coordinator"),
+  tripsController.setTripClasses,
+);
+
 // צפייה בצוות טיול — מנהל, רכז, אחראי טיול, מורה
 router.get(
   "/:id/staff",

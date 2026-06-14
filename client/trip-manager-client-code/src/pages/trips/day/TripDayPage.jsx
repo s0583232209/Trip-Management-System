@@ -97,14 +97,15 @@ export default function TripDayPage() {
       )}
 
       <main className="page-main">
-        <h1 className="page-title">יום טיול — טיול {tripTitle || tripId}</h1>
+        <h1 className="page-title">יום טיול — טיול {tripTitle}</h1>
         <p>בחר קטגוריה מתוך יום הטיול.</p>
         <div className="trips-cards">
           <button
             className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/attendance`)}
+            disabled
+            style={{ opacity: 0.5, cursor: "not-allowed" }}
           >
-            קריאת שמות
+            קריאת שמות (בקרוב)
           </button>
 
           {canSeeEmergency && (

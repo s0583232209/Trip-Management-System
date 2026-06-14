@@ -8,29 +8,24 @@ import "../TripsPage.css";
 export default function TripSelectionPage() {
   const navigate = useNavigate();
   const [trips, setTrips] = useState([]);
+
   useEffect(()=> {
     async function getTrips() {
-      const trips = await api.get("/api/trips");
-      // console.log(trips);
-      setTrips(trips.data);
+      const res = await api.get("/api/trips");
+      setTrips(res.data);
     };
     getTrips();
   }, []);
+
   return (
     <>
       <Navbar />
       <main className="page-main">
         <h1 className="page-title">בחר טיול</h1>
-        <p>
-          בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.
-        </p>
+        <p>בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.</p>
         <div className="trips-cards">
           {trips.map((trip) => (
-            <button
-              key={trip.id}
-              className="trip-card"
-              onClick={() => navigate(`/trips/${trip.id}`)}
-            >
+            <button key={trip.id} className="trip-card" onClick={() => navigate(`/trips/${trip.id}`)}>
               {trip.title}
             </button>
           ))}

@@ -152,3 +152,30 @@ export async function setPostEdit(req, res) {
     res.status(err.status || 500).json({ message: err.message });
   }
 }
+
+export async function getTripClasses(req, res) {
+  try {
+    const classes = await tripsService.getTripClasses(req.params.id);
+    res.status(200).json(classes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function getSchoolClasses(req, res) {
+  try {
+    const classes = await tripsService.getSchoolClasses(req.params.id);
+    res.status(200).json(classes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function setTripClasses(req, res) {
+  try {
+    await tripsService.setTripClasses(req.params.id, req.body.classIds || []);
+    res.status(200).json({ message: "כיתות עודכנו בהצלחה" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}

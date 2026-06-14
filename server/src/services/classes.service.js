@@ -32,3 +32,34 @@ export async function addClass(userId, details) {
     throw err;
   }
 }
+
+export async function updateClass(userId, classId, details) {
+  console.log("updateClass - src/services/classes.service.js");
+  try {
+    const { school_id } = await usersRepo.getById(userId);
+    const updated = await classesRepo.updateClass({
+      id: classId,
+      schoolId: school_id,
+      className: details.className,
+      grade: details.grade,
+    });
+    log.info(`class update attempted for school: ${school_id}, class: ${classId}`);
+    return updated;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from updateClass in classes.service`);
+    throw err;
+  }
+}
+
+export async function deleteClass(userId, classId) {
+  console.log("deleteClass - src/services/classes.service.js");
+  try {
+    const { school_id } = await usersRepo.getById(userId);
+    const deleted = await classesRepo.deleteClass(classId, school_id);
+    log.info(`class delete attempted for school: ${school_id}, class: ${classId}`);
+    return deleted;
+  } catch (err) {
+    log.warn(`error: ${err.message}, from deleteClass in classes.service`);
+    throw err;
+  }
+}

@@ -158,7 +158,6 @@ export default function ProfilePage() {
         <Navbar />
         <main className="page-main">
           <h1 className="page-title">פרופיל</h1>
-          <div className="ip-inline">{loading ? "טוען..." : error}</div>
         </main>
       </>
     );

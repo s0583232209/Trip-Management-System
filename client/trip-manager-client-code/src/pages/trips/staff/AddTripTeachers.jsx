@@ -21,7 +21,7 @@ export default function AddTripTeachers({ onSuccess } = {}) {
       const [staffRes, usersRes, classesRes] = await Promise.all([
         api.get(`/api/trips/${tripId}/staff`),
         api.get(`/api/users`),
-        api.get(`/api/classes`),
+        api.get(`/api/trips/${tripId}/classes`),
       ]);
       setTripStaff(staffRes.data.employees ?? staffRes.data ?? []);
       setSchoolTeachers(usersRes.data ?? []);
@@ -144,19 +144,6 @@ export default function AddTripTeachers({ onSuccess } = {}) {
           </button>
         </div>
       </form>
-
-      <div style={{ marginTop: "2rem" }}>
-        <h4>מורים משובצים לטיול</h4>
-        {tripStaff.length === 0 ? (
-          <p>אין מורים משובצים עדיין</p>
-        ) : (
-          <ul>
-            {tripStaff.map((t) => (
-              <li key={t.user_id ?? t.id}>{t.full_name}</li>
-            ))}
-          </ul>
-        )}
-      </div>
     </main>
   );
 }

@@ -117,8 +117,6 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
     grouped[effectiveRole].push({ ...emp, displayRoles: empRoles.map((r) => ROLE_LABELS[r] ?? r).join(", ") });
   });
 
-  if (loading) return <p style={{ textAlign: "center" }}>טוען...</p>;
-
   const hasAny = ROLE_ORDER.some((r) => grouped[r].length > 0) || (staff.externalEmployees ?? []).length > 0;
 
   return (

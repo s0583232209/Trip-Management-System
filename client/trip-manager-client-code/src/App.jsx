@@ -1,4 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { LoadingProvider, useLoading } from "./LoadingContext.jsx";
+import Spinner from "./components/Spinner.jsx";
+import { setupLoadingInterceptors } from "./api.js";
 import EmergencySocketProvider from "./components/EmergencySocketProvider.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
@@ -23,10 +27,14 @@ import CriticalEmergency from "./pages/trips/emergency/CriticalEmergemcy.jsx";
 import UsefulLinks from "./pages/trips/planning/UsefulLinks.jsx";
 import "./App.css";
 
-function App() {
+function AppInner() {
+  const { loading, show, hide } = useLoading();
+  useEffect(() => { setupLoadingInterceptors({ show, hide }); }, []);
   return (
-    <BrowserRouter>
-      <EmergencySocketProvider>
+    <>
+      {loading && <Spinner />}
+      <BrowserRouter>
+        <EmergencySocketProvider>
       <Routes>
         {/* אימות */}
         <Route path="/login" element={<Login />} />
@@ -72,7 +80,16 @@ function App() {
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
       </EmergencySocketProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <LoadingProvider>
+      <AppInner />
+    </LoadingProvider>
   );
 }
 

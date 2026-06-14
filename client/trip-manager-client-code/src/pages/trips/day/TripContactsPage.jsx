@@ -14,7 +14,7 @@ export default function TripContactsPage() {
       <Navbar />
       <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
         <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
-          אנשי קשר — טיול {tripTitle || tripId}
+          אנשי קשר — טיול {tripTitle}
         </h1>
         <StaffContactsView readOnly />
         <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>

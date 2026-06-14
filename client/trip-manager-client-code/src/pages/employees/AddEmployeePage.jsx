@@ -3,6 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar.jsx";
 import UserDetails from "../../components/UserDetails.jsx";
+import ClassesManagementSection from "./ClassesManagementSection.jsx";
 import api from "../../api.js";
 import "../trips/TripsPage.css";
 import "./AddEmployeePage.css";
@@ -80,8 +81,6 @@ function StaffManagementSection({ currentUserId }) {
       setActionError(err.response?.data?.message || "עדכון התפקיד נכשל");
     }
   }
-
-  if (loading) return <p style={{ textAlign: "center" }}>טוען...</p>;
 
   return (
     <section className="form-section" style={{ marginTop: "2rem" }}>
@@ -222,6 +221,8 @@ export default function AddEmployeePage() {
         </div>
 
         <StaffManagementSection currentUserId={user.userId} />
+
+        <ClassesManagementSection />
       </main>
     </>
   );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../../../components/Navbar.jsx";
 import api from "../../../api.js";
 import { canManageTrip, canUpdateRoute, canViewTripDetails } from "../../../permissions.js";
@@ -8,6 +9,7 @@ import "../TripsPage.css";
 export default function TripPlanningPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
+  const user = useSelector((state) => state.auth.user) || {};
   const [error, setError] = useState("");
   const [tripDate, setTripDate] = useState(null);
   const [tripLeaderId, setTripLeaderId] = useState(null);
@@ -49,15 +51,17 @@ export default function TripPlanningPage() {
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">תכנון טיול — טיול {tripTitle || tripId}</h1>
+        <h1 className="page-title">תכנון טיול — טיול {tripTitle}</h1>
         <p>בחר קטגוריה מתוך תכנון הטיול.</p>
         <div className="trips-cards">
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/folder`)}
-          >
-            תיק טיול
-          </button>
+          {(canManageTrip() || Number(user.userId) === Number(tripLeaderId)) && (
+            <button
+              className="trip-card"
+              onClick={() => navigate(`/trips/${tripId}/folder`)}
+            >
+              תיק טיול
+            </button>
+          )}
           {canManageTrip() && (
             <button
               className="trip-card"

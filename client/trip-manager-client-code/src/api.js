@@ -5,6 +5,21 @@ const api = axios.create({
   withCredentials: true,
 });
 
+let loadingInterceptorsSet = false;
+
+export function setupLoadingInterceptors({ show, hide }) {
+  if (loadingInterceptorsSet) return;
+  loadingInterceptorsSet = true;
+  api.interceptors.request.use((config) => {
+    show();
+    return config;
+  });
+  api.interceptors.response.use(
+    (response) => { hide(); return response; },
+    (error) => { hide(); return Promise.reject(error); },
+  );
+}
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

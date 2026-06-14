@@ -10,12 +10,12 @@ export default function ApproveTripPage() {
   const { tripId } = useParams();
   const navigate = useNavigate();
 
-  if (!canManageTrip()) return <Navigate to="/unauthorized" replace />;
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [parentToken, setParentToken] = useState("");
   const [copied, setCopied] = useState(false);
+
+  if (!canManageTrip()) return <Navigate to="/unauthorized" replace />;
 
   async function handleApprove() {
     setError("");

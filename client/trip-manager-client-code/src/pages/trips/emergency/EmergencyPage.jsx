@@ -18,6 +18,7 @@ export default function EmergencyPage() {
   const [tripDate, setTripDate] = useState(null);
   const [tripLeaderId, setTripLeaderId] = useState(null);
   const [tripTitle, setTripTitle] = useState("");
+  const [tripLoading, setTripLoading] = useState(true);
   const [isRinging, setIsRinging] = useState(false);
   const navigate = useNavigate();
 
@@ -73,6 +74,8 @@ export default function EmergencyPage() {
         }
       } catch (err) {
         console.error("Error fetching trip:", err);
+      } finally {
+        setTripLoading(false);
       }
     }
     init();
@@ -171,7 +174,7 @@ export default function EmergencyPage() {
       <main className="page-main">
         <div className="emergency-header">
           <h1 className="page-title emergency-title">
-            <span className="alert-icon">🚨</span> מצב חירום — טיול {tripTitle || tripId}
+            <span className="alert-icon">🚨</span> מצב חירום — טיול {tripTitle}
           </h1>
           <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/day`)}>
             חזרה ליום הטיול
@@ -190,7 +193,7 @@ export default function EmergencyPage() {
         {error && <p className="error form-submit-error">{error}</p>}
 
         <div className="emergency-content">
-          {canReport && (
+          {!tripLoading && canReport && (
             <section className="form-section emergency-form-section">
               <h2 className="form-section-title">דיווח על אירוע חדש</h2>
               <form onSubmit={handleReportEmergency} className="trip-form">

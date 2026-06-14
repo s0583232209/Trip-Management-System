@@ -42,6 +42,10 @@ export default function UpdateTripPage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [tripClasses, setTripClasses] = useState([]);
+  const [schoolClasses, setSchoolClasses] = useState([]);
+  const [classesSuccess, setClassesSuccess] = useState("");
+  const [classesError, setClassesError] = useState("");
 
   const user = useSelector((state) => state.auth.user) || {};
   // טעינת הנתונים הישנים של הטיול והשמתם כברירת מחדל בטופס
@@ -71,6 +75,13 @@ export default function UpdateTripPage() {
 
         // חילוץ העצירות הקיימות מהמידע הגיאוגרפי/מסלול הישן
         setStops(parseStops(trip.route_geojson || trip.routeGeoJson));
+
+        const [classesRes, schoolClassesRes] = await Promise.all([
+          api.get(`/api/trips/${tripId}/classes`),
+          api.get(`/api/trips/${tripId}/school-classes`),
+        ]);
+        setTripClasses(classesRes.data.map((c) => c.id));
+        setSchoolClasses(schoolClassesRes.data);
       } catch (err) {
         if (err.response?.status === 404)
           navigate("/not-found", { replace: true });
@@ -128,6 +139,24 @@ export default function UpdateTripPage() {
     }
   }
 
+  async function handleSaveClasses() {
+    setClassesError("");
+    setClassesSuccess("");
+    try {
+      await api.put(`/api/trips/${tripId}/classes`, { classIds: tripClasses });
+      setClassesSuccess("כיתות עודכנו בהצלחה ✓");
+      setTimeout(() => setClassesSuccess(""), 3000);
+    } catch (err) {
+      setClassesError(err.response?.data?.message || "עדכון כיתות נכשל");
+    }
+  }
+
+  function toggleClass(id) {
+    setTripClasses((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+    );
+  }
+
   const writeAccess = canUpdateRoute(tripStatus, formData.tripDate, formData.tripLeaderNationalId);
   // עריכת שם/תאריך/אחראי — מנהל ורכז בלבד; עריכת עצירות — גם אחראי הטיול ביום הטיול
   const canEditMeta = canManageTrip();
@@ -145,17 +174,6 @@ export default function UpdateTripPage() {
     } finally {
       setPostEditLoading(false);
     }
-  }
-
-  if (fetching) {
-    return (
-      <>
-        <Navbar />
-        <main className="page-main">
-          <p style={{ textAlign: "center", padding: "2rem" }}>טוען...</p>
-        </main>
-      </>
-    );
   }
 
   const statusLabel = TRIP_STATUS_LABEL[tripStatus] || "";
@@ -184,6 +202,26 @@ export default function UpdateTripPage() {
         {postEditError && <p className="error" style={{ marginTop: "0.5rem" }}>{postEditError}</p>}
       </div>
     ) : null;
+
+  const classesSection = writeAccess && schoolClasses.length > 0 ? (
+    <div className="form-section" style={{ marginTop: "1.5rem" }}>
+      <h2 className="form-section-title">כיתות משתתפות בטיול</h2>
+      <p className="form-section-hint">סמן את הכיתות המשתתפות בטיול זה.</p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+        {schoolClasses.map((c) => (
+          <label key={c.id} style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", padding: "0.4rem 0.75rem", border: `1px solid ${tripClasses.includes(c.id) ? "#3b82f6" : "#d0d5dd"}`, borderRadius: 6, background: tripClasses.includes(c.id) ? "#eff6ff" : "#fff", fontSize: "0.9rem" }}>
+            <input type="checkbox" checked={tripClasses.includes(c.id)} onChange={() => toggleClass(c.id)} />
+            {c.class_name}
+          </label>
+        ))}
+      </div>
+      {classesError && <p className="error">{classesError}</p>}
+      {classesSuccess && <p style={{ color: "#16a34a", fontSize: "0.88rem" }}>{classesSuccess}</p>}
+      <button type="button" className="trip-form-btn trip-form-btn--primary" onClick={handleSaveClasses}>
+        שמור כיתות
+      </button>
+    </div>
+  ) : null;
 
   return (
     <TripForm
@@ -214,7 +252,7 @@ export default function UpdateTripPage() {
       loadingLabel="שומר..."
       writeAccess={writeAccess}
       canEditMeta={canEditMeta}
-      extraSection={statusBanner}
+      extraSection={<>{statusBanner}{classesSection}</>}
     />
   );
 }

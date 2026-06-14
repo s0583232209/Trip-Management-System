@@ -40,7 +40,7 @@ export default function TripDashboardPage() {
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">טיול {tripTitle || tripId}</h1>
+        <h1 className="page-title">טיול {tripTitle}</h1>
         {tripStatus != null && (
           <p className="form-section-hint">סטטוס: <strong>{TRIP_STATUS_LABEL[tripStatus] || tripStatus}</strong></p>
         )}

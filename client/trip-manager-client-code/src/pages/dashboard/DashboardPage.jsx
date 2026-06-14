@@ -57,7 +57,7 @@ export default function DashboardPage() {
 
           {isPrincipal && (
             <button
-              className="dashboard-card dashboard-card--purple"
+              className="dashboard-card dashboard-card--earth"
               onClick={() => navigate("/add-employee")}
             >
               <span className="dashboard-card-label">ניהול משתמשים</span>

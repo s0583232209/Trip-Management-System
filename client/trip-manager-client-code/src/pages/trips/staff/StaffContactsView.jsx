@@ -23,41 +23,31 @@ const EXTERNAL_ROLE_LABELS = {
 
 function ContactCard({ name, roles, className, phone, email, isTripLeader, onDelete }) {
   return (
-    <div style={{
-      background: isTripLeader ? "#eff6ff" : "#fff",
-      border: isTripLeader ? "2px solid #3b82f6" : "1px solid #e2e8f0",
-      borderRadius: "10px",
-      padding: "1rem 1.25rem",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.4rem",
-      boxShadow: "0 1px 4px rgba(0,0,0,0.07)",
-    }}>
-      <span style={{ fontWeight: 700, fontSize: "1rem", color: "#1e293b" }}>
-        {isTripLeader && <span style={{ background: "#3b82f6", color: "#fff", fontSize: "0.72rem", borderRadius: "4px", padding: "0.1rem 0.4rem", marginLeft: "0.4rem", fontWeight: 600 }}>אחראי הטיול</span>}
+    <div className={`contact-card${isTripLeader ? " contact-card--leader" : ""}`}>
+      <span className="contact-card-name">
+        {isTripLeader && <span className="contact-card-leader-badge">אחראי הטיול</span>}
         {name}
       </span>
-      <span style={{ color: "#6366f1", fontSize: "0.82rem", fontWeight: 600 }}>{roles}</span>
+      <span className="contact-card-role">{roles}</span>
       {className && (
-        <span style={{ color: "#374151", fontSize: "0.85rem" }}>
+        <span className="contact-card-class">
           כיתה: <strong>{className}</strong>
         </span>
       )}
       {phone && (
-        <a href={`tel:${phone}`} style={{ color: "#374151", fontSize: "0.9rem", textDecoration: "none" }}>
+        <a href={`tel:${phone}`} className="contact-card-link">
           📞 {phone}
         </a>
       )}
       {email && (
-        <a href={`mailto:${email}`} style={{ color: "#374151", fontSize: "0.9rem", textDecoration: "none" }}>
+        <a href={`mailto:${email}`} className="contact-card-link">
           ✉️ {email}
         </a>
       )}
       {onDelete && (
         <button
           onClick={onDelete}
-          className="trip-form-btn trip-form-btn--danger"
-          style={{ alignSelf: "flex-start", marginTop: "0.4rem" }}
+          className="trip-form-btn trip-form-btn--danger contact-card-delete"
         >
           הסר מהטיול
         </button>
@@ -122,16 +112,16 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
   return (
     <>
       {!hasAny && (
-        <p style={{ textAlign: "center", color: "#888", padding: "2rem 0" }}>אין אנשי צוות משובצים לטיול זה עדיין.</p>
+        <p className="staff-empty">אין אנשי צוות משובצים לטיול זה עדיין.</p>
       )}
 
       {ROLE_ORDER.map((role) =>
         grouped[role].length === 0 ? null : (
-          <section key={role} style={{ marginBottom: "2rem" }}>
-            <h2 style={{ fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.75rem", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.4rem", color: "#1e293b" }}>
+          <section key={role} className="staff-section">
+            <h2 className="staff-section-title">
               {ROLE_LABELS[role]}
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "1rem" }}>
+            <div className="staff-section-grid">
               {grouped[role].map((emp) => (
                 <ContactCard
                   key={emp.id}
@@ -150,11 +140,11 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
       )}
 
       {(staff.externalEmployees ?? []).length > 0 && (
-        <section style={{ marginBottom: "2rem" }}>
-          <h2 style={{ fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.75rem", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.4rem", color: "#1e293b" }}>
+        <section className="staff-section">
+          <h2 className="staff-section-title">
             צוות חיצוני
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "1rem" }}>
+          <div className="staff-section-grid">
             {staff.externalEmployees.map((emp) => (
               <ContactCard
                 key={emp.id}

@@ -119,7 +119,7 @@ export default function TripsLeadersKit() {
         {/* ─── כותרת עמוד ─── */}
         <div className="kit-page-header">
           <div>
-            <h1 className="page-title" style={{ marginBottom: 4 }}>
+            <h1 className="page-title">
               תיק הטיול
             </h1>
             <p className="form-section-hint">
@@ -141,10 +141,7 @@ export default function TripsLeadersKit() {
         </div>
 
         {fetchError && (
-          <p
-            className="error form-submit-error"
-            style={{ marginBottom: "1.5rem" }}
-          >
+          <p className="error form-submit-error kit-fetch-error">
             {fetchError}
           </p>
         )}
@@ -158,16 +155,16 @@ export default function TripsLeadersKit() {
           />
         </div>
         {attractions.length > 0 && (
-          <div className="kit-progress-bar-wrap" style={{ marginTop: "0.5rem" }}>
+          <div className="kit-progress-bar-wrap kit-progress-bar-wrap--amber">
             <div
-              className="kit-progress-bar-fill"
-              style={{ width: `${(attractionsDone / attractions.length) * 100}%`, background: "#f59e0b" }}
+              className="kit-progress-bar-fill kit-progress-bar-fill--amber"
+              style={{ width: `${(attractionsDone / attractions.length) * 100}%` }}
             />
           </div>
         )}
 
         {/* ─── מסמכי חובה ─── */}
-        <section className="form-section" style={{ marginTop: "1.5rem" }}>
+        <section className="form-section kit-required-section">
           <h2 className="form-section-title">מסמכי חובה — תיק הטיול</h2>
           <p className="form-section-hint">
             יש להעלות את כל המסמכים הנדרשים לפי אוגדן הטיולים 2025. מסמך שהועלה

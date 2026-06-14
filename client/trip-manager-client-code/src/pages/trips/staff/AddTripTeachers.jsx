@@ -102,7 +102,7 @@ export default function AddTripTeachers({ onSuccess } = {}) {
           </p>
 
           {assignments.map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "1rem" }}>
+            <div key={i} className="teacher-assignment-row">
               <select value={a.teacherId} onChange={(e) => updateTeacher(i, e.target.value)}>
                 <option value="">-- בחר מורה --</option>
                 {availableTeachers(a.teacherId).map((t) => (
@@ -133,7 +133,7 @@ export default function AddTripTeachers({ onSuccess } = {}) {
         </section>
 
         {error && <p className="error form-submit-error">{error}</p>}
-        {success && <p style={{ color: "green", fontWeight: "bold", textAlign: "right", marginTop: "1rem" }}>{success}</p>}
+        {success && <p className="form-success">{success}</p>}
 
         <div className="form-actions-row">
           <button type="button" className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/planning`)} disabled={loading}>

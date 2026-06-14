@@ -7,54 +7,166 @@
 }
 
 :root {
-  /* תכלת שמיים */
-  --sky-dark:    #2980b9;
-  --sky-mid:     #5dade2;
-  --sky-light:   #d6eaf8;
+  /* ── Palette ── */
+  --blue-900:   #1e3a5f;
+  --blue-700:   #2563a8;
+  --blue-500:   #3b82c4;
+  --blue-300:   #93c4e4;
+  --blue-100:   #dbeeff;
+  --blue-50:    #f0f7ff;
 
-  /* חום טרה קוטה */
-  --earth-dark:  #8b4513;
-  --earth-mid:   #c1784a;
-  --earth-light: #f5e6d8;
+  --brown-900:  #5c2d0e;
+  --brown-700:  #8b4513;
+  --brown-500:  #b5651d;
+  --brown-300:  #d4956a;
+  --brown-100:  #f5e6d8;
+  --brown-50:   #fdf6f0;
 
-  --bg:          #ffffff;
-  --surface:     #ffffff;
-  --surface-2:   #f8fafc;
-  --border:      #e0e0e0;
-  --border-2:    #cbd5e1;
-  --text:        #1a1a1a;
-  --text-2:      #111827;
-  --text-muted:  #6b6b6b;
-  --primary:     #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #dbeafe;
-  --red:         #ef4444;
-  --shadow:      0 4px 16px rgba(0,0,0,0.10);
-  --radius:      10px;
-  --radius-sm:   8px;
-  --radius-md:   14px;
-  --radius-xl:   20px;
-  --radius-full: 999px;
+  --white:      #ffffff;
+  --gray-50:    #f8fafc;
+  --gray-100:   #f1f5f9;
+  --gray-200:   #e2e8f0;
+  --gray-300:   #cbd5e1;
+  --gray-500:   #64748b;
+  --gray-700:   #374151;
+  --gray-900:   #111827;
+
+  /* ── Semantic tokens ── */
+  --bg:            var(--white);
+  --surface:       var(--white);
+  --surface-2:     var(--gray-50);
+  --border:        var(--gray-200);
+  --border-2:      var(--gray-300);
+  --text:          var(--gray-900);
+  --text-2:        var(--gray-700);
+  --text-muted:    var(--gray-500);
+  --primary:       var(--blue-700);
+  --primary-hover: var(--blue-900);
+  --primary-light: var(--blue-100);
+  --accent:        var(--brown-500);
+  --accent-light:  var(--brown-100);
+
+  /* Sky / earth aliases kept for backward compat */
+  --sky-dark:    var(--blue-700);
+  --sky-mid:     var(--blue-500);
+  --sky-light:   var(--blue-100);
+  --earth-dark:  var(--brown-700);
+  --earth-mid:   var(--brown-500);
+  --earth-light: var(--brown-100);
+
+  /* ── States ── */
+  --red:         #dc2626;
+  --red-light:   #fef2f2;
+  --green:       #16a34a;
+  --green-light: #f0fdf4;
+  --amber:       #d97706;
+  --amber-light: #fffbeb;
+
+  /* ── Elevation / shape ── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow:     0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-lg:  0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+  --radius-sm:  6px;
+  --radius:     10px;
+  --radius-md:  14px;
+  --radius-xl:  20px;
+  --radius-full: 9999px;
 }
 
 html {
   direction: rtl;
   font-family: 'Rubik', Arial, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
-body {
-  min-height: 100vh;
-}
+body { min-height: 100vh; }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+a { text-decoration: none; color: inherit; }
 
-button {
-  cursor: pointer;
+button { cursor: pointer; font-family: 'Rubik', Arial, sans-serif; }
+
+/* ════════════════════════════════════
+   Global input / select / textarea
+   ════════════════════════════════════ */
+
+input,
+select,
+textarea {
   font-family: 'Rubik', Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  width: 100%;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+  direction: rtl;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(59,130,196,0.13);
+  background: var(--white);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--gray-300);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--gray-100);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  padding-left: 34px;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ════════════════════════════════════
+   Global default button
+   ════════════════════════════════════ */
+
+button:not([class]) {
+  padding: 9px 20px;
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Rubik', Arial, sans-serif;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+button:not([class]):hover {
+  background: var(--blue-50);
+  border-color: var(--blue-300);
+  color: var(--blue-700);
+}
+
+button:not([class]):disabled {
+  opacity: 0.50;
+  cursor: not-allowed;
 }

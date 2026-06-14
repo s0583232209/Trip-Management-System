@@ -60,22 +60,9 @@ export default function TripDayPage() {
       <Navbar />
 
       {alert && (
-        <div
-          className={`emergency-banner ${isCritical ? "banner-critical" : "banner-minor"}`}
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 99,
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            padding: "0.6rem 1.5rem",
-            width: "100%",
-            boxSizing: "border-box",
-          }}
-        >
+        <div className={`emergency-banner ${isCritical ? "banner-critical" : "banner-minor"}`}>
           <span className="banner-icon">{isCritical ? "🚨" : "⚠️"}</span>
-          <span className="banner-text" style={{ flex: 1 }}>
+          <span className="banner-text">
             {isCritical ? "חירום קריטי" : "חירום מינורי"}: {alert.description}
           </span>
           <div className="banner-actions">
@@ -99,29 +86,34 @@ export default function TripDayPage() {
       <main className="page-main">
         <h1 className="page-title">יום טיול — טיול {tripTitle}</h1>
         <p>בחר קטגוריה מתוך יום הטיול.</p>
-        <div className="trips-cards">
-          <button
-            className="trip-card"
-            disabled
-            style={{ opacity: 0.5, cursor: "not-allowed" }}
-          >
-            קריאת שמות (בקרוב)
+        <div className="nav-cards">
+          <button className="nav-card trip-card--disabled" disabled>
+            <span className="nav-card__icon">📋</span>
+            <span className="nav-card__body">
+              <span className="nav-card__title">קריאת שמות</span>
+              <span className="nav-card__desc">בקרוב</span>
+            </span>
           </button>
-
           {canSeeEmergency && (
             <button
-              className={`trip-card trip-card--emergency ${alert ? "trip-card--emergency-active" : ""}`}
+              className={`nav-card nav-card--emergency${alert ? " nav-card--emergency-active" : ""}`}
               onClick={() => navigate(`/trips/${tripId}/emergencies`)}
             >
-              {alert ? "🚨 חירום פעיל" : "מצב חירום"}
+              <span className="nav-card__icon">{alert ? "🚨" : "🏥"}</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">{alert ? "🚨 חירום פעיל" : "מצב חירום"}</span>
+                <span className="nav-card__desc">דיווח וניהול אירועי חירום</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           )}
-
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/contacts`)}
-          >
-            פרטי קשר צוות
+          <button className="nav-card" onClick={() => navigate(`/trips/${tripId}/contacts`)}>
+            <span className="nav-card__icon">📒</span>
+            <span className="nav-card__body">
+              <span className="nav-card__title">פרטי קשר צוות</span>
+              <span className="nav-card__desc">טלפונים ומידע לאנשי הצוות</span>
+            </span>
+            <span className="nav-card__arrow">←</span>
           </button>
         </div>
       </main>

@@ -181,42 +181,42 @@ export default function UpdateTripPage() {
 
   const statusBanner =
     tripStatus === TRIP_STATUS.DONE && canManageTrip() ? (
-      <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: 8, padding: "0.75rem 1.5rem", marginBottom: "1rem" }}>
+      <div className="status-banner status-banner--locked">
         הטיול הסתיים — הטופס נעול לעריכה.
       </div>
     ) : tripStatus === TRIP_STATUS.APPROVED && canSetPostEdit() ? (
-      <div style={{ background: "#fffbe6", border: "1px solid #f59e0b", borderRadius: 8, padding: "1rem 1.5rem", marginBottom: "1rem" }}>
+      <div className="post-edit-box">
         <strong>הטיול מאושר — עריכה נעולה.</strong>
-        <p style={{ margin: "0.5rem 0" }}>לפתיחת עריכה בדיעבד יש להזין הערת הסבר:</p>
-        <form onSubmit={handleSetPostEdit} style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <p className="form-section-hint">לפתיחת עריכה בדיעבד יש להזין הערת הסבר:</p>
+        <form onSubmit={handleSetPostEdit} className="post-edit-form">
           <input
             value={postEditNote}
             onChange={e => setPostEditNote(e.target.value)}
             placeholder="למשל: הטיול נדחה לבקשת המנהל ביום X"
-            style={{ flex: 1, minWidth: 200, padding: "0.4rem 0.75rem", borderRadius: 6, border: "1px solid #ccc" }}
+            className="post-edit-input"
           />
           <button type="submit" className="trip-form-btn trip-form-btn--primary" disabled={postEditLoading}>
             {postEditLoading ? "שומר..." : "פתח לעריכה"}
           </button>
         </form>
-        {postEditError && <p className="error" style={{ marginTop: "0.5rem" }}>{postEditError}</p>}
+        {postEditError && <p className="error">{postEditError}</p>}
       </div>
     ) : null;
 
   const classesSection = writeAccess && schoolClasses.length > 0 ? (
-    <div className="form-section" style={{ marginTop: "1.5rem" }}>
+    <div className="form-section">
       <h2 className="form-section-title">כיתות משתתפות בטיול</h2>
       <p className="form-section-hint">סמן את הכיתות המשתתפות בטיול זה.</p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+      <div className="classes-tags">
         {schoolClasses.map((c) => (
-          <label key={c.id} style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", padding: "0.4rem 0.75rem", border: `1px solid ${tripClasses.includes(c.id) ? "#3b82f6" : "#d0d5dd"}`, borderRadius: 6, background: tripClasses.includes(c.id) ? "#eff6ff" : "#fff", fontSize: "0.9rem" }}>
+          <label key={c.id} className={`class-checkbox-tag${tripClasses.includes(c.id) ? " class-checkbox-tag--selected" : ""}`}>
             <input type="checkbox" checked={tripClasses.includes(c.id)} onChange={() => toggleClass(c.id)} />
             {c.class_name}
           </label>
         ))}
       </div>
       {classesError && <p className="error">{classesError}</p>}
-      {classesSuccess && <p style={{ color: "#16a34a", fontSize: "0.88rem" }}>{classesSuccess}</p>}
+      {classesSuccess && <p className="add-employee-success">{classesSuccess}</p>}
       <button type="button" className="trip-form-btn trip-form-btn--primary" onClick={handleSaveClasses}>
         שמור כיתות
       </button>

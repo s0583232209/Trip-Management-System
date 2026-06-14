@@ -3,6 +3,7 @@ import Navbar from "../../../components/Navbar.jsx";
 import StaffContactsView from "../staff/StaffContactsView.jsx";
 import useTripTitle from "../../../hooks/useTripTitle.js";
 import "../TripsPage.css";
+import "../TripForms.css";
 
 export default function TripContactsPage() {
   const { tripId } = useParams();
@@ -12,12 +13,12 @@ export default function TripContactsPage() {
   return (
     <>
       <Navbar />
-      <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
-        <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
+      <main className="page-main contacts-page-main">
+        <h1 className="page-title contacts-page-title">
           אנשי קשר — טיול {tripTitle}
         </h1>
         <StaffContactsView readOnly />
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+        <div className="contacts-back-row">
           <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/day`)}>
             חזרה ליום הטיול
           </button>

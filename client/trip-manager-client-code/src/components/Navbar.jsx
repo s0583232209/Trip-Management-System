@@ -94,30 +94,28 @@ export default function Navbar() {
       </nav>
 
       {alert && (
-        <div
-          className={`emergency-banner ${isCritical ? "banner-critical" : "banner-minor"}`}
-          style={{
-            position: "sticky", top: 0, zIndex: 99,
-            display: "flex", alignItems: "center", gap: "0.75rem",
-            padding: "0.6rem 1.5rem", width: "100%", boxSizing: "border-box",
-          }}
-        >
-          <span>{isCritical ? "🚨" : "⚠️"}</span>
-          <span style={{ flex: 1 }}>
-            {isCritical ? "חירום קריטי" : "חירום מינורי"}: {alert.description}
+        <div className={`navbar-emergency-banner`}>
+          <span className="navbar-emergency-banner__icon">
+            {isCritical ? "🚨" : "⚠️"}
           </span>
-          <button
-            onClick={() => { stopAlertSound(); navigate(`/trips/${alertTripId}/emergencies`); }}
-            style={{ background: "#fff", color: "#c62828", border: "none", padding: "0.3rem 0.8rem", borderRadius: "4px", cursor: "pointer", fontWeight: "bold" }}
-          >
-            צפה בפרטים
-          </button>
-          <button
-            onClick={() => { stopAlertSound(); dispatch(clearEmergencyAlert()); }}
-            style={{ background: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.6)", padding: "0.3rem 0.6rem", borderRadius: "4px", cursor: "pointer" }}
-          >
-            ✕
-          </button>
+          <span className="navbar-emergency-banner__text">
+            <strong>{isCritical ? "חירום קריטי" : "חירום מינורי"}:</strong>
+            {alert.description}
+          </span>
+          <div className="navbar-emergency-banner__actions">
+            <button
+              onClick={() => { stopAlertSound(); navigate(`/trips/${alertTripId}/emergencies`); }}
+              className="navbar-emergency-banner__btn-view"
+            >
+              צפה בפרטים
+            </button>
+            <button
+              onClick={() => { stopAlertSound(); dispatch(clearEmergencyAlert()); }}
+              className="navbar-emergency-banner__btn-close"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       )}
     </>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../api.js";
+import "../trips/TripForms.css";
+import "./AddEmployeePage.css";
 
 const GRADE_LABELS = ["א'","ב'","ג'","ד'","ה'","ו'","ז'","ח'","ט'","י'","י\"א","י\"ב"];
 
@@ -122,85 +124,70 @@ export default function ClassesManagementSection() {
   }
 
   return (
-    <section className="form-section" style={{ marginTop: "2rem" }}>
+    <section className="form-section classes-section">
       <h2 className="form-section-title">ניהול כיתות</h2>
 
-      <h3 style={{ fontSize: "0.95rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-        הוסף כיתות חדשות
-      </h3>
+      <h3 className="classes-sub-title">הוסף כיתות חדשות</h3>
       <p className="form-section-hint">בחר שכבות, קבע כמות כיתות ושמות.</p>
+
       <form onSubmit={handleAddClasses}>
-        {grades.map((g, i) => (
-          <div key={g.grade} className="stop-card">
-            <label style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <input type="checkbox" checked={g.selected} onChange={() => toggleGrade(i)} />
-              שכבה {g.label}
-            </label>
-            {g.selected && (
-              <>
-                <label>מספר כיתות בשכבה</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={g.classCount}
-                  onChange={(e) => updateClassCount(i, e.target.value)}
-                />
-                {g.classNames.map((name, j) => (
-                  <div key={j}>
-                    <label>שם כיתה {j + 1}</label>
-                    <input
-                      type="text"
-                      value={name}
-                      placeholder={`${g.label}-${j + 1}`}
-                      onChange={(e) => updateClassName(i, j, e.target.value)}
-                    />
-                    {addErrors[`grade_${g.grade}_class_${j}`] && (
-                      <p className="error">{addErrors[`grade_${g.grade}_class_${j}`]}</p>
-                    )}
+        <div className="grades-grid">
+          {grades.map((g, i) => (
+            <div key={g.grade} className={`grade-card${g.selected ? " grade-card--selected" : ""}`}>
+              <label className="grade-checkbox-label">
+                <input type="checkbox" checked={g.selected} onChange={() => toggleGrade(i)} />
+                שכבה {g.label}
+              </label>
+              {g.selected && (
+                <div className="grade-fields">
+                  <label>מספר כיתות</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={g.classCount}
+                    onChange={(e) => updateClassCount(i, e.target.value)}
+                    className="grade-count-input"
+                  />
+                  <div className="class-names-list">
+                    {g.classNames.map((name, j) => (
+                      <div key={j} className="class-name-row">
+                        <label>כיתה {j + 1}</label>
+                        <input
+                          type="text"
+                          value={name}
+                          placeholder={`${g.label}-${j + 1}`}
+                          onChange={(e) => updateClassName(i, j, e.target.value)}
+                        />
+                        {addErrors[`grade_${g.grade}_class_${j}`] && (
+                          <p className="error">{addErrors[`grade_${g.grade}_class_${j}`]}</p>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </>
-            )}
-          </div>
-        ))}
-        {addError && <p className="error">{addError}</p>}
-        {addSuccess && <p style={{ color: "green", fontWeight: "bold" }}>{addSuccess}</p>}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {addError && <p className="add-employee-error">{addError}</p>}
+        {addSuccess && <p className="add-employee-success">{addSuccess}</p>}
+
         <button type="submit" className="trip-form-btn trip-form-btn--primary" disabled={saving}>
           {saving ? "שומר..." : "הוסף כיתות"}
         </button>
       </form>
 
       {classes.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginTop: "1.5rem" }}>
+        <div className="classes-tags">
           {classes.map((c) => (
-            <span
-              key={c.id}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.4rem",
-                padding: "0.35rem 0.5rem 0.35rem 0.75rem",
-                background: "#eff6ff",
-                border: "1px solid #bfdbfe",
-                borderRadius: 6,
-                fontSize: "0.88rem",
-              }}
-            >
+            <span key={c.id} className="class-tag">
               {c.class_name}
               <button
                 type="button"
                 onClick={() => handleDeleteClass(c)}
                 aria-label={`מחיקת ${c.class_name}`}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "#dc2626",
-                  cursor: "pointer",
-                  fontWeight: 700,
-                  fontSize: "1rem",
-                  lineHeight: 1,
-                  padding: 0,
-                }}
+                className="class-tag-delete"
               >
                 ×
               </button>
@@ -208,7 +195,7 @@ export default function ClassesManagementSection() {
           ))}
         </div>
       )}
-      {deleteError && <p className="error" style={{ marginTop: "0.5rem" }}>{deleteError}</p>}
+      {deleteError && <p className="add-employee-error">{deleteError}</p>}
     </section>
   );
 }

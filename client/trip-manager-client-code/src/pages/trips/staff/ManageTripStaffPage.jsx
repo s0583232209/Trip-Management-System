@@ -28,14 +28,14 @@ export default function ManageTripStaffPage() {
   return (
     <>
       <Navbar />
-      <main className="page-main" style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
-        <h1 className="page-title" style={{ textAlign: "center", marginBottom: "2rem" }}>
+      <main className="page-main staff-page-main">
+        <h1 className="page-title staff-page-title">
           ניהול צוות טיול {tripTitle}
         </h1>
 
         <StaffContactsView onRefresh={refreshRef} />
 
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", margin: "2rem 0 1rem" }}>
+        <div className="staff-add-buttons">
           <button
             className="trip-form-btn trip-form-btn--primary"
             onClick={() => { setShowAddTeacher((v) => !v); setShowAddExternal(false); }}
@@ -51,17 +51,17 @@ export default function ManageTripStaffPage() {
         </div>
 
         {showAddTeacher && (
-          <div style={{ marginBottom: "2rem" }}>
+          <div className="staff-add-section">
             <AddTripTeachers onSuccess={handleSuccess} />
           </div>
         )}
         {showAddExternal && (
-          <div style={{ marginBottom: "2rem" }}>
+          <div className="staff-add-section">
             <AddTripExternalStaff onSuccess={handleSuccess} />
           </div>
         )}
 
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+        <div className="staff-back-row">
           <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/planning`)}>
             חזרה לתכנון הטיול
           </button>

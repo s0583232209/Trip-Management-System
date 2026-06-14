@@ -51,45 +51,63 @@ export default function TripPlanningPage() {
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">תכנון טיול — טיול {tripTitle}</h1>
+        <div className="page-header">
+          <h1 className="page-title">תכנון טיול — טיול {tripTitle}</h1>
+          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}`)}נצג>
+            חזרה לטיול
+          </button>
+        </div>
         <p>בחר קטגוריה מתוך תכנון הטיול.</p>
-        <div className="trips-cards">
+        <div className="nav-cards">
           {(canManageTrip() || Number(user.userId) === Number(tripLeaderId)) && (
-            <button
-              className="trip-card"
-              onClick={() => navigate(`/trips/${tripId}/folder`)}
-            >
-              תיק טיול
+            <button className="nav-card" onClick={() => navigate(`/trips/${tripId}/folder`)}>
+              <span className="nav-card__icon">📂</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">תיק טיול</span>
+                <span className="nav-card__desc">מסמכים, אישורים וקבצים</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           )}
           {canManageTrip() && (
-            <button
-              className="trip-card"
-              onClick={() => navigate(`/trips/${tripId}/staff`)}
-            >
-              אנשי צוות
+            <button className="nav-card" onClick={() => navigate(`/trips/${tripId}/staff`)}>
+              <span className="nav-card__icon">👥</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">אנשי צוות</span>
+                <span className="nav-card__desc">מורים וצוות חיצוני</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           )}
-          <button
-            className="trip-card"
-            onClick={() => navigate(`/trips/useful-links`)}
-          >
-            קישורים שימושיים
+          <button className="nav-card" onClick={() => navigate(`/trips/useful-links`)}>
+            <span className="nav-card__icon">🔗</span>
+            <span className="nav-card__body">
+              <span className="nav-card__title">קישורים שימושיים</span>
+              <span className="nav-card__desc">משאבי מידע רלוונטיים</span>
+            </span>
+            <span className="nav-card__arrow">←</span>
           </button>
           {canViewTripDetails() && (
-            <button
-              className="trip-card"
-              onClick={() => navigate(`/trips/${tripId}/route`)}
-            >
-              {canUpdateRoute(tripStatus, tripDate, tripLeaderId) ? "עדכון מסלול וצפיה בפרטי מסלול" : "צפייה בפרטי מסלול"}
+            <button className="nav-card" onClick={() => navigate(`/trips/${tripId}/route`)}>
+              <span className="nav-card__icon">🗺️</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">
+                  {canUpdateRoute(tripStatus, tripDate, tripLeaderId) ? "עדכון מסלול" : "צפייה במסלול"}
+                </span>
+                <span className="nav-card__desc">עצירות, אטרקציות ומסלולי הליכה</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           )}
           {canManageTrip() && (
-            <form>
-              <button className="trip-card" type="button" onClick={handleDelete}>
-                מחק טיול
-              </button>
-            </form>
+            <button className="nav-card nav-card--danger" type="button" onClick={handleDelete}>
+              <span className="nav-card__icon">🗑️</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">מחק טיול</span>
+                <span className="nav-card__desc">פעולה בלתי הפיכה</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
+            </button>
           )}
           {error && <p className="error">{error}</p>}
         </div>

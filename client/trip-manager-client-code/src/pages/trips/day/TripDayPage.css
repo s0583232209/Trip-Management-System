@@ -1,10 +1,10 @@
-/* ── Emergency banner ── */
+/* ── Emergency banner (sticky alert strip) ── */
 .emergency-banner {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 20px;
-  font-size: 15px;
+  padding: 10px 20px;
+  font-size: 14px;
   font-weight: 500;
   border-bottom: 2px solid;
   position: sticky;
@@ -15,7 +15,7 @@
 
 .banner-critical {
   background: #ffebee;
-  border-color: #d32f2f;
+  border-color: #c62828;
   color: #b71c1c;
 }
 
@@ -26,20 +26,18 @@
 }
 
 .banner-icon {
-  font-size: 20px;
+  font-size: 18px;
   flex-shrink: 0;
-  animation: pulse 1.5s infinite;
+  animation: banner-pulse 1.5s infinite;
 }
 
-@keyframes pulse {
+@keyframes banner-pulse {
   0%   { transform: scale(1);   opacity: 1; }
   50%  { transform: scale(1.2); opacity: 0.7; }
   100% { transform: scale(1);   opacity: 1; }
 }
 
-.banner-text {
-  flex: 1;
-}
+.banner-text { flex: 1; min-width: 0; }
 
 .banner-actions {
   display: flex;
@@ -50,8 +48,8 @@
 
 .banner-btn {
   border: none;
-  border-radius: 6px;
-  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -59,12 +57,10 @@
   transition: opacity 0.15s;
 }
 
-.banner-btn:hover {
-  opacity: 0.8;
-}
+.banner-btn:hover { opacity: 0.80; }
 
 .banner-btn--view {
-  background: #d32f2f;
+  background: #c62828;
   color: #fff;
 }
 
@@ -75,24 +71,35 @@
 .banner-btn--close {
   background: transparent;
   color: inherit;
-  font-size: 16px;
-  padding: 4px 8px;
+  font-size: 15px;
+  padding: 4px 7px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
+  opacity: 0.65;
 }
 
-/* ── Emergency card variant ── */
+.banner-btn--close:hover { opacity: 1; }
+
+/* ── Emergency trip-card states ── */
 .trip-card--emergency {
-  border: 2px solid #ffcdd2;
+  border-color: #ffcdd2;
   color: #c62828;
+}
+
+.trip-card--emergency:hover {
+  background: #fff5f5;
+  border-color: #ef9a9a;
 }
 
 .trip-card--emergency-active {
   background: #ffebee;
-  border-color: #d32f2f;
+  border-color: #c62828;
+  color: #b71c1c;
   animation: card-pulse 2s infinite;
 }
 
 @keyframes card-pulse {
-  0%   { box-shadow: 0 0 0 0   rgba(211, 47, 47, 0.4); }
-  70%  { box-shadow: 0 0 0 10px rgba(211, 47, 47, 0); }
-  100% { box-shadow: 0 0 0 0   rgba(211, 47, 47, 0); }
+  0%   { box-shadow: 0 0 0 0   rgba(198,40,40,0.40); }
+  70%  { box-shadow: 0 0 0 10px rgba(198,40,40,0); }
+  100% { box-shadow: 0 0 0 0   rgba(198,40,40,0); }
 }

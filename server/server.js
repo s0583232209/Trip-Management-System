@@ -12,6 +12,7 @@ import logger from "./src/middlewares/logger.middleware.js";
 import errorHandler from "./src/middlewares/errorHandler.middleware.js";
 import usersRouter from "./src/routes/users.routes.js";
 import classesRouter from "./src/routes/classes.routes.js";
+import schoolsRouter from "./src/routes/schools.routes.js";
 import cookieParser from "cookie-parser";
 configDotenv();
 
@@ -28,15 +29,16 @@ initSocket(httpServer);
 // מייצאים את io כדי שה-controller יוכל להשתמש בו
 export { io } from "./src/config/socket.js";
 
-app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
+app.use(express.json());
 app.use("/api", verifyToken);
 app.use("/api", logger);
 // app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/classes", classesRouter);
+app.use("/api/schools", schoolsRouter);
 app.use("/api/trips/:id/files", filesRouter);
 app.use("/api/trips/:id/emergencies", emergenciesRouter);
 app.use("/api/trips", tripsRouter);

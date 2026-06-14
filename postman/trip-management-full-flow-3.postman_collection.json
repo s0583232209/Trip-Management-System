@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "9d89928c-f626-4384-80c1-713a23fe1097",
+    "_postman_id": "ac42cc51-a2ca-443c-8618-0b8097ba958b",
     "name": "מערכת ניהול טיולים - תרחיש מלא 3 - בית ספר שקד באר שבע",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -23,7 +23,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3001"
+      "value": "http://localhost:3000"
     },
     {
       "key": "principalId",
@@ -151,7 +151,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"אורית בן עמי\",\n  \"nationalId\": \"323456789\",\n  \"userEmail\": \"orit.benami@example.com\",\n  \"userPhoneNumber\": \"0507771111\",\n  \"password\": \"SHPass123!\",\n  \"role\": \"principal\",\n  \"name\": \"בית ספר שקד באר שבע\",\n  \"institutionNumber\": 410033,\n  \"city\": \"באר שבע\",\n  \"street\": \"דרך חברון\",\n  \"houseNumber\": 42,\n  \"postalCode\": 8400000,\n  \"email\": \"shaked.beersheva@example.com\"\n}",
+          "raw": "{\n  \"fullName\": \"אורי בן עמי\",\n  \"nationalId\": \"323456789\",\n  \"userEmail\": \"ori.benami@example.com\",\n  \"userPhoneNumber\": \"0507771111\",\n  \"password\": \"SHPass123!\",\n  \"role\": \"principal\",\n  \"name\": \"בית ספר שקד באר שבע\",\n  \"institutionNumber\": 410033,\n  \"city\": \"באר שבע\",\n  \"street\": \"דרך חברון\",\n  \"houseNumber\": 42,\n  \"postalCode\": 8400000,\n  \"email\": \"shaked.beersheva@example.com\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -208,7 +208,7 @@
       "response": []
     },
     {
-      "name": "03.1 הוספת משתמש - תמר אליהו",
+      "name": "03.1 הוספת משתמש - תום אליהו",
       "event": [
         {
           "listen": "test",
@@ -242,7 +242,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"תמר אליהו\",\n  \"nationalId\": \"323456790\",\n  \"userEmail\": \"tamar.eliyahu@example.com\",\n  \"userPhoneNumber\": \"0508881111\",\n  \"role\": \"coordinator\"\n}",
+          "raw": "{\n  \"fullName\": \"תום אליהו\",\n  \"nationalId\": \"323456790\",\n  \"userEmail\": \"tom.eliyahu@example.com\",\n  \"userPhoneNumber\": \"0508881111\",\n  \"role\": \"coordinator\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -298,7 +298,7 @@
       "response": []
     },
     {
-      "name": "03.3 הוספת משתמש - הילה מור",
+      "name": "03.3 הוספת משתמש - הלל מור",
       "event": [
         {
           "listen": "test",
@@ -332,7 +332,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"הילה מור\",\n  \"nationalId\": \"323456792\",\n  \"userEmail\": \"hila.mor@example.com\",\n  \"userPhoneNumber\": \"0508883333\",\n  \"role\": \"teacher\"\n}",
+          "raw": "{\n  \"fullName\": \"הלל מור\",\n  \"nationalId\": \"323456792\",\n  \"userEmail\": \"hillel.mor@example.com\",\n  \"userPhoneNumber\": \"0508883333\",\n  \"role\": \"teacher\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -615,7 +615,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"טיול במדבר יהודה\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול במדבר יהודה\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2147,\n              31.7683\n            ],\n            [\n              35.226,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"טיול במדבר יהודה\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - טיול במדבר יהודה\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - טיול במדבר יהודה\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -660,7 +660,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"סיור במכתש רמון\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול סיור במכתש רמון\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.215700000000005,\n              31.7683\n            ],\n            [\n              35.227000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"סיור במכתש רמון\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - סיור במכתש רמון\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - סיור במכתש רמון\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -705,7 +705,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"יום שדה בפארק נחל באר שבע\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול יום שדה בפארק נחל באר שבע\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2167,\n              31.7683\n            ],\n            [\n              35.228,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"יום שדה בפארק נחל באר שבע\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - יום שדה בפארק נחל באר שבע\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - יום שדה בפארק נחל באר שבע\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -750,7 +750,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"מסע למצדה\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול מסע למצדה\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2177,\n              31.7683\n            ],\n            [\n              35.229,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"מסע למצדה\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - מסע למצדה\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - מסע למצדה\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -795,7 +795,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"טיול גיבוש ביער להב\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול גיבוש ביער להב\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.218700000000005,\n              31.7683\n            ],\n            [\n              35.230000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"טיול גיבוש ביער להב\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - טיול גיבוש ביער להב\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - טיול גיבוש ביער להב\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1033,7 +1033,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"externalStaff\": [\n    {\n      \"fullName\": \"חובשת רונית כהן\",\n      \"role\": 2,\n      \"phoneNumber\": \"0526666666\"\n    }\n  ]\n}",
+          "raw": "{\n  \"externalStaff\": [\n    {\n      \"fullName\": \"חובש רון כהן\",\n      \"role\": 2,\n      \"phoneNumber\": \"0526666666\"\n    }\n  ]\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1580,7 +1580,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"תלמידה נפצעה קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
+          "raw": "{\n  \"description\": \"תלמיד נפצע קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1657,7 +1657,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"התלמידה קיבלה טיפול ראשוני וממתינה לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
+          "raw": "{\n  \"description\": \"התלמיד קיבל טיפול ראשוני וממתין לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1872,7 +1872,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"אורית בן עמי מעודכן\",\n  \"userEmail\": \"orit.updated@example.com\",\n  \"userPhoneNumber\": \"0507772222\"\n}",
+          "raw": "{\n  \"fullName\": \"אורי בן עמי מעודכן\",\n  \"userEmail\": \"ori.updated@example.com\",\n  \"userPhoneNumber\": \"0507772222\"\n}",
           "options": {
             "raw": {
               "language": "json"

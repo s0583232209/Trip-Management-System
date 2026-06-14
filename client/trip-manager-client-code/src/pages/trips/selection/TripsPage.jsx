@@ -30,16 +30,11 @@ export default function TripsPage() {
               </button>
               <button
                 className="trip-card"
-                onClick={() => navigate("/trips/equipment")}
+                onClick={() => navigate("/trips/useful-links")}
               >
-                ציוד
+                קישורים שימושים
               </button>
-              <button
-                className="trip-card"
-                onClick={() => navigate("/trips/documents")}
-              >
-                מסמכים
-              </button>
+            
             </div>
           </div>
           <div className="trips-section">

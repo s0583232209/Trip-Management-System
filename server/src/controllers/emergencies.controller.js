@@ -2,7 +2,7 @@ import * as emergenciesService from "../services/emergencies.service.js";
 import log from "../loggers/file.logger.js";
 import { io } from "../../server.js"; // ← שורה חדשה
 
-export async function getByTripId(req, res) {
+export async function getByTripId(req, res, next) {
   console.log("getByTripId - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
@@ -10,11 +10,13 @@ export async function getByTripId(req, res) {
     res.status(200).json(emergencies);
   } catch (error) {
     log.error(`EmergenciesController - getByTripId error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    error.status = error.status || 500;
+    error.message = "Internal server error";
+    next(error);
   }
 }
 
-export async function create(req, res) {
+export async function create(req, res, next) {
   console.log("create - src/controllers/emergencies.controller.js");
   try {
     const emergencyData = {
@@ -22,6 +24,18 @@ export async function create(req, res) {
       tripId: req.params.id || req.params.tripId,
       openedBy: req.user?.userId || null,
     };
+
+    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול
+    // בדיקה מול מסד הנתונים (ולא מול ה-role היחיד שנשמר בטוקן),
+    // כדי שמשתמש בעל כמה תפקידים (למשל "trip leader" וגם "teacher") יזוהה כאחראי טיול כראוי
+    if (parseInt(emergencyData.emergencyTypeId) === 2) {
+      const isTripLeader = await userHasRole(req.user?.userId, ["trip leader"]);
+      if (!isTripLeader) {
+        const error = new Error("חירום קריטי מותר לאחראי טיול ביום הטיול בלבד");
+        error.status = 403;
+        return next(error);
+      }
+    }
 
     const newEmergency =
       await emergenciesService.createEmergency(emergencyData);
@@ -36,11 +50,11 @@ export async function create(req, res) {
     });
   } catch (error) {
     log.error(`EmergenciesController - create error: ${error.message}`);
-    res.status(error.status || 500).json({ message: error.message });
+    next(error);
   }
 }
 
-export async function update(req, res) {
+export async function update(req, res, next) {
   console.log("update - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
@@ -60,13 +74,14 @@ export async function update(req, res) {
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {
     log.error(`EmergenciesController - update error: ${error.message}`);
-    res
-      .status(error.status || 500)
-      .json({ message: error.status ? error.message : "Internal server error" });
+
+    error.status = error.status || 500;
+    error.message = "Internal server error";
+    next(error);
   }
 }
 
-export async function remove(req, res) {
+export async function remove(req, res, next) {
   console.log("remove - src/controllers/emergencies.controller.js");
   try {
     const emergencyId = req.params.emergencyId;
@@ -74,6 +89,8 @@ export async function remove(req, res) {
     res.status(200).json({ message: "Emergency deleted successfully" });
   } catch (error) {
     log.error(`EmergenciesController - remove error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    error.status = error.status || 500;
+    error.message = "Internal server error";
+    next(error);
   }
 }

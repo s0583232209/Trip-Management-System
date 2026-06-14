@@ -4,7 +4,6 @@ import * as tripsRepo from "../repositories/trips.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
 import * as filesRepo from "../repositories/files.repository.js";
 import * as authService from "./auth.service.js";
-import { REQUIRED_TRIP_DOCS, getAttractionDocs } from "../utils/tripDocuments.util.js";
 
 // בודק אם בתיק הטיול חסרים מסמכי חובה (כולל אישורי אטרקציות) ומחזיר את שמותיהם
 async function getMissingRequiredDocs(tripId) {
@@ -14,7 +13,6 @@ async function getMissingRequiredDocs(tripId) {
   ]);
   const uploadedCodes = new Set(uploaded.map((f) => f.file_code));
   const required = [...REQUIRED_TRIP_DOCS, ...getAttractionDocs(routeGeoJson)];
-  return required.filter((d) => !uploadedCodes.has(d.fileCode)).map((d) => d.title);
 }
 export async function getAllTrips(userId) {
   console.log("getAllTrips - src/services/trips.service.js");
@@ -67,7 +65,7 @@ export async function updateTrip(tripDetails) {
     } else {
       // שומר את הערך הקיים מה-DB
       const connection = await (await import("../config/db.js")).default();
-      const [[existing]] = await connection.execute(`SELECT trip_leader_id FROM trips WHERE id = ?`, [tripDetails.tripId]);
+
       tripLeaderId = existing?.trip_leader_id || null;
     }
 
@@ -121,7 +119,6 @@ export async function approveTrip(tripId) {
       throw err;
     }
 
-    const parentToken = authService.createParentToken({ tripId, tripDate: new Date() });
     const approvedTrip = await tripsRepo.approveTrip(tripId, parentToken);
     log.info(`approved trip with id: ${tripId}`);
     return { parentToken, ...approvedTrip };

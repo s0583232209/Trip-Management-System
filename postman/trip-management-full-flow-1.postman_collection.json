@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "27c1295b-7c93-446e-963b-eb6cb798f89c",
+    "_postman_id": "6fc0516b-88e2-4225-88b4-b58ad8432e7f",
     "name": "מערכת ניהול טיולים - תרחיש מלא 1 - בית ספר אורט ירושלים",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -23,7 +23,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3001"
+      "value": "http://localhost:3000"
     },
     {
       "key": "principalId",
@@ -208,7 +208,7 @@
       "response": []
     },
     {
-      "name": "03.1 הוספת משתמש - דנה כהן",
+      "name": "03.1 הוספת משתמש - דן כהן",
       "event": [
         {
           "listen": "test",
@@ -242,7 +242,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"דנה כהן\",\n  \"nationalId\": \"123456790\",\n  \"userEmail\": \"dana.cohen@example.com\",\n  \"userPhoneNumber\": \"0501112233\",\n  \"role\": \"coordinator\"\n}",
+          "raw": "{\n  \"fullName\": \"דן כהן\",\n  \"nationalId\": \"123456790\",\n  \"userEmail\": \"dan.cohen@example.com\",\n  \"userPhoneNumber\": \"0501112233\",\n  \"role\": \"coordinator\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -298,7 +298,7 @@
       "response": []
     },
     {
-      "name": "03.3 הוספת משתמש - מיכל אברהם",
+      "name": "03.3 הוספת משתמש - עומר אברהם",
       "event": [
         {
           "listen": "test",
@@ -332,7 +332,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"מיכל אברהם\",\n  \"nationalId\": \"123456792\",\n  \"userEmail\": \"michal.avraham@example.com\",\n  \"userPhoneNumber\": \"0503334455\",\n  \"role\": \"teacher\"\n}",
+          "raw": "{\n  \"fullName\": \"עומר אברהם\",\n  \"nationalId\": \"123456792\",\n  \"userEmail\": \"omer.avraham@example.com\",\n  \"userPhoneNumber\": \"0503334455\",\n  \"role\": \"teacher\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -615,7 +615,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"טיול עיר דוד\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול עיר דוד\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2147,\n              31.7683\n            ],\n            [\n              35.226,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"טיול עיר דוד\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - טיול עיר דוד\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - טיול עיר דוד\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -660,7 +660,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"סיור מוזיאון ישראל\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול סיור מוזיאון ישראל\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.215700000000005,\n              31.7683\n            ],\n            [\n              35.227000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"סיור מוזיאון ישראל\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - סיור מוזיאון ישראל\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - סיור מוזיאון ישראל\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -705,7 +705,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"מסע הרי ירושלים\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול מסע הרי ירושלים\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2167,\n              31.7683\n            ],\n            [\n              35.228,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"מסע הרי ירושלים\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - מסע הרי ירושלים\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - מסע הרי ירושלים\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -750,7 +750,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"יום שדה בעין כרם\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול יום שדה בעין כרם\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2177,\n              31.7683\n            ],\n            [\n              35.229,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"יום שדה בעין כרם\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - יום שדה בעין כרם\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - יום שדה בעין כרם\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -795,7 +795,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"טיול גיבוש בנחל שורק\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול גיבוש בנחל שורק\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.218700000000005,\n              31.7683\n            ],\n            [\n              35.230000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"טיול גיבוש בנחל שורק\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - טיול גיבוש בנחל שורק\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - טיול גיבוש בנחל שורק\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1033,7 +1033,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"externalStaff\": [\n    {\n      \"fullName\": \"חובשת נעמה פרץ\",\n      \"role\": 2,\n      \"phoneNumber\": \"0522222222\"\n    }\n  ]\n}",
+          "raw": "{\n  \"externalStaff\": [\n    {\n      \"fullName\": \"חובש נדב פרץ\",\n      \"role\": 2,\n      \"phoneNumber\": \"0522222222\"\n    }\n  ]\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1580,7 +1580,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"תלמידה נפצעה קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
+          "raw": "{\n  \"description\": \"תלמיד נפצע קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1657,7 +1657,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"התלמידה קיבלה טיפול ראשוני וממתינה לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
+          "raw": "{\n  \"description\": \"התלמיד קיבל טיפול ראשוני וממתין לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
           "options": {
             "raw": {
               "language": "json"

@@ -5,12 +5,15 @@ import Navbar from "../../../components/Navbar.jsx";
 import api from "../../../api.js";
 import { canManageTrip, isRole, TRIP_STATUS_LABEL } from "../../../permissions.js";
 import "../TripsPage.css";
+import { getTodayInIsrael, toDateOnlyString } from "../../dateUtils.js";
+
 
 export default function TripDashboardPage() {
   const navigate = useNavigate();
   const { tripId } = useParams();
   const [tripTitle, setTripTitle] = useState("");
   const [tripStatus, setTripStatus] = useState(null);
+  const [tripDate, setTripDate] = useState(null);
   const [isTripLeader, setIsTripLeader] = useState(false);
 
   const user = useSelector((state) => state.auth.user) || {};
@@ -36,6 +39,10 @@ export default function TripDashboardPage() {
   // מורה/אחראי שאינו אחראי הטיול הספציפי — רק צפייה
   const isStaffOnly = isRole("trip leader", "teacher") && !canManageTrip() && !isTripLeader;
 
+  // כפתור "יום טיול" פתוח רק ביום הטיול עצמו; מנהל/רכז פטורים ויכולים להיכנס בכל זמן
+  const isTripDayToday = toDateOnlyString(tripDate) === getTodayInIsrael();
+  const canAccessTripDay = canManageTrip() || isTripDayToday;
+
   return (
     <>
       <Navbar />
@@ -48,7 +55,12 @@ export default function TripDashboardPage() {
           <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/planning`)}>
             תכנון טיול
           </button>
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/day`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/day`)}
+            disabled={!canAccessTripDay}
+            title={!canAccessTripDay ? "ניתן להיכנס ל'יום טיול' רק ביום הטיול" : undefined}
+          >
             יום טיול
           </button>
           {canManageTrip() && (

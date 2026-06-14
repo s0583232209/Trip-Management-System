@@ -13,7 +13,7 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
 
   // Array of objects capturing name, phone, and role for third-party operators
   const [externalStaff, setExternalStaff] = useState([
-    { fullName: "", phoneNumber: "", role: "guard" },
+    { fullName: "", phoneNumber: "", role: "1" },
   ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -30,7 +30,7 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
   function addField() {
     setExternalStaff((prev) => [
       ...prev,
-      { fullName: "", phoneNumber: "", role: "guard" },
+      { fullName: "", phoneNumber: "", role: "1" },
     ]);
   }
 

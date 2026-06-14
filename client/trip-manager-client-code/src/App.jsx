@@ -1,30 +1,27 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
-import { LoadingProvider, useLoading } from "./LoadingContext.jsx";
-import Spinner from "./components/Spinner.jsx";
-import { setupLoadingInterceptors } from "./api.js";
-import EmergencySocketProvider from "./components/EmergencySocketProvider.jsx";
-import Login from "./pages/auth/Login.jsx";
-import Register from "./pages/auth/Register.jsx";
-import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
-import TripSelectionPage from "./pages/trips/selection/TripSelectionPage.jsx";
-import TripDashboardPage from "./pages/trips/selection/TripDashboardPage.jsx";
-import TripPlanningPage from "./pages/trips/planning/TripPlanningPage.jsx";
-import TripDayPage from "./pages/trips/day/TripDayPage.jsx";
-import EmergencyPage from "./pages/trips/emergency/EmergencyPage.jsx";
-import ProfilePage from "./pages/profile/ProfilePage.jsx";
-import AddEmployeePage from "./pages/employees/AddEmployeePage.jsx";
-import UpdateTripPage from "./pages/trips/planning/UpdateTripPage.jsx";
-import ApproveTripPage from "./pages/trips/planning/ApproveTripPage.jsx";
-import ManageTripStaffPage from "./pages/trips/staff/ManageTripStaffPage.jsx";
-import TripsLeaderKit from "./pages/trips/documents/TripsLeadersKit.jsx";
-import Unauthorized from "./pages/errors/Unauthorized.jsx";
-import NotFound from "./pages/errors/NotFound.jsx";
-import CreateTripPage from "./pages/trips/planning/CreateTripPage.jsx";
-import TripContactsPage from "./pages/trips/day/TripContactsPage.jsx";
-import TripStatusPage from "./pages/trips/planning/TripStatusPage.jsx";
-import CriticalEmergency from "./pages/trips/emergency/CriticalEmergemcy.jsx";
-import UsefulLinks from "./pages/trips/planning/UsefulLinks.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
+import TripSelectionPage from "./pages/trips/TripSelectionPage.jsx";
+import TripDashboardPage from "./pages/trips/TripDashboardPage.jsx";
+import TripPlanningPage from "./pages/trips/TripPlanningPage.jsx";
+import TripDayPage from "./pages/trips/TripDayPage.jsx";
+import TripSectionPage from "./pages/trips/TripSectionPage.jsx";
+import EmergencyPage from "./pages/trips/EmergencyPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import AddEmployeePage from "./pages/AddEmployeePage.jsx";
+import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
+import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
+import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
+import TripLeaderKit from "./pages/trips/TripLeadersKit.jsx";
+import Unauthorized from "./pages/Unauthorized.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
+import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
+import TripStatusPage from "./pages/trips/TripStatusPage.jsx";
+import CriticalEmergency from "./pages/CriticalEmergemcy.jsx";
+import UsefulLinks from "./pages/trips/UsefulLinks.jsx";
+import ExampleForTripLeadersKit from "./pages/trips/ExampleForTripLeadersKit.jsx";
 import "./App.css";
 
 function AppInner() {
@@ -52,6 +49,7 @@ function AppInner() {
 
         {/* רשימת טיולים */}
         <Route path="/trips/useful-links" element={<UsefulLinks />} />
+        <Route path="/trips/example-kit" element={<ExampleForTripLeadersKit />} />
         <Route path="/trips" element={<TripSelectionPage />} />
         <Route path="/trips/new" element={<CreateTripPage />} />
 
@@ -60,7 +58,7 @@ function AppInner() {
 
         {/* תכנון טיול */}
         <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
-        <Route path="/trips/:tripId/folder" element={<TripsLeaderKit />} />
+        <Route path="/trips/:tripId/folder" element={<TripLeaderKit />} />
         <Route path="/trips/:tripId/staff" element={<ManageTripStaffPage />} />
         <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
         <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />

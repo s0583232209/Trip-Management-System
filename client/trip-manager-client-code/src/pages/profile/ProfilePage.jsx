@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Navbar from "../../components/Navbar.jsx";
-import api from "../../api";
-import "../trips/TripsPage.css";
+import Navbar from "../components/Navbar.jsx";
+import api from "../api";
+import { canEditSchool } from "../permissions.js";
+import "./trips/TripsPage.css";
 import "./ProfilePage.css";
 
 function Row({
@@ -46,6 +47,19 @@ function normalize(u) {
   };
 }
 
+function normalizeSchool(s) {
+  return {
+    name: s.name ?? "",
+    institutionNumber: s.institution_number ?? "",
+    city: s.city ?? "",
+    street: s.street ?? "",
+    houseNumber: s.house_number ?? "",
+    postalCode: s.postal_code ?? "",
+    contactEmail: s.contact_email ?? "",
+    phone: s.phone ?? "",
+  };
+}
+
 export default function ProfilePage() {
   const stored = useSelector((state) => state.auth.user) || {};
   const effectiveId = stored.userId;
@@ -68,6 +82,14 @@ export default function ProfilePage() {
   const [credError, setCredError] = useState(null);
   const [credSaving, setCredSaving] = useState(false);
 
+  const [schoolView, setSchoolView] = useState(null);
+  const [schoolLoading, setSchoolLoading] = useState(!noUser);
+  const [schoolEditing, setSchoolEditing] = useState(false);
+  const [schoolDraft, setSchoolDraft] = useState({});
+  const [schoolSaving, setSchoolSaving] = useState(false);
+  const [schoolError, setSchoolError] = useState(null);
+  const [schoolSuccessMessage, setSchoolSuccessMessage] = useState(null);
+
   useEffect(() => {
     if (noUser) {
       return;
@@ -86,6 +108,25 @@ export default function ProfilePage() {
 
     fetchUser();
   }, [effectiveId, noUser]);
+
+  useEffect(() => {
+    if (noUser) {
+      return;
+    }
+
+    async function fetchSchool() {
+      try {
+        const res = await api.get(`/api/schools/me`);
+        setSchoolView(normalizeSchool(res.data));
+      } catch {
+        setSchoolError("לא ניתן לטעון את פרטי המוסד.");
+      } finally {
+        setSchoolLoading(false);
+      }
+    }
+
+    fetchSchool();
+  }, [noUser]);
 
   function startEdit() {
     setDraft({ ...view });
@@ -147,6 +188,37 @@ export default function ProfilePage() {
 
   function handleDraftChange(key, value) {
     setDraft((d) => ({
+      ...d,
+      [key]: value,
+    }));
+  }
+
+  function startEditSchool() {
+    setSchoolDraft({ ...schoolView });
+    setSchoolEditing(true);
+    setSchoolError(null);
+  }
+
+  async function saveSchool() {
+    setSchoolSaving(true);
+    setSchoolError(null);
+
+    try {
+      const res = await api.put(`/api/schools/me`, schoolDraft);
+
+      setSchoolView(normalizeSchool(res.data));
+      setSchoolEditing(false);
+      setSchoolSuccessMessage("פרטי המוסד נשמרו בהצלחה ✓");
+      setTimeout(() => setSchoolSuccessMessage(null), 3000);
+    } catch (err) {
+      setSchoolError(err.response?.data?.message || "לא ניתן לשמור שינויים.");
+    } finally {
+      setSchoolSaving(false);
+    }
+  }
+
+  function handleSchoolDraftChange(key, value) {
+    setSchoolDraft((d) => ({
       ...d,
       [key]: value,
     }));
@@ -353,6 +425,139 @@ export default function ProfilePage() {
                         </div>
                       </div>
                     </div>
+                  )}
+                </div>
+
+                <div className="ip-divider" />
+
+                <div className="ip-section">
+                  <div className="ip-section-head">
+                    <span className="ip-section-label">פרטי מוסד</span>
+
+                    {canEditSchool() && !schoolEditing && schoolView && (
+                      <button className="ip-edit-btn" onClick={startEditSchool}>
+                        עריכה
+                      </button>
+                    )}
+                  </div>
+
+                  {schoolLoading && (
+                    <div className="ip-inline">טוען...</div>
+                  )}
+
+                  {!schoolLoading && schoolError && !schoolView && (
+                    <p className="ip-error">{schoolError}</p>
+                  )}
+
+                  {schoolView && (
+                    <>
+                      <Row
+                        label="שם המוסד"
+                        fieldKey="name"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                      />
+
+                      <Row
+                        label="מספר מוסד"
+                        fieldKey="institutionNumber"
+                        editing={false}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                      />
+
+                      <Row
+                        label="עיר"
+                        fieldKey="city"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                      />
+
+                      <Row
+                        label="רחוב"
+                        fieldKey="street"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                      />
+
+                      <Row
+                        label="מספר בית"
+                        fieldKey="houseNumber"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                        type="number"
+                      />
+
+                      <Row
+                        label="מיקוד"
+                        fieldKey="postalCode"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                        type="number"
+                      />
+
+                      <Row
+                        label="דואר אלקטרוני"
+                        fieldKey="contactEmail"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                        type="email"
+                      />
+
+                      <Row
+                        label="טלפון"
+                        fieldKey="phone"
+                        editing={schoolEditing}
+                        draft={schoolDraft}
+                        view={schoolView}
+                        onDraftChange={handleSchoolDraftChange}
+                      />
+
+                      {schoolSuccessMessage && (
+                        <p className="ip-success">{schoolSuccessMessage}</p>
+                      )}
+
+                      {schoolEditing && (
+                        <div className="ip-action-row">
+                          {schoolError && (
+                            <p className="ip-error">{schoolError}</p>
+                          )}
+
+                          <div className="ip-btns">
+                            <button
+                              className="ip-btn-primary"
+                              onClick={saveSchool}
+                              disabled={schoolSaving}
+                            >
+                              {schoolSaving ? "שומר..." : "שמור שינויים"}
+                            </button>
+
+                            <button
+                              className="ip-btn-ghost"
+                              onClick={() => {
+                                setSchoolEditing(false);
+                                setSchoolError(null);
+                              }}
+                            >
+                              ביטול
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>

@@ -90,3 +90,4 @@
 12.06.2026, 09:49:39 [ERROR]: EmergenciesController - update error: Incorrect integer value: 'closed' for column 'status' at row 1
 12.06.2026, 09:55:17 [ERROR]: Error occurred while updating emergency with id 1: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
 12.06.2026, 09:55:17 [ERROR]: EmergenciesController - update error: Cannot add or update a child row: a foreign key constraint fails (`trip_manager`.`emergencies`, CONSTRAINT `emergencies_ibfk_4` FOREIGN KEY (`status`) REFERENCES `emergency_status` (`status_code`) ON DELETE CASCADE)
+14.06.2026, 13:43:58 [ERROR]: addUser error: Duplicate entry '123456793' for key 'users.national_id'

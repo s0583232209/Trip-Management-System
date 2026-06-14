@@ -2,3 +2,4 @@
 
 server/.env
 server/logs/
+server/uploads

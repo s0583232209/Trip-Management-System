@@ -1,0 +1,174 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import api from "../../../api.js";
+import { canManageTrip } from "../../../permissions.js";
+import "../TripForms.css";
+
+const ROLE_LABELS = {
+  principal: "מנהל",
+  coordinator: "רכז טיולים",
+  "trip leader": "אחראי טיול",
+  teacher: "מורה",
+};
+const ROLE_ORDER = ["principal", "coordinator", "trip leader", "teacher"];
+
+const EXTERNAL_ROLE_LABELS = {
+  guard: "מאבטח חמוש",
+  medic: "חובש מלווה",
+  paramedic: "פראמדיק / רופא",
+  firstAidProvider: 'מע"ר',
+  "first-aid-provider": 'מע"ר',
+  guide:"מדריך טיולים",
+};
+
+function ContactCard({ name, roles, className, phone, email, isTripLeader, onDelete }) {
+  return (
+    <div style={{
+      background: isTripLeader ? "#eff6ff" : "#fff",
+      border: isTripLeader ? "2px solid #3b82f6" : "1px solid #e2e8f0",
+      borderRadius: "10px",
+      padding: "1rem 1.25rem",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.4rem",
+      boxShadow: "0 1px 4px rgba(0,0,0,0.07)",
+    }}>
+      <span style={{ fontWeight: 700, fontSize: "1rem", color: "#1e293b" }}>
+        {isTripLeader && <span style={{ background: "#3b82f6", color: "#fff", fontSize: "0.72rem", borderRadius: "4px", padding: "0.1rem 0.4rem", marginLeft: "0.4rem", fontWeight: 600 }}>אחראי הטיול</span>}
+        {name}
+      </span>
+      <span style={{ color: "#6366f1", fontSize: "0.82rem", fontWeight: 600 }}>{roles}</span>
+      {className && (
+        <span style={{ color: "#374151", fontSize: "0.85rem" }}>
+          כיתה: <strong>{className}</strong>
+        </span>
+      )}
+      {phone && (
+        <a href={`tel:${phone}`} style={{ color: "#374151", fontSize: "0.9rem", textDecoration: "none" }}>
+          📞 {phone}
+        </a>
+      )}
+      {email && (
+        <a href={`mailto:${email}`} style={{ color: "#374151", fontSize: "0.9rem", textDecoration: "none" }}>
+          ✉️ {email}
+        </a>
+      )}
+      {onDelete && (
+        <button
+          onClick={onDelete}
+          className="trip-form-btn trip-form-btn--danger"
+          style={{ alignSelf: "flex-start", marginTop: "0.4rem" }}
+        >
+          הסר מהטיול
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default function StaffContactsView({ onRefresh, readOnly = false }) {
+  const { tripId } = useParams();
+  const [staff, setStaff] = useState({ employees: [], externalEmployees: [] });
+  const [loading, setLoading] = useState(true);
+
+  async function fetchStaff() {
+    try {
+      const res = await api.get(`/api/trips/${tripId}/staff`);
+      setStaff(res.data);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchStaff();
+    if (onRefresh) onRefresh.current = fetchStaff;
+  }, [tripId]);
+
+  async function handleDeleteStaff(staffId) {
+    if (!window.confirm("האם להסיר את איש הצוות מהטיול?")) return;
+    try {
+      await api.delete(`/api/trips/${tripId}/staff/${staffId}`);
+      fetchStaff();
+    } catch (err) {
+      alert(err.response?.data?.message || "הסרת איש הצוות נכשלה, נסה שנית");
+    }
+  }
+
+  async function handleDeleteExternalStaff(staffId) {
+    if (!window.confirm("האם להסיר את איש הצוות החיצוני מהטיול?")) return;
+    try {
+      await api.delete(`/api/trips/${tripId}/external-staff/${staffId}`);
+      fetchStaff();
+    } catch (err) {
+      alert(err.response?.data?.message || "הסרת איש הצוות החיצוני נכשלה, נסה שנית");
+    }
+  }
+
+  // Group by role — coordinator is excluded (not present on trip day)
+  const grouped = {};
+  ROLE_ORDER.forEach((r) => (grouped[r] = []));
+
+  (staff.employees ?? []).forEach((emp) => {
+    const empRoles = (emp.roles ?? "").split(", ");
+    const primaryRole = ROLE_ORDER.find((r) => empRoles.includes(r)) ?? "teacher";
+    // אחראי הטיול הספציפי — מסומן לפי is_trip_leader מהשרת
+    const effectiveRole = emp.is_trip_leader ? "trip leader" : primaryRole;
+    grouped[effectiveRole].push({ ...emp, displayRoles: empRoles.map((r) => ROLE_LABELS[r] ?? r).join(", ") });
+  });
+
+  if (loading) return <p style={{ textAlign: "center" }}>טוען...</p>;
+
+  const hasAny = ROLE_ORDER.some((r) => grouped[r].length > 0) || (staff.externalEmployees ?? []).length > 0;
+
+  return (
+    <>
+      {!hasAny && (
+        <p style={{ textAlign: "center", color: "#888", padding: "2rem 0" }}>אין אנשי צוות משובצים לטיול זה עדיין.</p>
+      )}
+
+      {ROLE_ORDER.map((role) =>
+        grouped[role].length === 0 ? null : (
+          <section key={role} style={{ marginBottom: "2rem" }}>
+            <h2 style={{ fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.75rem", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.4rem", color: "#1e293b" }}>
+              {ROLE_LABELS[role]}
+            </h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "1rem" }}>
+              {grouped[role].map((emp) => (
+                <ContactCard
+                  key={emp.id}
+                  name={emp.full_name}
+                  roles={emp.displayRoles}
+                  className={emp.class_name}
+                  phone={emp.phone}
+                  email={emp.email}
+                  isTripLeader={!!emp.is_trip_leader}
+                  onDelete={!readOnly && canManageTrip() ? () => handleDeleteStaff(emp.id) : undefined}
+                />
+              ))}
+            </div>
+          </section>
+        )
+      )}
+
+      {(staff.externalEmployees ?? []).length > 0 && (
+        <section style={{ marginBottom: "2rem" }}>
+          <h2 style={{ fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.75rem", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.4rem", color: "#1e293b" }}>
+            צוות חיצוני
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "1rem" }}>
+            {staff.externalEmployees.map((emp) => (
+              <ContactCard
+                key={emp.id}
+                name={emp.full_name ?? "—"}
+                roles={EXTERNAL_ROLE_LABELS[emp.role] ?? emp.role}
+                phone={emp.phone}
+                onDelete={!readOnly && canManageTrip() ? () => handleDeleteExternalStaff(emp.id) : undefined}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </>
+  );
+}

@@ -284,13 +284,15 @@ export async function getAllStaff(tripId) {
     const [employees] = await connection.execute(
       `SELECT u.id, u.full_name, u.email, u.phone,
         GROUP_CONCAT(DISTINCT ur.role_name SEPARATOR ', ') AS roles,
-        st.class_id, c.class_name
+        st.class_id, c.class_name,
+        CASE WHEN t.trip_leader_id = u.id THEN 1 ELSE 0 END AS is_trip_leader
       FROM users u
       JOIN staff_trip st ON u.id = st.staff_id
       JOIN user_roles ur ON ur.user_id = u.id
       LEFT JOIN classes c ON c.id = st.class_id
+      JOIN trips t ON t.id = st.trip_id
       WHERE st.trip_id = ?
-      GROUP BY u.id, u.full_name, u.email, u.phone, st.class_id, c.class_name`,
+      GROUP BY u.id, u.full_name, u.email, u.phone, st.class_id, c.class_name, t.trip_leader_id`,
       [tripId],
     );
     const [externalEmployees] = await connection.execute(

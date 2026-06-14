@@ -34,7 +34,7 @@ api.interceptors.response.use(
 
     if (status === 401 && !isAuthRequest && !isAlreadyLoginPage) {
       window.location.href = "/login";
-    } else if (status === 403) {
+    } else if (status === 403 && originalRequest?.method?.toLowerCase() === "get") {
       window.location.href = "/unauthorized";
     } else if (status === 404) {
       window.location.href = " ./not-found";

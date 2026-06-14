@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import api from "../../api";
 import Navbar from "../../components/Navbar.jsx";
 import { canHandleMinorEmergency, canHandleCriticalEmergency, getUser } from "../../permissions.js";
 import "./EmergencyPage.css";
 import socket from "../../socket.js";
+import { muteEmergencySound } from "../../store/emergencySlice.js";
 
 export default function EmergencyPage() {
   const { tripId } = useParams();
+  const dispatch = useDispatch();
   const [emergencies, setEmergencies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -18,75 +21,30 @@ export default function EmergencyPage() {
   const [isRinging, setIsRinging] = useState(false);
   const navigate = useNavigate();
 
-  const intervalRef = useRef(null);
   const ringTimerRef = useRef(null);
-  const audioCtxRef = useRef(null);
 
-  // canMinor/canCritical/canReport/allowedTypes — all at component scope
   const canMinor = canHandleMinorEmergency(tripDate, tripLeaderId);
   const canCritical = canHandleCriticalEmergency(tripDate, tripLeaderId);
   const canReport = canMinor || canCritical;
 
   const allowedTypes = [
-    ...(canMinor ? [{ value: "1", label: "🟢 קל (פציעה קלה, עיכוב זמני)" }] : []),
+    ...(canMinor ? [{ value: "1", label: "🟡 קל (פציעה קלה, עיכוב זמני)" }] : []),
     ...(canCritical ? [{ value: "2", label: "🔴 קריטי (נדרש חילוץ / פינוי רפואי)" }] : []),
   ];
 
-  const [formData, setFormData] = useState({
-    emergencyTypeId: "1",
-    description: "",
-  });
-
-  // Initialize AudioContext on first user interaction (browser autoplay policy)
-  useEffect(() => {
-    function initAudio() {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      document.removeEventListener("click", initAudio);
-      document.removeEventListener("keydown", initAudio);
-      document.removeEventListener("touchstart", initAudio);
-    }
-    document.addEventListener("click", initAudio);
-    document.addEventListener("keydown", initAudio);
-    document.addEventListener("touchstart", initAudio);
-    return () => {
-      document.removeEventListener("click", initAudio);
-      document.removeEventListener("keydown", initAudio);
-      document.removeEventListener("touchstart", initAudio);
-    };
-  }, []);
-
-  function beep() {
-    const ctx = audioCtxRef.current;
-    if (!ctx) return;
-    if (ctx.state === "suspended") ctx.resume();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = "square";
-    osc.frequency.setValueAtTime(880, ctx.currentTime);
-    osc.frequency.setValueAtTime(550, ctx.currentTime + 0.25);
-    gain.gain.setValueAtTime(1, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.5);
-  }
+  const [formData, setFormData] = useState({ emergencyTypeId: "1", description: "" });
 
   function startAlarm() {
-    beep();
-    intervalRef.current = setInterval(beep, 700);
     setIsRinging(true);
     clearTimeout(ringTimerRef.current);
     ringTimerRef.current = setTimeout(() => stopAlarm(), 30000);
   }
 
   function stopAlarm() {
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
     clearTimeout(ringTimerRef.current);
+    ringTimerRef.current = null;
     setIsRinging(false);
+    dispatch(muteEmergencySound());
   }
 
   const fetchEmergencies = async () => {
@@ -123,16 +81,16 @@ export default function EmergencyPage() {
   useEffect(() => {
     socket.emit("join-trip", tripId);
 
-    // שומרים רפרנס לפונקציות ה-handler כדי שה-cleanup יסיר רק את המאזינים
-    // שנרשמו כאן, ולא ימחק מאזינים שרשמו קומפוננטות אחרות (socket הוא singleton משותף)
     function handleEmergencyAlert(data) {
       setEmergencies((prev) => [data.emergency, ...prev]);
       startAlarm();
     }
 
-    function handleEmergencyClosed({ emergencyId }) {
+    function handleEmergencyClosed({ emergencyId, closedAt }) {
       setEmergencies((prev) =>
-        prev.map((em) => (em.id === emergencyId ? { ...em, status: 2 } : em))
+        prev.map((em) =>
+          em.id === emergencyId ? { ...em, status: 2, closed_at: closedAt || new Date().toISOString() } : em
+        )
       );
     }
 
@@ -140,10 +98,9 @@ export default function EmergencyPage() {
     socket.on("emergency-closed", handleEmergencyClosed);
 
     return () => {
-      socket.emit("leave-trip", tripId);
       socket.off("emergency-alert", handleEmergencyAlert);
       socket.off("emergency-closed", handleEmergencyClosed);
-      stopAlarm();
+      clearTimeout(ringTimerRef.current);
     };
   }, [tripId]);
 
@@ -154,7 +111,6 @@ export default function EmergencyPage() {
 
   const submitEmergency = async (lat, lng) => {
     setIsSubmitting(true);
-    stopAlarm();
     try {
       await api.post(`/api/trips/${tripId}/emergencies`, {
         emergencyTypeId: parseInt(formData.emergencyTypeId),
@@ -178,10 +134,7 @@ export default function EmergencyPage() {
 
   const handleReportEmergency = (e) => {
     e.preventDefault();
-    if (!formData.description) {
-      alert("יש להזין תיאור לאירוע");
-      return;
-    }
+    if (!formData.description) { alert("יש להזין תיאור לאירוע"); return; }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => submitEmergency(position.coords.latitude, position.coords.longitude),
@@ -200,20 +153,11 @@ export default function EmergencyPage() {
     if (!window.confirm("האם אתה בטוח שברצונך לסגור אירוע חירום זה?")) return;
 
     const isCritical = emergency.emergency_type_id === 2;
-    if (isCritical && !canCritical) {
-      alert("סגירת חירום קריטי מותרת לאחראי טיול ביום הטיול בלבד.");
-      return;
-    }
-    if (!isCritical && !canMinor) {
-      alert("אין לך הרשאה לסגור אירוע חירום.");
-      return;
-    }
+    if (isCritical && !canCritical) { alert("סגירת חירום קריטי מותרת לאחראי טיול ביום הטיול בלבד."); return; }
+    if (!isCritical && !canMinor) { alert("אין לך הרשאה לסגור אירוע חירום."); return; }
 
     try {
-      await api.put(`/api/trips/${tripId}/emergencies/${emergency.id}/close`, {
-        status: 2,
-        description: "האירוע נסגר על ידי אחראי טיול/מורה",
-      });
+      await api.put(`/api/trips/${tripId}/emergencies/${emergency.id}/close`, { status: 2 });
       fetchEmergencies();
     } catch (err) {
       console.error("Error closing emergency:", err);
@@ -229,10 +173,7 @@ export default function EmergencyPage() {
           <h1 className="page-title emergency-title">
             <span className="alert-icon">🚨</span> מצב חירום — טיול {tripTitle || tripId}
           </h1>
-          <button
-            className="trip-form-btn trip-form-btn--ghost"
-            onClick={() => navigate(`/trips/${tripId}/day`)}
-          >
+          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}/day`)}>
             חזרה ליום הטיול
           </button>
         </div>
@@ -241,7 +182,7 @@ export default function EmergencyPage() {
           <div className="alarm-banner">
             <span>🚨 אזעקת חירום פעילה!</span>
             <button className="alarm-stop-btn" onClick={stopAlarm}>
-              עצור אזעקה
+              🔕 השתק אזעקה
             </button>
           </div>
         )}
@@ -262,9 +203,7 @@ export default function EmergencyPage() {
                   className="emergency-select"
                 >
                   {allowedTypes.map((t) => (
-                    <option key={t.value} value={t.value}>
-                      {t.label}
-                    </option>
+                    <option key={t.value} value={t.value}>{t.label}</option>
                   ))}
                 </select>
 
@@ -277,13 +216,9 @@ export default function EmergencyPage() {
                   onChange={handleInputChange}
                   placeholder="פרט מה קרה, מי מעורב, ומה מצב הנפגעים..."
                   className="emergency-textarea"
-                ></textarea>
+                />
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="trip-form-btn trip-form-btn--danger"
-                >
+                <button type="submit" disabled={isSubmitting} className="trip-form-btn trip-form-btn--danger">
                   {isSubmitting ? "שולח דיווח..." : "🚨 דווח עכשיו (כולל נ.צ)"}
                 </button>
               </form>
@@ -301,17 +236,26 @@ export default function EmergencyPage() {
                 {emergencies.map((em) => (
                   <li
                     key={em.id}
-                    className={`emergency-card ${em.status === 1 ? "card-open" : "card-closed"}`}
+                    className={`emergency-card ${em.status === 1 ? "card-open" : "card-closed"} ${em.emergency_type_id === 2 ? "card-critical" : "card-minor"}`}
                   >
                     <div className="emergency-card-header">
-                      <span className="emergency-status-badge">
-                        {em.status === 1 ? "🔴 אירוע פעיל" : "🟢 טופל ונסגר"}
+                      <span className="emergency-type-badge">
+                        {em.emergency_type_id === 2 ? "🔴 קריטי" : "🟡 קל"}
                       </span>
-                      <span className="emergency-time">
-                        {new Date(em.opened_at).toLocaleString("he-IL")}
+                      <span className="emergency-status-badge">
+                        {em.status === 1 ? "⚠️ פעיל" : "✅ נסגר"}
                       </span>
                     </div>
                     <p className="emergency-desc">{em.description}</p>
+                    <div className="emergency-meta">
+                      <span>🕐 נפתח: {new Date(em.opened_at).toLocaleString("he-IL")}</span>
+                      {em.opened_by_name && <span>👤 {em.opened_by_name}</span>}
+                    </div>
+                    {em.status === 2 && em.closed_at && (
+                      <div className="emergency-meta emergency-closed-meta">
+                        <span>🔒 נסגר: {new Date(em.closed_at).toLocaleString("he-IL")}</span>
+                      </div>
+                    )}
                     {em.location_lat && (
                       <p className="emergency-location">
                         📍{" "}

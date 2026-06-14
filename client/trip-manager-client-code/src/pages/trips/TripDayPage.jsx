@@ -27,7 +27,7 @@ export default function TripDayPage() {
       .get(`/api/trips/${tripId}`)
       .then((res) => {
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
-        if (trip) setIsTripLeader(trip.trip_leader_id === user.userId);
+        if (trip) setIsTripLeader(Number(trip.trip_leader_id) === Number(user.userId));
       })
       .catch(() => {});
 

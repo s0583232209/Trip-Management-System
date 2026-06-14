@@ -14,16 +14,23 @@ export default async function requireTripDay(req, res, next) {
 
     // בדיקה שהמשתמש הוא אחראי הטיול הספציפי (trip_leader_id) וזה יום הטיול
     const [trips] = await connection.execute(
-      `SELECT trip_date FROM trips WHERE id = ? AND trip_leader_id = ?`,
-      [tripId, userId]
+      `SELECT trip_date, trip_leader_id FROM trips WHERE id = ?`,
+      [tripId]
     );
 
     if (!trips.length) {
+      log.warn(`requireTripDay: trip ${tripId} not found`);
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    // trip_date מגיע כבר כמחרוזת "YYYY-MM-DD" (ראו dateStrings ב-db.js), ללא צורך בהמרת אזור זמן
-    const tripDate = trips[0].trip_date;
+    if (String(trips[0].trip_leader_id) !== String(userId)) {
+      log.warn(`requireTripDay: user ${userId} is not trip leader (leader=${trips[0].trip_leader_id})`);
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    const tripDate = typeof trips[0].trip_date === "string"
+      ? trips[0].trip_date.slice(0, 10)
+      : new Date(trips[0].trip_date).toLocaleDateString("en-CA", { timeZone: "Asia/Jerusalem" });
     const today = getTodayInIsrael();
 
     if (tripDate !== today) {

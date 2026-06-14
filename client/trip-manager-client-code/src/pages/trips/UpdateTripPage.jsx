@@ -129,6 +129,8 @@ export default function UpdateTripPage() {
   }
 
   const writeAccess = canUpdateRoute(tripStatus, formData.tripDate, formData.tripLeaderNationalId);
+  // עריכת שם/תאריך/אחראי — מנהל ורכז בלבד; עריכת עצירות — גם אחראי הטיול ביום הטיול
+  const canEditMeta = canManageTrip();
 
   async function handleSetPostEdit(e) {
     e.preventDefault();
@@ -211,6 +213,7 @@ export default function UpdateTripPage() {
       submitLabel="שמור שינויים"
       loadingLabel="שומר..."
       writeAccess={writeAccess}
+      canEditMeta={canEditMeta}
       extraSection={statusBanner}
     />
   );

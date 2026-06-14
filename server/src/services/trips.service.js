@@ -53,7 +53,8 @@ export async function updateTrip(tripDetails) {
       tripLeaderId = Number(val);
     } else {
       // שומר את הערך הקיים מה-DB
-      const existing = await tripsRepo.getById(tripDetails.tripId, null);
+      const connection = await (await import("../config/db.js")).default();
+      const [[existing]] = await connection.execute(`SELECT trip_leader_id FROM trips WHERE id = ?`, [tripDetails.tripId]);
       tripLeaderId = existing?.trip_leader_id || null;
     }
 

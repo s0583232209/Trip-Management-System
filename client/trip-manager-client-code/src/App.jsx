@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import EmergencySocketProvider from "./components/EmergencySocketProvider.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
@@ -26,6 +27,7 @@ import "./App.css";
 function App() {
   return (
     <BrowserRouter>
+      <EmergencySocketProvider>
       <Routes>
         {/* אימות */}
         <Route path="/login" element={<Login />} />
@@ -70,6 +72,7 @@ function App() {
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
+      </EmergencySocketProvider>
     </BrowserRouter>
   );
 }

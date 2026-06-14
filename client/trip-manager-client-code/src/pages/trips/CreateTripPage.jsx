@@ -277,6 +277,7 @@ export default function CreateTripPage() {
       submitLabel="צור טיול"
       loadingLabel="שומר..."
       writeAccess={user.role == "principal" || user.role == "coordinator"}
+      canEditMeta={user.role == "principal" || user.role == "coordinator"}
       extraSection={gradesSection}
       leaderClassSection={leaderClassSection}
     />

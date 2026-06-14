@@ -67,7 +67,7 @@ export default function CriticalEmergency() {
               marginBottom: "0.75rem",
             }}
           >
-            🔴 בוצע דיווח על אירוע קריטי — יש לפעול מיידית לפי הנחיות הוידאו
+            🔴 בוצע דיווח על אירוע קריטי — יש לפעול מיידית לפי ההנחיות
           </p>
           <ul
             style={{

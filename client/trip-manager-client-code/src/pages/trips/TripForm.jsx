@@ -137,19 +137,20 @@ export default function TripForm({
   submitLabel,
   loadingLabel,
   writeAccess,
+  canEditMeta,
   extraSection,
   leaderClassSection,
 }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (!writeAccess) return;
+    if (!canEditMeta) return;
     async function getUsers() {
       const res = await api.get("/api/users");
       setUsers(res.data);
     }
     getUsers();
-  }, [writeAccess]);
+  }, [canEditMeta]);
 
   if (!writeAccess) {
     return (
@@ -205,6 +206,7 @@ export default function TripForm({
               required
               value={formData.title}
               onChange={onFieldChange}
+              readOnly={!canEditMeta}
             />
             {errors.title && <p className="error">{errors.title}</p>}
 
@@ -215,10 +217,11 @@ export default function TripForm({
               required
               value={formData.tripDate}
               onChange={onFieldChange}
+              readOnly={!canEditMeta}
             />
             {errors.tripDate && <p className="error">{errors.tripDate}</p>}
 
-            {writeAccess ? (
+            {canEditMeta ? (
               <>
                 <label>אחראי הטיול</label>
                 <select

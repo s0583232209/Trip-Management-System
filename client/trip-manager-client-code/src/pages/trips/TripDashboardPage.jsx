@@ -25,7 +25,7 @@ export default function TripDashboardPage() {
         } else {
           setTripTitle(trip.title);
           setTripStatus(trip.trip_status ?? null);
-          setIsTripLeader(trip.trip_leader_id === user.userId);
+          setIsTripLeader(Number(trip.trip_leader_id) === Number(user.userId));
         }
       })
       .catch((err) => {

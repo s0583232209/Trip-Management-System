@@ -29,10 +29,15 @@ export async function getAll(userId) {
   const connection = await getConnection();
   const res = await connection.execute(
     `SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status
-    FROM trips
-    JOIN staff_trip ON trips.id = staff_trip.trip_id
-    WHERE staff_trip.staff_id = ?`,
-    [userId],
+     FROM trips
+     JOIN users u ON u.id = ?
+     LEFT JOIN user_roles ur ON ur.user_id = u.id
+     LEFT JOIN staff_trip st ON trips.id = st.trip_id
+     WHERE trips.school_id = u.school_id
+       AND (ur.role_name IN ('principal','coordinator')
+            OR st.staff_id = ?
+            OR trips.trip_leader_id = ?)`,
+    [userId, userId, userId],
   );
   log.info(`getAll trips by userId: ${userId}`);
   return res[0];
@@ -41,14 +46,19 @@ export async function getById(tripId, userId) {
   console.log("getById - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const res = await connection.execute(
-    `SELECT t.*, u.national_id AS tripLeaderNationalId, u.full_name AS tripLeaderFullName
+    `SELECT t.*, u2.national_id AS tripLeaderNationalId, u2.full_name AS tripLeaderFullName
       FROM (SELECT * FROM trips WHERE trips.id = ?) t
-      JOIN users u ON u.id = t.trip_leader_id
-      JOIN staff_trip ON staff_trip.trip_id = t.id
-      WHERE staff_trip.staff_id = ? `,
-    [tripId, userId],
+      JOIN users u2 ON u2.id = t.trip_leader_id
+      JOIN users u ON u.id = ?
+      LEFT JOIN user_roles ur ON ur.user_id = u.id
+      LEFT JOIN staff_trip st ON st.trip_id = t.id AND st.staff_id = u.id
+      WHERE t.school_id = u.school_id
+        AND (ur.role_name IN ('principal','coordinator')
+             OR st.staff_id = ?
+             OR t.trip_leader_id = ?)
+      LIMIT 1`,
+    [tripId, userId, userId, userId],
   );
-
   log.info(`getTripById : ${tripId}`);
   return res[0][0];
 }

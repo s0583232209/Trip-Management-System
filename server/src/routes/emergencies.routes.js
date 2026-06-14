@@ -19,6 +19,7 @@ router.get(
 // פתיחת חירום מינורי — אחראי הטיול הספציפי או מורה המשובץ לטיול, ביום הטיול בלבד
 router.post(
   "/minor",
+  requireTripDay,
   (req, res, next) => {
     req.body.emergencyTypeId = 1;
     next();

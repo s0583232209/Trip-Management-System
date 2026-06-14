@@ -44,15 +44,17 @@ export async function update(req, res) {
   console.log("update - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
-    await emergenciesService.updateEmergency(
-      req.params.emergencyId,
+    const { emergencyId } = req.params;
+    const updatedEmergency = await emergenciesService.updateEmergency(
+      emergencyId,
       req.body,
       tripId,
       req.user?.userId,
     );
-    if (req.body.status === 2) {
+    if (req.body.status === 2 || parseInt(req.body.status) === 2) {
       io.to(`trip-${tripId}`).emit("emergency-closed", {
-        emergencyId: parseInt(req.params.emergencyId),
+        emergencyId: parseInt(emergencyId),
+        closedAt: new Date().toISOString(),
       });
     }
     res.status(200).json({ message: "Emergency updated successfully" });

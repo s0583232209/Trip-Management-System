@@ -58,7 +58,10 @@ export async function createEmergency(emergencyData) {
     newValues: JSON.stringify(emergencyData),
   });
 
-  return { id: result.insertId, ...emergencyData, opened_at: new Date() };
+  // fetch the full record so socket event includes opened_by_name, emergency_type_name
+  const [full] = await emergenciesRepository.getEmergenciesByTripId(emergencyData.tripId)
+    .then(rows => rows.filter(r => r.id === result.insertId));
+  return full || { id: result.insertId, ...emergencyData, opened_at: new Date() };
 }
 
 export async function updateEmergency(emergencyId, emergencyData, tripId, userId) {

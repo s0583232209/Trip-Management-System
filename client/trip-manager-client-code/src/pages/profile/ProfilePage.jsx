@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Navbar from "../components/Navbar.jsx";
-import api from "../api";
-import { canEditSchool } from "../permissions.js";
-import "./trips/TripsPage.css";
+import Navbar from "../../components/Navbar.jsx";
+import api from "../../api";
+import { canEditSchool } from "../../permissions.js";
+import "../trips/TripsPage.css";
 import "./ProfilePage.css";
 
 function Row({

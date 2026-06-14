@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar.jsx";
-import { canManageTrip } from "../../permissions.js";
-import api from "../../api.js";
-import "./TripsPage.css";
-import "./TripForms.css";
+import Navbar from "../../../components/Navbar.jsx";
+import { canManageTrip } from "../../../permissions.js";
+import api from "../../../api.js";
+import "../TripsPage.css";
+import "../TripForms.css";
 import "./TripLeadersKit.css";
 
 // מזהה הטיול הווירטואלי המשמש את עמוד הדוגמה — אינו מתאים לטיול אמיתי בבסיס הנתונים

@@ -5,7 +5,7 @@ import Navbar from "../../../components/Navbar.jsx";
 import api from "../../../api.js";
 import { canManageTrip, isRole, TRIP_STATUS_LABEL } from "../../../permissions.js";
 import "../TripsPage.css";
-import { getTodayInIsrael, toDateOnlyString } from "../../dateUtils.js";
+import { getTodayInIsrael, toDateOnlyString } from "../../../dateUtils.js";
 
 
 export default function TripDashboardPage() {

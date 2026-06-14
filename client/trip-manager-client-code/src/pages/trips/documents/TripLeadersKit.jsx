@@ -7,10 +7,10 @@ import {
   openFile,
   deleteTripFile,
 } from "../../../services/files.service.js";
-import { canManageTrip } from "../../permissions.js";
-import api from "../../api.js";
-import "./TripsPage.css";
-import "./TripForms.css";
+import { canManageTrip } from "../../../permissions.js";
+import api from "../../../api.js";
+import "../../trips/TripsPage.css";
+import "../../trips/TripForms.css";
 import "./TripLeadersKit.css";
 
 // רשימת המסמכים הקבועים שחובה להעלות לכל טיול, לפי קוד מסמך (file_code)

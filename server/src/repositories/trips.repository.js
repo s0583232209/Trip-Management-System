@@ -6,10 +6,23 @@ export async function getTripDate(tripId) {
   console.log("getTripDate - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
-    `SELECT trip_date FROM trips WHERE id = ?`,
+    `SELECT trip_date, trip_leader_id FROM trips WHERE id = ?`,
     [tripId],
   );
   return rows[0] || null;
+}
+
+// בודק אם המשתמש הוא מורה המשובץ לטיול הספציפי (staff_trip + role 'teacher')
+export async function isTripTeacherStaff(tripId, userId) {
+  console.log("isTripTeacherStaff - src/repositories/trips.repository.js");
+  const connection = await getConnection();
+  const [rows] = await connection.execute(
+    `SELECT 1 FROM staff_trip st
+     JOIN user_roles ur ON ur.user_id = st.staff_id AND ur.role_name = 'teacher'
+     WHERE st.trip_id = ? AND st.staff_id = ? LIMIT 1`,
+    [tripId, userId],
+  );
+  return rows.length > 0;
 }
 export async function getAll(userId) {
   console.log("getAll - src/repositories/trips.repository.js");

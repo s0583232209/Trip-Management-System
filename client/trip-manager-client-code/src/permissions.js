@@ -41,27 +41,36 @@ export const canViewTrip = () =>
 // approved  — נעול לכולם (פתיחה רק דרך post-edit)
 // post-edit — עריכה למנהל/רכז בלבד
 // done      — נעול לחלוטין
-export function canUpdateRoute(tripStatus, tripDate) {
+// "אחראי טיול" אינו תפקיד גלובלי — ההרשאה נקבעת לפי trips.trip_leader_id של הטיול הספציפי
+export function canUpdateRoute(tripStatus, tripDate, tripLeaderId) {
   if (tripStatus === TRIP_STATUS.DONE) return false;
   if (tripStatus === TRIP_STATUS.APPROVED) return false;
   if (tripStatus === TRIP_STATUS.POST_EDIT) return isRole("principal");
   // planned (או null לתאימות לאחור)
   if (isRole("principal", "coordinator")) return true;
-  if (isRole("trip leader")) return toDateOnlyString(tripDate) === getTodayInIsrael();
+  const user = getUser();
+  if (Number(user.userId) === Number(tripLeaderId)) {
+    return toDateOnlyString(tripDate) === getTodayInIsrael();
+  }
   return false;
 }
 
 // פתיחת עריכה בדיעבד — מנהל בלבד
 export const canSetPostEdit = () => isRole("principal");
 
-// פתיחת/סגירת חירום מינורי — אחראי ומורה
-export const canHandleMinorEmergency = () =>
-  isRole("trip leader", "teacher");
+// פתיחת/סגירת חירום מינורי — אחראי הטיול הספציפי או מורה, רק ביום הטיול
+export function canHandleMinorEmergency(tripDate, tripLeaderId) {
+  if (toDateOnlyString(tripDate) !== getTodayInIsrael()) return false;
+  if (isRole("teacher")) return true;
+  const user = getUser();
+  return Number(user.userId) === Number(tripLeaderId);
+}
 
-// פתיחת/סגירת חירום קריטי — אחראי ביום הטיול
-export function canHandleCriticalEmergency(tripDate) {
-  if (!isRole("trip leader")) return false;
-  return toDateOnlyString(tripDate) === getTodayInIsrael();
+// פתיחת/סגירת חירום קריטי — אחראי הטיול הספציפי בלבד, רק ביום הטיול
+export function canHandleCriticalEmergency(tripDate, tripLeaderId) {
+  if (toDateOnlyString(tripDate) !== getTodayInIsrael()) return false;
+  const user = getUser();
+  return Number(user.userId) === Number(tripLeaderId);
 }
 
 // העלאת קבצי תיעוד (מדיה) — מנהל, רכז, אחראי, מורה

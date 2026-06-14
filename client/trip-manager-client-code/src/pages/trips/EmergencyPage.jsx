@@ -13,6 +13,7 @@ export default function EmergencyPage() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tripDate, setTripDate] = useState(null);
+  const [tripLeaderId, setTripLeaderId] = useState(null);
   const [tripTitle, setTripTitle] = useState("");
   const [isRinging, setIsRinging] = useState(false);
   const navigate = useNavigate();
@@ -22,8 +23,8 @@ export default function EmergencyPage() {
   const audioCtxRef = useRef(null);
 
   // canMinor/canCritical/canReport/allowedTypes — all at component scope
-  const canMinor = canHandleMinorEmergency();
-  const canCritical = canHandleCriticalEmergency(tripDate);
+  const canMinor = canHandleMinorEmergency(tripDate, tripLeaderId);
+  const canCritical = canHandleCriticalEmergency(tripDate, tripLeaderId);
   const canReport = canMinor || canCritical;
 
   const allowedTypes = [
@@ -109,6 +110,7 @@ export default function EmergencyPage() {
         const trip = Array.isArray(res.data) ? res.data[0] : res.data;
         if (trip) {
           setTripDate(trip.trip_date);
+          setTripLeaderId(trip.trip_leader_id);
           setTripTitle(trip.title);
         }
       } catch (err) {

@@ -10,6 +10,7 @@ export default function TripPlanningPage() {
   const { tripId } = useParams();
   const [error, setError] = useState("");
   const [tripDate, setTripDate] = useState(null);
+  const [tripLeaderId, setTripLeaderId] = useState(null);
   const [tripTitle, setTripTitle] = useState("");
   const [tripStatus, setTripStatus] = useState(null);
 
@@ -22,6 +23,7 @@ export default function TripPlanningPage() {
           navigate("/not-found", { replace: true });
         } else {
           setTripDate(trip.trip_date);
+          setTripLeaderId(trip.trip_leader_id);
           setTripTitle(trip.title);
           setTripStatus(trip.trip_status ?? null);
         }
@@ -75,7 +77,7 @@ export default function TripPlanningPage() {
               className="trip-card"
               onClick={() => navigate(`/trips/${tripId}/route`)}
             >
-              {canUpdateRoute(tripStatus, tripDate) ? "עדכון מסלול וצפיה בפרטי מסלול" : "צפייה בפרטי מסלול"}
+              {canUpdateRoute(tripStatus, tripDate, tripLeaderId) ? "עדכון מסלול וצפיה בפרטי מסלול" : "צפייה בפרטי מסלול"}
             </button>
           )}
           {canManageTrip() && (

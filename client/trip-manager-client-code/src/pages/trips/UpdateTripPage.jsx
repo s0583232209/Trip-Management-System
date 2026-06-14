@@ -63,7 +63,9 @@ export default function UpdateTripPage() {
         setFormData({
           title: trip.title || "",
           tripDate: toDateOnlyString(trip.trip_date),
-          tripLeaderNationalId: trip.tripLeaderNationalId || "",
+          // ה-select של אחראי הטיול מציג options עם value=u.user_id (DB id),
+          // לכן הברירת מחדל חייבת להיות trip_leader_id ולא national_id, אחרת לא יימצא match
+          tripLeaderNationalId: trip.trip_leader_id ?? "",
           tripLeaderName: trip.tripLeaderFullName || "",
         });
 
@@ -126,7 +128,7 @@ export default function UpdateTripPage() {
     }
   }
 
-  const writeAccess = canUpdateRoute(tripStatus, formData.tripDate);
+  const writeAccess = canUpdateRoute(tripStatus, formData.tripDate, formData.tripLeaderNationalId);
 
   async function handleSetPostEdit(e) {
     e.preventDefault();

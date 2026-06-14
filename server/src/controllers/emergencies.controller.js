@@ -1,7 +1,6 @@
 import * as emergenciesService from "../services/emergencies.service.js";
 import log from "../loggers/file.logger.js";
 import { io } from "../../server.js"; // ← שורה חדשה
-import { userHasRole } from "../services/auth.service.js";
 
 export async function getByTripId(req, res) {
   console.log("getByTripId - src/controllers/emergencies.controller.js");
@@ -23,18 +22,6 @@ export async function create(req, res) {
       tripId: req.params.id || req.params.tripId,
       openedBy: req.user?.userId || null,
     };
-
-    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול
-    // בדיקה מול מסד הנתונים (ולא מול ה-role היחיד שנשמר בטוקן),
-    // כדי שמשתמש בעל כמה תפקידים (למשל "trip leader" וגם "teacher") יזוהה כאחראי טיול כראוי
-    if (parseInt(emergencyData.emergencyTypeId) === 2) {
-      const isTripLeader = await userHasRole(req.user?.userId, ["trip leader"]);
-      if (!isTripLeader) {
-        return res
-          .status(403)
-          .json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
-      }
-    }
 
     const newEmergency =
       await emergenciesService.createEmergency(emergencyData);

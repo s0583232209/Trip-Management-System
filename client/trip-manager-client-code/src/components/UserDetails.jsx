@@ -22,7 +22,7 @@ export default function UserDetails({
   submitLabel,
 }) {
   const location = useLocation();
-  const isAuth = location.pathname.includes("auth");
+  const isAuth = location.pathname.includes("register");
 
   const [formData, setFormData] = useState(initialData || defaultUserDetails);
   const [errors, setErrors] = useState({});

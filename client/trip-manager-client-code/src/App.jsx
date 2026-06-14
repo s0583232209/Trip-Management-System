@@ -13,7 +13,7 @@ import AddEmployeePage from "./pages/AddEmployeePage.jsx";
 import UpdateTripPage from "./pages/trips/UpdateTripPage.jsx";
 import ApproveTripPage from "./pages/trips/ApproveTripPage.jsx";
 import ManageTripStaffPage from "./pages/trips/ManageTripStaffPage.jsx";
-import TripsLeaderKit from "./pages/trips/TripsLeadersKit.jsx";
+import TripLeaderKit from "./pages/trips/TripLeadersKit.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
@@ -51,7 +51,7 @@ function App() {
 
         {/* תכנון טיול */}
         <Route path="/trips/:tripId/planning" element={<TripPlanningPage />} />
-        <Route path="/trips/:tripId/folder" element={<TripsLeaderKit />} />
+        <Route path="/trips/:tripId/folder" element={<TripLeaderKit />} />
         <Route path="/trips/:tripId/staff" element={<ManageTripStaffPage />} />
         <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
         <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />

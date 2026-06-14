@@ -66,9 +66,9 @@ export default function TripPlanningPage() {
           )}
           <button
             className="trip-card"
-            onClick={() => navigate(`/trips/${tripId}/equipment`)}
+            onClick={() => navigate(`/trips/useful-links`)}
           >
-            ציוד
+            קישורים שימושיים
           </button>
           {canViewTripDetails() && (
             <button

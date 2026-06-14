@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "737cf7c0-354e-4b75-b825-e1eeb43c0c7f",
+    "_postman_id": "f31642cb-c913-4622-9f23-d665cf7a23d8",
     "name": "מערכת ניהול טיולים - תרחיש מלא 2 - בית ספר גלים חיפה",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -23,7 +23,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3001"
+      "value": "http://localhost:3000"
     },
     {
       "key": "principalId",
@@ -151,7 +151,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"מרים לוי\",\n  \"nationalId\": \"223456789\",\n  \"userEmail\": \"miriam.levi@example.com\",\n  \"userPhoneNumber\": \"0505551111\",\n  \"password\": \"GAPass123!\",\n  \"role\": \"principal\",\n  \"name\": \"בית ספר גלים חיפה\",\n  \"institutionNumber\": 410022,\n  \"city\": \"חיפה\",\n  \"street\": \"הנביאים\",\n  \"houseNumber\": 18,\n  \"postalCode\": 3300000,\n  \"email\": \"galim.haifa@example.com\"\n}",
+          "raw": "{\n  \"fullName\": \"מאיר לוי\",\n  \"nationalId\": \"223456789\",\n  \"userEmail\": \"meir.levi@example.com\",\n  \"userPhoneNumber\": \"0505551111\",\n  \"password\": \"GAPass123!\",\n  \"role\": \"principal\",\n  \"name\": \"בית ספר גלים חיפה\",\n  \"institutionNumber\": 410022,\n  \"city\": \"חיפה\",\n  \"street\": \"הנביאים\",\n  \"houseNumber\": 18,\n  \"postalCode\": 3300000,\n  \"email\": \"galim.haifa@example.com\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -253,7 +253,7 @@
       "response": []
     },
     {
-      "name": "03.2 הוספת משתמש - נועה ברק",
+      "name": "03.2 הוספת משתמש - נועם ברק",
       "event": [
         {
           "listen": "test",
@@ -287,7 +287,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"נועה ברק\",\n  \"nationalId\": \"223456791\",\n  \"userEmail\": \"noa.barak@example.com\",\n  \"userPhoneNumber\": \"0506662222\",\n  \"role\": \"teacher\"\n}",
+          "raw": "{\n  \"fullName\": \"נועם ברק\",\n  \"nationalId\": \"223456791\",\n  \"userEmail\": \"noam.barak@example.com\",\n  \"userPhoneNumber\": \"0506662222\",\n  \"role\": \"teacher\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -343,7 +343,7 @@
       "response": []
     },
     {
-      "name": "03.4 הוספת משתמש - שירה אמיר",
+      "name": "03.4 הוספת משתמש - שי אמיר",
       "event": [
         {
           "listen": "test",
@@ -377,7 +377,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"שירה אמיר\",\n  \"nationalId\": \"223456793\",\n  \"userEmail\": \"shira.amir@example.com\",\n  \"userPhoneNumber\": \"0506664444\",\n  \"role\": \"trip leader\"\n}",
+          "raw": "{\n  \"fullName\": \"שי אמיר\",\n  \"nationalId\": \"223456793\",\n  \"userEmail\": \"shai.amir@example.com\",\n  \"userPhoneNumber\": \"0506664444\",\n  \"role\": \"trip leader\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -615,7 +615,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"סיור בנחל מערות\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול סיור בנחל מערות\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2147,\n              31.7683\n            ],\n            [\n              35.226,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"סיור בנחל מערות\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{today}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - סיור בנחל מערות\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - סיור בנחל מערות\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -660,7 +660,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"טיול בכרמל\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול טיול בכרמל\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.215700000000005,\n              31.7683\n            ],\n            [\n              35.227000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"טיול בכרמל\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate1}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - טיול בכרמל\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - טיול בכרמל\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -705,7 +705,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"יום ים בחוף דדו\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול יום ים בחוף דדו\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2167,\n              31.7683\n            ],\n            [\n              35.228,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"יום ים בחוף דדו\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class3Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate2}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - יום ים בחוף דדו\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - יום ים בחוף דדו\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -750,7 +750,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"מסע לעכו העתיקה\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול מסע לעכו העתיקה\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.2177,\n              31.7683\n            ],\n            [\n              35.229,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"מסע לעכו העתיקה\",\n  \"tripLeaderId\": \"{{teacher1Id}}\",\n  \"tripLeaderClassId\": \"{{class1Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate3}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - מסע לעכו העתיקה\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - מסע לעכו העתיקה\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -795,7 +795,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"סיור מדעי בטכניון\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"properties\": {\n          \"name\": \"מסלול סיור מדעי בטכניון\"\n        },\n        \"geometry\": {\n          \"type\": \"LineString\",\n          \"coordinates\": [\n            [\n              35.218700000000005,\n              31.7683\n            ],\n            [\n              35.230000000000004,\n              31.778\n            ]\n          ]\n        }\n      }\n    ]\n  }\n}",
+          "raw": "{\n  \"title\": \"סיור מדעי בטכניון\",\n  \"tripLeaderId\": \"{{leaderId}}\",\n  \"tripLeaderClassId\": \"{{class2Id}}\",\n  \"classIds\": [\n    \"{{class1Id}}\",\n    \"{{class2Id}}\",\n    \"{{class3Id}}\"\n  ],\n  \"tripDate\": \"{{futureDate4}}\",\n  \"status\": 1,\n  \"routeGeoJson\": \"{\\\"stops\\\":[{\\\"name\\\":\\\"תחילת מסלול - סיור מדעי בטכניון\\\",\\\"type\\\":\\\"מסלול הליכה\\\",\\\"trailCondition\\\":\\\"יבש\\\",\\\"officialApproval\\\":\\\"\\\",\\\"notes\\\":\\\"\\\"},{\\\"name\\\":\\\"עצירה - סיור מדעי בטכניון\\\",\\\"type\\\":\\\"אטרקציה\\\",\\\"trailCondition\\\":\\\"\\\",\\\"officialApproval\\\":\\\"אישור רשות הטבע והגנים\\\",\\\"notes\\\":\\\"\\\"}]}\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1580,7 +1580,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"תלמידה נפצעה קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
+          "raw": "{\n  \"description\": \"תלמיד נפצע קל במהלך הליכה במסלול\",\n  \"locationLat\": 31.7683,\n  \"locationLng\": 35.2137,\n  \"status\": 1\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1657,7 +1657,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"התלמידה קיבלה טיפול ראשוני וממתינה לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
+          "raw": "{\n  \"description\": \"התלמיד קיבל טיפול ראשוני וממתין לאיסוף\",\n  \"locationLat\": 31.769,\n  \"locationLng\": 35.214,\n  \"status\": 1\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1872,7 +1872,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"fullName\": \"מרים לוי מעודכן\",\n  \"userEmail\": \"miriam.updated@example.com\",\n  \"userPhoneNumber\": \"0505552222\"\n}",
+          "raw": "{\n  \"fullName\": \"מאיר לוי מעודכן\",\n  \"userEmail\": \"meir.updated@example.com\",\n  \"userPhoneNumber\": \"0505552222\"\n}",
           "options": {
             "raw": {
               "language": "json"

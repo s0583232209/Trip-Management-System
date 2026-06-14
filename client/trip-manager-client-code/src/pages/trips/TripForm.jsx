@@ -227,12 +227,20 @@ export default function TripForm({
                   onChange={onFieldChange}
                   required
                 >
-                  <option value="">בחר אחראי טיול</option>
-                  {users.map((u) => (
-                    <option key={u.user_id} value={u.user_id}>
-                      {u.full_name}
+                  {formData.tripLeaderName ? (
+                    <option value={formData[leaderIdField]}>
+                      {formData.tripLeaderName}
                     </option>
-                  ))}
+                  ) : (
+                    <option value="">בחר אחראי טיול</option>
+                  )}
+                  {users
+                    .filter((u) => u.full_name !== formData.tripLeaderName)
+                    .map((u) => (
+                      <option key={u.user_id} value={u.user_id}>
+                        {u.full_name}
+                      </option>
+                    ))}
                 </select>
               </>
             ) : (

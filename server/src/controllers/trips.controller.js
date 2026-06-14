@@ -2,7 +2,7 @@
 import log from "../loggers/file.logger.js";
 import * as tripsService from "../services/trips.service.js";
 import { createParentToken } from "../services/auth.service.js";
-export async function getAllTrips(req, res) {
+export async function getAllTrips(req, res, next) {
   console.log("getAllTrips - src/controllers/trips.controller.js");
   try {
     const trips = await tripsService.getAllTrips(req.user.userId);
@@ -10,11 +10,13 @@ export async function getAllTrips(req, res) {
     res.status(200).json(trips);
   } catch (err) {
     log.warn(`error: ${err.message}`);
-    res.status(500).json({ message: "Failed to get trips" });
+    err.status = err.status || 500;
+    err.message = "Failed to get trips";
+    next(err);
   }
 }
 
-export async function getById(req, res) {
+export async function getById(req, res, next) {
   console.log("getById - src/controllers/trips.controller.js");
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
@@ -23,11 +25,13 @@ export async function getById(req, res) {
     res.status(200).json(trip);
   } catch (err) {
     log.warn(`error: ${err.message}`);
-    res.status(500).json({ message: "Failed to get trip by id" });
+    err.status = err.status || 500;
+    err.message = "Failed to get trip by id";
+    next(err);
   }
 }
 
-export async function createTrip(req, res) {
+export async function createTrip(req, res, next) {
   console.log("createTrip - src/controllers/trips.controller.js");
   try {
     const newTrip = await tripsService.addTrip(req.body);
@@ -35,10 +39,11 @@ export async function createTrip(req, res) {
     res.status(201).json(newTrip);
   } catch (err) {
     log.warn(`creating trip failed`);
-    res.status(500).json(err.message);
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function updateTrip(req, res) {
+export async function updateTrip(req, res, next) {
   console.log("updateTrip - src/controllers/trips.controller.js");
   try {
     log.info(`updateTrip body: ${JSON.stringify(req.body)}`);
@@ -50,10 +55,11 @@ export async function updateTrip(req, res) {
     res.status(200).json(updatedTrip);
   } catch (err) {
     log.warn(`updating trip failed: ${err.message}`);
-    res.status(500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function deleteTrip(req, res) {
+export async function deleteTrip(req, res, next) {
   console.log("deleteTrip - src/controllers/trips.controller.js");
   try {
     const response = await tripsService.deleteTrip(req.params.id);
@@ -61,10 +67,11 @@ export async function deleteTrip(req, res) {
     res.status(201).json("Trip deleted successfully");
   } catch (err) {
     log.warn(`deleting trip failed, from deleteTrip in trips.controller`);
-    res.status(500).json(err.message);
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function approveTrip(req, res) {
+export async function approveTrip(req, res, next) {
   console.log("approveTrip - src/controllers/trips.controller.js");
   try {
     const trip = await tripsService.approveTrip(req.params.id);
@@ -73,12 +80,10 @@ export async function approveTrip(req, res) {
     res.status(201).json(trip);
   } catch (err) {
     log.warn(`approving trip failed: ${err.message}`);
-    res
-      .status(err.status || 500)
-      .json({ message: err.message || "Approving failed" });
+    next(err);
   }
 }
-export async function addStaff(req, res) {
+export async function addStaff(req, res, next) {
   console.log("addStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.addStaff(req.params.id, req.body.staffAssignments);
@@ -86,20 +91,22 @@ export async function addStaff(req, res) {
     res.status(201).json({ message: "Staff added successfully" });
   } catch (err) {
     log.warn(`adding staff failed: ${err.message}`);
-    res.status(500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function getAllStaff(req, res) {
+export async function getAllStaff(req, res, next) {
   console.log("getAllStaff - src/controllers/trips.controller.js");
   try {
     const staff = await tripsService.getAllStaff(req.params.id);
     res.status(201).json(staff);
   } catch (err) {
     log.warn(`getting staff failed: ${err.message}`);
-    res.status(500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function deleteStaff(req, res) {
+export async function deleteStaff(req, res, next) {
   console.log("deleteStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.deleteStaff(req.params.id, req.params.userId);
@@ -107,20 +114,22 @@ export async function deleteStaff(req, res) {
     res.status(201).json({ message: "Staff deleted successfully" });
   } catch (err) {
     log.warn(`deleting staff failed: ${err.message}`);
-    res.status(500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function addExternalStaff(req, res) {
+export async function addExternalStaff(req, res, next) {
   console.log("addExternalStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.addExternalStaff(req.params.id, req.body);
     res.status(201).json({ message: "External staff added successfully" });
   } catch (err) {
     log.warn(`adding external staff failed: ${err.message}`);
-    res.status(500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function deleteExternalStaff(req, res) {
+export async function deleteExternalStaff(req, res, next) {
   console.log("deleteExternalStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.deleteExternalStaff(req.params.id, req.params.staffId);
@@ -130,25 +139,26 @@ export async function deleteExternalStaff(req, res) {
     res.status(201).json({ message: "External staff deleted successfully" });
   } catch (err) {
     log.warn(`deleting external staff failed: ${err.message}`);
-    res.status(500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function closeTrip(req, res) {
+export async function closeTrip(req, res, next) {
   console.log("closeTrip - src/controllers/trips.controller.js");
   try {
     await tripsService.closeTrip(req.params.id);
     res.status(200).json({ message: "trip closed successfully" });
   } catch (err) {
-    res.status(err.status || err.statusCode || 500).json({ message: err.message });
+    next(err);
   }
 }
 
-export async function setPostEdit(req, res) {
+export async function setPostEdit(req, res, next) {
   console.log("setPostEdit - src/controllers/trips.controller.js");
   try {
     await tripsService.setPostEdit(req.params.id, req.body.note);
     res.status(200).json({ message: "הטיול נפתח לעריכה בדיעבד" });
   } catch (err) {
-    res.status(err.status || 500).json({ message: err.message });
+    next(err);
   }
 }

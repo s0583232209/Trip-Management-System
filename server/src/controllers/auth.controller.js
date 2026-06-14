@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import * as authService from "../services/auth.service.js";
 import log from "../loggers/file.logger.js";
 
-export async function register(req, res) {
+export async function register(req, res, next) {
   console.log("register - src/controllers/auth.controller.js");
   log.info("in cotroller - sign up");
   console.log("in sign up");
@@ -27,15 +27,20 @@ export async function register(req, res) {
     } else {
       message = "הרישום נכשל, נסה שנית מאוחר יותר";
     }
-    res.status(400).json({ message });
+    err.status = 400;
+    err.message = message;
+    next(err);
   }
 }
 
-export function refreshToken(req, res) {
+export function refreshToken(req, res, next) {
   console.log("refreshToken - src/controllers/auth.controller.js");
   const token = req.cookies.refreshToken;
-  if (!token)
-    return res.status(401).json({ message: "No refresh token provided" });
+  if (!token) {
+    const error = new Error("No refresh token provided");
+    error.status = 401;
+    return next(error);
+  }
   try {
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
     const accessToken = authService.createAccessToken({
@@ -55,10 +60,9 @@ export function refreshToken(req, res) {
     res.status(200).json({ message: "Token refreshed" });
   } catch (err) {
     log.warn(`refreshToken error: ${err.message}`);
-    const status = err.name === "TokenExpiredError" ? 401 : 403;
-    res
-      .status(status)
-      .json({ message: "Session expired, please log in again" });
+    err.status = err.name === "TokenExpiredError" ? 401 : 403;
+    err.message = "Session expired, please log in again";
+    next(err);
   }
 }
 
@@ -69,7 +73,7 @@ export function logout(req, res) {
   log.info(`user ${req.body.userId} logged out`);
   res.status(200).json({ message: "Logged out" });
 }
-export async function login(req, res) {
+export async function login(req, res, next) {
   console.log("login - src/controllers/auth.controller.js");
   try {
     const { user, accessToken, refreshToken } = await authService.login(
@@ -82,6 +86,8 @@ export async function login(req, res) {
     authService.sendAuthResponse(res, user, 200, accessToken, refreshToken);
   } catch (err) {
     log.warn(`login error: ${err.message}`);
-    res.status(401).json({ message: "Invalid email or password" });
+    err.status = 401;
+    err.message = "תעודת זהות, סמל מוסד או סיסמה שגויים";
+    next(err);
   }
 }

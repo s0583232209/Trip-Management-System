@@ -3,7 +3,7 @@ import log from "../loggers/file.logger.js";
 import { io } from "../../server.js"; // ← שורה חדשה
 import { userHasRole } from "../services/auth.service.js";
 
-export async function getByTripId(req, res) {
+export async function getByTripId(req, res, next) {
   console.log("getByTripId - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
@@ -11,11 +11,13 @@ export async function getByTripId(req, res) {
     res.status(200).json(emergencies);
   } catch (error) {
     log.error(`EmergenciesController - getByTripId error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    error.status = error.status || 500;
+    error.message = "Internal server error";
+    next(error);
   }
 }
 
-export async function create(req, res) {
+export async function create(req, res, next) {
   console.log("create - src/controllers/emergencies.controller.js");
   try {
     const emergencyData = {
@@ -30,9 +32,9 @@ export async function create(req, res) {
     if (parseInt(emergencyData.emergencyTypeId) === 2) {
       const isTripLeader = await userHasRole(req.user?.userId, ["trip leader"]);
       if (!isTripLeader) {
-        return res
-          .status(403)
-          .json({ message: "חירום קריטי מותר לאחראי טיול ביום הטיול בלבד" });
+        const error = new Error("חירום קריטי מותר לאחראי טיול ביום הטיול בלבד");
+        error.status = 403;
+        return next(error);
       }
     }
 
@@ -49,11 +51,11 @@ export async function create(req, res) {
     });
   } catch (error) {
     log.error(`EmergenciesController - create error: ${error.message}`);
-    res.status(error.status || 500).json({ message: error.message });
+    next(error);
   }
 }
 
-export async function update(req, res) {
+export async function update(req, res, next) {
   console.log("update - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
@@ -69,11 +71,13 @@ export async function update(req, res) {
     res.status(200).json({ message: "Emergency updated successfully" });
   } catch (error) {
     log.error(`EmergenciesController - update error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    error.status = error.status || 500;
+    error.message = "Internal server error";
+    next(error);
   }
 }
 
-export async function remove(req, res) {
+export async function remove(req, res, next) {
   console.log("remove - src/controllers/emergencies.controller.js");
   try {
     const emergencyId = req.params.emergencyId;
@@ -81,6 +85,8 @@ export async function remove(req, res) {
     res.status(200).json({ message: "Emergency deleted successfully" });
   } catch (error) {
     log.error(`EmergenciesController - remove error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    error.status = error.status || 500;
+    error.message = "Internal server error";
+    next(error);
   }
 }

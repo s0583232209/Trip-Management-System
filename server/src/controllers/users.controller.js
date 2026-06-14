@@ -2,7 +2,7 @@
 import * as usersService from "../services/users.service.js";
 import log from "../loggers/file.logger.js";
 
-export async function getUserById(req, res) {
+export async function getUserById(req, res, next) {
   console.log("getUserById - src/controllers/users.controller.js");
   try {
     // console.log("get user by id");
@@ -10,46 +10,60 @@ export async function getUserById(req, res) {
     res.status(200).json(user);
   } catch (err) {
     log.warn(`getById error: ${err.message}`);
-    res.status(404).json({ message: "משתמש לא נמצא" });
+    err.status = 404;
+    err.message = "משתמש לא נמצא";
+    next(err);
   }
 }
 
-export async function updateProfile(req, res) {
+export async function updateProfile(req, res, next) {
   console.log("updateProfile - src/controllers/users.controller.js");
   try {
     const userRoles = req.user.roles || (req.user.role ? [req.user.role] : []);
-    if (req.user.userId != req.params.id && !userRoles.includes("principal"))
-      return res.status(403).json({ message: "אין הרשאה לעדכן פרופיל זה" });
+    if (req.user.userId != req.params.id && !userRoles.includes("principal")) {
+      const error = new Error("אין הרשאה לעדכן פרופיל זה");
+      error.status = 403;
+      return next(error);
+    }
     log.info(`updateProfile controller - userId: ${req.params.id}`);
     const user = await usersService.updateProfile(req.params.id, req.body);
     res.status(200).json(user);
   } catch (err) {
     log.warn(`updateProfile error: ${err.message}`);
-    res.status(500).json({ message: "עדכון הפרופיל נכשל, נסה שנית" });
+    err.status = 500;
+    err.message = "עדכון הפרופיל נכשל, נסה שנית";
+    next(err);
   }
 }
 
-export async function changePassword(req, res) {
+export async function changePassword(req, res, next) {
   console.log("changePassword - src/controllers/users.controller.js");
   try {
     // console.log("change password...............................");
     // console.log("userId=", req.user.userId, "params id=", req.params.id);
-    
-    if (req.user.userId != req.params.id)
-      return res.status(401).json({ message: "אין הרשאה לשנות סיסמא של משתמש אחר" });
+
+    if (req.user.userId != req.params.id) {
+      const error = new Error("אין הרשאה לשנות סיסמא של משתמש אחר");
+      error.status = 401;
+      return next(error);
+    }
     log.info(`change passwrod controller - userId: ${req.params.id}}`);
     const user = await usersService.changePassword(req.params.id, req.body);
     res.status(200).json(user);
   } catch (err) {
     log.warn(`change passwrod error: ${err.message}`);
-    res.status(err.status || 500).json({ message: err.message });
+    err.status = err.status || 500;
+    next(err);
   }
 }
-export async function addUser(req, res) {
+export async function addUser(req, res, next) {
   console.log("addUser - src/controllers/users.controller.js");
   try {
-    if (req.body.role === "principal")
-      return res.status(401).json({ message: "לא ניתן להוסיף מנהל נוסף" });
+    if (req.body.role === "principal") {
+      const error = new Error("לא ניתן להוסיף מנהל נוסף");
+      error.status = 401;
+      return next(error);
+    }
     const user = await usersService.addUser(
       {
         ...req.body,
@@ -61,13 +75,14 @@ export async function addUser(req, res) {
   } catch (err) {
     log.warn(`addUser error: ${err.message}`);
     const isDuplicate = err.message?.includes("Duplicate entry");
-    const message = isDuplicate
+    err.status = 500;
+    err.message = isDuplicate
       ? "משתמש עם פרטים אלו כבר קיים במערכת"
       : "הוספת המשתמש נכשלה, נסה שנית מאוחר יותר";
-    res.status(500).json({ message });
+    next(err);
   }
 }
-export async function getAllUsersBySchool(req, res) {
+export async function getAllUsersBySchool(req, res, next) {
   console.log("getAllUsersBySchool - src/controllers/users.controller.js");
   try {
     // console.log("get all users by school", req.user);
@@ -75,7 +90,9 @@ export async function getAllUsersBySchool(req, res) {
     res.status(200).json(users);
   } catch (err) {
     log.warn(`getAllUsers error: ${err.message}`);
-    res.status(500).json({ message: "טעינת המשתמשים נכשלה, נסה שנית" });
+    err.status = 500;
+    err.message = "טעינת המשתמשים נכשלה, נסה שנית";
+    next(err);
   }
 }
 

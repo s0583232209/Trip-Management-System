@@ -11,7 +11,7 @@ import { canManageTrip } from "../../permissions.js";
 import api from "../../api.js";
 import "./TripsPage.css";
 import "./TripForms.css";
-import "./TripsLeadersKit.css";
+import "./TripLeadersKit.css";
 
 // רשימת המסמכים הקבועים שחובה להעלות לכל טיול, לפי קוד מסמך (file_code)
 const REQUIRED_DOCS = [
@@ -28,7 +28,7 @@ const REQUIRED_DOCS = [
   { fileCode: 11, title: "טופס תיאום טיולים מאושר" },
 ];
 
-export default function TripsLeadersKit() {
+export default function TripLeadersKit() {
   const { tripId } = useParams();
   const navigate = useNavigate();
 

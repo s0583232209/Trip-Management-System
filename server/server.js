@@ -28,9 +28,9 @@ initSocket(httpServer);
 // מייצאים את io כדי שה-controller יוכל להשתמש בו
 export { io } from "./src/config/socket.js";
 
-app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
+app.use(express.json());
 app.use("/api", verifyToken);
 app.use("/api", logger);
 // app.use(express.urlencoded({ extended: true }));

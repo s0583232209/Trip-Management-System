@@ -165,6 +165,9 @@ export default function EmergencyPage() {
       });
       setFormData({ emergencyTypeId: allowedTypes[0]?.value || "1", description: "" });
       fetchEmergencies();
+      if (parseInt(formData.emergencyTypeId) === 2) {
+        navigate(`/trips/${tripId}/emergencies/critical`);
+      }
     } catch (err) {
       console.error("Error creating emergency:", err);
       setError("אירעה שגיאה בדיווח על מצב החירום.");
@@ -309,7 +312,19 @@ export default function EmergencyPage() {
                       </span>
                     </div>
                     <p className="emergency-desc">{em.description}</p>
-                    {em.location_lat && <p className="emergency-location"></p>}
+                    {em.location_lat && (
+                      <p className="emergency-location">
+                        📍{" "}
+                        <a
+                          href={`https://maps.google.com/?q=${em.location_lat},${em.location_lng}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: "#0288d1" }}
+                        >
+                          {Number(em.location_lat).toFixed(5)}, {Number(em.location_lng).toFixed(5)}
+                        </a>
+                      </p>
+                    )}
                     {em.status === 1 && (em.emergency_type_id === 1 ? (canMinor || canCritical) : canCritical && em.opened_by === getUser().userId) && (
                       <button
                         className="trip-form-btn trip-form-btn--primary btn-close-emergency"

@@ -26,8 +26,4 @@ export async function openFile(tripId, fileId) {
   });
   const url = window.URL.createObjectURL(response.data);
   window.open(url, "_blank");
-  // משחררים את ה-URL הזמני אחרי שנייה, כשהוא כבר לא נחוץ
-  setTimeout(() => {
-    window.URL.revokeObjectURL(url);
-  }, 1000);
 }

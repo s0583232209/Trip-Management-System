@@ -20,6 +20,7 @@ import CreateTripPage from "./pages/trips/CreateTripPage.jsx";
 import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
 import TripStatusPage from "./pages/trips/TripStatusPage.jsx";
 import CriticalEmergency from "./pages/CriticalEmergemcy.jsx";
+import UsefulLinks from "./pages/trips/UsefulLinks.jsx";
 import "./App.css";
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/add-employee" element={<AddEmployeePage />} />
 
         {/* רשימת טיולים */}
+        <Route path="/trips/useful-links" element={<UsefulLinks />} />
         <Route path="/trips" element={<TripSelectionPage />} />
         <Route path="/trips/new" element={<CreateTripPage />} />
 
@@ -54,20 +56,14 @@ function App() {
         <Route path="/trips/:tripId/route" element={<UpdateTripPage />} />
         <Route path="/trips/:tripId/approve" element={<ApproveTripPage />} />
         <Route path="/trips/:tripId/status" element={<TripStatusPage />} />
-        <Route
-          path="/trips/:tripId/equipment"
-          element={<TripSectionPage title="ציוד" description="תכנון וניהול ציוד לטיול." />}
-        />
+       
 
         {/* יום טיול */}
         <Route path="/trips/:tripId/day" element={<TripDayPage />} />
         <Route path="/trips/:tripId/emergencies" element={<EmergencyPage />} />
-        <Route path="/trips/emergencies/critical" element={<CriticalEmergency />} />
+        <Route path="/trips/:tripId/emergencies/critical" element={<CriticalEmergency />} />
         <Route path="/trips/:tripId/contacts" element={<TripContactsPage />} />
-        <Route
-          path="/trips/:tripId/attendance"
-          element={<TripSectionPage title="קריאת שמות" description="קריאת שמות ועדכון נוכחות תלמידים." />}
-        />
+       
 
         {/* שגיאות */}
         <Route path="/unauthorized" element={<Unauthorized />} />

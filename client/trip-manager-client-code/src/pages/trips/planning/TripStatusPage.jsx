@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../../components/Navbar.jsx";
 import api from "../../../api.js";
-import { canManageTrip, canSetPostEdit, TRIP_STATUS, TRIP_STATUS_LABEL } from "../../../permissions.js";
+import {
+  canManageTrip,
+  canSetPostEdit,
+  TRIP_STATUS,
+  TRIP_STATUS_LABEL,
+} from "../../../permissions.js";
 import "../TripsPage.css";
 import "../TripForms.css";
 
@@ -15,7 +20,9 @@ export default function TripStatusPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  useEffect(() => { fetchTrip(); }, [tripId]);
+  useEffect(() => {
+    fetchTrip();
+  }, [tripId]);
 
   async function fetchTrip() {
     try {
@@ -29,7 +36,9 @@ export default function TripStatusPage() {
   }
 
   async function doAction(url, body = {}) {
-    setError(""); setSuccess(""); setLoading(true);
+    setError("");
+    setSuccess("");
+    setLoading(true);
     try {
       await api.put(url, body);
       await fetchTrip();
@@ -46,13 +55,21 @@ export default function TripStatusPage() {
   }
 
   async function handleClose() {
-    if (!window.confirm("האם לסמן את הטיול כ'עבר'? לא ניתן לערוך לאחר מכן ללא הרשאת מנהל.")) return;
+    if (
+      !window.confirm(
+        "האם לסמן את הטיול כ'עבר'? לא ניתן לערוך לאחר מכן ללא הרשאת מנהל.",
+      )
+    )
+      return;
     await doAction(`/api/trips/${tripId}/close`);
   }
 
   async function handlePostEdit(e) {
     e.preventDefault();
-    if (!postEditNote.trim()) { setError("יש להזין הערת סיבה"); return; }
+    if (!postEditNote.trim()) {
+      setError("יש להזין הערת סיבה");
+      return;
+    }
     await doAction(`/api/trips/${tripId}/post-edit`, { note: postEditNote });
     setPostEditNote("");
   }
@@ -62,7 +79,7 @@ export default function TripStatusPage() {
       <>
         <Navbar />
         <main className="page-main">
-          <p style={{ textAlign: "center", padding: "2rem" }}>טוען...</p>
+          <p className="status-loading-text">טוען...</p>
         </main>
       </>
     );
@@ -77,46 +94,57 @@ export default function TripStatusPage() {
       <main className="page-main">
         <div className="kit-page-header">
           <div>
-            <h1 className="page-title">סטטוס טיול — {trip.title}</h1>
-            <p className="form-section-hint">
-              סטטוס נוכחי: <strong>{statusLabel}</strong>
-            </p>
+            <h1 className="page-title" style={{ marginBottom: "12px" }}>
+              סטטוס טיול — {trip.title}
+            </h1>
+            <div
+              className={`trip-status-badge trip-status-badge--${status}`}
+              style={{ marginBottom: 0 }}
+            >
+              {statusLabel}
+            </div>
           </div>
-          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}`)}>
+          <button
+            className="trip-form-btn trip-form-btn--ghost"
+            onClick={() => navigate(`/trips/${tripId}`)}
+          >
             חזרה לטיול
           </button>
         </div>
 
         {/* פס סטטוס */}
-        <div style={{ display: "flex", gap: "0.5rem", margin: "1.5rem 0", flexWrap: "wrap" }}>
+        <div className="status-step-bar">
           {[1, 2, 3].map((s) => (
-            <div key={s} style={{
-              flex: 1, minWidth: 80, textAlign: "center", padding: "0.5rem",
-              borderRadius: 8, fontWeight: status === s ? "bold" : "normal",
-              background: status === s ? "#2563eb" : status > s ? "#d1fae5" : "#f3f4f6",
-              color: status === s ? "#fff" : status > s ? "#065f46" : "#6b7280",
-              border: `2px solid ${status === s ? "#2563eb" : status > s ? "#10b981" : "#e5e7eb"}`,
-            }}>
+            <div
+              key={s}
+              className={`status-step${status === s ? " status-step--active" : status > s ? " status-step--done" : ""}`}
+            >
               {TRIP_STATUS_LABEL[s]}
             </div>
           ))}
           {status === TRIP_STATUS.POST_EDIT && (
-            <div style={{ flex: 1, minWidth: 80, textAlign: "center", padding: "0.5rem", borderRadius: 8, fontWeight: "bold", background: "#fef3c7", color: "#92400e", border: "2px solid #f59e0b" }}>
+            <div className="status-step status-step--post-edit">
               {TRIP_STATUS_LABEL[4]}
             </div>
           )}
         </div>
 
         {error && <p className="error form-submit-error">{error}</p>}
-        {success && <p style={{ color: "green", marginBottom: "1rem" }}>{success}</p>}
+        {success && <p className="status-success">{success}</p>}
 
         <div className="form-section">
           {/* planned → approved */}
           {status === TRIP_STATUS.PLANNED && canManageTrip() && (
-            <div style={{ marginBottom: "1rem" }}>
+            <div className="status-action-block">
               <h2 className="form-section-title">אישור הטיול</h2>
-              <p className="form-section-hint">אישור הטיול ינעל עריכת פרטים קריטיים ויפיק קוד לחתימת הורים.</p>
-              <button className="trip-form-btn trip-form-btn--primary" onClick={handleApprove} disabled={loading}>
+              <p className="form-section-hint">
+                אישור הטיול ינעל עריכת פרטים קריטיים ויפיק קוד לחתימת הורים.
+              </p>
+              <button
+                className="trip-form-btn trip-form-btn--primary"
+                onClick={handleApprove}
+                disabled={loading}
+              >
                 {loading ? "מבצע..." : "אשר טיול"}
               </button>
             </div>
@@ -124,10 +152,16 @@ export default function TripStatusPage() {
 
           {/* approved → done */}
           {status === TRIP_STATUS.APPROVED && canManageTrip() && (
-            <div style={{ marginBottom: "1rem" }}>
+            <div className="status-action-block">
               <h2 className="form-section-title">סגירת הטיול</h2>
-              <p className="form-section-hint">סמן את הטיול כ'עבר' לאחר שהסתיים.</p>
-              <button className="trip-form-btn trip-form-btn--primary" onClick={handleClose} disabled={loading}>
+              <p className="form-section-hint">
+                סמן את הטיול כ'עבר' לאחר שהסתיים.
+              </p>
+              <button
+                className="trip-form-btn trip-form-btn--primary"
+                onClick={handleClose}
+                disabled={loading}
+              >
                 {loading ? "מבצע..." : "סגור טיול"}
               </button>
             </div>
@@ -135,40 +169,53 @@ export default function TripStatusPage() {
 
           {/* post-edit → done */}
           {status === TRIP_STATUS.POST_EDIT && canSetPostEdit() && (
-            <div style={{ marginBottom: "1rem" }}>
+            <div className="status-action-block">
               <h2 className="form-section-title">סגירת הטיול לאחר תיקון</h2>
-              <p className="form-section-hint">לאחר סיום העריכה — סגור את הטיול סופית.</p>
-              <button className="trip-form-btn trip-form-btn--primary" onClick={handleClose} disabled={loading}>
+              <p className="form-section-hint">
+                לאחר סיום העריכה — סגור את הטיול סופית.
+              </p>
+              <button
+                className="trip-form-btn trip-form-btn--primary"
+                onClick={handleClose}
+                disabled={loading}
+              >
                 {loading ? "מבצע..." : "סגור טיול"}
               </button>
             </div>
           )}
 
           {/* approved/done → post-edit (מנהל בלבד) */}
-          {(status === TRIP_STATUS.APPROVED || status === TRIP_STATUS.DONE) && canSetPostEdit() && (
-            <div style={{ marginTop: "1.5rem", background: "#fffbe6", border: "1px solid #f59e0b", borderRadius: 8, padding: "1rem 1.5rem" }}>
-              <h2 className="form-section-title">פתיחת תיקון בדיעבד</h2>
-              <p className="form-section-hint">פעולה זו תאפשר עריכה מוגבלת. יש לציין סיבה.</p>
-              <form onSubmit={handlePostEdit} style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                <input
-                  value={postEditNote}
-                  onChange={(e) => setPostEditNote(e.target.value)}
-                  placeholder='למשל: "הטיול נדחה לבקשת המנהל ביום X"'
-                  style={{ flex: 1, minWidth: 220, padding: "0.4rem 0.75rem", borderRadius: 6, border: "1px solid #ccc" }}
-                />
-                <button type="submit" className="trip-form-btn trip-form-btn--primary" disabled={loading}>
-                  {loading ? "שומר..." : "פתח לעריכה"}
-                </button>
-              </form>
-            </div>
-          )}
+          {(status === TRIP_STATUS.APPROVED || status === TRIP_STATUS.DONE) &&
+            canSetPostEdit() && (
+              <div className="post-edit-box status-action-block--post-edit">
+                <h2 className="form-section-title">פתיחת תיקון בדיעבד</h2>
+                <p className="form-section-hint">
+                  פעולה זו תאפשר עריכה מוגבלת. יש לציין סיבה.
+                </p>
+                <form onSubmit={handlePostEdit} className="post-edit-form">
+                  <input
+                    value={postEditNote}
+                    onChange={(e) => setPostEditNote(e.target.value)}
+                    placeholder='למשל: "הטיול נדחה לבקשת המנהל ביום X"'
+                    className="post-edit-input"
+                  />
+                  <button
+                    type="submit"
+                    className="trip-form-btn trip-form-btn--primary"
+                    disabled={loading}
+                  >
+                    {loading ? "שומר..." : "פתח לעריכה"}
+                  </button>
+                </form>
+              </div>
+            )}
 
           {status === TRIP_STATUS.DONE && !canSetPostEdit() && (
             <p className="form-section-hint">הטיול הסתיים ונעול לעריכה.</p>
           )}
 
           {trip.post_edit_note && (
-            <div style={{ marginTop: "1rem", background: "#f0fdf4", border: "1px solid #86efac", borderRadius: 8, padding: "0.75rem 1rem" }}>
+            <div className="post-edit-note">
               <strong>הערת תיקון בדיעבד:</strong> {trip.post_edit_note}
             </div>
           )}

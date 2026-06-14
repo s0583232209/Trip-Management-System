@@ -21,12 +21,12 @@ export default function DocCard({
         </span>
         <h3 className="kit-doc-title">{title}</h3>
         {onRemove && (
-          <button type="button" className="stop-remove-btn" style={{ marginRight: "auto" }} onClick={onRemove}>
+          <button type="button" className="stop-remove-btn kit-doc-remove" onClick={onRemove}>
             הסר
           </button>
         )}
       </div>
-      {subtitle && <p className="form-section-hint" style={{ margin: "0.25rem 0 0.5rem" }}>{subtitle}</p>}
+      {subtitle && <p className="form-section-hint kit-doc-subtitle">{subtitle}</p>}
       {uploaded && (
         <div className="kit-doc-uploaded-row">
           <span className="kit-doc-filename">{uploaded.original_name}</span>

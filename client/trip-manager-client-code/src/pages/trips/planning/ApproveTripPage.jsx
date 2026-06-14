@@ -68,7 +68,7 @@ export default function ApproveTripPage() {
 
               {error && <p className="error form-submit-error">{error}</p>}
 
-              <div className="form-actions-row" style={{ marginTop: "2rem" }}>
+              <div className="form-actions-row approve-actions-top">
                 <button
                   type="button"
                   className="trip-form-btn trip-form-btn--ghost"
@@ -89,7 +89,7 @@ export default function ApproveTripPage() {
             </section>
           ) : (
             <section className="form-section">
-              <h2 className="form-section-title" style={{ color: "green" }}>
+              <h2 className="form-section-title approve-section-title--success">
                 ✓ הטיול אושר בהצלחה!
               </h2>
               <p className="form-section-hint">
@@ -97,43 +97,12 @@ export default function ApproveTripPage() {
                 ההורים לטיול זה:
               </p>
 
-              <div
-                className="stop-card"
-                style={{
-                  textAlign: "center",
-                  backgroundColor: "#f4fcf4",
-                  border: "1px solid #c2ecc2",
-                  padding: "1.5rem",
-                  margin: "1.5rem 0",
-                }}
-              >
-                <p style={{ fontWeight: "bold", marginBottom: "0.5rem" }}>
-                  קוד לשיתוף עם ההורים:
-                </p>
-                <code
-                  style={{
-                    display: "block",
-                    wordBreak: "break-all",
-                    background: "#fff",
-                    padding: "0.75rem",
-                    borderRadius: "4px",
-                    border: "1px solid #ddd",
-                    fontSize: "1.1rem",
-                    fontFamily: "monospace",
-                    direction: "ltr",
-                  }}
-                >
-                  {parentToken}
-                </code>
-
+              <div className="token-box">
+                <p className="token-label">קוד לשיתוף עם ההורים:</p>
+                <code className="token-code">{parentToken}</code>
                 <button
                   type="button"
                   className="trip-form-btn trip-form-btn--primary"
-                  style={{
-                    marginTop: "1rem",
-                    width: "auto",
-                    display: "inline-block",
-                  }}
                   onClick={handleCopyToken}
                 >
                   {copied ? "הועתק!" : "העתק קוד ללוח"}

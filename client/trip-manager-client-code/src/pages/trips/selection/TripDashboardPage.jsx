@@ -47,13 +47,10 @@ export default function TripDashboardPage() {
     <>
       <Navbar />
       <main className="page-main">
-        <h1 className="page-title">טיול {tripTitle}</h1>
-        {tripStatus != null && (
-          <p className="form-section-hint">סטטוס: <strong>{TRIP_STATUS_LABEL[tripStatus] || tripStatus}</strong></p>
-        )}
-        <div className="trips-cards">
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/planning`)}>
-            תכנון טיול
+        <div className="page-header">
+          <h1 className="page-title">טיול {tripTitle}</h1>
+          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate("/trips")}>
+            חזרה לבחירת טיול
           </button>
           <button
             className="trip-card"
@@ -64,8 +61,13 @@ export default function TripDashboardPage() {
             יום טיול
           </button>
           {canManageTrip() && (
-            <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/status`)}>
-              ניהול סטטוס
+            <button className="nav-card" onClick={() => navigate(`/trips/${tripId}/status`)}>
+              <span className="nav-card__icon">⚙️</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">ניהול סטטוס</span>
+                <span className="nav-card__desc">אישור, סגירה, עריכה בדיעבד</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           )}
         </div>

@@ -9,11 +9,11 @@ export default function TripSelectionPage() {
   const navigate = useNavigate();
   const [trips, setTrips] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     async function getTrips() {
       const res = await api.get("/api/trips");
       setTrips(res.data);
-    };
+    }
     getTrips();
   }, []);
 
@@ -22,19 +22,33 @@ export default function TripSelectionPage() {
       <Navbar />
       <main className="page-main">
         <h1 className="page-title">בחר טיול</h1>
-        <p>בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.</p>
-        <div className="trips-cards">
+        <p>
+          בחר את הטיול הרלוונטי כדי להמשיך לניווט ולניהול של תכנון ויום הטיול.
+        </p>
+        <div className="nav-cards">
           {trips.map((trip) => (
-            <button key={trip.id} className="trip-card" onClick={() => navigate(`/trips/${trip.id}`)}>
-              {trip.title}
+            <button
+              key={trip.id}
+              className="nav-card"
+              onClick={() => navigate(`/trips/${trip.id}`)}
+            >
+              <span className="nav-card__icon">🗺️</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">{trip.title}</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           ))}
-        </div>
-        <br />
-        <div>
           {canManageTrip() && (
-            <button className="trip-card" onClick={() => navigate(`/trips/new`)}>
-              יצירת טיול חדש
+            <button
+              className="nav-card nav-card--accent"
+              onClick={() => navigate(`/trips/new`)}
+            >
+              <span className="nav-card__icon">➕</span>
+              <span className="nav-card__body">
+                <span className="nav-card__title">יצירת טיול חדש</span>
+              </span>
+              <span className="nav-card__arrow">←</span>
             </button>
           )}
         </div>

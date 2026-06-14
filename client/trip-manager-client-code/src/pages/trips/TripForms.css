@@ -1,56 +1,60 @@
-/* ── Trip Form shared styles ── */
+/* ════════════════════════════════════
+   Shared Trip Form Styles
+   ════════════════════════════════════ */
 
 .trip-form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
   max-width: 720px;
 }
 
-/* ── Sections ── */
+/* ── Section card ── */
 .form-section {
   background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow);
-  padding: 24px 28px 20px;
+  box-shadow: var(--shadow-sm);
+  padding: 24px 26px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
 .form-section-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--sky-dark);
+  color: var(--blue-700);
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 2px solid var(--sky-light);
+  border-bottom: 2px solid var(--blue-100);
 }
 
 .form-section-hint {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 12px;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 /* ── Labels & inputs ── */
 .trip-form label {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-2);
   margin-top: 10px;
+  display: block;
 }
 
 .trip-form input[type="text"],
 .trip-form input[type="date"],
 .trip-form select {
   width: 100%;
-  padding: 10px 12px;
-  border: 1.5px solid var(--border);
+  padding: 9px 12px;
+  border: 1.5px solid var(--border-2);
   border-radius: var(--radius-sm);
-  font-size: 15px;
-  font-family: "Rubik", Arial, sans-serif;
+  font-size: 14px;
+  font-family: 'Rubik', Arial, sans-serif;
   color: var(--text);
   background: var(--surface-2);
   transition: border-color 0.18s, box-shadow 0.18s;
@@ -59,11 +63,12 @@
 .trip-form input:focus,
 .trip-form select:focus {
   outline: none;
-  border-color: var(--sky-mid);
-  box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.15);
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(59,130,196,0.14);
+  background: var(--white);
 }
 
-/* ── Errors ── */
+/* ── Messages ── */
 .error {
   color: var(--red);
   font-size: 13px;
@@ -71,25 +76,26 @@
 }
 
 .form-submit-error {
-  font-size: 15px;
+  font-size: 14px;
   padding: 10px 14px;
-  background: #fef2f2;
+  background: var(--red-light);
   border: 1px solid #fca5a5;
   border-radius: var(--radius-sm);
+  color: var(--red);
 }
 
 .form-submit-success {
-  font-size: 15px;
+  font-size: 14px;
   padding: 10px 14px;
-  background: #f0fdf4;
+  background: var(--green-light);
   border: 1px solid #86efac;
   border-radius: var(--radius-sm);
-  color: #166534;
+  color: var(--green);
   font-weight: 600;
   text-align: center;
 }
 
-/* ── Stops ── */
+/* ── Stop card ── */
 .stop-card {
   background: var(--surface-2);
   border: 1.5px solid var(--border);
@@ -98,7 +104,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .stop-card-header {
@@ -109,9 +115,9 @@
 }
 
 .stop-index {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--sky-dark);
+  color: var(--blue-700);
 }
 
 .stop-remove-btn {
@@ -119,14 +125,14 @@
   border: 1px solid var(--border-2);
   border-radius: var(--radius-sm);
   padding: 4px 10px;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .stop-remove-btn:hover {
-  background: #fef2f2;
+  background: var(--red-light);
   color: var(--red);
   border-color: #fca5a5;
 }
@@ -134,7 +140,7 @@
 .required-badge {
   font-size: 11px;
   font-weight: 700;
-  background: #fef3c7;
+  background: var(--amber-light);
   color: #92400e;
   border-radius: 4px;
   padding: 1px 6px;
@@ -149,59 +155,64 @@
 
 .add-stop-btn {
   width: 100%;
-  padding: 12px;
-  border: 2px dashed var(--sky-mid);
+  padding: 11px;
+  border: 2px dashed var(--blue-300);
   border-radius: var(--radius);
   background: transparent;
-  color: var(--sky-dark);
-  font-size: 15px;
+  color: var(--blue-700);
+  font-size: 14px;
   font-weight: 600;
-  font-family: "Rubik", Arial, sans-serif;
+  font-family: 'Rubik', Arial, sans-serif;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
   margin-top: 4px;
 }
 
 .add-stop-btn:hover {
-  background: var(--sky-light);
-  border-color: var(--sky-dark);
+  background: var(--blue-50);
+  border-color: var(--blue-500);
 }
 
-/* ── Action buttons ── */
+/* ── Action buttons row ── */
 .form-actions-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: flex-end;
   flex-wrap: wrap;
 }
 
+/* ── Button base ── */
 .trip-form-btn {
-  padding: 11px 24px;
+  padding: 10px 22px;
   border-radius: var(--radius);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  font-family: "Rubik", Arial, sans-serif;
+  font-family: 'Rubik', Arial, sans-serif;
   cursor: pointer;
-  transition: background 0.18s, transform 0.12s;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
   border: 2px solid transparent;
+  white-space: nowrap;
 }
 
+/* Primary — blue */
 .trip-form-btn--primary {
-  background: var(--sky-dark);
+  background: var(--blue-700);
   color: #fff;
-  border-color: var(--sky-dark);
+  border-color: var(--blue-700);
 }
 
 .trip-form-btn--primary:hover:not(:disabled) {
-  background: var(--sky-mid);
-  border-color: var(--sky-mid);
+  background: var(--blue-900);
+  border-color: var(--blue-900);
+  transform: translateY(-1px);
 }
 
 .trip-form-btn--primary:disabled {
-  opacity: 0.55;
+  opacity: 0.50;
   cursor: not-allowed;
 }
 
+/* Ghost — outline */
 .trip-form-btn--ghost {
   background: transparent;
   color: var(--text-muted);
@@ -211,25 +222,33 @@
 .trip-form-btn--ghost:hover {
   background: var(--surface-2);
   color: var(--text);
+  border-color: var(--gray-300);
 }
 
+/* Danger — red */
 .trip-form-btn--danger {
-  background: #fff;
-  color: #dc2626;
-  border-color: #dc2626;
+  background: var(--white);
+  color: var(--red);
+  border-color: var(--red);
   padding: 6px 14px;
   font-size: 13px;
 }
 
-.trip-form-btn--danger:hover {
-  background: #dc2626;
+.trip-form-btn--danger:hover:not(:disabled) {
+  background: var(--red);
   color: #fff;
 }
 
+.trip-form-btn--danger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Approve — green */
 .trip-form-btn--approve {
-  background: #16a34a;
+  background: var(--green);
   color: #fff;
-  border-color: #16a34a;
+  border-color: var(--green);
 }
 
 .trip-form-btn--approve:hover:not(:disabled) {
@@ -238,15 +257,15 @@
 }
 
 .trip-form-btn--approve:disabled {
-  opacity: 0.5;
+  opacity: 0.50;
   cursor: not-allowed;
 }
 
-/* ── Approve page ── */
+/* ── Approve detail grid ── */
 .approve-detail-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .approve-detail-row {
@@ -257,28 +276,26 @@
   border-bottom: 1px solid var(--border);
 }
 
-.approve-detail-row:last-child {
-  border-bottom: none;
-}
+.approve-detail-row:last-child { border-bottom: none; }
 
 .approve-detail-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-muted);
   min-width: 110px;
 }
 
 .approve-detail-value {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-2);
 }
 
-/* Stop summary */
+/* ── Stop summary ── */
 .stop-summary-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin: 0;
   padding: 0;
 }
@@ -297,54 +314,37 @@
 .stop-summary-index {
   font-weight: 700;
   color: var(--text-muted);
-  font-size: 13px;
-  min-width: 24px;
+  font-size: 12px;
+  min-width: 22px;
 }
 
 .stop-summary-name {
   font-weight: 600;
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   flex: 1;
 }
 
 .stop-badge {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   padding: 2px 10px;
   border-radius: var(--radius-full);
 }
 
-.stop-badge--attraction {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.stop-badge--trail {
-  background: var(--sky-light);
-  color: var(--sky-dark);
-}
-
-.stop-badge--garden {
-  background: #dcfce7;
-  color: #166534;
-}
+.stop-badge--attraction { background: var(--amber-light); color: #92400e; }
+.stop-badge--trail      { background: var(--blue-100); color: var(--blue-700); }
+.stop-badge--garden     { background: #dcfce7; color: #166534; }
 
 .stop-summary-detail {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
-.approval-detail {
-  color: #16a34a;
-  font-weight: 600;
-}
+.approval-detail  { color: var(--green); font-weight: 600; }
+.no-stops         { color: var(--text-muted); font-size: 13px; }
 
-.no-stops {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
+/* ── Approve warning ── */
 .approve-warning {
   display: flex;
   align-items: center;
@@ -352,21 +352,21 @@
   gap: 8px;
   margin-top: 14px;
   padding: 12px 16px;
-  background: #fef3c7;
+  background: var(--amber-light);
   border: 1px solid #fcd34d;
   border-radius: var(--radius-sm);
-  font-size: 14px;
+  font-size: 13px;
   color: #92400e;
   font-weight: 600;
 }
 
 .approve-confirm-section {
-  background: #f0fdf4;
+  background: var(--green-light);
   border: 1px solid #bbf7d0;
 }
 
 .approve-confirm-text {
-  font-size: 14px;
+  font-size: 13px;
   color: #166534;
   line-height: 1.6;
   margin-bottom: 12px;
@@ -380,37 +380,392 @@
   gap: 16px;
   padding: 48px 24px;
   text-align: center;
-  max-width: 480px;
+  max-width: 420px;
   margin: 0 auto;
 }
 
 .approve-success-icon {
-  width: 72px;
-  height: 72px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
-  background: #16a34a;
+  background: var(--green);
   color: #fff;
-  font-size: 36px;
+  font-size: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.25);
+  box-shadow: 0 8px 24px rgba(22,163,74,0.22);
 }
 
-.approve-success-title {
-  color: #16a34a;
+.approve-success-title { color: var(--green); }
+
+/* ── Staff contact card ── */
+.contact-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s;
 }
 
+.contact-card:hover { box-shadow: var(--shadow); }
+
+.contact-card--leader {
+  background: var(--blue-50);
+  border-color: var(--blue-300);
+}
+
+.contact-card-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.contact-card-leader-badge {
+  background: var(--blue-700);
+  color: #fff;
+  font-size: 11px;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.contact-card-role {
+  color: var(--blue-500);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.contact-card-class {
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.contact-card-link {
+  color: var(--text-2);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.contact-card-link:hover { color: var(--blue-700); }
+
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.contact-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+
+/* ── Status step bar ── */
+.status-step-bar {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.status-step {
+  flex: 1;
+  min-width: 72px;
+  text-align: center;
+  padding: 8px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.status-step--active {
+  background: var(--blue-700);
+  color: #fff;
+  border-color: var(--blue-700);
+  font-weight: 700;
+}
+
+.status-step--done {
+  background: var(--green-light);
+  color: var(--green);
+  border-color: #86efac;
+}
+
+.status-step--post-edit {
+  background: var(--amber-light);
+  color: #92400e;
+  border-color: #fcd34d;
+  font-weight: 700;
+}
+
+/* ── Post-edit box ── */
+.post-edit-box {
+  margin-top: 16px;
+  background: var(--amber-light);
+  border: 1px solid #fcd34d;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.post-edit-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.post-edit-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-2);
+  font-size: 14px;
+  font-family: 'Rubik', Arial, sans-serif;
+  background: var(--white);
+}
+
+.post-edit-input:focus {
+  outline: none;
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(59,130,196,0.12);
+}
+
+.post-edit-note {
+  margin-top: 12px;
+  background: var(--green-light);
+  border: 1px solid #86efac;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #166534;
+}
+
+/* ── Responsive ── */
 @media (max-width: 600px) {
-  .form-section {
-    padding: 16px 14px 14px;
-  }
+  .form-section { padding: 16px 14px 14px; }
+  .form-actions-row { flex-direction: column; }
+  .trip-form-btn { width: 100%; }
+  .contact-cards-grid { grid-template-columns: 1fr; }
+  .status-step-bar { gap: 5px; }
+  .status-step { font-size: 12px; padding: 6px 4px; }
+}
 
-  .form-actions-row {
-    flex-direction: column;
-  }
+/* ── Token / code display box ── */
+.token-box {
+  text-align: center;
+  background: var(--green-light);
+  border: 1px solid #86efac;
+  padding: 24px;
+  margin: 20px 0;
+  border-radius: var(--radius);
+}
 
-  .trip-form-btn {
-    width: 100%;
-  }
+.token-code {
+  display: block;
+  word-break: break-all;
+  background: var(--white);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-2);
+  font-size: 15px;
+  font-family: monospace;
+  direction: ltr;
+  margin-top: 8px;
+  color: var(--text);
+}
+
+.success-title { color: var(--green); }
+
+/* ── StaffContactsView ── */
+.staff-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem 0;
+}
+
+.staff-section { margin-bottom: 2rem; }
+
+.staff-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+  color: var(--text);
+}
+
+.staff-section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.contact-card-name-text { font-weight: 700; font-size: 15px; color: var(--text); }
+.contact-card-role-text { color: var(--blue-500); font-size: 13px; font-weight: 600; }
+.contact-card-class-text { color: var(--text-2); font-size: 13px; }
+.contact-card-phone { color: var(--text-2); font-size: 14px; text-decoration: none; }
+.contact-card-phone:hover { color: var(--blue-700); }
+.contact-card-email { color: var(--text-2); font-size: 14px; text-decoration: none; }
+.contact-card-email:hover { color: var(--blue-700); }
+.contact-card-delete { align-self: flex-start; margin-top: 6px; }
+
+/* ── ManageTripStaffPage ── */
+.staff-page-main { max-width: 900px; }
+.staff-page-title { text-align: center; margin-bottom: 2rem; }
+.staff-add-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0 1rem; }
+.staff-add-section { margin-bottom: 2rem; }
+.staff-back-row { display: flex; justify-content: center; margin-top: 2rem; }
+
+/* ── TripContactsPage ── */
+.contacts-page-main { max-width: 900px; }
+.contacts-page-title { text-align: center; margin-bottom: 2rem; }
+.contacts-back-row { display: flex; justify-content: center; margin-top: 2rem; }
+
+/* ── TripStatusPage ── */
+.status-loading-text { text-align: center; padding: 2rem; }
+.status-success { color: var(--green); margin-bottom: 1rem; }
+.status-action-block { margin-bottom: 1rem; }
+.status-action-block--post-edit { margin-top: 1.5rem; }
+
+/* ── TripDayPage ── */
+.trip-card--disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── ApproveTripPage ── */
+.approve-actions-top { margin-top: 2rem; }
+.approve-section-title--success { color: var(--green); }
+.token-label { font-weight: 700; margin-bottom: 6px; }
+
+/* ── AddTripTeachers ── */
+.teacher-assignment-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.teacher-assignment-row select { flex: 1; min-width: 140px; }
+
+/* ── AddExternalStaff ── */
+.external-staff-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.external-staff-role { margin-top: 8px; }
+.external-staff-role select { width: 100%; }
+
+.form-success {
+  color: var(--green);
+  font-weight: 700;
+  text-align: right;
+  margin-top: 1rem;
+}
+
+/* ── Navbar banner buttons ── */
+.banner-btn--nav-view {
+  background: var(--white);
+  color: #c62828;
+  border: 1.5px solid #c62828;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Rubik', Arial, sans-serif;
+  font-size: 13px;
+}
+
+.banner-btn--nav-close {
+  background: transparent;
+  color: #b71c1c;
+  border: 1.5px solid rgba(183,28,28,0.4);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.banner-btn--nav-close:hover { opacity: 1; }
+
+/* ── Page back row (bottom of page) ── */
+.page-back-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Status banners (locked / approved) ── */
+.status-banner {
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.status-banner--locked {
+  background: var(--red-light);
+  border: 1px solid #fca5a5;
+  color: var(--red);
+}
+
+/* ── Class checkbox tags (trip form) ── */
+.class-checkbox-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--radius-full);
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.class-checkbox-tag input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--blue-700);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.class-checkbox-tag--selected {
+  background: var(--blue-50);
+  border-color: var(--blue-500);
+  color: var(--blue-700);
+  font-weight: 600;
+}
+
+.classes-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
 }

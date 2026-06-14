@@ -75,9 +75,9 @@ export default function CreateTripPage() {
     <section className="form-section">
       <h2 className="form-section-title">כיתות משתתפות בטיול</h2>
       <p className="form-section-hint">סמן את הכיתות המשתתפות בטיול זה.</p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+      <div className="classes-tags">
         {schoolClasses.map((c) => (
-          <label key={c.id} style={{ display: "flex", alignItems: "center", gap: "0.35rem", cursor: "pointer", padding: "0.4rem 0.75rem", border: `1px solid ${selectedClassIds.includes(c.id) ? "#3b82f6" : "#d0d5dd"}`, borderRadius: 6, background: selectedClassIds.includes(c.id) ? "#eff6ff" : "#fff", fontSize: "0.9rem" }}>
+          <label key={c.id} className={`class-checkbox-tag${selectedClassIds.includes(c.id) ? " class-checkbox-tag--selected" : ""}`}>
             <input type="checkbox" checked={selectedClassIds.includes(c.id)} onChange={() => toggleClass(c.id)} />
             {c.class_name}
           </label>

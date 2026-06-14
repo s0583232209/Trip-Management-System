@@ -157,7 +157,16 @@ export default function TripForm({
       <>
         <Navbar />
         <main className="page-main">
-          <h1 className="page-title">{pageTitle}</h1>
+          <div className="kit-page-header">
+            <h1 className="page-title">{pageTitle}</h1>
+            <button
+              type="button"
+              className="trip-form-btn trip-form-btn--ghost"
+              onClick={onCancel}
+            >
+              חזרה לתכנון הטיול
+            </button>
+          </div>
           {extraSection}
           <section className="form-section">
             <h2 className="form-section-title">פרטי הטיול</h2>
@@ -169,9 +178,9 @@ export default function TripForm({
             {stops.length === 0 ? (
               <p>אין עצירות מוגדרות לטיול זה.</p>
             ) : (
-              <ul style={{ listStyle: "none", padding: 0 }}>
+              <ul className="stop-summary-list">
                 {stops.map((stop, i) => (
-                  <li key={i} className="stop-card" style={{ marginBottom: "1rem" }}>
+                  <li key={i} className="stop-card">
                     <p><strong>עצירה {i + 1}:</strong> {stop.name}</p>
                     <p><strong>סוג:</strong> {stop.type}</p>
                     {stop.trailCondition && <p><strong>מצב מסלול:</strong> {stop.trailCondition}</p>}
@@ -182,6 +191,15 @@ export default function TripForm({
               </ul>
             )}
           </section>
+          <div className="page-back-row">
+            <button
+              type="button"
+              className="trip-form-btn trip-form-btn--ghost"
+              onClick={onCancel}
+            >
+              חזרה לתכנון הטיול
+            </button>
+          </div>
         </main>
       </>
     );

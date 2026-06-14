@@ -1,10 +1,13 @@
+/* ── Page header ── */
 .emergency-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
   border-bottom: 2px solid #ffcdd2;
-  padding-bottom: 1rem;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .emergency-title {
@@ -12,235 +15,277 @@
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .alert-icon {
-  animation: pulse 1.5s infinite;
+  animation: alert-pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes alert-pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1);   opacity: 1; }
 }
 
+/* ── Two-column layout ── */
 .emergency-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 24px;
 }
 
-@media (min-width: 900px) {
-  .emergency-content {
-    grid-template-columns: 1fr 1fr;
-  }
+@media (min-width: 860px) {
+  .emergency-content { grid-template-columns: 1fr 1fr; }
 }
 
+/* ── Form section ── */
 .emergency-form-section {
   background: #fffafa;
   border: 1px solid #ffcdd2;
-  border-right: 5px solid #d32f2f;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border-right: 4px solid #c62828;
 }
 
-.emergency-history-section {
-  padding: 1.5rem;
-}
+.emergency-history-section { padding: 0; }
 
-.emergency-select, .emergency-textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-family: inherit;
-}
-
+/* ── Select & textarea ── */
+.emergency-select,
 .emergency-textarea {
-  resize: vertical;
-}
-
-.trip-form-btn--danger {
-  background-color: #d32f2f;
-  color: white;
   width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  font-family: 'Rubik', Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.18s, box-shadow 0.18s;
 }
 
-.trip-form-btn--danger:hover:not(:disabled) {
-  background-color: #b71c1c;
-  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+.emergency-select:focus,
+.emergency-textarea:focus {
+  outline: none;
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(59,130,196,0.12);
 }
 
-.trip-form-btn--danger:disabled {
-  background-color: #ffcdd2;
+.emergency-textarea { resize: vertical; min-height: 90px; }
+
+/* ── Report button override (full-width danger) ── */
+.emergency-form-section .trip-form-btn--danger {
+  background: #c62828;
+  color: #fff;
+  border-color: #c62828;
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+}
+
+.emergency-form-section .trip-form-btn--danger:hover:not(:disabled) {
+  background: #b71c1c;
+  border-color: #b71c1c;
+  box-shadow: 0 4px 12px rgba(183,28,28,0.25);
+}
+
+.emergency-form-section .trip-form-btn--danger:disabled {
+  background: #ffcdd2;
+  border-color: #ffcdd2;
   cursor: not-allowed;
 }
 
+/* ── Emergencies list ── */
 .emergencies-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 12px;
 }
 
+/* ── Emergency card ── */
 .emergency-card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  border: 1px solid #eee;
-  border-right: 5px solid #ccc;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  border-right: 4px solid var(--border-2);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 6px;
 }
 
-.card-open {
-  border-right-color: #d32f2f;
-  background-color: #fffbfc;
-}
-
-.card-closed {
-  border-right-color: #4caf50;
-  opacity: 0.8;
-}
+.card-open  { border-right-color: #c62828; }
+.card-closed { border-right-color: var(--green); opacity: 0.82; }
 
 .card-critical.card-open {
   border-right-color: #b71c1c;
-  background-color: #fff5f5;
-  box-shadow: 0 2px 8px rgba(183,28,28,0.15);
+  background: #fff5f5;
+  box-shadow: 0 2px 8px rgba(183,28,28,0.12);
 }
 
 .card-minor.card-open {
   border-right-color: #f57f17;
-  background-color: #fffde7;
+  background: #fffde7;
 }
 
+/* ── Badges ── */
 .emergency-type-badge {
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  background: #f5f5f5;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  background: var(--surface-2);
 }
 
-.card-critical .emergency-type-badge {
-  color: #b71c1c;
-  background: #ffebee;
-}
-
-.card-minor .emergency-type-badge {
-  color: #e65100;
-  background: #fff3e0;
-}
+.card-critical .emergency-type-badge { color: #b71c1c; background: #ffebee; }
+.card-minor    .emergency-type-badge { color: #e65100; background: #fff3e0; }
 
 .emergency-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .emergency-status-badge {
-  font-weight: bold;
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  background: #f5f5f5;
-  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  background: var(--surface-2);
+  font-size: 12px;
 }
 
-.card-open .emergency-status-badge {
-  color: #d32f2f;
-  background: #ffebee;
-}
-
-.card-closed .emergency-status-badge {
-  color: #2e7d32;
-  background: #e8f5e9;
-}
+.card-open   .emergency-status-badge { color: #c62828; background: #ffebee; }
+.card-closed .emergency-status-badge { color: #2e7d32; background: #e8f5e9; }
 
 .emergency-meta {
   display: flex;
-  gap: 1rem;
+  gap: 12px;
   flex-wrap: wrap;
-  font-size: 0.82rem;
-  color: #666;
+  font-size: 12px;
+  color: var(--text-muted);
   margin: 0;
 }
 
-.emergency-closed-meta {
-  color: #2e7d32;
-}
+.emergency-closed-meta { color: #2e7d32; }
 
 .emergency-desc {
-  font-size: 1.05rem;
+  font-size: 15px;
   font-weight: 500;
   margin: 0;
-  color: #333;
+  color: var(--text);
 }
 
 .emergency-location {
-  font-size: 0.9rem;
-  color: #0288d1;
+  font-size: 13px;
+  color: #0277bd;
   margin: 0;
   direction: ltr;
   text-align: right;
 }
 
+.emergency-location a { color: #0277bd; }
+
 .btn-close-emergency {
-  margin-top: 0.5rem;
+  margin-top: 6px;
   align-self: flex-start;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
+  font-size: 13px;
+  padding: 6px 14px;
 }
 
 .no-emergencies {
   text-align: center;
-  color: #666;
-  background: #f9f9f9;
-  padding: 2rem;
-  border-radius: 8px;
-  border: 1px dashed #ddd;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1.5px dashed var(--border-2);
+  font-size: 14px;
 }
 
+/* ── Alarm banner ── */
 .alarm-banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #d32f2f;
+  background: #c62828;
   color: #fff;
-  padding: 0.9rem 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  animation: flash 0.6s infinite alternate;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  animation: alarm-flash 0.6s infinite alternate;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .alarm-stop-btn {
   background: #fff;
-  color: #d32f2f;
-  font-weight: bold;
+  color: #c62828;
+  font-weight: 700;
   border: none;
-  padding: 0.4rem 1.1rem;
-  border-radius: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
-@keyframes flash {
-  from { background: #d32f2f; }
+@keyframes alarm-flash {
+  from { background: #c62828; }
   to   { background: #b71c1c; }
+}
+
+/* ── Critical Emergency page ── */
+.critical-page { max-width: 860px; }
+
+.critical-alert-box {
+  background: #fff5f5;
+  border: 1px solid #ffcdd2;
+  border-right: 5px solid #c62828;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.critical-alert-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #c62828;
+  margin-bottom: 12px;
+}
+
+.critical-steps-list {
+  padding-right: 20px;
+  line-height: 2.1;
+  color: var(--text-2);
+  font-size: 15px;
+}
+
+.critical-video-section { margin-top: 0; }
+
+.critical-video {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: #000;
+  display: block;
+}
+
+.critical-back-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.critical-back-btn {
+  padding: 12px 48px;
+  font-size: 15px;
 }

@@ -89,17 +89,9 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
             {externalStaff.map((staff, i) => (
               <div
                 key={i}
-                className="stop-card" // Using stop-card layout styles to encase individual employee entries cleanly
-                style={{
-                  padding: "1.25rem",
-                  marginBottom: "1.5rem",
-                  borderRadius: "8px",
-                }}
+                className="stop-card"
               >
-                <div
-                  className="stop-card-header"
-                  style={{ marginBottom: "1rem" }}
-                >
+                <div className="stop-card-header">
                   <span className="stop-index">איש צוות {i + 1}</span>
                   {externalStaff.length > 1 && (
                     <button
@@ -112,14 +104,7 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
                   )}
                 </div>
 
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "1rem",
-                    marginBottom: "0.5rem",
-                  }}
-                >
+                <div className="external-staff-fields">
                   <div>
                     <label>שם מלא *</label>
                     <input
@@ -147,17 +132,12 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
                   </div>
                 </div>
 
-                <div style={{ marginTop: "0.5rem" }}>
+                <div className="external-staff-role">
                   <label>תפקיד / הגדרת שירות</label>
                   <select
                     value={staff.role}
                     onChange={(e) => updateField(i, "role", e.target.value)}
                     disabled={loading}
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      borderRadius: "8px",
-                    }}
                   >
                     <option value="1">מאבטח חמוש</option>
                     <option value="2">חובש מלווה</option>
@@ -180,18 +160,7 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
           </section>
 
           {error && <p className="error form-submit-error">{error}</p>}
-          {success && (
-            <p
-              style={{
-                color: "green",
-                fontWeight: "bold",
-                textAlign: "right",
-                marginTop: "1rem",
-              }}
-            >
-              {success}
-            </p>
-          )}
+          {success && <p className="form-success">{success}</p>}
 
           <div className="form-actions-row">
             <button

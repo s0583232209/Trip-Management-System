@@ -266,7 +266,6 @@ export default function EmergencyPage() {
                           href={`https://maps.google.com/?q=${em.location_lat},${em.location_lng}`}
                           target="_blank"
                           rel="noreferrer"
-                          style={{ color: "#0288d1" }}
                         >
                           {Number(em.location_lat).toFixed(5)}, {Number(em.location_lng).toFixed(5)}
                         </a>

@@ -1,23 +1,32 @@
 form:has(#schoolName) button {
-  background-color: var(--earth-mid);
+  background: var(--brown-500);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Rubik', Arial, sans-serif;
+  cursor: pointer;
+  transition: background 0.18s;
 }
 
 form:has(#schoolName) button:hover {
-  background-color: var(--earth-dark);
+  background: var(--brown-700);
 }
 
 form:has(#schoolName) .error {
-  color: #d92d20;
-  font-size: 0.85rem;
+  color: var(--red);
+  font-size: 13px;
   font-weight: 500;
-  margin: 0.35rem 0 0 0;
+  margin: 4px 0 0;
   text-align: right;
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 
 form:has(#schoolName) .error::before {
   content: "⚠️";
-  margin-left: 4px;
-  font-size: 0.9rem;
+  font-size: 13px;
 }

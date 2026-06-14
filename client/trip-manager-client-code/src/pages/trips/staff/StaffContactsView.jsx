@@ -95,6 +95,7 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
     }
   }
 
+  const grouped = {};
   ROLE_ORDER.forEach((r) => (grouped[r] = []));
 
   (staff.employees ?? []).forEach((emp) => {

@@ -36,14 +36,16 @@ export const canViewTrip = () =>
 
 export function canUpdateRoute(tripStatus, tripDate, tripLeaderId) {
   if (tripStatus === TRIP_STATUS.DONE) return false;
-  if (tripStatus === TRIP_STATUS.APPROVED) return false;
   if (tripStatus === TRIP_STATUS.POST_EDIT) return isRole("principal");
-  if (isRole("principal", "coordinator")) return true;
+
   const user = getUser();
-  if (Number(user.userId) === Number(tripLeaderId)) {
-    return toDateOnlyString(tripDate) === getTodayInIsrael();
-  }
-  return false;
+  const isTripLeaderToday =
+    Number(user.userId) === Number(tripLeaderId) &&
+    toDateOnlyString(tripDate) === getTodayInIsrael();
+
+  if (tripStatus === TRIP_STATUS.APPROVED) return isTripLeaderToday;
+  if (isRole("principal", "coordinator")) return true;
+  return isTripLeaderToday;
 }
 
 export const canSetPostEdit = () => isRole("principal");

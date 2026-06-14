@@ -79,7 +79,6 @@ export default function TripPlanningPage() {
               <span className="nav-card__arrow">←</span>
             </button>
           )}
-<<<<<<< HEAD
           {canManageTrip() && (
             <button
               className="trip-card"
@@ -93,15 +92,6 @@ export default function TripPlanningPage() {
             onClick={() => navigate(`/trips/useful-links`)}
           >
             קישורים שימושיים
-=======
-          <button className="nav-card" onClick={() => navigate(`/trips/useful-links`)}>
-            <span className="nav-card__icon">🔗</span>
-            <span className="nav-card__body">
-              <span className="nav-card__title">קישורים שימושיים</span>
-              <span className="nav-card__desc">משאבי מידע רלוונטיים</span>
-            </span>
-            <span className="nav-card__arrow">←</span>
->>>>>>> 7f692f0fc8e2367cb4cbec9dd33cc87c8dde5072
           </button>
           {canViewTripDetails() && (
             <button className="nav-card" onClick={() => navigate(`/trips/${tripId}/route`)}>

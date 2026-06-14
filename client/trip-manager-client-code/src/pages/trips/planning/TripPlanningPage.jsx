@@ -53,7 +53,7 @@ export default function TripPlanningPage() {
       <main className="page-main">
         <div className="page-header">
           <h1 className="page-title">תכנון טיול — טיול {tripTitle}</h1>
-          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}`)}נצג>
+          <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate(`/trips/${tripId}`)}>
             חזרה לטיול
           </button>
         </div>

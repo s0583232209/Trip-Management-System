@@ -11,7 +11,6 @@ import TripSelectionPage from "./pages/trips/selection/TripSelectionPage.jsx";
 import TripDashboardPage from "./pages/trips/selection/TripDashboardPage.jsx";
 import TripPlanningPage from "./pages/trips/planning/TripPlanningPage.jsx";
 import TripDayPage from "./pages/trips/day/TripDayPage.jsx";
-// import TripSectionPage from "./pages/trips/selection/TripSectionPage.jsx";
 import EmergencyPage from "./pages/trips/emergency/EmergencyPage.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import AddEmployeePage from "./pages/employees/AddEmployeePage.jsx";
@@ -40,21 +39,16 @@ function AppInner() {
       <BrowserRouter>
         <EmergencySocketProvider>
           <Routes>
-            {/* אימות */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Navigate to="/register/1" />} />
             <Route path="/register/:step" element={<Register />} />
 
-            {/* דשבורד */}
             <Route path="/" element={<DashboardPage />} />
 
-            {/* פרופיל */}
             <Route path="/profile" element={<ProfilePage />} />
 
-            {/* ניהול משתמשים — מנהל בלבד */}
             <Route path="/add-employee" element={<AddEmployeePage />} />
 
-            {/* רשימת טיולים */}
             <Route path="/trips/useful-links" element={<UsefulLinks />} />
             <Route
               path="/trips/example-kit"
@@ -63,10 +57,8 @@ function AppInner() {
             <Route path="/trips" element={<TripSelectionPage />} />
             <Route path="/trips/new" element={<CreateTripPage />} />
 
-            {/* דשבורד טיול */}
             <Route path="/trips/:tripId" element={<TripDashboardPage />} />
 
-            {/* תכנון טיול */}
             <Route
               path="/trips/:tripId/planning"
               element={<TripPlanningPage />}
@@ -83,7 +75,6 @@ function AppInner() {
             />
             <Route path="/trips/:tripId/status" element={<TripStatusPage />} />
 
-            {/* יום טיול */}
             <Route path="/trips/:tripId/day" element={<TripDayPage />} />
             <Route
               path="/trips/:tripId/emergencies"
@@ -98,7 +89,6 @@ function AppInner() {
               element={<TripContactsPage />}
             />
 
-            {/* שגיאות */}
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/not-found" replace />} />

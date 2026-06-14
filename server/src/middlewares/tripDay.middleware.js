@@ -1,18 +1,12 @@
-// tripDay.middleware.js
-// מאמת שהמשתמש הוא אחראי הטיול הספציפי (trips.trip_leader_id) והיום הוא יום הטיול
 import getConnection from "../config/db.js";
 import log from "../loggers/file.logger.js";
 import { getTodayInIsrael } from "../utils/date.util.js";
 
 export default async function requireTripDay(req, res, next) {
-  console.log("requireTripDay - src/middlewares/tripDay.middleware.js");
   try {
     const userId = req.user.userId;
     const tripId = req.params.id || req.params.tripId;
-
     const connection = await getConnection(true);
-
-    // בדיקה שהמשתמש הוא אחראי הטיול הספציפי (trip_leader_id) וזה יום הטיול
     const [trips] = await connection.execute(
       `SELECT trip_date, trip_leader_id FROM trips WHERE id = ?`,
       [tripId]
@@ -37,7 +31,6 @@ export default async function requireTripDay(req, res, next) {
       log.warn(`requireTripDay: trip date ${tripDate} is not today ${today}`);
       return res.status(403).json({ message: "ניתן לבצע פעולה זו רק ביום הטיול" });
     }
-
     next();
   } catch (err) {
     log.error(`requireTripDay error: ${err.message}`);

@@ -36,10 +36,7 @@ export default function TripDashboardPage() {
       });
   }, [tripId, navigate]);
 
-  // מורה/אחראי שאינו אחראי הטיול הספציפי — רק צפייה
   const isStaffOnly = isRole("trip leader", "teacher") && !canManageTrip() && !isTripLeader;
-
-  // כפתור "יום טיול" פתוח רק ביום הטיול עצמו; מנהל/רכז פטורים ויכולים להיכנס בכל זמן
   const isTripDayToday = toDateOnlyString(tripDate) === getTodayInIsrael();
   const canAccessTripDay = canManageTrip() || isTripDayToday;
 
@@ -51,6 +48,12 @@ export default function TripDashboardPage() {
           <h1 className="page-title">טיול {tripTitle}</h1>
           <button className="trip-form-btn trip-form-btn--ghost" onClick={() => navigate("/trips")}>
             חזרה לבחירת טיול
+          </button>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/planning`)}
+          >
+            תכנון טיול
           </button>
           <button
             className="trip-card"

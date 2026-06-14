@@ -48,7 +48,6 @@ export default function UpdateTripPage() {
   const [classesError, setClassesError] = useState("");
 
   const user = useSelector((state) => state.auth.user) || {};
-  // טעינת הנתונים הישנים של הטיול והשמתם כברירת מחדל בטופס
   useEffect(() => {
     if (!tripId) return;
     async function fetchTrip() {
@@ -67,13 +66,10 @@ export default function UpdateTripPage() {
         setFormData({
           title: trip.title || "",
           tripDate: toDateOnlyString(trip.trip_date),
-          // ה-select של אחראי הטיול מציג options עם value=u.user_id (DB id),
-          // לכן הברירת מחדל חייבת להיות trip_leader_id ולא national_id, אחרת לא יימצא match
           tripLeaderNationalId: trip.trip_leader_id ?? "",
           tripLeaderName: trip.tripLeaderFullName || "",
         });
 
-        // חילוץ העצירות הקיימות מהמידע הגיאוגרפי/מסלול הישן
         setStops(parseStops(trip.route_geojson || trip.routeGeoJson));
 
         const [classesRes, schoolClassesRes] = await Promise.all([
@@ -158,7 +154,6 @@ export default function UpdateTripPage() {
   }
 
   const writeAccess = canUpdateRoute(tripStatus, formData.tripDate, formData.tripLeaderNationalId);
-  // עריכת שם/תאריך/אחראי — מנהל ורכז בלבד; עריכת עצירות — גם אחראי הטיול ביום הטיול
   const canEditMeta = canManageTrip();
 
   async function handleSetPostEdit(e) {

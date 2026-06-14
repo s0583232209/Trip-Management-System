@@ -24,7 +24,6 @@ export default function ApproveTripPage() {
 
     try {
       const response = await api.put(`/api/trips/${tripId}/approve`);
-      // על פי ה-service, התשובה מחזירה { parentToken, ...approvedTrip }
       if (response.data && response.data.parentToken) {
         setParentToken(response.data.parentToken);
       } else {

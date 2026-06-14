@@ -33,8 +33,6 @@ export default function TripDayPage() {
 
     socket.emit("join-trip", tripId);
 
-    // שומרים רפרנס לפונקציות ה-handler כדי שה-cleanup יסיר רק את המאזינים
-    // שנרשמו כאן, ולא ימחק מאזינים שרשמו קומפוננטות אחרות (socket הוא singleton משותף)
     function handleEmergencyAlert(data) {
       setAlert(data.emergency);
     }

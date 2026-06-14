@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import log from "../loggers/file.logger.js";
 
 export async function tokenHandler(user, access) {
-  console.log("tokenHandler - src/controllers/auth.helpers.js");
   const secretKey = access
     ? process.env.JWT_SECRET
     : process.env.JWT_REFRESH_SECRET;
@@ -16,7 +15,6 @@ export async function tokenHandler(user, access) {
 }
 
 export async function handleResponse(res, body, status, token, refreshToken) {
-  console.log("handleResponse - src/controllers/auth.helpers.js");
   res.cookie("accessToken", token, {
     httpOnly: true,
     secure: false,

@@ -2,7 +2,6 @@ import getConnection from "../config/db.js";
 import log from "../loggers/file.logger.js";
 
 export async function addToken(hashedToken, userId) {
-  console.log("addToken - src/repositories/auth.repository.js");
   try {
     log.info(`addToken called for userId: ${userId}`);
     const connection = await getConnection();

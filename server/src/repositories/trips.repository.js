@@ -1,9 +1,7 @@
-//this is the DAL
 import dblog from "../loggers/database.logger.js";
 import log from "../loggers/file.logger.js";
 import getConnection from "../config/db.js";
 export async function getTripDate(tripId) {
-  console.log("getTripDate - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT trip_date, trip_leader_id FROM trips WHERE id = ?`,
@@ -12,9 +10,7 @@ export async function getTripDate(tripId) {
   return rows[0] || null;
 }
 
-// בודק אם המשתמש הוא מורה המשובץ לטיול הספציפי (staff_trip + role 'teacher')
 export async function isTripTeacherStaff(tripId, userId) {
-  console.log("isTripTeacherStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT 1 FROM staff_trip st
@@ -25,7 +21,6 @@ export async function isTripTeacherStaff(tripId, userId) {
   return rows.length > 0;
 }
 export async function getAll(userId) {
-  console.log("getAll - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const res = await connection.execute(
     `SELECT DISTINCT trips.id, trips.title, trips.trip_date, trips.trip_status
@@ -43,7 +38,6 @@ export async function getAll(userId) {
   return res[0];
 }
 export async function getById(tripId, userId) {
-  console.log("getById - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const res = await connection.execute(
     `SELECT t.*, u2.national_id AS tripLeaderNationalId, u2.full_name AS tripLeaderFullName
@@ -63,7 +57,6 @@ export async function getById(tripId, userId) {
   return res[0][0];
 }
 export async function addTrip(tripDetails, staffIdsArray = []) {
-  console.log("addTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
@@ -89,8 +82,6 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       newValues: JSON.stringify({ id: newTripId, ...tripDetails }),
     });
 
-    // 3. בניית מערך של כל אנשי הצוות שצריכים להשתבץ לטיול (אחראי הטיול + מנהל + רכז)
-    // נשתמש ב-Set כדי למנוע כפילויות במקרה שאחראי הטיול הוא גם הרכז
     let coordinatorAndPrincipal = await connection.execute(
       ` SELECT id
      FROM users
@@ -98,9 +89,7 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       ON ur.user_id=users.id WHERE users.school_id= ? AND( ur.role_name="principal" or ur.role_name="coordinator"); `,
       [tripDetails.schoolId],
     );
-    // console.log(coordinatorAndPrincipal[0]);
     coordinatorAndPrincipal = coordinatorAndPrincipal[0].map((item) => item.id);
-    // console.log(coordinatorAndPrincipal);
     const allStaffToInsert = new Set([
       tripLeaderDbId,
       ...staffIdsArray,
@@ -108,8 +97,6 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
     ]);
     const finalStaffIds = Array.from(allStaffToInsert);
 
-    // 4. הכנסה מרוכזת (Bulk Insert) לטבלת staff_trip
-    // אחראי הטיול משובץ גם לכיתה שנבחרה עבורו (אם נבחרה)
     await addStaff(
       newTripId,
       finalStaffIds.map((staffId) => ({
@@ -121,8 +108,6 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       })),
     );
 
-    // 5. קישור הכיתות שנוצרו עבור הטיול לטבלת trip_classes,
-    // לצורך בדיקת כיסוי כיתות (כל כיתה משובצת = יש לה לפחות מורה אחד) לפני אישור הטיול
     const classIds = tripDetails.classIds || [];
     if (classIds.length > 0) {
       const placeholders = classIds.map(() => "(?, ?)").join(", ");
@@ -136,7 +121,6 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
       );
     }
 
-    // console.log(rows, "end of add trip in service");
     await connection.commit();
     return rows;
   } catch (err) {
@@ -145,12 +129,9 @@ export async function addTrip(tripDetails, staffIdsArray = []) {
   }
 }
 export async function updateTrip(updateDetails) {
-  console.log("updateTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
-
-    // updateDetails.tripLeaderId כבר נפתר (resolved) ל-DB id ע"י trips.service.js
     const [rows] = await connection.execute(
       `UPDATE trips SET trip_leader_id=?, title=?, trip_date=?, route_geojson=? WHERE id=?`,
       [
@@ -162,8 +143,6 @@ export async function updateTrip(updateDetails) {
       ],
     );
 
-    // אם אחראי הטיול השתנה - מסיר את האחראי הישן מ-staff_trip (אם אין לו כיתה משובצת)
-    // ומוסיף את האחראי החדש
     const [currentTrip] = await connection.execute(
       `SELECT trip_leader_id FROM trips WHERE id = ?`,
       [updateDetails.tripId],
@@ -171,7 +150,6 @@ export async function updateTrip(updateDetails) {
     const oldLeaderId = currentTrip[0]?.trip_leader_id;
 
     if (oldLeaderId && oldLeaderId !== updateDetails.tripLeaderId) {
-      // אם יש לו כיתה - נשאר כמורה רגיל, אחרת מוסר לגמרי מהטיול
       const [oldLeaderRow] = await connection.execute(
         `SELECT class_id FROM staff_trip WHERE trip_id = ? AND staff_id = ? LIMIT 1`,
         [updateDetails.tripId, oldLeaderId],
@@ -182,7 +160,6 @@ export async function updateTrip(updateDetails) {
           [updateDetails.tripId, oldLeaderId],
         );
       }
-      // אם יש לו class_id - לא עושים כלום, הוא נשאר כמורה רגיל
     }
 
     const [existingStaff] = await connection.execute(
@@ -197,7 +174,6 @@ export async function updateTrip(updateDetails) {
     }
 
     await connection.commit();
-    // console.log(rows, "rows from update trip repo");
     return rows;
   } catch (err) {
     await connection.rollback();
@@ -205,16 +181,13 @@ export async function updateTrip(updateDetails) {
   }
 }
 export async function deleteTrip(tripId) {
-  console.log("deleteTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const response = await connection.execute(`DELETE FROM trips WHERE id=?`, [
     tripId,
   ]);
   return response;
 }
-// מאתר כיתות שמשובצות לטיול (trip_classes) אך אין להן אף איש צוות ב-staff_trip
 export async function getUncoveredClasses(tripId) {
-  console.log("getUncoveredClasses - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT c.id, c.class_name, c.grade
@@ -230,7 +203,6 @@ export async function getUncoveredClasses(tripId) {
   return rows;
 }
 export async function approveTrip(tripId, parentToken) {
-  console.log("approveTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   try {
     await connection.beginTransaction();
@@ -246,12 +218,8 @@ export async function approveTrip(tripId, parentToken) {
   }
 }
 export async function addStaff(tripsId, staffAssignments = []) {
-  console.log("addStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const newTripId = tripsId;
-  // console.log(newTripId);
-  // console.log(staffAssignments);
-
   if (staffAssignments.length > 0) {
     const placeholders = staffAssignments.map(() => "(?, ?, ?)").join(", ");
     const sql = `INSERT IGNORE INTO staff_trip (staff_id, trip_id, class_id) VALUES ${placeholders}`;
@@ -269,7 +237,6 @@ export async function addStaff(tripsId, staffAssignments = []) {
   }
 }
 export async function deleteStaff(tripId, staffId) {
-  console.log("deleteStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const response = await connection.execute(
     `DELETE FROM staff_trip WHERE trip_id = ? AND staff_id = ?`,
@@ -278,7 +245,6 @@ export async function deleteStaff(tripId, staffId) {
   return response;
 }
 export async function getAllStaff(tripId) {
-  console.log("getAllStaff - src/repositories/trips.repository.js");
   try {
     const connection = await getConnection();
     const [employees] = await connection.execute(
@@ -309,22 +275,10 @@ export async function getAllStaff(tripId) {
   }
 }
 export async function addExternalStaff(tripId, staffDetails) {
-  console.log("addExternalStaff - src/repositories/trips.repository.js");
-  console.log("in add staff, details=", staffDetails.externalStaff[0]);
   staffDetails = staffDetails.externalStaff[0];
-  console.log(staffDetails);
-
   const connection = await getConnection();
   try {
-    // const roles = {
-    //   guard: 1,
-    //   medic: 2,
-    //   paramedic: 3,
-    //   firstAidProvider:4,
-    //   guide:5
-    // };
-    console.log(staffDetails.role, "role from frontend");
-    // console.log(roles[staffDetails.role], "role", staffDetails);
+   
     await connection.beginTransaction();
     const [result] = await connection.execute(
       `INSERT INTO external_employees (name,external_role,phone) VALUES ( ?, ?, ?)`,
@@ -334,7 +288,6 @@ export async function addExternalStaff(tripId, staffDetails) {
         staffDetails.phoneNumber,
       ],
     );
-    console.log(result.insertId, "id from add external staff");
     await dblog({
       actionType: "create_external_employee",
       tableName: "external_employees",
@@ -353,13 +306,12 @@ export async function addExternalStaff(tripId, staffDetails) {
     });
     await connection.commit();
   } catch (err) {
-    console.log(err);
+    (err);
     await connection.rollback();
     throw err;
   }
 }
 export async function deleteExternalStaff(tripId, staffId) {
-  console.log("deleteExternalStaff - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const response = await connection.execute(
     `DELETE FROM external_staff_trip WHERE trip_id = ? AND staff_id = ?`,
@@ -368,7 +320,6 @@ export async function deleteExternalStaff(tripId, staffId) {
   return response;
 }
 export async function closeTrip(tripId) {
-  console.log("closeTrip - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [trip_status] = await connection.execute(
     `SELECT trip_status FROM trips WHERE id=?`,
@@ -397,7 +348,7 @@ export async function closeTrip(tripId) {
 }
 
 export async function setPostEdit(tripId, note) {
-  console.log("setPostEdit - src/repositories/trips.repository.js");
+  ("setPostEdit - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `UPDATE trips SET trip_status=4, post_edit_note=? WHERE id=?`,
@@ -445,7 +396,6 @@ export async function setTripClasses(tripId, classIds) {
 }
 
 export async function getRouteGeoJson(tripId) {
-  console.log("getRouteGeoJson - src/repositories/trips.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT route_geojson FROM trips WHERE id = ?`,

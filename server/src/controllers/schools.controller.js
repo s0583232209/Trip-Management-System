@@ -1,9 +1,7 @@
-//this is API layer
 import * as schoolsService from "../services/schools.service.js";
 import log from "../loggers/file.logger.js";
 
 export async function getSchool(req, res, next) {
-  console.log("getMySchool - src/controllers/schools.controller.js");
   try {
     const school = await schoolsService.getSchoolForUser(req.user.userId);
     res.status(200).json(school);
@@ -16,7 +14,6 @@ export async function getSchool(req, res, next) {
 }
 
 export async function updateSchool(req, res, next) {
-  console.log("updateMySchool - src/controllers/schools.controller.js");
   try {
     const school = await schoolsService.updateSchoolForUser(
       req.user.userId,

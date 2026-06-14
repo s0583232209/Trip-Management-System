@@ -32,7 +32,6 @@ export default function EmergencySocketProvider({ children }) {
 
     joinTodayTrip();
 
-    // rejoin אחרי disconnect/reconnect
     function handleReconnect() {
       if (tripIdRef.current) socket.emit("join-trip", tripIdRef.current);
     }
@@ -55,7 +54,6 @@ export default function EmergencySocketProvider({ children }) {
     };
   }, [user]);
 
-  // מנקה התראה כשנכנסים לעמוד החירום של הטיול
   useEffect(() => {
     if (tripIdRef.current && location.pathname === `/trips/${tripIdRef.current}/emergencies`) {
       dispatch(clearEmergencyAlert());

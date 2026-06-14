@@ -4,7 +4,6 @@ import * as classesRepo from "../repositories/classes.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
 
 export async function getAllClasses(userId) {
-  console.log("getAllClasses - src/services/classes.service.js");
   try {
     const { school_id } = await usersRepo.getById(userId);
     const classes = await classesRepo.getAllClasses(school_id);
@@ -17,7 +16,6 @@ export async function getAllClasses(userId) {
 }
 
 export async function addClass(userId, details) {
-  console.log("addClass - src/services/classes.service.js");
   try {
     const { school_id } = await usersRepo.getById(userId);
     const newClass = await classesRepo.addClass({
@@ -34,7 +32,6 @@ export async function addClass(userId, details) {
 }
 
 export async function updateClass(userId, classId, details) {
-  console.log("updateClass - src/services/classes.service.js");
   try {
     const { school_id } = await usersRepo.getById(userId);
     const updated = await classesRepo.updateClass({
@@ -52,7 +49,6 @@ export async function updateClass(userId, classId, details) {
 }
 
 export async function deleteClass(userId, classId) {
-  console.log("deleteClass - src/services/classes.service.js");
   try {
     const { school_id } = await usersRepo.getById(userId);
     const deleted = await classesRepo.deleteClass(classId, school_id);

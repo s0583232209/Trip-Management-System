@@ -1,18 +1,13 @@
-//this is API layer
 import log from "../loggers/file.logger.js";
 import * as tripsService from "../services/trips.service.js";
 import { createParentToken } from "../services/auth.service.js";
 import fs from "fs/promises";
 import path from "path";
 
-// תיקיית הקבצים הפיזית שבה מאוחסנים קובצי התבניות/העזר לעמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול"
 function getExampleKitTemplatesDir() {
   return path.join(process.env.UPLOAD_FOLDER, "trips", "templates");
 }
 
-// תבניות PDF ריקות לדוגמה עבור עמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול".
-// כל אובייקט תואם למבנה שורת קובץ אמיתית מטבלת trip_files, כך שניתן
-// להציג אותו ישירות בממשק תיק הטיול (לפי file_code 1-11).
 const EXAMPLE_KIT_TEMPLATES = [
   {
     id: -1,
@@ -146,10 +141,8 @@ const EXAMPLE_KIT_TEMPLATES = [
 ];
 
 export async function getAllTrips(req, res, next) {
-  console.log("getAllTrips - src/controllers/trips.controller.js");
   try {
     const trips = await tripsService.getAllTrips(req.user.userId);
-    // console.log("trips controller after getting all trips = ", trips);
     res.status(200).json(trips);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -160,11 +153,9 @@ export async function getAllTrips(req, res, next) {
 }
 
 export async function getById(req, res, next) {
-  console.log("getById - src/controllers/trips.controller.js");
   try {
     const trip = await tripsService.getById(req.params.id, req.user.userId);
     log.info(`the trip with id ${req.params.id} returned successfully`);
-    // console.log(trip, "this is ther trip");
     res.status(200).json(trip);
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -175,7 +166,6 @@ export async function getById(req, res, next) {
 }
 
 export async function createTrip(req, res, next) {
-  console.log("createTrip - src/controllers/trips.controller.js");
   try {
     const newTrip = await tripsService.addTrip(req.body);
     log.info(`new trip added successfully`);
@@ -187,7 +177,6 @@ export async function createTrip(req, res, next) {
   }
 }
 export async function updateTrip(req, res, next) {
-  console.log("updateTrip - src/controllers/trips.controller.js");
   try {
     log.info(`updateTrip body: ${JSON.stringify(req.body)}`);
     const updatedTrip = await tripsService.updateTrip({
@@ -203,7 +192,6 @@ export async function updateTrip(req, res, next) {
   }
 }
 export async function deleteTrip(req, res, next) {
-  console.log("deleteTrip - src/controllers/trips.controller.js");
   try {
     const response = await tripsService.deleteTrip(req.params.id);
     log.info(`trip with id: ${req.params.id} deleted successfully`);
@@ -215,10 +203,8 @@ export async function deleteTrip(req, res, next) {
   }
 }
 export async function approveTrip(req, res, next) {
-  console.log("approveTrip - src/controllers/trips.controller.js");
   try {
     const trip = await tripsService.approveTrip(req.params.id);
-    // console.log(trip);
     log.info(`trip with id: ${req.params.id} approved successfully`);
     res.status(201).json(trip);
   } catch (err) {
@@ -227,7 +213,6 @@ export async function approveTrip(req, res, next) {
   }
 }
 export async function addStaff(req, res, next) {
-  console.log("addStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.addStaff(req.params.id, req.body.staffAssignments);
     log.info(`staff added to trip: ${req.params.id}`);
@@ -239,7 +224,6 @@ export async function addStaff(req, res, next) {
   }
 }
 export async function getAllStaff(req, res, next) {
-  console.log("getAllStaff - src/controllers/trips.controller.js");
   try {
     const staff = await tripsService.getAllStaff(req.params.id);
     res.status(201).json(staff);
@@ -250,7 +234,6 @@ export async function getAllStaff(req, res, next) {
   }
 }
 export async function deleteStaff(req, res, next) {
-  console.log("deleteStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.deleteStaff(req.params.id, req.params.userId);
     log.info(`staff ${req.params.userId} removed from trip: ${req.params.id}`);
@@ -262,7 +245,6 @@ export async function deleteStaff(req, res, next) {
   }
 }
 export async function addExternalStaff(req, res, next) {
-  console.log("addExternalStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.addExternalStaff(req.params.id, req.body);
     res.status(201).json({ message: "External staff added successfully" });
@@ -273,7 +255,6 @@ export async function addExternalStaff(req, res, next) {
   }
 }
 export async function deleteExternalStaff(req, res, next) {
-  console.log("deleteExternalStaff - src/controllers/trips.controller.js");
   try {
     await tripsService.deleteExternalStaff(req.params.id, req.params.staffId);
     log.info(
@@ -287,7 +268,6 @@ export async function deleteExternalStaff(req, res, next) {
   }
 }
 export async function closeTrip(req, res, next) {
-  console.log("closeTrip - src/controllers/trips.controller.js");
   try {
     await tripsService.closeTrip(req.params.id);
     res.status(200).json({ message: "trip closed successfully" });
@@ -297,7 +277,6 @@ export async function closeTrip(req, res, next) {
 }
 
 export async function setPostEdit(req, res, next) {
-  console.log("setPostEdit - src/controllers/trips.controller.js");
   try {
     await tripsService.setPostEdit(req.params.id, req.body.note);
     res.status(200).json({ message: "הטיול נפתח לעריכה בדיעבד" });
@@ -306,9 +285,7 @@ export async function setPostEdit(req, res, next) {
   }
 }
 
-// תבניות ריקות לדוגמה לעמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול" — נתון סטטי, ללא פנייה למסד הנתונים
 export async function getExampleKitTemplates(req, res, next) {
-  console.log("getExampleKitTemplates - src/controllers/trips.controller.js");
   try {
     res.status(200).json(EXAMPLE_KIT_TEMPLATES);
   } catch (err) {
@@ -318,11 +295,8 @@ export async function getExampleKitTemplates(req, res, next) {
   }
 }
 
-// GET /example-kit/templates/files — מחזיר את רשימת כל הקבצים שקיימים בפועל בתיקיית התבניות לדוגמה
 export async function getExampleKitTemplateFiles(req, res, next) {
-  console.log(
-    "getExampleKitTemplateFiles - src/controllers/trips.controller.js",
-  );
+ 
   try {
     const dir = getExampleKitTemplatesDir();
 
@@ -349,13 +323,9 @@ export async function getExampleKitTemplateFiles(req, res, next) {
   }
 }
 
-// GET /example-kit/templates/files/:fileName — מוריד קובץ בודד מתיקיית התבניות לדוגמה
 export async function downloadExampleKitTemplateFile(req, res, next) {
-  console.log(
-    "downloadExampleKitTemplateFile - src/controllers/trips.controller.js",
-  );
+ 
   try {
-    // path.basename מסיר כל מרכיב נתיב (כולל ../) כדי למנוע Path Traversal
     const safeFileName = path.basename(req.params.fileName);
     const filePath = path.join(getExampleKitTemplatesDir(), safeFileName);
 

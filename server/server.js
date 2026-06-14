@@ -20,13 +20,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || "localhost";
 
-// יוצרים httpServer שעוטף את Express
 const httpServer = createServer(app);
 
-// socket.io יושב על אותו httpServer — לא שרת נפרד
 initSocket(httpServer);
 
-// מייצאים את io כדי שה-controller יוכל להשתמש בו
 export { io } from "./src/config/socket.js";
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
@@ -34,7 +31,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/api", verifyToken);
 app.use("/api", logger);
-// app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/classes", classesRouter);

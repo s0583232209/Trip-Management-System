@@ -1,12 +1,8 @@
-//this is the DAL
-// dal/schools.dal.js
-
 import getConnection from "../config/db.js";
 import log from "../loggers/file.logger.js";
 import dblog from "../loggers/database.logger.js";
 
 export async function getById(id) {
-  console.log("getById - src/repositories/schools.repository.js");
   try {
     log.info(`getById schools called with id: ${id}`);
     const connection = await getConnection();
@@ -24,7 +20,6 @@ export async function getById(id) {
 }
 
 export async function updateSchool(id, body, userId) {
-  console.log("updateSchool - src/repositories/schools.repository.js");
   const fields = [];
   const values = [];
 

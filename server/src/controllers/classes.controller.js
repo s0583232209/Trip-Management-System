@@ -1,9 +1,7 @@
-//this is API layer
 import log from "../loggers/file.logger.js";
 import * as classesService from "../services/classes.service.js";
 
 export async function getAllClasses(req, res, next) {
-  console.log("getAllClasses - src/controllers/classes.controller.js");
   try {
     const classes = await classesService.getAllClasses(req.user.userId);
     res.status(200).json(classes);
@@ -16,7 +14,6 @@ export async function getAllClasses(req, res, next) {
 }
 
 export async function addClass(req, res, next) {
-  console.log("addClass - src/controllers/classes.controller.js");
   try {
     if (!req.body.className || !req.body.grade) {
       const error = new Error("className and grade are required");
@@ -35,7 +32,6 @@ export async function addClass(req, res, next) {
 }
 
 export async function updateClass(req, res) {
-  console.log("updateClass - src/controllers/classes.controller.js");
   try {
     if (!req.body.className || !req.body.grade) {
       return res
@@ -59,7 +55,6 @@ export async function updateClass(req, res) {
 }
 
 export async function deleteClass(req, res) {
-  console.log("deleteClass - src/controllers/classes.controller.js");
   try {
     const deleted = await classesService.deleteClass(
       req.user.userId,

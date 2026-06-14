@@ -1,6 +1,5 @@
 import getConnection from "../config/db.js";
 export default async function loggerRepo(log) {
-  console.log("loggerRepo - src/repositories/logger.repository.js");
   const connection = await getConnection(true);
   await connection.execute(
     `INSERT INTO audit_log (user_id,action_type,message,table_name,old_values,new_values)VALUES(?,?,?,?,?,?)`,
@@ -13,15 +12,4 @@ export default async function loggerRepo(log) {
       log.newValues ?? null,
     ],
   );
-  // console.log('end of logger repo')
 }
-// id INT AUTO_INCREMENT PRIMARY KEY,
-// user_id INT NULL,
-// action_type VARCHAR(100) NOT NULL,
-// table_name VARCHAR(100),
-// record_id INT,
-// old_values LONGTEXT,
-// new_values LONGTEXT,
-// -- ip_address VARCHAR(45),
-// action_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-// FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL

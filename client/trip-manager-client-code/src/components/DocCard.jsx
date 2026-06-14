@@ -1,7 +1,5 @@
 import UploadTripFile from "../pages/trips/documents/UploadTripFile.jsx";
 
-// כרטיס מסמך בודד בתיק הטיול: כותרת, תג מספר/אייקון, סטטוס העלאה וטופס העלאה/החלפה/מחיקה.
-// משמש גם עבור מסמכי חובה, גם עבור אישורי אטרקציות וגם עבור קבצים נוספים.
 export default function DocCard({
   badge,
   title,

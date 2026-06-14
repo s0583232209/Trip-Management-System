@@ -1,7 +1,6 @@
 import { userHasRole } from "../services/auth.service.js";
 import log from "../loggers/file.logger.js";
 export default function requireRole(...allowedRoles) {
-  console.log("requireRole - src/middlewares/roleGuard.middleware.js");
   return async (req, res, next) => {
     try {
       log.info("in require role middleware");

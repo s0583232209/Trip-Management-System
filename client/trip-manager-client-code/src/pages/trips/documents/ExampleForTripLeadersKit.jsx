@@ -7,11 +7,8 @@ import "../TripsPage.css";
 import "../TripForms.css";
 import "./TripLeadersKit.css";
 
-// מזהה הטיול הווירטואלי המשמש את עמוד הדוגמה — אינו מתאים לטיול אמיתי בבסיס הנתונים
 const EXAMPLE_TRIP_ID = "example-kit";
 
-// רשימת המסמכים הקבועים שחובה להעלות לכל טיול, לפי קוד מסמך (file_code),
-// בתוספת הסבר קצר על תוכן המסמך הנדרש — לצורך עמוד הדוגמה והמדריך
 const REQUIRED_DOCS = [
   {
     fileCode: 1,
@@ -73,16 +70,15 @@ const REQUIRED_DOCS = [
 export default function ExampleForTripLeadersKit() {
   const navigate = useNavigate();
 
-  const [templates, setTemplates] = useState([]); // תבניות ה-PDF הריקות שהתקבלו מהשרת
-  const [fetching, setFetching] = useState(true); // האם הרשימה עדיין נטענת
-  const [fetchError, setFetchError] = useState(""); // הודעת שגיאה אם הטעינה נכשלה
-  const [openError, setOpenError] = useState(""); // הודעת שגיאה אם הורדת קובץ נכשלה
+  const [templates, setTemplates] = useState([]); 
+  const [fetching, setFetching] = useState(true); 
+  const [fetchError, setFetchError] = useState(""); 
+  const [openError, setOpenError] = useState(""); 
 
-  const [allFiles, setAllFiles] = useState([]); // כל הקבצים הקיימים בפועל בתיקיית התבניות
-  const [fetchingFiles, setFetchingFiles] = useState(true); // האם רשימת כל הקבצים עדיין נטענת
-  const [filesError, setFilesError] = useState(""); // הודעת שגיאה אם טעינת רשימת הקבצים נכשלה
+  const [allFiles, setAllFiles] = useState([]); 
+  const [fetchingFiles, setFetchingFiles] = useState(true);
+  const [filesError, setFilesError] = useState(""); 
 
-  // שולף מהשרת את רשימת תבניות ה-PDF הריקות לדוגמה. נמנע מקריאה אם אין הרשאת ניהול טיולים
   async function fetchTemplates() {
     if (!canManageTrip()) return;
 
@@ -98,7 +94,6 @@ export default function ExampleForTripLeadersKit() {
     }
   }
 
-  // שולף מהשרת את רשימת כל הקבצים הקיימים בפועל בתיקיית התבניות לדוגמה. נמנע מקריאה אם אין הרשאת ניהול טיולים
   async function fetchAllFiles() {
     if (!canManageTrip()) return;
 
@@ -121,13 +116,11 @@ export default function ExampleForTripLeadersKit() {
     fetchAllFiles();
   }, []);
 
-  // ממפה כל קוד מסמך (file_code) לתבנית התואמת לו
   const templatesByCode = {};
   templates.forEach((t) => {
     if (t.file_code) templatesByCode[t.file_code] = t;
   });
 
-  // מוריד קובץ מתיקיית התבניות לדוגמה לפי שם הקובץ בדיסק. אם הקובץ עדיין לא קיים — מציג הודעה מתאימה ולא קורס
   async function handleDownloadFile(fileName) {
     setOpenError("");
     try {
@@ -150,7 +143,6 @@ export default function ExampleForTripLeadersKit() {
     }
   }
 
-  // הגנת הרשאות: עמוד הדוגמה פתוח רק למנהל/ת או רכז/ת טיולים, בכל בתי הספר
   if (!canManageTrip()) {
     return <Navigate to="/unauthorized" replace />;
   }
@@ -163,7 +155,6 @@ export default function ExampleForTripLeadersKit() {
     <>
       <Navbar />
       <main className="page-main">
-        {/* ─── בנר דוגמה ומדריך ─── */}
         <div
           className="form-section"
           style={{
@@ -184,7 +175,6 @@ export default function ExampleForTripLeadersKit() {
           </p>
         </div>
 
-        {/* ─── כותרת עמוד ─── */}
         <div className="kit-page-header">
           <div>
             <h2 className="page-title" style={{ marginBottom: 4 }}>
@@ -213,7 +203,6 @@ export default function ExampleForTripLeadersKit() {
           </p>
         )}
 
-        {/* ─── פס התקדמות ─── */}
         <div className="kit-progress-bar-wrap">
           <div
             className="kit-progress-bar-fill"
@@ -221,7 +210,6 @@ export default function ExampleForTripLeadersKit() {
           />
         </div>
 
-        {/* ─── מסמכי חובה — דוגמה ─── */}
         <section className="form-section" style={{ marginTop: "1.5rem" }}>
           <h2 className="form-section-title">מסמכי חובה — תיק הטיול (דוגמה)</h2>
           <p className="form-section-hint">
@@ -286,7 +274,6 @@ export default function ExampleForTripLeadersKit() {
           </div>
         </section>
 
-        {/* ─── כל הקבצים בתיקיית התבניות ─── */}
         <section className="form-section">
           <h2 className="form-section-title">
            כל הקבצים בתיקיית התבניות לדוגמה - מתוך אוגדן טיולים מלא, קבצים מפוצלים

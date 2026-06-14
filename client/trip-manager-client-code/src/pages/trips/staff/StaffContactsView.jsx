@@ -95,14 +95,11 @@ export default function StaffContactsView({ onRefresh, readOnly = false }) {
     }
   }
 
-  // Group by role — coordinator is excluded (not present on trip day)
-  const grouped = {};
   ROLE_ORDER.forEach((r) => (grouped[r] = []));
 
   (staff.employees ?? []).forEach((emp) => {
     const empRoles = (emp.roles ?? "").split(", ");
     const primaryRole = ROLE_ORDER.find((r) => empRoles.includes(r)) ?? "teacher";
-    // אחראי הטיול הספציפי — מסומן לפי is_trip_leader מהשרת
     const effectiveRole = emp.is_trip_leader ? "trip leader" : primaryRole;
     grouped[effectiveRole].push({ ...emp, displayRoles: empRoles.map((r) => ROLE_LABELS[r] ?? r).join(", ") });
   });

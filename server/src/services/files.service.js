@@ -1,22 +1,13 @@
-// שכבת השירות (BL - Business Logic) של קבצי טיול.
-// כאן נמצאת ההחלטה "מה לעשות" עם הקובץ (לשמור/להחליף/למחוק),
-// בעוד ש-files.repository.js רק מבצע את שאילתות ה-SQL בפועל.
 import * as filesRepository from "../repositories/files.repository.js";
 import path from "path";
 import fs from "fs/promises";
 
-// פונקציית עזר משותפת: מוחקת קובץ פיזי מהדיסק לפי הנתיב היחסי השמור ב-DB.
-// משותפת בין uploadFile (כשמחליפים מסמך קיים) ל-deleteFile (מחיקה רגילה),
-// כדי לא לשכפל את החישוב של הנתיב המלא ואת קריאת fs.unlink בשני מקומות.
 async function deletePhysicalFile(relativePath) {
-  console.log("deletePhysicalFile - src/services/files.service.js");
   const fullPath = path.join(process.env.UPLOAD_FOLDER, relativePath);
   await fs.unlink(fullPath);
 }
 
-// מחזיר את כל קבצי "תיק הטיול" (המסמכים עם file_code) עבור טיול מסוים
 export async function getKit(tripId) {
-  console.log("getKit - src/services/files.service.js");
   try {
     const kit = await filesRepository.getKit(tripId);
     return kit;
@@ -25,13 +16,8 @@ export async function getKit(tripId) {
   }
 }
 
-// שומר קובץ שהועלה: אם זהו מסמך תיק-טיול (יש fileCode) שכבר קיים לאותו טיול,
-// מחליפים אותו (מעדכנים את אותה שורה ומוחקים את הקובץ הישן מהדיסק).
-// אחרת — יוצרים שורה חדשה כרגיל.
 export async function uploadFile(data) {
-  console.log("uploadFile - src/services/files.service.js");
   try {
-    // הנתיב היחסי שבו ייקרא הקובץ בדיסק (תחת תיקיית ה-uploads)
     const relativePath = path.join(
       "trips",
       data.tripId.toString(),
@@ -39,7 +25,6 @@ export async function uploadFile(data) {
       data.file.filename,
     );
 
-    // אובייקט אחיד עם כל המטא-דאטה של הקובץ, שיועבר ל-repository
     const fileToSave = {
       tripId: data.tripId,
       uploaderId: data.user.userId,
@@ -54,7 +39,6 @@ export async function uploadFile(data) {
 
     let id;
 
-    // אם יש fileCode — בודקים אם כבר קיים מסמך עם אותו קוד באותו טיול
     const existingFile = fileToSave.fileCode
       ? await filesRepository.getByTripAndFileCode(
           data.tripId,
@@ -63,11 +47,9 @@ export async function uploadFile(data) {
       : null;
 
     if (existingFile) {
-      // מחליפים מסמך קיים בתיק הטיול: מעדכנים את הרשומה הקיימת ומוחקים את הקובץ הישן מהדיסק
       await deletePhysicalFile(existingFile.relative_path).catch(() => {});
       id = await filesRepository.updateFile(existingFile.id, fileToSave);
     } else {
-      // אין מסמך קיים (או שזה קובץ ללא fileCode) — יוצרים שורה חדשה
       id = await filesRepository.upload(fileToSave);
     }
 
@@ -80,17 +62,12 @@ export async function uploadFile(data) {
     ;
   }
 }
-
-// מחזיר את רשימת כל הקבצים ששייכים לטיול (לתצוגת "כל הקבצים שהועלו")
 export async function getAllFiles(tripId) {
-  console.log("getAllFiles - src/services/files.service.js");
   const files = await filesRepository.getAllByTripId(tripId);
   return files;
 }
 
-// מחזיר את הנתיב המלא בדיסק וסוג ה-MIME של קובץ, לצורך הורדה/פתיחה בדפדפן
 export async function getFile(id) {
-  console.log("getFile - src/services/files.service.js");
   const file = await filesRepository.getById(id);
   if (!file) {
     throw new Error("File not found");
@@ -103,9 +80,7 @@ export async function getFile(id) {
   };
 }
 
-// מוחק קובץ לגמרי: גם את הקובץ הפיזי מהדיסק וגם את השורה בטבלת trip_files
 export async function deleteFile(fileId) {
-  console.log("deleteFile - src/services/files.service.js");
   const file = await filesRepository.getById(fileId);
   if (!file) {
     throw new Error("File not found");

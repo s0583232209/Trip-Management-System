@@ -13,6 +13,7 @@ export default function TripSelectionPage() {
     async function getTrips() {
       const res = await api.get("/api/trips");
       setTrips(res.data);
+      
     }
     getTrips();
   }, []);

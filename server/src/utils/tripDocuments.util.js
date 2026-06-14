@@ -1,5 +1,3 @@
-// רשימת המסמכים הקבועים שחובה להעלות לכל טיול, לפי קוד מסמך (file_code)
-// תואמת ל-REQUIRED_DOCS ב-client/src/pages/trips/documents/TripsLeadersKit.jsx
 export const REQUIRED_TRIP_DOCS = [
   { fileCode: 1, title: "מינוי אחראי טיול" },
   { fileCode: 2, title: "אישור יציאה לטיול ממנהל מוסד" },
@@ -14,9 +12,6 @@ export const REQUIRED_TRIP_DOCS = [
   { fileCode: 11, title: "טופס תיאום טיולים מאושר" },
 ];
 
-// מחלץ מתוך route_geojson את עצירות האטרקציה ומחזיר עבורן את רשימת
-// המסמכים הנדרשים (אישור רשמי לכל אטרקציה), עם file_code = 200 + אינדקס,
-// תואם למיפוי ב-TripsLeadersKit.jsx
 export function getAttractionDocs(routeGeoJson) {
   if (!routeGeoJson) return [];
   try {

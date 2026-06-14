@@ -1,17 +1,12 @@
-// DAL (Data Access Layer) — כל הגישה הישירה לטבלת trip_files נמצאת כאן.
-// כל פונקציה כאן מקבלת חיבור לדאטאבייס, מריצה שאילתת SQL אחת, ומחזירה תוצאה "גולמית".
 import getConnection from "../config/db.js";
 import dblog from "../loggers/database.logger.js";
 
-// פונקציית עזר משותפת: רושמת ל-audit_log (טבלת ביקורת) כל הוספה/עדכון של קובץ.
-// משותפת בין upload() ל-updateFile() כדי לא לשכפל את אותו אובייקט לוג פעמיים.
 async function logFileAudit(actionType, id, file) {
-  console.log("logFileAudit - src/repositories/files.repository.js");
   const actionLabel = actionType === "upload_file" ? "uploaded" : "updated";
   await dblog({
-    userId: file.uploaderId, // מי ביצע את הפעולה
-    actionType, // "upload_file" או "update_file"
-    tableName: "trip_files", // הטבלה שהשתנתה
+    userId: file.uploaderId, 
+    actionType,
+    tableName: "trip_files", 
     message: `file ${actionLabel} with id ${id} for trip ${file.tripId}`,
     newValues: JSON.stringify({
       id,
@@ -25,9 +20,7 @@ async function logFileAudit(actionType, id, file) {
   });
 }
 
-// מוסיף שורת קובץ חדשה לטבלת trip_files ומחזיר את ה-id החדש שנוצר
 export async function upload(file) {
-  console.log("upload - src/repositories/files.repository.js");
   const sql = `
         INSERT IGNORE INTO trip_files (
             trip_id,
@@ -43,7 +36,6 @@ export async function upload(file) {
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  // הסדר כאן חייב להתאים בדיוק לסדר העמודות ברשימת ה-INSERT למעלה
   const params = [
     file.tripId,
     file.uploaderId,
@@ -61,19 +53,14 @@ export async function upload(file) {
   let result;
   try {
     [result] = await connection.execute(sql, params);
-    // לאחר הוספה מוצלחת — מתעדים את הפעולה בטבלת audit_log
     await logFileAudit("upload_file", result.insertId, file);
   } catch (err) {
-    console.log(err);
     throw err;
   }
   return result.insertId;
 }
 
-// מחפש שורה קיימת בתיק הטיול לפי trip_id + file_code (קוד מסמך)
-// משמש כדי לדעת אם מסמך מסוים כבר הועלה לפני, לצורך החלפה במקום שכפול
 export async function getByTripAndFileCode(tripId, fileCode) {
-  console.log("getByTripAndFileCode - src/repositories/files.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT * FROM trip_files WHERE trip_id = ? AND file_code = ?`,
@@ -82,10 +69,7 @@ export async function getByTripAndFileCode(tripId, fileCode) {
   return rows[0] || null;
 }
 
-// מעדכן שורת קובץ קיימת (לפי id) עם פרטי הקובץ החדש — משמש להחלפת מסמך קיים בתיק הטיול
-// כך נשארת שורה אחת בלבד לכל שילוב trip_id+file_code, במקום ליצור שורה כפולה
 export async function updateFile(id, file) {
-  console.log("updateFile - src/repositories/files.repository.js");
   const connection = await getConnection();
   const sql = `
         UPDATE trip_files SET
@@ -110,14 +94,11 @@ export async function updateFile(id, file) {
     id,
   ];
   await connection.execute(sql, params);
-  // לאחר עדכון מוצלח — מתעדים את הפעולה בטבלת audit_log
   await logFileAudit("update_file", id, file);
   return id;
 }
 
-// מחזיר את כל הקבצים ששייכים לטיול מסוים (לא רק קבצי תיק טיול), מהחדש לישן
 export async function getAllByTripId(tripId) {
-  console.log("getAllByTripId - src/repositories/files.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT id, trip_id, uploaded_by, original_name, relative_path, mime_type, file_size, created_at, file_code FROM trip_files WHERE trip_id = ? ORDER BY created_at DESC`,
@@ -126,9 +107,7 @@ export async function getAllByTripId(tripId) {
   return rows;
 }
 
-// מחזיר שורת קובץ בודדת לפי id (כל העמודות) — משמש להורדה/פתיחה ולמחיקה
 export async function getById(id) {
-  console.log("getById - src/repositories/files.repository.js");
   const connection = await getConnection();
   const sql = `
         SELECT *
@@ -141,9 +120,7 @@ export async function getById(id) {
   return rows[0];
 }
 
-// מחזיר רק את קבצי "תיק הטיול" (כאלה עם file_code), ממוינים לפי קוד המסמך
 export async function getKit(tripId) {
-  console.log("getKit - src/repositories/files.repository.js");
   const connection = await getConnection();
   const [rows] = await connection.execute(
     `SELECT id, trip_id, uploaded_by, original_name, relative_path, mime_type, file_size, created_at, file_code
@@ -155,9 +132,7 @@ export async function getKit(tripId) {
   return rows;
 }
 
-// מוחק שורת קובץ מהטבלה לפי id (הקובץ הפיזי בדיסק נמחק בנפרד, בשכבת השירות)
 export async function deleteById(id) {
-  console.log("deleteById - src/repositories/files.repository.js");
   const connection = await getConnection();
   await connection.execute(
     `

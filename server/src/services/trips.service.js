@@ -1,11 +1,9 @@
-//this is BL layer
 import log from "../loggers/file.logger.js";
 import * as tripsRepo from "../repositories/trips.repository.js";
 import * as usersRepo from "../repositories/users.repository.js";
 import * as filesRepo from "../repositories/files.repository.js";
 import * as authService from "./auth.service.js";
 
-// בודק אם בתיק הטיול חסרים מסמכי חובה (כולל אישורי אטרקציות) ומחזיר את שמותיהם
 async function getMissingRequiredDocs(tripId) {
   const [uploaded, routeGeoJson] = await Promise.all([
     filesRepo.getKit(tripId),
@@ -15,18 +13,14 @@ async function getMissingRequiredDocs(tripId) {
   const required = [...REQUIRED_TRIP_DOCS, ...getAttractionDocs(routeGeoJson)];
 }
 export async function getAllTrips(userId) {
-  console.log("getAllTrips - src/services/trips.service.js");
   const trips = await tripsRepo.getAll(userId);
   log.info(`get all trips by userId: ${userId}`);
   return trips;
 }
 export async function getById(tripId, userId) {
-  console.log("getById - src/services/trips.service.js");
   try {
     const trip = await tripsRepo.getById(tripId, userId);
-    // console.log(trip, "this is the trip from the service");
     log.info(`get trip by id: ${tripId} and userId: ${userId}`);
-    // console.log(trip, "thi is thrip in service");
     return trip;
   } catch (err) {
     log.warn(`error: ${err.message}`);
@@ -34,7 +28,6 @@ export async function getById(tripId, userId) {
   }
 }
 export async function addTrip(tripDetails) {
-  console.log("addTrip - src/services/trips.service.js");
   try {
     const { school_id } = await usersRepo.getById(tripDetails.tripLeaderId);
     log.info(`the school id from add trip is: ${school_id}`);
@@ -50,20 +43,16 @@ export async function addTrip(tripDetails) {
   }
 }
 export async function updateTrip(tripDetails) {
-  console.log("updateTrip - src/services/trips.service.js");
   try {
     let tripLeaderId;
     const val = String(tripDetails.tripLeaderNationalId || "").trim();
 
     if (val.length === 9 && !isNaN(Number(val))) {
-      // ת"ז תקין — מחפש לפי national_id
       const user = await usersRepo.getByNationalId(val);
       tripLeaderId = user.id;
     } else if (val && !isNaN(Number(val))) {
-      // DB id מספרי (מה-dropdown)
       tripLeaderId = Number(val);
     } else {
-      // שומר את הערך הקיים מה-DB
       const connection = await (await import("../config/db.js")).default();
 
       tripLeaderId = existing?.trip_leader_id || null;
@@ -85,7 +74,6 @@ export async function updateTrip(tripDetails) {
   }
 }
 export async function deleteTrip(tripId) {
-  console.log("deleteTrip - src/services/trips.service.js");
   try {
     const res = await tripsRepo.deleteTrip(tripId);
     log.info(`deleted trip with id: ${tripId}`);
@@ -96,9 +84,7 @@ export async function deleteTrip(tripId) {
   }
 }
 export async function approveTrip(tripId) {
-  console.log("approveTrip - src/services/trips.service.js");
   try {
-    // אישור הטיול חסום אם קיימת כיתה המשובצת לטיול שאין לה אף איש צוות
     const uncoveredClasses = await tripsRepo.getUncoveredClasses(tripId);
     if (uncoveredClasses.length > 0) {
       const names = uncoveredClasses.map((c) => c.class_name).join(", ");
@@ -109,7 +95,6 @@ export async function approveTrip(tripId) {
       throw err;
     }
 
-    // אישור הטיול חסום אם חסרים מסמכי חובה בתיק הטיול
     const missingDocs = await getMissingRequiredDocs(tripId);
     if (missingDocs.length > 0) {
       const err = new Error(
@@ -123,13 +108,11 @@ export async function approveTrip(tripId) {
     log.info(`approved trip with id: ${tripId}`);
     return { parentToken, ...approvedTrip };
   } catch (err) {
-    // console.log(err, "this is err in approve trip service");
     log.warn(`error: ${err.message}, from approveTrip in trips.service`);
     throw err;
   }
 }
 export async function addStaff(tripId, staffAssignments) {
-  console.log("addStaff - src/services/trips.service.js");
   try {
     await tripsRepo.addStaff(tripId, staffAssignments);
     log.info(`staff added to trip: ${tripId}`);
@@ -145,7 +128,6 @@ export async function addStaff(tripId, staffAssignments) {
   return token;
 }
 export async function getAllStaff(tripId) {
-  console.log("getAllStaff - src/services/trips.service.js");
   try {
     const staff = await tripsRepo.getAllStaff(tripId);
     log.info(`all staff returned successfully`);
@@ -156,7 +138,6 @@ export async function getAllStaff(tripId) {
   }
 }
 export async function deleteStaff(tripId, staffId) {
-  console.log("deleteStaff - src/services/trips.service.js");
   try {
     const res = await tripsRepo.deleteStaff(tripId, staffId);
     log.info(`staff ${staffId} removed from trip: ${tripId}`);
@@ -167,9 +148,7 @@ export async function deleteStaff(tripId, staffId) {
   }
 }
 export async function addExternalStaff(tripId, staffDetails) {
-  console.log("addExternalStaff - src/services/trips.service.js");
   try {
-    console.log("in add staff service, details=", staffDetails);
     const newStaff = await tripsRepo.addExternalStaff(tripId, staffDetails);
     log.info(`external staff added to trip: ${tripId}`);
     return newStaff;
@@ -179,7 +158,6 @@ export async function addExternalStaff(tripId, staffDetails) {
   }
 }
 export async function deleteExternalStaff(tripId, staffId) {
-  console.log("deleteExternalStaff - src/services/trips.service.js");
   try {
     const res = await tripsRepo.deleteExternalStaff(tripId, staffId);
     log.info(`external staff ${staffId} removed from trip: ${tripId}`);
@@ -192,7 +170,6 @@ export async function deleteExternalStaff(tripId, staffId) {
   }
 }
 export async function closeTrip(tripId) {
-  console.log("closeTrip - src/services/trips.service.js");
   try {
     const closedTrip = await tripsRepo.closeTrip(tripId);
     log.info(`trip with id: ${tripId} closed successfully`);
@@ -204,7 +181,6 @@ export async function closeTrip(tripId) {
 }
 
 export async function setPostEdit(tripId, note) {
-  console.log("setPostEdit - src/services/trips.service.js");
   if (!note?.trim()) {
     const err = new Error("יש לספק הערת הסבר לתיקון בדיעבד");
     err.status = 400;

@@ -1,9 +1,8 @@
 import * as emergenciesService from "../services/emergencies.service.js";
 import log from "../loggers/file.logger.js";
-import { io } from "../../server.js"; // ← שורה חדשה
+import { io } from "../../server.js"; 
 
 export async function getByTripId(req, res, next) {
-  console.log("getByTripId - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
     const emergencies = await emergenciesService.getEmergenciesByTripId(tripId);
@@ -17,7 +16,6 @@ export async function getByTripId(req, res, next) {
 }
 
 export async function create(req, res, next) {
-  console.log("create - src/controllers/emergencies.controller.js");
   try {
     const emergencyData = {
       ...req.body,
@@ -25,9 +23,6 @@ export async function create(req, res, next) {
       openedBy: req.user?.userId || null,
     };
 
-    // הגנה נוספת בצד שרת: חירום קריטי (typeId=2) רק לאחראי טיול
-    // בדיקה מול מסד הנתונים (ולא מול ה-role היחיד שנשמר בטוקן),
-    // כדי שמשתמש בעל כמה תפקידים (למשל "trip leader" וגם "teacher") יזוהה כאחראי טיול כראוי
     if (parseInt(emergencyData.emergencyTypeId) === 2) {
       const isTripLeader = await userHasRole(req.user?.userId, ["trip leader"]);
       if (!isTripLeader) {
@@ -55,7 +50,6 @@ export async function create(req, res, next) {
 }
 
 export async function update(req, res, next) {
-  console.log("update - src/controllers/emergencies.controller.js");
   try {
     const tripId = req.params.id || req.params.tripId;
     const { emergencyId } = req.params;
@@ -82,7 +76,6 @@ export async function update(req, res, next) {
 }
 
 export async function remove(req, res, next) {
-  console.log("remove - src/controllers/emergencies.controller.js");
   try {
     const emergencyId = req.params.emergencyId;
     await emergenciesService.deleteEmergency(emergencyId);

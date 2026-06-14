@@ -1,23 +1,19 @@
-//this is BL layer
 import * as emergenciesRepository from "../repositories/emergencies.repository.js";
 import * as tripsRepository from "../repositories/trips.repository.js";
 import loggerService from "./logger.service.js";
 import { getTodayInIsrael } from "../utils/date.util.js";
 
 export async function getEmergenciesByTripId(tripId) {
-  console.log("getEmergenciesByTripId - src/services/emergencies.service.js");
   return await emergenciesRepository.getEmergenciesByTripId(tripId);
 }
 
 export async function createEmergency(emergencyData) {
-  console.log("createEmergency - src/services/emergencies.service.js");
   const trip = await tripsRepository.getTripDate(emergencyData.tripId);
   if (!trip) {
     const err = new Error("Trip not found");
     err.status = 404;
     throw err;
   }
-  // trip_date מגיע כבר כמחרוזת "YYYY-MM-DD" (ראו dateStrings ב-db.js), ללא צורך בהמרת אזור זמן
   const tripDate = trip.trip_date;
   const today = getTodayInIsrael();
   if (tripDate !== today) {
@@ -26,8 +22,6 @@ export async function createEmergency(emergencyData) {
     throw err;
   }
 
-  // הרשאות פתיחת חירום: קריטי — אחראי הטיול הספציפי בלבד;
-  // מינורי — אחראי הטיול הספציפי או מורה המשובץ לטיול
   const isTripLeader = Number(trip.trip_leader_id) === Number(emergencyData.openedBy);
   const isCritical = Number(emergencyData.emergencyTypeId) === 2;
   if (isCritical) {
@@ -58,14 +52,12 @@ export async function createEmergency(emergencyData) {
     newValues: JSON.stringify(emergencyData),
   });
 
-  // fetch the full record so socket event includes opened_by_name, emergency_type_name
   const [full] = await emergenciesRepository.getEmergenciesByTripId(emergencyData.tripId)
     .then(rows => rows.filter(r => r.id === result.insertId));
   return full || { id: result.insertId, ...emergencyData, opened_at: new Date() };
 }
 
 export async function updateEmergency(emergencyId, emergencyData, tripId, userId) {
-  console.log("updateEmergency - src/services/emergencies.service.js");
   const emergency = await emergenciesRepository.getEmergencyById(emergencyId);
   if (!emergency) {
     const err = new Error("Emergency not found");
@@ -73,8 +65,6 @@ export async function updateEmergency(emergencyId, emergencyData, tripId, userId
     throw err;
   }
 
-  // האירוע חייב להשתייך לטיול שמופיע ב-route, אחרת ניתן היה לעדכן/לסגור
-  // אירוע של טיול אחר רק ע"י ניחוש emergencyId
   if (String(emergency.trip_id) !== String(tripId)) {
     const err = new Error("Emergency does not belong to this trip");
     err.status = 403;
@@ -85,7 +75,6 @@ export async function updateEmergency(emergencyId, emergencyData, tripId, userId
   const isClosing = parseInt(emergencyData.status) === 2;
 
   if (isClosing) {
-    // חירום ניתן לסגור רק ביום הטיול
     const trip = await tripsRepository.getTripDate(tripId);
     const today = getTodayInIsrael();
     if (!trip || trip.trip_date !== today) {
@@ -97,14 +86,12 @@ export async function updateEmergency(emergencyId, emergencyData, tripId, userId
     const isTripLeader = Number(trip.trip_leader_id) === Number(userId);
 
     if (isCritical) {
-      // סגירת חירום קריטי מותרת רק למי שפתח אותו
       if (Number(emergency.opened_by) !== Number(userId)) {
         const err = new Error("סגירת חירום קריטי מותרת לאחראי הטיול שפתח אותו בלבד");
         err.status = 403;
         throw err;
       }
     } else {
-      // סגירת חירום מינורי מותרת לאחראי הטיול או למורה המשובץ לטיול
       const isTeacherStaff = await tripsRepository.isTripTeacherStaff(tripId, userId);
       if (!isTripLeader && !isTeacherStaff) {
         const err = new Error("סגירת חירום מותרת לאחראי הטיול או למורה המשובץ לטיול בלבד");
@@ -121,6 +108,6 @@ export async function updateEmergency(emergencyId, emergencyData, tripId, userId
 }
 
 export async function deleteEmergency(emergencyId) {
-  console.log("deleteEmergency - src/services/emergencies.service.js");
+  ("deleteEmergency - src/services/emergencies.service.js");
   return await emergenciesRepository.deleteEmergency(emergencyId);
 }

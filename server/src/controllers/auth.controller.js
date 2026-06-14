@@ -1,12 +1,9 @@
-//this is API layer
 import jwt from "jsonwebtoken";
 import * as authService from "../services/auth.service.js";
 import log from "../loggers/file.logger.js";
 
 export async function register(req, res, next) {
-  console.log("register - src/controllers/auth.controller.js");
   log.info("in cotroller - sign up");
-  console.log("in sign up");
   try {
     req.body.role = "principal";
     const { user, accessToken, refreshToken } = await authService.register(
@@ -34,7 +31,6 @@ export async function register(req, res, next) {
 }
 
 export function refreshToken(req, res, next) {
-  console.log("refreshToken - src/controllers/auth.controller.js");
   const token = req.cookies.refreshToken;
   if (!token) {
     const error = new Error("No refresh token provided");
@@ -67,14 +63,12 @@ export function refreshToken(req, res, next) {
 }
 
 export function logout(req, res) {
-  console.log("logout - src/controllers/auth.controller.js");
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
   log.info(`user ${req.body.userId} logged out`);
   res.status(200).json({ message: "Logged out" });
 }
 export async function login(req, res, next) {
-  console.log("login - src/controllers/auth.controller.js");
   try {
     const { user, accessToken, refreshToken } = await authService.login(
       req.body,
@@ -82,7 +76,6 @@ export async function login(req, res, next) {
     log.info(
       `login successful for national id: ${req.body.nationalId} form institution: ${req.body.institutionNumber}`,
     );
-    console.log(user, "this is user fomr auth cotroller");
     authService.sendAuthResponse(res, user, 200, accessToken, refreshToken);
   } catch (err) {
     log.warn(`login error: ${err.message}`);

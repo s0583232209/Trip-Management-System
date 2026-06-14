@@ -11,7 +11,6 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
   const navigate = useNavigate();
   const tripTitle = useTripTitle(tripId);
 
-  // Array of objects capturing name, phone, and role for third-party operators
   const [externalStaff, setExternalStaff] = useState([
     { fullName: "", phoneNumber: "", role: "1" },
   ]);
@@ -43,7 +42,6 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
     setError("");
     setSuccess("");
 
-    // Validation: make sure rows have valid name inputs before posting
     const filledStaff = externalStaff.filter(
       (staff) => staff.fullName.trim() !== "",
     );
@@ -54,7 +52,6 @@ export default function AddTripExternalStaff({ onSuccess } = {}) {
 
     setLoading(true);
     try {
-      // Targets external logistics API route setup
       await api.post(`/api/trips/${tripId}/external-staff`, {
         externalStaff: filledStaff,
       });

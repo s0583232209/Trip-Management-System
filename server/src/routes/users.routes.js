@@ -1,4 +1,3 @@
-// users.routes.js
 
 import express from "express";
 import requireRole from "../middlewares/roleGuard.middleware.js";
@@ -21,8 +20,7 @@ router.get(
   "/:id",
   requireRole("principal", "coordinator", "trip leader", "teacher"),
   getUserById,
-); //   changePassword,
-// );
+);
 
 router.put(
   "/:id",

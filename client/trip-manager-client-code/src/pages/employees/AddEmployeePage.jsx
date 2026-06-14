@@ -16,7 +16,6 @@ const ROLE_LABELS = {
   teacher: "מורה",
 };
 
-// אחראי טיול אינו תפקיד קבוע בניהול המשתמשים — הוא מוגדר פר טיול בעת יצירת הטיול
 const TOGGLEABLE_ROLES = ["teacher", "coordinator"];
 
 function StaffManagementSection({ currentUserId }) {

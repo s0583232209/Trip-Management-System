@@ -3,7 +3,20 @@ import api from "../../api.js";
 import "../trips/TripForms.css";
 import "./AddEmployeePage.css";
 
-const GRADE_LABELS = ["א'","ב'","ג'","ד'","ה'","ו'","ז'","ח'","ט'","י'","י\"א","י\"ב"];
+const GRADE_LABELS = [
+  "א'",
+  "ב'",
+  "ג'",
+  "ד'",
+  "ה'",
+  "ו'",
+  "ז'",
+  "ח'",
+  "ט'",
+  "י'",
+  'י"א',
+  'י"ב',
+];
 
 const emptyGrades = () =>
   GRADE_LABELS.map((label, i) => ({
@@ -32,12 +45,16 @@ export default function ClassesManagementSection() {
       const res = await api.get("/api/classes");
       setClasses(res.data);
     } catch {
-      // ignore
+      navigate("/not-found");
     }
   }
 
   async function handleDeleteClass(c) {
-    if (!window.confirm(`האם למחוק את הכיתה "${c.class_name}"? פעולה זו אינה הפיכה.`))
+    if (
+      !window.confirm(
+        `האם למחוק את הכיתה "${c.class_name}"? פעולה זו אינה הפיכה.`,
+      )
+    )
       return;
     setDeleteError("");
     try {
@@ -108,7 +125,10 @@ export default function ClassesManagementSection() {
       await Promise.all(
         selected.flatMap((g) =>
           g.classNames.map((name) =>
-            api.post("/api/classes", { className: name.trim(), grade: g.grade }),
+            api.post("/api/classes", {
+              className: name.trim(),
+              grade: g.grade,
+            }),
           ),
         ),
       );
@@ -133,9 +153,16 @@ export default function ClassesManagementSection() {
       <form onSubmit={handleAddClasses}>
         <div className="grades-grid">
           {grades.map((g, i) => (
-            <div key={g.grade} className={`grade-card${g.selected ? " grade-card--selected" : ""}`}>
+            <div
+              key={g.grade}
+              className={`grade-card${g.selected ? " grade-card--selected" : ""}`}
+            >
               <label className="grade-checkbox-label">
-                <input type="checkbox" checked={g.selected} onChange={() => toggleGrade(i)} />
+                <input
+                  type="checkbox"
+                  checked={g.selected}
+                  onChange={() => toggleGrade(i)}
+                />
                 שכבה {g.label}
               </label>
               {g.selected && (
@@ -156,10 +183,14 @@ export default function ClassesManagementSection() {
                           type="text"
                           value={name}
                           placeholder={`${g.label}-${j + 1}`}
-                          onChange={(e) => updateClassName(i, j, e.target.value)}
+                          onChange={(e) =>
+                            updateClassName(i, j, e.target.value)
+                          }
                         />
                         {addErrors[`grade_${g.grade}_class_${j}`] && (
-                          <p className="error">{addErrors[`grade_${g.grade}_class_${j}`]}</p>
+                          <p className="error">
+                            {addErrors[`grade_${g.grade}_class_${j}`]}
+                          </p>
                         )}
                       </div>
                     ))}
@@ -173,7 +204,11 @@ export default function ClassesManagementSection() {
         {addError && <p className="add-employee-error">{addError}</p>}
         {addSuccess && <p className="add-employee-success">{addSuccess}</p>}
 
-        <button type="submit" className="trip-form-btn trip-form-btn--primary" disabled={saving}>
+        <button
+          type="submit"
+          className="trip-form-btn trip-form-btn--primary"
+          disabled={saving}
+        >
           {saving ? "שומר..." : "הוסף כיתות"}
         </button>
       </form>

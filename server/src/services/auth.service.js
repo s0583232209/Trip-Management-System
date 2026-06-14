@@ -8,7 +8,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { addUser, getUserById } from "../repositories/users.repository.js";
 export const userHasRole = async (userId, allowedRoles) => {
-  console.log("userHasRole - src/services/auth.service.js");
   const roles = await getUserRoles(userId);
   const roleNames = roles.map((role) => role.role_name);
   log.info(`roles for user id:${userId},  roles: ${roleNames}`);
@@ -16,20 +15,17 @@ export const userHasRole = async (userId, allowedRoles) => {
 };
 
 export function createAccessToken(payload) {
-  console.log("createAccessToken - src/services/auth.service.js");
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
 }
 export function createParentToken(payload) {
-  console.log("createParentToken - src/services/auth.service.js");
+  ("createParentToken - src/services/auth.service.js");
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
 }
 export function createRefreshToken(payload) {
-  console.log("createRefreshToken - src/services/auth.service.js");
   return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
 }
 
 export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
-  console.log("sendAuthResponse - src/services/auth.service.js");
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: false,
@@ -48,7 +44,6 @@ export function sendAuthResponse(res, body, status, accessToken, refreshToken) {
 }
 
 export async function login(user) {
-  console.log("login - src/services/auth.service.js");
   const row = await getUserById(user.nationalId, user.institutionNumber);
   if (!row) throw new Error("User not found");
   const isMatch = await bcrypt.compare(user.password, row.hashedPassword);
@@ -80,7 +75,6 @@ export async function login(user) {
 }
 
 export async function register(body) {
-  console.log("register - src/services/auth.service.js");
   const hashedPassword = await bcrypt.hash(
     body.password || body.nationalId,
     12,

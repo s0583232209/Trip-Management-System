@@ -51,6 +51,17 @@
   color: var(--sky-dark);
 }
 
+.trip-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.trip-card:disabled:hover {
+  background: var(--surface);
+  transform: none;
+  color: var(--text);
+}
+
 @media (max-width: 600px) {
   .trips-grid { grid-template-columns: 1fr; }
   .page-title { font-size: 24px; }

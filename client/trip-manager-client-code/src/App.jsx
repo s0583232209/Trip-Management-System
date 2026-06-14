@@ -21,6 +21,7 @@ import TripContactsPage from "./pages/trips/TripContactsPage.jsx";
 import TripStatusPage from "./pages/trips/TripStatusPage.jsx";
 import CriticalEmergency from "./pages/CriticalEmergemcy.jsx";
 import UsefulLinks from "./pages/trips/UsefulLinks.jsx";
+import ExampleForTripLeadersKit from "./pages/trips/ExampleForTripLeadersKit.jsx";
 import "./App.css";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
 
         {/* רשימת טיולים */}
         <Route path="/trips/useful-links" element={<UsefulLinks />} />
+        <Route path="/trips/example-kit" element={<ExampleForTripLeadersKit />} />
         <Route path="/trips" element={<TripSelectionPage />} />
         <Route path="/trips/new" element={<CreateTripPage />} />
 

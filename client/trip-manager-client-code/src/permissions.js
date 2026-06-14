@@ -32,6 +32,9 @@ export const canManageTrip = () => isRole("principal", "coordinator");
 // מנהל בלבד
 export const canAddUser = () => isRole("principal");
 
+// עדכון פרטי מוסד — מנהל בלבד
+export const canEditSchool = () => isRole("principal");
+
 // מנהל, רכז, אחראי, מורה
 export const canViewTrip = () =>
   isRole("principal", "coordinator", "trip leader", "teacher");

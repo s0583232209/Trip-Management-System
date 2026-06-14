@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar.jsx";
 import api from "../../api.js";
 import { canManageTrip, isRole, TRIP_STATUS_LABEL } from "../../permissions.js";
+import { getTodayInIsrael, toDateOnlyString } from "../../dateUtils.js";
 import "./TripsPage.css";
 
 export default function TripDashboardPage() {
@@ -11,6 +12,7 @@ export default function TripDashboardPage() {
   const { tripId } = useParams();
   const [tripTitle, setTripTitle] = useState("");
   const [tripStatus, setTripStatus] = useState(null);
+  const [tripDate, setTripDate] = useState(null);
   const [isTripLeader, setIsTripLeader] = useState(false);
 
   const user = useSelector((state) => state.auth.user) || {};
@@ -25,6 +27,7 @@ export default function TripDashboardPage() {
         } else {
           setTripTitle(trip.title);
           setTripStatus(trip.trip_status ?? null);
+          setTripDate(trip.trip_date ?? null);
           setIsTripLeader(trip.trip_leader_id === user.userId);
         }
       })
@@ -35,6 +38,10 @@ export default function TripDashboardPage() {
 
   // מורה/אחראי שאינו אחראי הטיול הספציפי — רק צפייה
   const isStaffOnly = isRole("trip leader", "teacher") && !canManageTrip() && !isTripLeader;
+
+  // כפתור "יום טיול" פתוח רק ביום הטיול עצמו; מנהל/רכז פטורים ויכולים להיכנס בכל זמן
+  const isTripDayToday = toDateOnlyString(tripDate) === getTodayInIsrael();
+  const canAccessTripDay = canManageTrip() || isTripDayToday;
 
   return (
     <>
@@ -48,7 +55,12 @@ export default function TripDashboardPage() {
           <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/planning`)}>
             תכנון טיול
           </button>
-          <button className="trip-card" onClick={() => navigate(`/trips/${tripId}/day`)}>
+          <button
+            className="trip-card"
+            onClick={() => navigate(`/trips/${tripId}/day`)}
+            disabled={!canAccessTripDay}
+            title={!canAccessTripDay ? "ניתן להיכנס ל'יום טיול' רק ביום הטיול" : undefined}
+          >
             יום טיול
           </button>
           {canManageTrip() && (

@@ -64,6 +64,14 @@ export default function TripPlanningPage() {
               אנשי צוות
             </button>
           )}
+          {canManageTrip() && (
+            <button
+              className="trip-card"
+              onClick={() => navigate(`/trips/example-kit`)}
+            >
+              צפייה בתיק טיול לדוגמה וקבצים ריקים להורדה
+            </button>
+          )}
           <button
             className="trip-card"
             onClick={() => navigate(`/trips/useful-links`)}

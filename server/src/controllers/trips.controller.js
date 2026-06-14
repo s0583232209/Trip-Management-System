@@ -2,6 +2,149 @@
 import log from "../loggers/file.logger.js";
 import * as tripsService from "../services/trips.service.js";
 import { createParentToken } from "../services/auth.service.js";
+import fs from "fs/promises";
+import path from "path";
+
+// תיקיית הקבצים הפיזית שבה מאוחסנים קובצי התבניות/העזר לעמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול"
+function getExampleKitTemplatesDir() {
+  return path.join(process.env.UPLOAD_FOLDER, "trips", "templates");
+}
+
+// תבניות PDF ריקות לדוגמה עבור עמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול".
+// כל אובייקט תואם למבנה שורת קובץ אמיתית מטבלת trip_files, כך שניתן
+// להציג אותו ישירות בממשק תיק הטיול (לפי file_code 1-11).
+const EXAMPLE_KIT_TEMPLATES = [
+  {
+    id: -1,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-01-מינוי-אחראי-טיול.pdf",
+    relative_path: "trips/templates/תבנית-ריקה-01-מינוי-אחראי-טיול.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 1,
+  },
+  {
+    id: -2,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-02-אישור-יציאה-לטיול-ממנהל-מוסד.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-02-אישור-יציאה-לטיול-ממנהל-מוסד.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 2,
+  },
+  {
+    id: -3,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-03-אישורי-הורים.pdf",
+    relative_path: "trips/templates/תבנית-ריקה-03-אישורי-הורים.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 3,
+  },
+  {
+    id: -4,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-04-רשימת-תלמידים.pdf",
+    relative_path: "trips/templates/תבנית-ריקה-04-רשימת-תלמידים.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 4,
+  },
+  {
+    id: -5,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-05-רשימת-תלמידים-עם-מגבלות-רפואיות.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-05-רשימת-תלמידים-עם-מגבלות-רפואיות.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 5,
+  },
+  {
+    id: -6,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "טופס הפניה לטיפול רפואי לתלמיד שנפגע במהלך טיול.pdf",
+    relative_path:
+      "trips/templates/טופס הפניה לטיפול רפואי לתלמיד שנפגע במהלך טיול.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 6,
+  },
+  {
+    id: -7,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-07-רשימת-תלמידים-שנפגעו-במהלך-טיול.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-07-רשימת-תלמידים-שנפגעו-במהלך-טיול.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 7,
+  },
+  {
+    id: -8,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-08-טופס-ביטוח-למתנדב.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-08-טופס-ביטוח-למתנדב.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 8,
+  },
+  {
+    id: -9,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-09-רשימת-מלווים-וטלפונים-חיוניים.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-09-רשימת-מלווים-וטלפונים-חיוניים.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 9,
+  },
+  {
+    id: -10,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-10-הנחיות-למורה-אחראי-כיתה.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-10-הנחיות-למורה-אחראי-כיתה.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 10,
+  },
+  {
+    id: -11,
+    trip_id: "example-kit",
+    uploaded_by: null,
+    original_name: "תבנית-ריקה-11-טופס-תיאום-טיולים-מאושר.pdf",
+    relative_path:
+      "trips/templates/תבנית-ריקה-11-טופס-תיאום-טיולים-מאושר.pdf",
+    mime_type: "application/pdf",
+    file_size: 0,
+    created_at: "2025-01-01T00:00:00.000Z",
+    file_code: 11,
+  },
+];
+
 export async function getAllTrips(req, res, next) {
   console.log("getAllTrips - src/controllers/trips.controller.js");
   try {
@@ -159,6 +302,73 @@ export async function setPostEdit(req, res, next) {
     await tripsService.setPostEdit(req.params.id, req.body.note);
     res.status(200).json({ message: "הטיול נפתח לעריכה בדיעבד" });
   } catch (err) {
+    next(err);
+  }
+}
+
+// תבניות ריקות לדוגמה לעמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול" — נתון סטטי, ללא פנייה למסד הנתונים
+export async function getExampleKitTemplates(req, res, next) {
+  console.log("getExampleKitTemplates - src/controllers/trips.controller.js");
+  try {
+    res.status(200).json(EXAMPLE_KIT_TEMPLATES);
+  } catch (err) {
+    log.warn(`getting example kit templates failed: ${err.message}`);
+    err.status = err.status || 500;
+    next(err);
+  }
+}
+
+// GET /example-kit/templates/files — מחזיר את רשימת כל הקבצים שקיימים בפועל בתיקיית התבניות לדוגמה
+export async function getExampleKitTemplateFiles(req, res, next) {
+  console.log(
+    "getExampleKitTemplateFiles - src/controllers/trips.controller.js",
+  );
+  try {
+    const dir = getExampleKitTemplatesDir();
+
+    let entries;
+    try {
+      entries = await fs.readdir(dir, { withFileTypes: true });
+    } catch (err) {
+      if (err.code === "ENOENT") {
+        return res.status(200).json([]);
+      }
+      throw err;
+    }
+
+    const fileNames = entries
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .sort((a, b) => a.localeCompare(b, "he"));
+
+    res.status(200).json(fileNames);
+  } catch (err) {
+    log.warn(`getting example kit template files failed: ${err.message}`);
+    err.status = err.status || 500;
+    next(err);
+  }
+}
+
+// GET /example-kit/templates/files/:fileName — מוריד קובץ בודד מתיקיית התבניות לדוגמה
+export async function downloadExampleKitTemplateFile(req, res, next) {
+  console.log(
+    "downloadExampleKitTemplateFile - src/controllers/trips.controller.js",
+  );
+  try {
+    // path.basename מסיר כל מרכיב נתיב (כולל ../) כדי למנוע Path Traversal
+    const safeFileName = path.basename(req.params.fileName);
+    const filePath = path.join(getExampleKitTemplatesDir(), safeFileName);
+
+    await fs.access(filePath);
+    res.download(filePath, safeFileName);
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      err.status = 404;
+      err.message = "הקובץ המבוקש לא נמצא בתיקיית התבניות";
+    } else {
+      err.status = err.status || 500;
+    }
+    log.warn(`downloading example kit template file failed: ${err.message}`);
     next(err);
   }
 }

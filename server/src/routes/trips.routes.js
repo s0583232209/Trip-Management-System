@@ -19,6 +19,27 @@ router.post(
   tripsController.createTrip,
 );
 
+// תבניות ריקות לדוגמה לעמוד "דוגמה ומדריך למילוי אוגדן ותיק טיול" — מנהל ורכז בלבד, על פני כל בתי הספר
+router.get(
+  "/example-kit/templates",
+  requireRole("principal", "coordinator"),
+  tripsController.getExampleKitTemplates,
+);
+
+// רשימת כל הקבצים הקיימים בתיקיית התבניות לדוגמה — מנהל ורכז בלבד, על פני כל בתי הספר
+router.get(
+  "/example-kit/templates/files",
+  requireRole("principal", "coordinator"),
+  tripsController.getExampleKitTemplateFiles,
+);
+
+// הורדת קובץ בודד מתיקיית התבניות לדוגמה — מנהל ורכז בלבד, על פני כל בתי הספר
+router.get(
+  "/example-kit/templates/files/:fileName",
+  requireRole("principal", "coordinator"),
+  tripsController.downloadExampleKitTemplateFile,
+);
+
 // צפייה בטיול בודד — כולם
 router.get(
   "/:id",

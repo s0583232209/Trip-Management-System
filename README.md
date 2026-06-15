@@ -74,15 +74,15 @@ The entire UI is built right-to-left in Hebrew, designed for everyday use by sch
 ## 🏗️ Architecture
 
 ```
-┌──────────────────────────┐        REST + WebSocket        ┌──────────────────────────────┐
-│   React 19 / Vite Client │ ◄─────────────────────────────► │      Express 5 API Server     │
-│  Redux Toolkit + Router  │        (axios, socket.io)        │  Routes → Controllers →       │
-│  RTL Hebrew UI            │                                  │  Services → Repositories      │
-└──────────────────────────┘                                  └──────────────┬─────────────────┘
+┌──────────────────────────┐        REST + WebSocket        ┌────────────────────────────────┐
+│   React 19 / Vite Client │ ◄─────────────────────────────►│      Express 5 API Server      │
+│  Redux Toolkit + Router  │        (axios, socket.io)      │  Routes → Controllers →        │
+│  RTL Hebrew UI           │                                │  Services → Repositories       │
+└──────────────────────────┘                                └──────────────────┬─────────────┘
                                                                                │ mysql2/promise
                                                                                ▼
                                                                      ┌──────────────────┐
-                                                                     │   MySQL Database   │
+                                                                     │   MySQL Database │
                                                                      └──────────────────┘
 ```
 
@@ -251,11 +251,7 @@ API testing is supported via the Postman collections in [`postman/`](postman/), 
 
 ---
 
-## 📜 License
 
-ISC
-
----
 ---
 
 # 🧭 מסלול בטוח — מערכת לניהול טיולים <div dir="rtl">
@@ -310,7 +306,7 @@ ISC
 ### 🏫 בתי ספר וכיתות
 תמיכה במספר בתי ספר מהקופסה — משתמשים, כיתות וטיולים משויכים כולם לבית ספר מסוים.
 
-### 🔑 אימות מאובטח
+### 🔑 אימות מאובטח 
 - JWT עם access ו-refresh tokens באמצעות עוגיות HTTP-only מאובטחות
 - הצפנת סיסמאות עם bcrypt
 - מידלוור `roleGuard` מרוכז להגנה על נקודות קצה
@@ -436,9 +432,5 @@ npm run dev
 ## 🧪 בדיקות
 
 בדיקת ה-API נתמכת באמצעות קולקציות Postman בתיקיית [`postman/`](postman/), המכסות אימות, ניהול טיולים, העלאת קבצים ותהליכי חירום מקצה לקצה.
-
-## 📜 רישיון
-
-ISC
 
 </div>

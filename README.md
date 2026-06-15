@@ -160,9 +160,17 @@ Trip-Management-System/
 
 ## 🚀 Getting Started
 
+This section walks through getting the full stack — MySQL database, Express/Socket.io API server, and React client — running locally from a clean checkout.
+
 ### Prerequisites
-- Node.js (LTS recommended)
-- MySQL Server 8+
+
+Install these first:
+
+| Tool | Recommended version | Check with |
+|---|---|---|
+| [Node.js](https://nodejs.org/) | v20 LTS or newer (includes npm) | `node -v` / `npm -v` |
+| [MySQL Server](https://dev.mysql.com/downloads/mysql/) | 8.0+ | `mysql --version` |
+| [Git](https://git-scm.com/) | any recent version | `git --version` |
 
 ### 1. Clone the repository
 ```bash
@@ -170,41 +178,108 @@ git clone <repository-url>
 cd Trip-Management-System
 ```
 
-### 2. Set up the database
-Create the schema and seed the lookup tables (roles, statuses, file codes, etc.):
-```bash
-mysql -u <user> -p < database/schema.sql
+The project has two independently-installed apps plus the SQL files:
+```
+Trip-Management-System/
+├── server/                          # Express API + Socket.io (port 3000)
+├── client/trip-manager-client-code/ # React + Vite frontend (port 5173)
+└── database/                        # schema.sql + seed.sql
 ```
 
-### 3. Configure the server
-Create a `.env` file inside `server/`:
+### 2. Set up the MySQL database
+
+1. Make sure your local MySQL server is running.
+2. Run the schema script to create the `trip_manager` database and all tables:
+   ```bash
+   mysql -u root -p --force < database/schema.sql
+   ```
+   > ⚠️ The first line of `schema.sql` is `DROP DATABASE trip_manager;`. On a fresh MySQL instance this single statement will fail because the database doesn't exist yet — the `--force` flag tells the `mysql` client to ignore that error and keep going (everything else in the script still runs). If you're re-running this on an existing install, the drop will succeed and reset the schema completely.
+3. Load the reference/lookup data (roles, trip statuses, file codes, emergency types, external roles, etc.):
+   ```bash
+   mysql -u root -p trip_manager < database/seed.sql
+   ```
+
+At this point `trip_manager` exists with all tables and lookup data, but **no schools, users, or trips** — those are created from the app itself in step 5.
+
+### 3. Configure and run the server
+
+Create a file named `.env` inside `server/`:
 ```env
 HOST=localhost
-PORT=3001
-USER=<mysql-user>
-PASSWORD=<mysql-password>
+PORT=3000
+USER=<your-mysql-user>
+PASSWORD=<your-mysql-password>
 DATABASE=trip_manager
-JWT_SECRET=<your-secret>
-JWT_REFRESH_SECRET=<your-refresh-secret>
+JWT_SECRET=<any-long-random-string>
+JWT_REFRESH_SECRET=<another-long-random-string>
 UPLOAD_FOLDER=uploads
 TZ=Asia/Jerusalem
 ```
 
-Install dependencies and start the API server:
+| Variable | Description |
+|---|---|
+| `HOST` | MySQL host (usually `localhost`) |
+| `PORT` | Port the API/Socket.io server listens on. **Must be `3000`** — the client is hardcoded to call `http://localhost:3000` |
+| `USER` / `PASSWORD` | Your MySQL credentials |
+| `DATABASE` | Must match the database created in step 2 (`trip_manager`) |
+| `JWT_SECRET` / `JWT_REFRESH_SECRET` | Random secret strings used to sign access/refresh tokens, e.g. generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
+| `UPLOAD_FOLDER` | Folder (relative to `server/`) where uploaded trip documents are stored |
+| `TZ` | Timezone used for "is this trip happening today" logic — keep as `Asia/Jerusalem` |
+
+Install dependencies and start the server:
 ```bash
 cd server
 npm install
 npm start
 ```
-The server starts on `http://localhost:3001` and serves both the REST API and the Socket.io server.
+You should see output similar to:
+```
+Connected to MySQL at localhost
+Server started on http://localhost:3000
+```
+This single server serves both the REST API and the Socket.io server.
 
-### 4. Run the client
+### 4. Configure and run the client
+
+In a **second terminal**, from the project root:
 ```bash
 cd client/trip-manager-client-code
 npm install
 npm run dev
 ```
-The app will be available at `http://localhost:5173`.
+Vite starts the dev server at `http://localhost:5173` — open that URL in your browser.
+
+> The client calls the API at `http://localhost:3000` (hardcoded in `src/api.js` and `src/socket.js`), and the server's CORS is locked to `http://localhost:5173` (in `server.js`). Keep both ports as shown unless you update those files too.
+
+### 5. Create your first account
+
+The database starts empty — there are no users yet:
+
+1. Open `http://localhost:5173` and click through to **Register** (`/register/1`).
+2. **Step 1** — enter your school's details (this creates a new school record).
+3. **Step 2** — enter your personal details and submit. The first user registered for a school is automatically given the **principal** (מנהל) role.
+4. You'll be logged in automatically and redirected to the dashboard.
+
+From the principal account you can then:
+- Add staff via **ניהול משתמשים** (`/add-employee`) and assign them roles (coordinator / trip leader / teacher)
+- Create trips, assign staff and external personnel, manage classes, and upload trip-kit documents
+- Approve, run, and close trips, and respond to live emergencies
+
+### 6. Summary — everything running together
+
+| Component | URL | Start command |
+|---|---|---|
+| MySQL database | `localhost:3306` (default) | started via your OS / MySQL service |
+| API + Socket.io server | `http://localhost:3000` | `cd server && npm start` |
+| React client | `http://localhost:5173` | `cd client/trip-manager-client-code && npm run dev` |
+
+### Troubleshooting
+
+- **"Database connection failed" / `ECONNREFUSED`** — MySQL isn't running, or `HOST`/`USER`/`PASSWORD`/`DATABASE` in `server/.env` are wrong.
+- **CORS errors in the browser console** — the server only allows requests from `http://localhost:5173`; make sure the client runs on exactly that origin.
+- **Client requests fail / connection refused to `localhost:3000`** — set `PORT=3000` in `server/.env` and make sure the server is running.
+- **File uploads fail** — ensure the folder set in `UPLOAD_FOLDER` (default `server/uploads`) exists and is writable.
+- **"Trip day" features (emergencies, route updates) behave unexpectedly** — make sure `TZ=Asia/Jerusalem` is set in `server/.env`.
 
 ---
 
@@ -352,11 +427,19 @@ Express ו-Socket.io חולקים שרת `http` יחיד, כך שקריאות RE
 - **dotenv** — ניהול קונפיגורציה
 - **CORS** — מוגבל לכתובת הקליינט בלבד, עם credentials
 
-## 🚀 התחלה מהירה
+## 🚀 התחלה מהירה — הרצה מקצה לקצה
+
+חלק זה מסביר כיצד להריץ את כל המערכת — מסד הנתונים MySQL, שרת ה-API (Express + Socket.io) והקליינט (React) — באופן מקומי, מהתקנה נקייה.
 
 ### דרישות מקדימות
-- Node.js (מומלץ גרסת LTS)
-- שרת MySQL 8+
+
+יש להתקין מראש:
+
+| כלי | גרסה מומלצת | בדיקה |
+|---|---|---|
+| [Node.js](https://nodejs.org/) | LTS גרסה 20 ואילך (כולל npm) | `node -v` / `npm -v` |
+| [MySQL Server](https://dev.mysql.com/downloads/mysql/) | 8.0 ואילך | `mysql --version` |
+| [Git](https://git-scm.com/) | כל גרסה עדכנית | `git --version` |
 
 ### 1. הורדת הפרויקט
 ```bash
@@ -364,41 +447,108 @@ git clone <repository-url>
 cd Trip-Management-System
 ```
 
-### 2. הקמת מסד הנתונים
-יצירת הסכמה והכנסת נתוני בסיס (תפקידים, סטטוסים, קודי קבצים וכו'):
-```bash
-mysql -u <user> -p < database/schema.sql
+לפרויקט שני חלקים שמותקנים בנפרד, בנוסף לקבצי ה-SQL:
+```
+Trip-Management-System/
+├── server/                          # Express API + Socket.io (פורט 3000)
+├── client/trip-manager-client-code/ # React + Vite (פורט 5173)
+└── database/                        # schema.sql + seed.sql
 ```
 
-### 3. הגדרת השרת
+### 2. הקמת מסד הנתונים MySQL
+
+1. ודאו ששרת ה-MySQL המקומי פועל.
+2. הרצת קובץ הסכמה ליצירת מסד הנתונים `trip_manager` וכל הטבלאות:
+   ```bash
+   mysql -u root -p --force < database/schema.sql
+   ```
+   > ⚠️ השורה הראשונה ב-`schema.sql` היא `DROP DATABASE trip_manager;`. בהתקנת MySQL חדשה, פקודה זו תיכשל כי מסד הנתונים עדיין לא קיים — הדגל `--force` גורם ל-`mysql` להתעלם מהשגיאה הזו ולהמשיך להריץ את שאר הסקריפט. אם מריצים את הסקריפט על התקנה קיימת, ה-`DROP DATABASE` יצליח וימחק את כל הנתונים הקיימים.
+3. טעינת נתוני הבסיס (תפקידים, סטטוסי טיול, קודי קבצים, סוגי חירום, תפקידים חיצוניים וכו'):
+   ```bash
+   mysql -u root -p trip_manager < database/seed.sql
+   ```
+
+בשלב הזה מסד הנתונים `trip_manager` קיים עם כל הטבלאות ונתוני הבסיס, אך **ללא בתי ספר, משתמשים או טיולים** — אלו נוצרים מתוך האפליקציה עצמה (שלב 5).
+
+### 3. הגדרת והרצת השרת
+
 יצירת קובץ `.env` בתיקיית `server/`:
 ```env
 HOST=localhost
-PORT=3001
-USER=<mysql-user>
-PASSWORD=<mysql-password>
+PORT=3000
+USER=<מ-MySQL שלך username>
+PASSWORD=<מ-MySQL שלך password>
 DATABASE=trip_manager
-JWT_SECRET=<your-secret>
-JWT_REFRESH_SECRET=<your-refresh-secret>
+JWT_SECRET=<מחרוזת אקראית ארוכה>
+JWT_REFRESH_SECRET=<מחרוזת אקראית ארוכה נוספת>
 UPLOAD_FOLDER=uploads
 TZ=Asia/Jerusalem
 ```
 
-התקנת תלויות והרצת שרת ה-API:
+| משתנה | תיאור |
+|---|---|
+| `HOST` | כתובת שרת ה-MySQL (בדרך כלל `localhost`) |
+| `PORT` | הפורט שעליו מאזין שרת ה-API/Socket.io. **חייב להיות `3000`** — הקליינט מוגדר באופן קשיח לפנות ל-`http://localhost:3000` |
+| `USER` / `PASSWORD` | פרטי ההתחברות שלך ל-MySQL |
+| `DATABASE` | חייב להתאים למסד הנתונים שנוצר בשלב 2 (`trip_manager`) |
+| `JWT_SECRET` / `JWT_REFRESH_SECRET` | מחרוזות סוד אקראיות לחתימת ה-access/refresh tokens, למשל ליצור עם `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
+| `UPLOAD_FOLDER` | תיקייה (יחסית ל-`server/`) לשמירת קבצי תיק הטיול שמועלים |
+| `TZ` | אזור הזמן המשמש לבדיקות "האם הטיול מתקיים היום" — להשאיר `Asia/Jerusalem` |
+
+התקנת תלויות והרצת השרת:
 ```bash
 cd server
 npm install
 npm start
 ```
-השרת יעלה בכתובת `http://localhost:3001` ויגיש גם את ה-REST API וגם את שרת ה-Socket.io.
+פלט צפוי:
+```
+Connected to MySQL at localhost
+Server started on http://localhost:3000
+```
+שרת אחד זה מגיש גם את ה-REST API וגם את שרת ה-Socket.io.
 
-### 4. הרצת הקליינט
+### 4. הגדרת והרצת הקליינט
+
+ב**טרמינל שני**, מתיקיית השורש של הפרויקט:
 ```bash
 cd client/trip-manager-client-code
 npm install
 npm run dev
 ```
-האפליקציה תהיה זמינה בכתובת `http://localhost:5173`.
+Vite יעלה שרת פיתוח בכתובת `http://localhost:5173` — פתחו את הכתובת הזו בדפדפן.
+
+> הקליינט פונה ל-API בכתובת `http://localhost:3000` (מוגדר באופן קשיח ב-`src/api.js` וב-`src/socket.js`), והשרת מוגדר לקבל CORS רק מ-`http://localhost:5173` (בקובץ `server.js`). יש לשמור על הפורטים הללו, אלא אם משנים גם את הקבצים האלו.
+
+### 5. יצירת המשתמש הראשון
+
+מסד הנתונים מתחיל ריק — אין משתמשים:
+
+1. פתחו `http://localhost:5173` ועברו ל**הרשמה** (`/register/1`).
+2. **שלב 1** — הזנת פרטי בית הספר (יוצר רשומת בית ספר חדשה).
+3. **שלב 2** — הזנת הפרטים האישיים ושליחה. המשתמש הראשון שנרשם לבית ספר מקבל אוטומטית את תפקיד **מנהל** (principal).
+4. לאחר ההרשמה תתבצע התחברות אוטומטית והפניה למסך הראשי.
+
+מהמשתמש המנהל אפשר:
+- להוסיף אנשי צוות דרך **ניהול משתמשים** (`/add-employee`) ולהקצות להם תפקידים (רכז / אחראי טיול / מורה)
+- ליצור טיולים, לשבץ צוות ואנשי צוות חיצוניים, לנהל כיתות ולהעלות מסמכי תיק טיול
+- לאשר, להריץ ולסגור טיולים, ולהגיב לאירועי חירום בזמן אמת
+
+### 6. סיכום — הכל רץ במקביל
+
+| רכיב | כתובת | פקודת הרצה |
+|---|---|---|
+| מסד נתונים MySQL | `localhost:3306` (כברירת מחדל) | מופעל כשירות מערכת / MySQL |
+| שרת API + Socket.io | `http://localhost:3000` | `cd server && npm start` |
+| קליינט React | `http://localhost:5173` | `cd client/trip-manager-client-code && npm run dev` |
+
+### פתרון תקלות נפוצות
+
+- **"Database connection failed" / `ECONNREFUSED`** — MySQL לא פועל, או שהערכים `HOST`/`USER`/`PASSWORD`/`DATABASE` בקובץ `server/.env` שגויים.
+- **שגיאות CORS בקונסול הדפדפן** — השרת מאפשר בקשות רק מ-`http://localhost:5173`; ודאו שהקליינט רץ בדיוק על כתובת זו.
+- **בקשות מהקליינט נכשלות / חיבור נדחה ל-`localhost:3000`** — קבעו `PORT=3000` בקובץ `server/.env` וודאו שהשרת רץ.
+- **העלאת קבצים נכשלת** — ודאו שהתיקייה שמוגדרת ב-`UPLOAD_FOLDER` (כברירת מחדל `server/uploads`) קיימת וניתנת לכתיבה.
+- **תכונות "יום הטיול" (חירום, עדכון מסלול) מתנהגות לא כצפוי** — ודאו ש-`TZ=Asia/Jerusalem` מוגדר בקובץ `server/.env`.
 
 ## 🔌 סקירת ה-API
 

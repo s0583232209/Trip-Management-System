@@ -1,6 +1,8 @@
 # 🧭 מסלול בטוח — Trip Management System
 
 (פירוט בעברית - למטה)
+
+
 A full-stack web platform that helps schools plan, run, and supervise field trips — from initial scheduling and document collection to live, real-time emergency response on the day of the trip.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
